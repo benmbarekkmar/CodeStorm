@@ -1,0 +1,421 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | CodeStorm{% endblock %}
+{% block page_name %}dashboard{% endblock %}
+{% block breadcrumb_section %}Dashboard{% endblock %}
+{% block breadcrumb_page %}Overview{% endblock %}
+
+{% block content %}
+<div class="flex flex-col w-full">
+<div class="w-full px-space-md md:px-space-lg py-space-md flex flex-col gap-space-lg max-w-[1440px] mx-auto">
+
+<!-- 1. Top Dashboard Header -->
+<header class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+  <div class="flex flex-col">
+    <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Dashboard</h1>
+    <p class="font-body-md text-body-md text-on-surface-variant">Your hackathon journey, all in one place.</p>
+  </div>
+  <div class="flex flex-wrap items-center gap-space-sm sm:gap-space-md">
+    <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-lowest shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] text-on-surface-variant font-label-md text-label-md">
+      <span class="material-symbols-outlined text-[18px] text-primary">calendar_today</span>
+      <span>Today, Oct 12, 2026</span>
+    </div>
+    <button class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-low transition-all font-label-md text-label-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] active:scale-[0.98]" type="button">
+      <span class="material-symbols-outlined text-[18px]">add_circle</span>
+      <span>Create Team</span>
+    </button>
+    <button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container text-on-primary hover:opacity-95 transition-all font-label-md text-label-md shadow-[0_4px_12px_rgba(108,76,232,0.25)] active:scale-[0.98]" type="button">
+      <span class="material-symbols-outlined text-[18px]">explore</span>
+      <span>Explore Hackathons</span>
+    </button>
+  </div>
+</header>
+
+<!-- 2. Welcome Section -->
+<section class="relative overflow-hidden rounded-xl bg-gradient-to-r from-primary via-primary-container to-secondary p-space-md sm:p-space-lg text-on-primary shadow-sm">
+  <svg class="pointer-events-none absolute -right-8 -top-8 w-72 h-72 opacity-15" fill="none" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-dasharray="4 4" stroke-width="1.5"></circle>
+    <circle cx="100" cy="100" r="50" stroke="currentColor" stroke-width="2"></circle>
+    <path d="M20 100H180M100 20V180" stroke="currentColor" stroke-width="1.5"></path>
+    <rect height="60" rx="12" stroke="currentColor" stroke-width="2" width="60" x="70" y="70"></rect>
+  </svg>
+  <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+    <div class="flex flex-col gap-1 max-w-xl">
+      <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-surface-container-lowest/15 backdrop-blur-sm w-fit text-primary-fixed font-label-sm text-label-sm">
+        <span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed animate-ping"></span>
+        <span>Live Hackathon Season</span>
+      </div>
+      <h2 class="font-headline-md text-headline-md text-on-primary tracking-tight">Welcome back, Alex! 👋</h2>
+      <p class="font-body-md text-body-md text-primary-fixed/90">Ready to turn your next big idea into reality? Collaborate with your squad and lead the AI innovation track.</p>
+    </div>
+    <div class="flex items-center gap-space-sm flex-shrink-0">
+      <a class="px-4 py-2 rounded-lg bg-surface-container-lowest text-primary font-label-md text-label-md hover:bg-surface-container-low transition-all shadow-sm" href="#">Discover Hackathons</a>
+      <a class="inline-flex items-center gap-1 px-3 py-2 text-primary-fixed hover:text-surface-container-lowest font-label-md text-label-md transition-colors" href="#">
+        <span>View Schedule</span>
+        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Statistics Cards -->
+<section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+  <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] hover:shadow-md transition-shadow flex flex-col justify-between">
+    <div class="flex items-center justify-between mb-2">
+      <span class="font-label-md text-label-md text-on-surface-variant">Active Hackathons</span>
+      <div class="w-9 h-9 rounded-lg bg-primary-fixed flex items-center justify-center text-on-primary-fixed-variant"><span class="material-symbols-outlined text-[20px]">calendar_month</span></div>
+    </div>
+    <div class="flex items-baseline justify-between mt-1">
+      <span class="font-headline-lg text-headline-lg text-on-surface">08</span>
+      <span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-tertiary-container bg-tertiary-fixed/30 px-2 py-0.5 rounded-full"><span class="material-symbols-outlined text-[14px]">trending_up</span>+2 this month</span>
+    </div>
+  </div>
+  <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] hover:shadow-md transition-shadow flex flex-col justify-between">
+    <div class="flex items-center justify-between mb-2">
+      <span class="font-label-md text-label-md text-on-surface-variant">My Teams</span>
+      <div class="w-9 h-9 rounded-lg bg-secondary-fixed/50 flex items-center justify-center text-on-secondary-fixed-variant"><span class="material-symbols-outlined text-[20px]">group</span></div>
+    </div>
+    <div class="flex items-baseline justify-between mt-1">
+      <span class="font-headline-lg text-headline-lg text-on-surface">03</span>
+      <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded-full">Across 3 sprints</span>
+    </div>
+  </div>
+  <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] hover:shadow-md transition-shadow flex flex-col justify-between">
+    <div class="flex items-center justify-between mb-2">
+      <span class="font-label-md text-label-md text-on-surface-variant">Submitted Projects</span>
+      <div class="w-9 h-9 rounded-lg bg-tertiary-fixed/40 flex items-center justify-center text-on-tertiary-fixed-variant"><span class="material-symbols-outlined text-[20px]">folder_code</span></div>
+    </div>
+    <div class="flex items-baseline justify-between mt-1">
+      <span class="font-headline-lg text-headline-lg text-on-surface">05</span>
+      <span class="font-label-sm text-label-sm text-secondary bg-secondary-fixed/30 px-2 py-0.5 rounded-full">2 in review</span>
+    </div>
+  </div>
+  <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] hover:shadow-md transition-shadow flex flex-col justify-between">
+    <div class="flex items-center justify-between mb-2">
+      <span class="font-label-md text-label-md text-on-surface-variant">Average Score</span>
+      <div class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[20px]">military_tech</span></div>
+    </div>
+    <div class="flex items-baseline justify-between mt-1">
+      <div class="flex items-baseline">
+        <span class="font-headline-lg text-headline-lg text-on-surface">87</span>
+        <span class="font-body-sm text-body-sm text-on-surface-variant ml-1">/100</span>
+      </div>
+      <span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-tertiary-container bg-tertiary-fixed/30 px-2 py-0.5 rounded-full"><span class="material-symbols-outlined text-[14px]">arrow_upward</span>+5 pts</span>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Main Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+
+  <!-- LEFT COLUMN -->
+  <div class="lg:col-span-7 flex flex-col gap-space-lg">
+
+    <!-- Upcoming Hackathons -->
+    <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+      <div class="flex items-center justify-between pb-space-xs">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[22px]">rocket_launch</span>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface">Upcoming Hackathons</h3>
+        </div>
+        <a class="font-label-sm text-label-sm text-primary hover:underline font-semibold" href="#">View all</a>
+      </div>
+      <div class="flex flex-col gap-3">
+        <div class="group flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-12 h-12 rounded-lg bg-primary-fixed flex items-center justify-center text-primary flex-shrink-0 group-hover:scale-105 transition-transform"><span class="material-symbols-outlined text-[24px]">psychology</span></div>
+            <div class="flex flex-col min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="font-label-md text-label-md text-on-surface font-semibold truncate">AI Innovation Challenge</span>
+                <span class="px-2 py-0.5 rounded-full bg-secondary-fixed/50 text-on-secondary-fixed font-label-sm text-label-sm">Artificial Intelligence</span>
+              </div>
+              <div class="flex items-center gap-3 text-on-surface-variant font-body-sm text-body-sm mt-0.5">
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span>October 18–20, 2026</span>
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">groups</span>128 Participants</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 sm:self-center self-end flex-shrink-0">
+            <span class="px-2.5 py-1 rounded-full bg-tertiary-fixed/30 text-tertiary-container font-label-sm text-label-sm flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>Open</span>
+            <button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm hover:bg-primary hover:text-on-primary transition-colors shadow-sm" type="button">Details</button>
+          </div>
+        </div>
+
+        <div class="group flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-12 h-12 rounded-lg bg-tertiary-fixed/50 flex items-center justify-center text-tertiary flex-shrink-0 group-hover:scale-105 transition-transform"><span class="material-symbols-outlined text-[24px]">eco</span></div>
+            <div class="flex flex-col min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="font-label-md text-label-md text-on-surface font-semibold truncate">GreenTech Hackathon</span>
+                <span class="px-2 py-0.5 rounded-full bg-tertiary-fixed/40 text-tertiary-container font-label-sm text-label-sm">Sustainability</span>
+              </div>
+              <div class="flex items-center gap-3 text-on-surface-variant font-body-sm text-body-sm mt-0.5">
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span>October 24–26, 2026</span>
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">groups</span>86 Participants</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 sm:self-center self-end flex-shrink-0">
+            <span class="px-2.5 py-1 rounded-full bg-tertiary-fixed/30 text-tertiary-container font-label-sm text-label-sm flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>Open</span>
+            <button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm hover:bg-primary hover:text-on-primary transition-colors shadow-sm" type="button">Details</button>
+          </div>
+        </div>
+
+        <div class="group flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary flex-shrink-0 group-hover:scale-105 transition-transform"><span class="material-symbols-outlined text-[24px]">account_balance_wallet</span></div>
+            <div class="flex flex-col min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="font-label-md text-label-md text-on-surface font-semibold truncate">FinTech Future 2026</span>
+                <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm">Finance &amp; Tech</span>
+              </div>
+              <div class="flex items-center gap-3 text-on-surface-variant font-body-sm text-body-sm mt-0.5">
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span>November 5–7, 2026</span>
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">groups</span>64 Participants</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 sm:self-center self-end flex-shrink-0">
+            <span class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-outline"></span>Coming Soon</span>
+            <button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm hover:bg-primary hover:text-on-primary transition-colors shadow-sm" type="button">Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Team -->
+    <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+      <div class="flex items-center justify-between pb-space-xs">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary text-[22px]">diversity_3</span>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface">My Team</h3>
+        </div>
+        <a class="font-label-sm text-label-sm text-primary hover:underline font-semibold" href="#">View team</a>
+      </div>
+      <div class="p-4 rounded-xl bg-surface-container-low flex flex-col gap-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Code Warriors</span>
+              <span class="px-2 py-0.5 rounded-full bg-secondary-fixed/50 text-on-secondary-fixed font-label-sm text-label-sm">Active Squad</span>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Assigned to: <span class="font-semibold text-on-surface">AI Innovation Challenge</span></p>
+          </div>
+          <div class="flex items-center -space-x-2">
+            <div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-sm text-label-sm shadow-sm ring-2 ring-surface-container-lowest" title="Alex (You)">AK</div>
+            <div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-label-sm text-label-sm shadow-sm ring-2 ring-surface-container-lowest" title="Sarah Miller">SM</div>
+            <div class="w-8 h-8 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center font-label-sm text-label-sm shadow-sm ring-2 ring-surface-container-lowest" title="Yousef B.">YB</div>
+            <div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface font-label-sm text-label-sm flex items-center justify-center shadow-sm ring-2 ring-surface-container-lowest font-semibold">+1</div>
+          </div>
+        </div>
+        <div class="flex flex-col gap-1.5 pt-2">
+          <div class="flex items-center justify-between text-label-sm font-label-sm">
+            <span class="text-on-surface font-medium">Sprint Completion</span>
+            <span class="text-primary font-code-inline text-code-inline font-bold">70% (In Progress)</span>
+          </div>
+          <div class="w-full h-2.5 rounded-full bg-surface-container-high overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-primary to-secondary rounded-full" style="width: 70%"></div>
+          </div>
+        </div>
+        <div class="flex justify-end pt-1">
+          <a class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-surface-container-lowest text-primary font-label-md text-label-md hover:bg-surface-container-high transition-colors shadow-sm" href="#">
+            <span>Open Team Workspace</span>
+            <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Milestone Stepper -->
+    <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+      <div class="flex items-center justify-between pb-space-xs">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[22px]">timeline</span>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface">Project Milestone Stepper</h3>
+        </div>
+        <a class="font-label-sm text-label-sm text-primary hover:underline font-semibold" href="#">View Project</a>
+      </div>
+      <div class="relative pl-6 flex flex-col gap-6">
+        <div class="absolute left-2.5 top-3 bottom-3 w-0.5 bg-surface-container-high"></div>
+
+        <div class="relative flex items-start gap-4">
+          <div class="absolute -left-6 top-0 w-6 h-6 rounded-full bg-tertiary-fixed text-tertiary flex items-center justify-center ring-4 ring-surface-container-lowest"><span class="material-symbols-outlined text-[16px]">check</span></div>
+          <div class="flex flex-col">
+            <div class="flex items-center gap-2">
+              <span class="font-label-md text-label-md text-on-surface font-semibold">Step 1: Idea &amp; Planning</span>
+              <span class="px-2 py-0.5 rounded-full bg-tertiary-fixed/30 text-tertiary-container font-label-sm text-label-sm">Completed</span>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Problem definition, UX wireframes &amp; API architecture finalized.</p>
+            <span class="font-code-inline text-code-inline text-outline text-[11px] mt-1">Oct 8, 2026 • Verified</span>
+          </div>
+        </div>
+
+        <div class="relative flex items-start gap-4">
+          <div class="absolute -left-6 top-0 w-6 h-6 rounded-full bg-primary text-on-primary flex items-center justify-center ring-4 ring-surface-container-lowest animate-pulse"><span class="material-symbols-outlined text-[14px]">code</span></div>
+          <div class="flex flex-col">
+            <div class="flex items-center gap-2">
+              <span class="font-label-md text-label-md text-on-surface font-semibold">Step 2: Core Development</span>
+              <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm">In Progress</span>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Django backend integration, LLM fine-tuning and front-end state flow.</p>
+            <div class="flex items-center gap-2 mt-1">
+              <span class="font-label-sm text-label-sm text-primary font-semibold">70% finished</span>
+              <span class="text-outline">•</span>
+              <span class="font-code-inline text-code-inline text-outline text-[11px]">Active Sprint</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative flex items-start gap-4">
+          <div class="absolute -left-6 top-0 w-6 h-6 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center ring-4 ring-surface-container-lowest"><span class="material-symbols-outlined text-[14px]">schedule</span></div>
+          <div class="flex flex-col">
+            <div class="flex items-center gap-2">
+              <span class="font-label-md text-label-md text-on-surface font-semibold">Step 3: Final Pitch &amp; Submission</span>
+              <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Pending</span>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Code repository freeze, video demo upload, and slide deck upload.</p>
+            <span class="font-code-inline text-code-inline text-outline text-[11px] mt-1">Due Oct 20, 2026 • 23:59 UTC</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div class="lg:col-span-5 flex flex-col gap-space-lg">
+
+    <!-- Upcoming Deadlines -->
+    <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+      <div class="flex items-center gap-2 pb-space-xs">
+        <span class="material-symbols-outlined text-error text-[22px]">alarm</span>
+        <h3 class="font-headline-sm text-headline-sm text-on-surface">Upcoming Deadlines</h3>
+      </div>
+      <div class="flex flex-col gap-2.5">
+        <div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low">
+          <div class="flex flex-col">
+            <span class="font-label-md text-label-md text-on-surface font-semibold">Team registration closes</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">October 15, 2026</span>
+          </div>
+          <span class="px-2.5 py-1 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-error animate-ping"></span>3 days left</span>
+        </div>
+        <div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low">
+          <div class="flex flex-col">
+            <span class="font-label-md text-label-md text-on-surface font-semibold">Prototype submission</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">October 19, 2026</span>
+          </div>
+          <span class="px-2.5 py-1 rounded-full bg-secondary-fixed/50 text-on-secondary-fixed font-label-sm text-label-sm font-semibold">7 days left</span>
+        </div>
+        <div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low">
+          <div class="flex flex-col">
+            <span class="font-label-md text-label-md text-on-surface font-semibold">Final project submission</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">October 20, 2026</span>
+          </div>
+          <span class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">8 days left</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leaderboard Preview -->
+    <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+      <div class="flex items-center justify-between pb-space-xs">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[22px]">leaderboard</span>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface">Leaderboard Preview</h3>
+        </div>
+        <a class="font-label-sm text-label-sm text-primary hover:underline font-semibold" href="#">View Full</a>
+      </div>
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low">
+          <div class="flex items-center gap-3">
+            <div class="w-7 h-7 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-bold text-label-sm">👑 1</div>
+            <div class="flex flex-col">
+              <span class="font-label-md text-label-md text-on-surface font-semibold">Pixel Pioneers</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">Computer Vision Track</span>
+            </div>
+          </div>
+          <span class="font-code-inline text-code-inline font-bold text-on-surface">96 pts</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded-lg bg-primary-fixed/40">
+          <div class="flex items-center gap-3">
+            <div class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-label-sm">2</div>
+            <div class="flex flex-col">
+              <div class="flex items-center gap-1.5">
+                <span class="font-label-md text-label-md text-on-surface font-semibold">Code Warriors</span>
+                <span class="px-1.5 py-0.2 rounded bg-primary text-on-primary text-[10px] uppercase font-bold">You</span>
+              </div>
+              <span class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">AI Innovation Challenge</span>
+            </div>
+          </div>
+          <span class="font-code-inline text-code-inline font-bold text-primary">91 pts</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low">
+          <div class="flex items-center gap-3">
+            <div class="w-7 h-7 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center font-bold text-label-sm">3</div>
+            <div class="flex flex-col">
+              <span class="font-label-md text-label-md text-on-surface font-semibold">Byte Builders</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">Quantum Computing Track</span>
+            </div>
+          </div>
+          <span class="font-code-inline text-code-inline font-bold text-on-surface">88 pts</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+      <div class="flex items-center justify-between pb-space-xs">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary text-[22px]">history</span>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface">Recent Activity</h3>
+        </div>
+        <a class="font-label-sm text-label-sm text-primary hover:underline font-semibold" href="#">View all</a>
+      </div>
+      <div class="flex flex-col gap-3">
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-full bg-secondary-fixed/50 text-secondary flex items-center justify-center flex-shrink-0 mt-0.5"><span class="material-symbols-outlined text-[16px]">group_add</span></div>
+          <div class="flex flex-col">
+            <p class="font-body-sm text-body-sm text-on-surface">You joined the <span class="font-semibold">AI Innovation Challenge</span> team.</p>
+            <span class="font-code-inline text-code-inline text-outline text-[11px]">2 hours ago</span>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-full bg-primary-fixed text-primary flex items-center justify-center flex-shrink-0 mt-0.5"><span class="material-symbols-outlined text-[16px]">commit</span></div>
+          <div class="flex flex-col">
+            <p class="font-body-sm text-body-sm text-on-surface">Your project repository was updated.</p>
+            <span class="font-code-inline text-code-inline text-outline text-[11px]">Yesterday</span>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-full bg-surface-container-highest text-primary flex items-center justify-center flex-shrink-0 mt-0.5"><span class="material-symbols-outlined text-[16px]">celebration</span></div>
+          <div class="flex flex-col">
+            <p class="font-body-sm text-body-sm text-on-surface">A new challenge was published.</p>
+            <span class="font-code-inline text-code-inline text-outline text-[11px]">2 days ago</span>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-full bg-tertiary-fixed/50 text-tertiary flex items-center justify-center flex-shrink-0 mt-0.5"><span class="material-symbols-outlined text-[16px]">assignment_turned_in</span></div>
+          <div class="flex flex-col">
+            <p class="font-body-sm text-body-sm text-on-surface">Your evaluation results are available.</p>
+            <span class="font-code-inline text-code-inline text-outline text-[11px]">3 days ago</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Next Step -->
+    <div class="rounded-xl bg-surface-container-low p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-3">
+      <div class="flex items-center gap-2 text-primary font-semibold">
+        <span class="material-symbols-outlined text-[20px]">lightbulb</span>
+        <span class="font-headline-sm text-headline-sm">Your next step</span>
+      </div>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">Complete your project submission before the deadline to keep your team on track for jury evaluations.</p>
+      <div class="pt-1">
+        <a class="inline-flex items-center justify-center w-full px-4 py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md hover:opacity-95 transition-all shadow-sm" href="#">Review Project</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+{% endblock %}

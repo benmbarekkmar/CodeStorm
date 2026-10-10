@@ -1,0 +1,146 @@
+{% extends "auth_base.html" %}
+
+{% block title %}Register | CodeStorm{% endblock %}
+
+{% block auth_content %}
+<div class="auth-card p-8 sm:p-9">
+  <div class="flex flex-col gap-6 stagger">
+    <div class="flex flex-col gap-1">
+      <h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Create an account</h2>
+      <p class="font-body-md text-body-md text-on-surface-variant">Join CodeStorm and launch your first hackathon.</p>
+    </div>
+
+    <!-- Login / Register tabs -->
+    <div class="tabs-wrap bg-surface-container-low rounded-xl flex items-center p-1.5">
+      <span class="tab-pill right"></span>
+      <a href="{% url 'login' %}" class="relative z-10 flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors">
+        <span class="material-symbols-outlined text-[18px]">login</span> Login
+      </a>
+      <span class="relative z-10 flex-1 flex items-center justify-center gap-2 py-2.5 px-4 font-label-md text-label-md font-semibold text-on-primary">
+        <span class="material-symbols-outlined text-[18px]">person_add</span> Register
+      </span>
+    </div>
+
+    {% if form.non_field_errors %}
+    <div class="shake flex items-center gap-3 rounded-xl bg-error-container text-on-error-container px-4 py-3 font-body-sm text-body-sm" role="alert">
+      <span class="material-symbols-outlined text-[20px] text-error">error</span>
+      <span>{{ form.non_field_errors.0 }}</span>
+    </div>
+    {% endif %}
+
+    <form method="post" action="{% url 'register' %}" id="registerForm" class="flex flex-col gap-5" novalidate>
+      {% csrf_token %}
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {% for field in form %}
+          {% if field.name != 'password1' and field.name != 'password2' %}
+          <div class="flex flex-col gap-1.5 {% if field.name == 'username' or field.name == 'email' %}sm:col-span-2{% endif %}">
+            <label for="{{ field.id_for_label }}" class="font-label-md text-label-md text-on-surface-variant">{{ field.label }}</label>
+            {{ field }}
+            {% for error in field.errors %}
+            <p class="flex items-center gap-1 font-body-sm text-body-sm text-error"><span class="material-symbols-outlined text-[14px]">warning</span>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {% for field in form %}
+        {% if field.name == 'password1' or field.name == 'password2' %}
+        <div class="flex flex-col gap-1.5">
+          <label for="{{ field.id_for_label }}" class="font-label-md text-label-md text-on-surface-variant">{{ field.label }}</label>
+          <div class="relative group">
+            {{ field }}
+            <button type="button" data-toggle-password="{{ field.id_for_label }}" aria-label="Show password"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-outline hover:text-on-surface transition-colors">
+              <span class="material-symbols-outlined text-[20px]">visibility</span>
+            </button>
+          </div>
+          {% for error in field.errors %}
+          <p class="flex items-center gap-1 font-body-sm text-body-sm text-error"><span class="material-symbols-outlined text-[14px]">warning</span>{{ error }}</p>
+          {% endfor %}
+          {% if field.name == 'password1' %}
+          <div class="flex items-center gap-2 mt-1">
+            <div class="flex-1 h-1.5 rounded-full bg-surface-container-high overflow-hidden">
+              <div id="pwdMeterBar" class="h-full w-0 rounded-full transition-all duration-300 bg-error"></div>
+            </div>
+            <span id="pwdMeterLabel" class="font-label-sm text-label-sm text-outline">Strength</span>
+          </div>
+          <details class="font-body-sm text-body-sm text-on-surface-variant">
+            <summary class="cursor-pointer text-primary font-semibold">Password requirements</summary>
+            <ul class="mt-1 pl-4 list-disc flex flex-col gap-0.5">
+              <li>At least 8 characters</li>
+              <li>Not entirely numeric</li>
+              <li>Not too similar to your username or email</li>
+              <li>Not a commonly used password</li>
+            </ul>
+          </details>
+          {% endif %}
+        </div>
+        {% endif %}
+      {% endfor %}
+
+      <button type="submit" id="registerSubmit"
+              class="cta-btn w-full flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-primary-container text-on-primary font-label-md text-label-md rounded-lg py-3.5 shadow-md">
+        <span class="material-symbols-outlined text-[20px] btn-icon">person_add</span> <span class="btn-label">Create my account</span>
+      </button>
+    </form>
+
+    <p class="font-body-sm text-body-sm text-on-surface-variant text-center">
+      Already have an account?
+      <a href="{% url 'login' %}" class="text-primary font-semibold hover:underline">Sign in</a>
+    </p>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.querySelectorAll('[data-toggle-password]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const input = document.getElementById(btn.dataset.togglePassword);
+      const icon = btn.querySelector('.material-symbols-outlined');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.textContent = 'visibility_off';
+      } else {
+        input.type = 'password';
+        icon.textContent = 'visibility';
+      }
+    });
+  });
+
+  const pwd1 = document.getElementById('id_password1');
+  const meterBar = document.getElementById('pwdMeterBar');
+  const meterLabel = document.getElementById('pwdMeterLabel');
+  pwd1?.addEventListener('input', () => {
+    const v = pwd1.value;
+    let score = 0;
+    if (v.length >= 8) score++;
+    if (/[a-z]/.test(v) && /[A-Z]/.test(v)) score++;
+    if (/\d/.test(v)) score++;
+    if (/[^A-Za-z0-9]/.test(v)) score++;
+    if (v && score === 0) score = 1;
+    const levels = [
+      { text: 'Strength', color: 'bg-surface-container-high', cls: 'text-outline' },
+      { text: 'Weak', color: 'bg-error', cls: 'text-error' },
+      { text: 'Fair', color: 'bg-secondary', cls: 'text-secondary' },
+      { text: 'Good', color: 'bg-tertiary', cls: 'text-tertiary' },
+      { text: 'Excellent', color: 'bg-tertiary', cls: 'text-tertiary' }
+    ];
+    const l = levels[score];
+    meterBar.className = 'h-full rounded-full transition-all duration-300 ' + l.color;
+    meterBar.style.width = (score * 25) + '%';
+    meterLabel.textContent = l.text;
+    meterLabel.className = 'font-label-sm text-label-sm ' + l.cls;
+  });
+
+  document.getElementById('registerForm').addEventListener('submit', () => {
+    const btn = document.getElementById('registerSubmit');
+    btn.disabled = true;
+    btn.querySelector('.btn-icon').textContent = 'progress_activity';
+    btn.querySelector('.btn-icon').classList.add('animate-spin');
+    btn.querySelector('.btn-label').textContent = 'Creating account…';
+  });
+</script>
+{% endblock %}

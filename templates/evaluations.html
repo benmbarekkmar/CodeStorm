@@ -1,0 +1,1007 @@
+{% extends "base.html" %}
+
+{% block title %}Evaluations | CodeStorm{% endblock %}
+{% block page_name %}evaluations{% endblock %}
+{% block breadcrumb_section %}Dashboard{% endblock %}
+{% block breadcrumb_page %}Evaluations{% endblock %}
+
+{% block content %}
+<div class="flex flex-col w-full px-gutter-lg py-gutter">
+
+<!-- Toast -->
+<div class="fixed top-20 right-8 z-[100] transform transition-all duration-300 translate-y-[-20px] opacity-0 pointer-events-none flex items-center gap-space-sm px-space-md py-3 rounded-xl bg-tertiary-container text-on-tertiary-container shadow-xl" id="evalToast">
+  <span class="material-symbols-outlined text-[20px]">check_circle</span>
+  <span class="font-label-md text-label-md font-semibold" id="toastMessage">Evaluation successfully submitted!</span>
+</div>
+
+<!-- Header Banner & Action Bar -->
+<section class="flex flex-col gap-space-md pb-space-lg">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md">
+    <div class="flex flex-col">
+      <span class="font-code-inline text-code-inline text-primary font-semibold tracking-wider uppercase mb-1">COHORT REVIEW • DJANGO APP :: EVALUATIONS &amp; JURY SCORING</span>
+      <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Evaluations Management</h1>
+      <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mt-0.5">Review project submissions, score innovations, and provide structured qualitative feedback across active jury tracks.</p>
+    </div>
+    <div class="flex items-center gap-space-sm self-start sm:self-auto">
+      <button class="inline-flex items-center gap-2 px-space-md py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-all" id="exportCsvBtn" type="button">
+        <span class="material-symbols-outlined text-[18px] text-on-surface-variant">file_download</span>
+        <span>Export Results</span>
+      </button>
+      <button class="inline-flex items-center gap-2 px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md shadow-[0_4px_12px_rgba(108,76,232,0.28)] hover:bg-primary-container transition-all" id="openEvalModalBtn" type="button">
+        <span class="material-symbols-outlined text-[18px]">add_circle</span>
+        <span>+ Start Evaluation</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- KPI Cards -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md mb-space-lg">
+  <div class="p-space-md bg-surface-container-lowest rounded-xl shadow-sm flex flex-col justify-between">
+    <div class="flex items-start justify-between">
+      <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Total Submissions</span>
+      <div class="w-9 h-9 rounded-lg bg-primary-fixed flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[20px]">layers</span></div>
+    </div>
+    <div class="mt-space-md">
+      <div class="font-headline-lg text-headline-lg text-on-surface">24</div>
+      <div class="flex items-center gap-1 mt-1 text-on-surface-variant font-body-sm text-body-sm">
+        <span class="text-tertiary font-semibold flex items-center"><span class="material-symbols-outlined text-[14px]">trending_up</span> +6</span>
+        <span>new cohorts</span>
+      </div>
+    </div>
+  </div>
+  <div class="p-space-md bg-surface-container-lowest rounded-xl shadow-sm flex flex-col justify-between">
+    <div class="flex items-start justify-between">
+      <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Pending Evaluations</span>
+      <div class="w-9 h-9 rounded-lg bg-secondary-fixed flex items-center justify-center text-secondary"><span class="material-symbols-outlined text-[20px]">schedule</span></div>
+    </div>
+    <div class="mt-space-md">
+      <div class="font-headline-lg text-headline-lg text-on-surface">08</div>
+      <div class="flex items-center gap-1 mt-1 text-on-surface-variant font-body-sm text-body-sm">
+        <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+        <span>Awaiting jury review</span>
+      </div>
+    </div>
+  </div>
+  <div class="p-space-md bg-surface-container-lowest rounded-xl shadow-sm flex flex-col justify-between">
+    <div class="flex items-start justify-between">
+      <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Completed Reviews</span>
+      <div class="w-9 h-9 rounded-lg bg-tertiary-fixed flex items-center justify-center text-tertiary"><span class="material-symbols-outlined text-[20px]">task_alt</span></div>
+    </div>
+    <div class="mt-space-md">
+      <div class="font-headline-lg text-headline-lg text-on-surface">12</div>
+      <div class="flex items-center gap-1 mt-1 text-on-surface-variant font-body-sm text-body-sm">
+        <span class="text-tertiary font-semibold">50.0%</span>
+        <span>published &amp; finalized</span>
+      </div>
+    </div>
+  </div>
+  <div class="p-space-md bg-surface-container-lowest rounded-xl shadow-sm flex flex-col justify-between">
+    <div class="flex items-start justify-between">
+      <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Average Score</span>
+      <div class="w-9 h-9 rounded-lg bg-primary-fixed-dim flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[20px]">military_tech</span></div>
+    </div>
+    <div class="mt-space-md">
+      <div class="font-headline-lg text-headline-lg text-on-surface">84<span class="text-headline-sm font-normal text-on-surface-variant">/100</span></div>
+      <div class="flex items-center gap-1 mt-1 text-on-surface-variant font-body-sm text-body-sm">
+        <span class="text-primary font-semibold flex items-center"><span class="material-symbols-outlined text-[14px]">arrow_drop_up</span> +3.2 pts</span>
+        <span>vs last sprint</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tabs & Filters -->
+<section class="bg-surface-container-lowest rounded-2xl shadow-sm p-space-md mb-space-lg flex flex-col gap-space-md">
+  <div class="flex items-center justify-between overflow-x-auto pb-1">
+    <div class="flex items-center gap-space-xs p-1 bg-surface-container rounded-xl" role="tablist">
+      <button class="tab-button px-space-md py-2 rounded-lg font-label-md text-label-md font-semibold bg-surface-container-lowest text-primary shadow-sm transition-all" data-tab-target="tab-overview" type="button">Overview</button>
+      <button class="tab-button px-space-md py-2 rounded-lg font-label-md text-label-md font-medium text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-1.5" data-tab-target="tab-pending" type="button">
+        <span>Pending Reviews</span>
+        <span class="px-1.5 py-0.2 rounded-full text-label-sm font-code-inline bg-secondary-fixed text-on-secondary-fixed font-bold">08</span>
+      </button>
+      <button class="tab-button px-space-md py-2 rounded-lg font-label-md text-label-md font-medium text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-1.5" data-tab-target="tab-completed" type="button">
+        <span>Completed Reviews</span>
+        <span class="px-1.5 py-0.2 rounded-full text-label-sm font-code-inline bg-tertiary-fixed text-on-tertiary-fixed font-bold">12</span>
+      </button>
+      <button class="tab-button px-space-md py-2 rounded-lg font-label-md text-label-md font-medium text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-1.5" data-tab-target="tab-mine" type="button">
+        <span>My Evaluations</span>
+        <span class="px-1.5 py-0.2 rounded-full text-label-sm font-code-inline bg-primary-fixed text-primary font-bold">04</span>
+      </button>
+    </div>
+    <div class="hidden lg:flex items-center gap-2 text-on-surface-variant font-code-inline text-code-inline">
+      <span class="inline-block w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+      <span>Jury Cluster: Alpha-9</span>
+    </div>
+  </div>
+
+  <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-sm pt-space-xs">
+    <div class="relative flex-1 max-w-lg">
+      <span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-[18px]">search</span>
+      <input class="w-full pl-9 pr-space-md py-2 text-body-sm font-body-sm bg-surface-container rounded-lg text-on-surface placeholder-on-surface-variant focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all" id="evalSearchInput" placeholder="Search submissions by project, team, or jury..." type="text"/>
+    </div>
+    <div class="flex flex-wrap items-center gap-space-xs">
+      <select class="px-3 py-2 text-body-sm font-body-sm bg-surface-container rounded-lg text-on-surface focus:outline-none focus:bg-surface-container-lowest" id="filterHackathon">
+        <option value="all">All Hackathons</option>
+        <option value="AI Innovation Challenge">AI Innovation Challenge</option>
+        <option value="GreenTech Hackathon">GreenTech Hackathon</option>
+        <option value="FinTech Future">FinTech Future</option>
+        <option value="Web Creators Weekend">Web Creators Weekend</option>
+      </select>
+      <select class="px-3 py-2 text-body-sm font-body-sm bg-surface-container rounded-lg text-on-surface focus:outline-none focus:bg-surface-container-lowest" id="filterStatus">
+        <option value="all">All Statuses</option>
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+      <select class="px-3 py-2 text-body-sm font-body-sm bg-surface-container rounded-lg text-on-surface focus:outline-none focus:bg-surface-container-lowest" id="filterTrack">
+        <option value="all">All Tracks</option>
+        <option value="Healthcare">Healthcare Track</option>
+        <option value="Sustainability">Sustainability Track</option>
+        <option value="FinTech">FinTech &amp; Web3 Track</option>
+        <option value="Developer Tools">Dev Tools Track</option>
+      </select>
+      <button class="p-2 text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container transition-colors" id="resetFiltersBtn" title="Reset Filters" type="button">
+        <span class="material-symbols-outlined text-[18px]">restart_alt</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- TAB 1: OVERVIEW -->
+<div class="tab-pane flex flex-col gap-space-lg" id="tab-overview">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+    <!-- Score Distribution -->
+    <div class="lg:col-span-7 bg-surface-container-lowest rounded-2xl shadow-sm p-space-lg flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between pb-space-md mb-space-md">
+          <div class="flex flex-col">
+            <h3 class="font-headline-sm text-headline-sm text-on-surface">Score Distribution Analysis</h3>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">Breakdown across 12 finalized project rubrics</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="font-code-inline text-code-inline px-2 py-1 rounded bg-surface-container text-on-surface">Median: 86.5</span>
+            <span class="font-code-inline text-code-inline px-2 py-1 rounded bg-primary-fixed text-primary font-bold">Avg: 84.0</span>
+          </div>
+        </div>
+        <div class="flex flex-col gap-space-md">
+          <div>
+            <div class="flex justify-between text-body-sm font-body-sm mb-1.5">
+              <span class="font-semibold text-on-surface flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-primary"></span> 85 – 100 (Exceptional)</span>
+              <span class="text-on-surface-variant font-code-inline">6 projects • 50%</span>
+            </div>
+            <div class="w-full h-3 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-gradient-to-r from-primary to-secondary rounded-full" style="width: 50%;"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-body-sm font-body-sm mb-1.5">
+              <span class="font-semibold text-on-surface flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-secondary"></span> 70 – 84 (Proficient)</span>
+              <span class="text-on-surface-variant font-code-inline">4 projects • 33%</span>
+            </div>
+            <div class="w-full h-3 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-secondary rounded-full" style="width: 33.3%;"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-body-sm font-body-sm mb-1.5">
+              <span class="font-semibold text-on-surface flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-outline"></span> 50 – 69 (Needs Work)</span>
+              <span class="text-on-surface-variant font-code-inline">2 projects • 17%</span>
+            </div>
+            <div class="w-full h-3 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-outline rounded-full" style="width: 16.7%;"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-body-sm font-body-sm mb-1.5">
+              <span class="font-semibold text-on-surface flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-surface-variant"></span> 0 – 49 (Unsatisfactory)</span>
+              <span class="text-on-surface-variant font-code-inline">0 projects • 0%</span>
+            </div>
+            <div class="w-full h-3 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-surface-variant rounded-full" style="width: 0%;"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-space-lg pt-space-md flex items-center justify-between bg-surface-container-low p-space-md rounded-xl">
+        <div class="flex items-center gap-space-sm">
+          <span class="material-symbols-outlined text-primary text-[20px]">insights</span>
+          <span class="font-body-sm text-body-sm text-on-surface font-medium">Standard deviation is low (4.8 pts), indicating high scoring consistency among evaluators.</span>
+        </div>
+        <span class="material-symbols-outlined text-tertiary text-[20px]">verified</span>
+      </div>
+    </div>
+
+    <!-- Pace & SLA -->
+    <div class="lg:col-span-5 flex flex-col gap-space-lg">
+      <div class="bg-surface-container-lowest rounded-2xl shadow-sm p-space-lg flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <h3 class="font-headline-sm text-headline-sm text-on-surface">Evaluation Pace</h3>
+          <span class="px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed font-semibold">Active Cycle</span>
+        </div>
+        <div class="flex items-center gap-space-lg my-space-md">
+          <div class="relative w-28 h-28 flex-shrink-0 flex items-center justify-center">
+            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+              <path class="text-surface-container" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.5"></path>
+              <path class="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="50, 100" stroke-linecap="round" stroke-width="3.5"></path>
+            </svg>
+            <div class="absolute flex flex-col items-center">
+              <span class="font-headline-sm text-headline-sm text-on-surface font-bold leading-none">50%</span>
+              <span class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Scored</span>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2 flex-1">
+            <div class="flex items-center justify-between text-body-sm font-body-sm">
+              <span class="flex items-center gap-1.5 text-on-surface"><span class="w-2 h-2 rounded-full bg-tertiary"></span> 12 Completed</span>
+              <span class="font-code-inline text-code-inline text-on-surface-variant">50%</span>
+            </div>
+            <div class="flex items-center justify-between text-body-sm font-body-sm">
+              <span class="flex items-center gap-1.5 text-on-surface"><span class="w-2 h-2 rounded-full bg-secondary"></span> 04 In Progress</span>
+              <span class="font-code-inline text-code-inline text-on-surface-variant">17%</span>
+            </div>
+            <div class="flex items-center justify-between text-body-sm font-body-sm">
+              <span class="flex items-center gap-1.5 text-on-surface"><span class="w-2 h-2 rounded-full bg-outline"></span> 08 Pending</span>
+              <span class="font-code-inline text-code-inline text-on-surface-variant">33%</span>
+            </div>
+          </div>
+        </div>
+        <div class="text-body-sm font-body-sm text-on-surface-variant">12 of 24 submissions fully scored. Estimated 1.5 days to final prize lock.</div>
+      </div>
+
+      <div class="bg-surface-container-lowest rounded-2xl shadow-sm p-space-lg flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-secondary text-[22px]">timer</span>
+            <h3 class="font-headline-sm text-headline-sm text-on-surface">Cutoff &amp; SLA</h3>
+          </div>
+          <span class="px-2 py-0.5 rounded-full font-code-inline text-code-inline bg-secondary-fixed text-on-secondary-fixed font-bold">36h Rem.</span>
+        </div>
+        <div class="my-space-md p-space-md rounded-xl bg-surface-container-low flex flex-col gap-1">
+          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Next Scoring Cutoff</span>
+          <span class="font-label-md text-label-md text-on-surface font-semibold">Oct 12, 2026 • 23:59 UTC</span>
+        </div>
+        <div class="flex items-center justify-between text-body-sm font-body-sm">
+          <span class="text-on-surface-variant">Jury On-Time Compliance:</span>
+          <span class="text-tertiary font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">check_circle</span> 92% SLA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Evaluations Feed -->
+  <div class="bg-surface-container-lowest rounded-2xl shadow-sm p-space-lg">
+    <div class="flex items-center justify-between mb-space-lg">
+      <div class="flex flex-col">
+        <h3 class="font-headline-sm text-headline-sm text-on-surface">Recent Evaluations Feed</h3>
+        <span class="font-body-sm text-body-sm text-on-surface-variant">Live audit log of finalized reviews across cohorts</span>
+      </div>
+      <button class="text-primary hover:text-primary-container font-label-md text-label-md font-semibold flex items-center gap-1" type="button">
+        <span>View All 12 Log Entries</span>
+        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+      </button>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+      <div class="p-space-md bg-surface-container-low rounded-xl flex items-center justify-between hover:bg-surface-container transition-colors">
+        <div class="flex items-center gap-space-md min-w-0">
+          <div class="w-10 h-10 rounded-full bg-primary-fixed text-primary flex items-center justify-center font-bold text-label-md flex-shrink-0">SM</div>
+          <div class="flex flex-col min-w-0">
+            <div class="flex items-center gap-2 truncate">
+              <span class="font-label-md text-label-md text-on-surface font-semibold truncate">SmartHealth AI</span>
+              <span class="px-1.5 py-0.5 rounded text-label-sm font-code-inline bg-tertiary-fixed text-on-tertiary-fixed font-bold">91/100</span>
+            </div>
+            <span class="font-body-sm text-body-sm text-on-surface-variant truncate">Scored by Sarah M. • AI Track</span>
+          </div>
+        </div>
+        <span class="font-code-inline text-code-inline text-on-surface-variant whitespace-nowrap ml-2">2h ago</span>
+      </div>
+      <div class="p-space-md bg-surface-container-low rounded-xl flex items-center justify-between hover:bg-surface-container transition-colors">
+        <div class="flex items-center gap-space-md min-w-0">
+          <div class="w-10 h-10 rounded-full bg-secondary-fixed text-secondary flex items-center justify-center font-bold text-label-md flex-shrink-0">AB</div>
+          <div class="flex flex-col min-w-0">
+            <div class="flex items-center gap-2 truncate">
+              <span class="font-label-md text-label-md text-on-surface font-semibold truncate">EcoTrack</span>
+              <span class="px-1.5 py-0.5 rounded text-label-sm font-code-inline bg-tertiary-fixed text-on-tertiary-fixed font-bold">87/100</span>
+            </div>
+            <span class="font-body-sm text-body-sm text-on-surface-variant truncate">Scored by Ahmed B. • Sustainability Track</span>
+          </div>
+        </div>
+        <span class="font-code-inline text-code-inline text-on-surface-variant whitespace-nowrap ml-2">5h ago</span>
+      </div>
+      <div class="p-space-md bg-surface-container-low rounded-xl flex items-center justify-between hover:bg-surface-container transition-colors">
+        <div class="flex items-center gap-space-md min-w-0">
+          <div class="w-10 h-10 rounded-full bg-surface-variant text-on-surface flex items-center justify-center font-bold text-label-md flex-shrink-0">LK</div>
+          <div class="flex flex-col min-w-0">
+            <div class="flex items-center gap-2 truncate">
+              <span class="font-label-md text-label-md text-on-surface font-semibold truncate">FinWise</span>
+              <span class="px-1.5 py-0.5 rounded text-label-sm font-code-inline bg-secondary-fixed text-on-secondary-fixed font-bold">82/100</span>
+            </div>
+            <span class="font-body-sm text-body-sm text-on-surface-variant truncate">Scored by Lina K. • FinTech Future</span>
+          </div>
+        </div>
+        <span class="font-code-inline text-code-inline text-on-surface-variant whitespace-nowrap ml-2">1d ago</span>
+      </div>
+      <div class="p-space-md bg-surface-container-low rounded-xl flex items-center justify-between hover:bg-surface-container transition-colors">
+        <div class="flex items-center gap-space-md min-w-0">
+          <div class="w-10 h-10 rounded-full bg-primary-fixed-dim text-primary flex items-center justify-center font-bold text-label-md flex-shrink-0">MR</div>
+          <div class="flex flex-col min-w-0">
+            <div class="flex items-center gap-2 truncate">
+              <span class="font-label-md text-label-md text-on-surface font-semibold truncate">SecureVault</span>
+              <span class="px-1.5 py-0.5 rounded text-label-sm font-code-inline bg-tertiary-fixed text-on-tertiary-fixed font-bold">89/100</span>
+            </div>
+            <span class="font-body-sm text-body-sm text-on-surface-variant truncate">Scored by Marcus R. • Security Track</span>
+          </div>
+        </div>
+        <span class="font-code-inline text-code-inline text-on-surface-variant whitespace-nowrap ml-2">1d ago</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 2: PENDING REVIEWS -->
+<div class="tab-pane hidden flex flex-col gap-space-md" id="tab-pending">
+  <div class="bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left" id="pendingTable">
+        <thead>
+          <tr class="bg-surface-container-low font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+            <th class="py-3.5 px-space-md font-semibold">Project &amp; Team</th>
+            <th class="py-3.5 px-space-md font-semibold">Hackathon Track</th>
+            <th class="py-3.5 px-space-md font-semibold">Assigned Jury</th>
+            <th class="py-3.5 px-space-md font-semibold">Submission Date</th>
+            <th class="py-3.5 px-space-md font-semibold">Deadline</th>
+            <th class="py-3.5 px-space-md font-semibold">Status</th>
+            <th class="py-3.5 px-space-md font-semibold text-right">Action</th>
+          </tr>
+        </thead>
+        <tbody class="text-body-sm font-body-sm divide-y-0" id="pendingTableBody">
+          <tr class="hover:bg-surface-container-low/60 transition-colors pending-row" data-hackathon="AI Innovation Challenge" data-project="SmartHealth AI" data-status="Pending" data-team="Code Warriors" data-track="Healthcare">
+            <td class="py-4 px-space-md">
+              <div class="flex items-center gap-space-sm">
+                <div class="w-9 h-9 rounded-lg bg-primary-fixed flex items-center justify-center text-primary font-bold">SH</div>
+                <div class="flex flex-col">
+                  <span class="font-label-md text-label-md text-on-surface font-semibold">SmartHealth AI</span>
+                  <span class="text-on-surface-variant text-body-sm">Code Warriors</span>
+                </div>
+              </div>
+            </td>
+            <td class="py-4 px-space-md"><span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface font-medium">AI Innovation Challenge</span></td>
+            <td class="py-4 px-space-md">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-surface-variant flex items-center justify-center font-code-inline text-[10px] font-bold">SM</div>
+                <span class="text-on-surface font-medium">Sarah M.</span>
+              </div>
+            </td>
+            <td class="py-4 px-space-md font-code-inline text-code-inline text-on-surface-variant">Oct 9, 2026</td>
+            <td class="py-4 px-space-md"><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-secondary-fixed text-on-secondary-fixed font-semibold"><span class="material-symbols-outlined text-[13px]">alarm</span> Due in 2 days</span></td>
+            <td class="py-4 px-space-md"><span class="px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface-variant font-semibold">Pending</span></td>
+            <td class="py-4 px-space-md text-right"><button class="btn-review-project px-space-md py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container transition-all" data-hackathon="AI Innovation Challenge" data-project="SmartHealth AI" data-team="Code Warriors" type="button">Review Project</button></td>
+          </tr>
+          <tr class="hover:bg-surface-container-low/60 transition-colors pending-row" data-hackathon="GreenTech Hackathon" data-project="EcoTrack" data-status="Pending" data-team="Green Innovators" data-track="Sustainability">
+            <td class="py-4 px-space-md">
+              <div class="flex items-center gap-space-sm">
+                <div class="w-9 h-9 rounded-lg bg-tertiary-fixed flex items-center justify-center text-tertiary font-bold">ET</div>
+                <div class="flex flex-col">
+                  <span class="font-label-md text-label-md text-on-surface font-semibold">EcoTrack</span>
+                  <span class="text-on-surface-variant text-body-sm">Green Innovators</span>
+                </div>
+              </div>
+            </td>
+            <td class="py-4 px-space-md"><span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface font-medium">GreenTech Hackathon</span></td>
+            <td class="py-4 px-space-md">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-tertiary-fixed-dim flex items-center justify-center font-code-inline text-[10px] font-bold">AB</div>
+                <span class="text-on-surface font-medium">Ahmed B.</span>
+              </div>
+            </td>
+            <td class="py-4 px-space-md font-code-inline text-code-inline text-on-surface-variant">Oct 8, 2026</td>
+            <td class="py-4 px-space-md"><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-secondary-fixed text-on-secondary-fixed font-semibold"><span class="material-symbols-outlined text-[13px]">alarm</span> Due in 1 day</span></td>
+            <td class="py-4 px-space-md"><span class="px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface-variant font-semibold">Pending</span></td>
+            <td class="py-4 px-space-md text-right"><button class="btn-review-project px-space-md py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container transition-all" data-hackathon="GreenTech Hackathon" data-project="EcoTrack" data-team="Green Innovators" type="button">Review Project</button></td>
+          </tr>
+          <tr class="hover:bg-surface-container-low/60 transition-colors pending-row" data-hackathon="FinTech Future" data-project="FinWise" data-status="In Progress" data-team="FinVision" data-track="FinTech">
+            <td class="py-4 px-space-md">
+              <div class="flex items-center gap-space-sm">
+                <div class="w-9 h-9 rounded-lg bg-secondary-fixed flex items-center justify-center text-secondary font-bold">FW</div>
+                <div class="flex flex-col">
+                  <span class="font-label-md text-label-md text-on-surface font-semibold">FinWise</span>
+                  <span class="text-on-surface-variant text-body-sm">FinVision</span>
+                </div>
+              </div>
+            </td>
+            <td class="py-4 px-space-md"><span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface font-medium">FinTech Future</span></td>
+            <td class="py-4 px-space-md">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-secondary-fixed-dim flex items-center justify-center font-code-inline text-[10px] font-bold">LK</div>
+                <span class="text-on-surface font-medium">Lina K.</span>
+              </div>
+            </td>
+            <td class="py-4 px-space-md font-code-inline text-code-inline text-on-surface-variant">Oct 7, 2026</td>
+            <td class="py-4 px-space-md"><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface-variant font-semibold"><span class="material-symbols-outlined text-[13px]">alarm</span> Due in 3 days</span></td>
+            <td class="py-4 px-space-md"><span class="px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-secondary-fixed text-on-secondary-fixed font-semibold flex items-center gap-1 w-max"><span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span> In Progress</span></td>
+            <td class="py-4 px-space-md text-right"><button class="btn-review-project px-space-md py-1.5 rounded-lg bg-secondary text-on-secondary font-label-md text-label-md font-semibold hover:opacity-90 transition-all" data-hackathon="FinTech Future" data-project="FinWise" data-team="FinVision" type="button">Continue Review</button></td>
+          </tr>
+          <tr class="hover:bg-surface-container-low/60 transition-colors pending-row" data-hackathon="Web Creators Weekend" data-project="CampusConnect" data-status="Pending" data-team="Pixel Pioneers" data-track="Developer Tools">
+            <td class="py-4 px-space-md">
+              <div class="flex items-center gap-space-sm">
+                <div class="w-9 h-9 rounded-lg bg-surface-variant flex items-center justify-center text-on-surface font-bold">CC</div>
+                <div class="flex flex-col">
+                  <span class="font-label-md text-label-md text-on-surface font-semibold">CampusConnect</span>
+                  <span class="text-on-surface-variant text-body-sm">Pixel Pioneers</span>
+                </div>
+              </div>
+            </td>
+            <td class="py-4 px-space-md"><span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface font-medium">Web Creators Weekend</span></td>
+            <td class="py-4 px-space-md">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-primary-fixed flex items-center justify-center font-code-inline text-[10px] font-bold">KS</div>
+                <span class="text-on-surface font-medium">Karim S.</span>
+              </div>
+            </td>
+            <td class="py-4 px-space-md font-code-inline text-code-inline text-on-surface-variant">Oct 6, 2026</td>
+            <td class="py-4 px-space-md"><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface-variant font-semibold"><span class="material-symbols-outlined text-[13px]">alarm</span> Due in 4 days</span></td>
+            <td class="py-4 px-space-md"><span class="px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface-variant font-semibold">Pending</span></td>
+            <td class="py-4 px-space-md text-right"><button class="btn-review-project px-space-md py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container transition-all" data-hackathon="Web Creators Weekend" data-project="CampusConnect" data-team="Pixel Pioneers" type="button">Review Project</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 3: COMPLETED REVIEWS -->
+<div class="tab-pane hidden flex flex-col gap-space-md" id="tab-completed">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg" id="completedCardsGrid">
+
+    <div class="bg-surface-container-lowest rounded-2xl shadow-sm p-space-lg flex flex-col justify-between completed-item" data-hackathon="AI Innovation Challenge" data-project="SmartHealth AI" data-team="Code Warriors">
+      <div>
+        <div class="flex items-start justify-between">
+          <div class="flex flex-col">
+            <span class="font-label-sm text-label-sm text-primary font-semibold uppercase tracking-wider">AI Innovation Challenge</span>
+            <h4 class="font-headline-sm text-headline-sm text-on-surface font-bold mt-1">SmartHealth AI</h4>
+            <span class="text-body-sm font-body-sm text-on-surface-variant">Team: Code Warriors</span>
+          </div>
+          <div class="flex flex-col items-end">
+            <span class="font-headline-sm text-headline-sm text-primary font-bold">91<span class="text-body-md font-normal text-on-surface-variant">/100</span></span>
+            <span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed font-semibold mt-1">Finalized</span>
+          </div>
+        </div>
+        <div class="my-space-md p-space-md rounded-xl bg-surface-container-low flex flex-col gap-1">
+          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Jury Feedback</span>
+          <p class="font-body-sm text-body-sm text-on-surface italic">“Superb architecture and robust LLM fine-tuning workflow.”</p>
+        </div>
+      </div>
+      <div class="flex items-center justify-between pt-space-sm">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-full bg-primary-fixed text-primary flex items-center justify-center font-code-inline text-[11px] font-bold">SM</div>
+          <div class="flex flex-col">
+            <span class="font-label-md text-label-md text-on-surface">Sarah M.</span>
+            <span class="font-code-inline text-[11px] text-on-surface-variant">Evaluated Oct 10, 2026</span>
+          </div>
+        </div>
+        <button class="btn-view-eval px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors" data-evaluator="Sarah M." data-feedback="Superb architecture and robust LLM fine-tuning workflow." data-project="SmartHealth AI" data-rubric='{"innov":9,"tech":10,"ux":9,"impact":9,"pres":9}' data-score="91" data-team="Code Warriors" type="button">View Evaluation</button>
+      </div>
+    </div>
+
+    <div class="bg-surface-container-lowest rounded-2xl shadow-sm p-space-lg flex flex-col justify-between completed-item" data-hackathon="GreenTech Hackathon" data-project="EcoTrack" data-team="Green Innovators">
+      <div>
+        <div class="flex items-start justify-between">
+          <div class="flex flex-col">
+            <span class="font-label-sm text-label-sm text-tertiary font-semibold uppercase tracking-wider">GreenTech Hackathon</span>
+            <h4 class="font-headline-sm text-headline-sm text-on-surface font-bold mt-1">EcoTrack</h4>
+            <span class="text-body-sm font-body-sm text-on-surface-variant">Team: Green Innovators</span>
+          </div>
+          <div class="flex flex-col items-end">
+            <span class="font-headline-sm text-headline-sm text-tertiary font-bold">87<span class="text-body-md font-normal text-on-surface-variant">/100</span></span>
+            <span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed font-semibold mt-1">Finalized</span>
+          </div>
+        </div>
+        <div class="my-space-md p-space-md rounded-xl bg-surface-container-low flex flex-col gap-1">
+          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Jury Feedback</span>
+          <p class="font-body-sm text-body-sm text-on-surface italic">“Clean UI and pragmatic IoT telemetry pipeline.”</p>
+        </div>
+      </div>
+      <div class="flex items-center justify-between pt-space-sm">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-full bg-tertiary-fixed-dim text-tertiary flex items-center justify-center font-code-inline text-[11px] font-bold">AB</div>
+          <div class="flex flex-col">
+            <span class="font-label-md text-label-md text-on-surface">Ahmed B.</span>
+            <span class="font-code-inline text-[11px] text-on-surface-variant">Evaluated Oct 9, 2026</span>
+          </div>
+        </div>
+        <button class="btn-view-eval px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors" data-evaluator="Ahmed B." data-feedback="Clean UI and pragmatic IoT telemetry pipeline." data-project="EcoTrack" data-rubric='{"innov":8,"tech":9,"ux":9,"impact":9,"pres":8}' data-score="87" data-team="Green Innovators" type="button">View Evaluation</button>
+      </div>
+    </div>
+
+    <div class="bg-surface-container-lowest rounded-2xl shadow-sm p-space-lg flex flex-col justify-between completed-item" data-hackathon="FinTech Future" data-project="FinWise" data-team="FinVision">
+      <div>
+        <div class="flex items-start justify-between">
+          <div class="flex flex-col">
+            <span class="font-label-sm text-label-sm text-secondary font-semibold uppercase tracking-wider">FinTech Future</span>
+            <h4 class="font-headline-sm text-headline-sm text-on-surface font-bold mt-1">FinWise</h4>
+            <span class="text-body-sm font-body-sm text-on-surface-variant">Team: FinVision</span>
+          </div>
+          <div class="flex flex-col items-end">
+            <span class="font-headline-sm text-headline-sm text-secondary font-bold">82<span class="text-body-md font-normal text-on-surface-variant">/100</span></span>
+            <span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed font-semibold mt-1">Finalized</span>
+          </div>
+        </div>
+        <div class="my-space-md p-space-md rounded-xl bg-surface-container-low flex flex-col gap-1">
+          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Jury Feedback</span>
+          <p class="font-body-sm text-body-sm text-on-surface italic">“Solid cryptographic verification, needs better onboarding UX.”</p>
+        </div>
+      </div>
+      <div class="flex items-center justify-between pt-space-sm">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-full bg-secondary-fixed text-secondary flex items-center justify-center font-code-inline text-[11px] font-bold">LK</div>
+          <div class="flex flex-col">
+            <span class="font-label-md text-label-md text-on-surface">Lina K.</span>
+            <span class="font-code-inline text-[11px] text-on-surface-variant">Evaluated Oct 8, 2026</span>
+          </div>
+        </div>
+        <button class="btn-view-eval px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors" data-evaluator="Lina K." data-feedback="Solid cryptographic verification, needs better onboarding UX." data-project="FinWise" data-rubric='{"innov":9,"tech":9,"ux":7,"impact":8,"pres":8}' data-score="82" data-team="FinVision" type="button">View Evaluation</button>
+      </div>
+    </div>
+
+    <div class="bg-surface-container-lowest rounded-2xl shadow-sm p-space-lg flex flex-col justify-between completed-item" data-hackathon="FinTech Future" data-project="SecureVault" data-team="Byte Builders">
+      <div>
+        <div class="flex items-start justify-between">
+          <div class="flex flex-col">
+            <span class="font-label-sm text-label-sm text-primary font-semibold uppercase tracking-wider">Cybersecurity &amp; Infra</span>
+            <h4 class="font-headline-sm text-headline-sm text-on-surface font-bold mt-1">SecureVault</h4>
+            <span class="text-body-sm font-body-sm text-on-surface-variant">Team: Byte Builders</span>
+          </div>
+          <div class="flex flex-col items-end">
+            <span class="font-headline-sm text-headline-sm text-primary font-bold">89<span class="text-body-md font-normal text-on-surface-variant">/100</span></span>
+            <span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed font-semibold mt-1">Finalized</span>
+          </div>
+        </div>
+        <div class="my-space-md p-space-md rounded-xl bg-surface-container-low flex flex-col gap-1">
+          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Jury Feedback</span>
+          <p class="font-body-sm text-body-sm text-on-surface italic">“Excellent RBAC controls and comprehensive zero-knowledge audit trails.”</p>
+        </div>
+      </div>
+      <div class="flex items-center justify-between pt-space-sm">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-full bg-primary-fixed-dim text-primary flex items-center justify-center font-code-inline text-[11px] font-bold">MR</div>
+          <div class="flex flex-col">
+            <span class="font-label-md text-label-md text-on-surface">Marcus R.</span>
+            <span class="font-code-inline text-[11px] text-on-surface-variant">Evaluated Oct 7, 2026</span>
+          </div>
+        </div>
+        <button class="btn-view-eval px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors" data-evaluator="Marcus R." data-feedback="Excellent RBAC controls and comprehensive zero-knowledge audit trails." data-project="SecureVault" data-rubric='{"innov":9,"tech":9,"ux":8,"impact":9,"pres":9}' data-score="89" data-team="Byte Builders" type="button">View Evaluation</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 4: MY EVALUATIONS -->
+<div class="tab-pane hidden flex flex-col gap-space-lg" id="tab-mine">
+  <div class="p-space-md rounded-xl bg-primary-fixed/30 flex items-center justify-between">
+    <div class="flex items-center gap-space-sm">
+      <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary"><span class="material-symbols-outlined text-[18px]">badge</span></div>
+      <div class="flex flex-col">
+        <span class="font-label-md text-label-md text-on-surface font-semibold">Evaluator Profile: Elena Vance (Lead Jury)</span>
+        <span class="font-body-sm text-body-sm text-on-surface-variant">4 assigned submissions remaining in your review queue</span>
+      </div>
+    </div>
+    <span class="px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-primary text-on-primary font-semibold">Priority Queue</span>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
+    <div class="bg-surface-container-lowest rounded-2xl shadow-sm p-space-md flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between">
+          <span class="font-code-inline text-[11px] text-primary font-bold">OCT 12 CUTOFF</span>
+          <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+        </div>
+        <h4 class="font-headline-sm text-headline-sm text-on-surface mt-2">SmartHealth AI</h4>
+        <span class="text-body-sm text-on-surface-variant">Team Code Warriors</span>
+        <div class="my-space-md">
+          <div class="flex justify-between text-body-sm font-body-sm mb-1 text-on-surface-variant"><span>Rubric draft</span><span class="font-code-inline font-bold">40%</span></div>
+          <div class="w-full h-2 bg-surface-container rounded-full overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 40%"></div></div>
+        </div>
+      </div>
+      <button class="btn-review-project w-full py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container transition-all" data-hackathon="AI Innovation Challenge" data-project="SmartHealth AI" data-team="Code Warriors" type="button">Evaluate Now</button>
+    </div>
+
+    <div class="bg-surface-container-lowest rounded-2xl shadow-sm p-space-md flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between">
+          <span class="font-code-inline text-[11px] text-on-surface-variant font-bold">OCT 11 CUTOFF</span>
+          <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+        </div>
+        <h4 class="font-headline-sm text-headline-sm text-on-surface mt-2">EcoTrack</h4>
+        <span class="text-body-sm text-on-surface-variant">Team Green Innovators</span>
+        <div class="my-space-md">
+          <div class="flex justify-between text-body-sm font-body-sm mb-1 text-on-surface-variant"><span>Rubric draft</span><span class="font-code-inline font-bold">0%</span></div>
+          <div class="w-full h-2 bg-surface-container rounded-full overflow-hidden"><div class="h-full bg-outline rounded-full" style="width: 0%"></div></div>
+        </div>
+      </div>
+      <button class="btn-review-project w-full py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container transition-all" data-hackathon="GreenTech Hackathon" data-project="EcoTrack" data-team="Green Innovators" type="button">Evaluate Now</button>
+    </div>
+
+    <div class="bg-surface-container-lowest rounded-2xl shadow-sm p-space-md flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between">
+          <span class="font-code-inline text-[11px] text-secondary font-bold">OCT 13 CUTOFF</span>
+          <span class="w-2 h-2 rounded-full bg-secondary"></span>
+        </div>
+        <h4 class="font-headline-sm text-headline-sm text-on-surface mt-2">FinWise</h4>
+        <span class="text-body-sm text-on-surface-variant">Team FinVision</span>
+        <div class="my-space-md">
+          <div class="flex justify-between text-body-sm font-body-sm mb-1 text-on-surface-variant"><span>Rubric draft</span><span class="font-code-inline font-bold">75%</span></div>
+          <div class="w-full h-2 bg-surface-container rounded-full overflow-hidden"><div class="h-full bg-secondary rounded-full" style="width: 75%"></div></div>
+        </div>
+      </div>
+      <button class="btn-review-project w-full py-2 rounded-lg bg-secondary text-on-secondary font-label-md text-label-md font-semibold hover:opacity-90 transition-all" data-hackathon="FinTech Future" data-project="FinWise" data-team="FinVision" type="button">Resume Draft</button>
+    </div>
+
+    <div class="bg-surface-container-lowest rounded-2xl shadow-sm p-space-md flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between">
+          <span class="font-code-inline text-[11px] text-on-surface-variant font-bold">OCT 14 CUTOFF</span>
+          <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+        </div>
+        <h4 class="font-headline-sm text-headline-sm text-on-surface mt-2">CampusConnect</h4>
+        <span class="text-body-sm text-on-surface-variant">Team Pixel Pioneers</span>
+        <div class="my-space-md">
+          <div class="flex justify-between text-body-sm font-body-sm mb-1 text-on-surface-variant"><span>Rubric draft</span><span class="font-code-inline font-bold">0%</span></div>
+          <div class="w-full h-2 bg-surface-container rounded-full overflow-hidden"><div class="h-full bg-outline rounded-full" style="width: 0%"></div></div>
+        </div>
+      </div>
+      <button class="btn-review-project w-full py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container transition-all" data-hackathon="Web Creators Weekend" data-project="CampusConnect" data-team="Pixel Pioneers" type="button">Evaluate Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- EVALUATION MODAL -->
+<div class="fixed inset-0 z-50 hidden bg-inverse-surface/40 backdrop-blur-sm flex items-center justify-center p-4" id="evalModal">
+  <div class="bg-surface-container-lowest rounded-2xl shadow-2xl max-w-4xl w-full max-h-[92vh] flex flex-col overflow-hidden animate-fadeIn">
+    <div class="p-space-lg bg-surface-container-low flex items-start justify-between">
+      <div class="flex flex-col">
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-primary-fixed text-primary font-semibold" id="modalHackathonPill">AI Innovation Challenge</span>
+          <span class="font-code-inline text-code-inline text-on-surface-variant">Track: Official Jury Scoring</span>
+        </div>
+        <h3 class="font-headline-lg text-headline-lg text-on-surface font-bold mt-1" id="modalProjectTitle">SmartHealth AI</h3>
+        <div class="flex items-center gap-space-md text-body-sm font-body-sm text-on-surface-variant mt-1">
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">group</span> <span id="modalTeamName">Code Warriors</span></span>
+          <span>•</span>
+          <a class="text-primary hover:underline flex items-center gap-1" href="#"><span class="material-symbols-outlined text-[16px]">code</span> GitHub Repo</a>
+          <span>•</span>
+          <a class="text-secondary hover:underline flex items-center gap-1" href="#"><span class="material-symbols-outlined text-[16px]">open_in_new</span> Live Demo</a>
+        </div>
+      </div>
+      <button class="p-2 text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container transition-colors" id="closeEvalModalBtn" type="button">
+        <span class="material-symbols-outlined text-[24px]">close</span>
+      </button>
+    </div>
+
+    <form class="p-space-lg overflow-y-auto flex flex-col gap-space-lg flex-1" id="evaluationForm">
+      {% csrf_token %}
+      <div class="p-space-md rounded-xl bg-gradient-to-r from-primary-fixed to-secondary-fixed/40 flex items-center justify-between">
+        <div class="flex items-center gap-space-sm">
+          <div class="w-12 h-12 rounded-xl bg-primary text-on-primary flex items-center justify-center shadow-md"><span class="material-symbols-outlined text-[24px]">calculate</span></div>
+          <div class="flex flex-col">
+            <span class="font-label-sm text-label-sm text-on-surface-variant font-semibold uppercase tracking-wider">Dynamic Aggregate Score</span>
+            <span class="font-body-sm text-body-sm text-on-surface">Normalized 100-point scale based on rubric weighting</span>
+          </div>
+        </div>
+        <div class="flex items-baseline gap-1 bg-surface-container-lowest px-space-md py-2 rounded-xl shadow-sm">
+          <span class="font-headline-xl text-headline-xl text-primary font-bold" id="calculatedTotalScore">88</span>
+          <span class="font-headline-sm text-headline-sm text-on-surface-variant">/100</span>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-space-md">
+        <h4 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[20px]">grading</span> Scoring Rubric (0 to 10 Scale)
+        </h4>
+
+        <div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <div class="flex flex-col">
+              <span class="font-label-md text-label-md text-on-surface font-semibold">1. Innovation &amp; Creativity</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">Novelty, uniqueness of concept, and creative problem-solving approach.</span>
+            </div>
+            <span class="font-headline-sm text-headline-sm text-primary font-bold font-code-inline min-w-[2.5rem] text-right" id="scoreVal-1">9</span>
+          </div>
+          <div class="flex items-center gap-4"><input class="rubric-slider w-full accent-primary h-2 bg-surface-container rounded-lg cursor-pointer" data-target="scoreVal-1" max="10" min="0" step="1" type="range" value="9"/></div>
+        </div>
+
+        <div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <div class="flex flex-col">
+              <span class="font-label-md text-label-md text-on-surface font-semibold">2. Technical Implementation</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">Architecture soundness, code quality, stability, API integration depth.</span>
+            </div>
+            <span class="font-headline-sm text-headline-sm text-primary font-bold font-code-inline min-w-[2.5rem] text-right" id="scoreVal-2">9</span>
+          </div>
+          <div class="flex items-center gap-4"><input class="rubric-slider w-full accent-primary h-2 bg-surface-container rounded-lg cursor-pointer" data-target="scoreVal-2" max="10" min="0" step="1" type="range" value="9"/></div>
+        </div>
+
+        <div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <div class="flex flex-col">
+              <span class="font-label-md text-label-md text-on-surface font-semibold">3. User Experience &amp; Design Polish</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">Interface polish, intuitive task flow, accessibility, and visual feedback.</span>
+            </div>
+            <span class="font-headline-sm text-headline-sm text-primary font-bold font-code-inline min-w-[2.5rem] text-right" id="scoreVal-3">8</span>
+          </div>
+          <div class="flex items-center gap-4"><input class="rubric-slider w-full accent-primary h-2 bg-surface-container rounded-lg cursor-pointer" data-target="scoreVal-3" max="10" min="0" step="1" type="range" value="8"/></div>
+        </div>
+
+        <div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <div class="flex flex-col">
+              <span class="font-label-md text-label-md text-on-surface font-semibold">4. Impact &amp; Relevance</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">Problem clarity, market viability, direct target audience utility.</span>
+            </div>
+            <span class="font-headline-sm text-headline-sm text-primary font-bold font-code-inline min-w-[2.5rem] text-right" id="scoreVal-4">9</span>
+          </div>
+          <div class="flex items-center gap-4"><input class="rubric-slider w-full accent-primary h-2 bg-surface-container rounded-lg cursor-pointer" data-target="scoreVal-4" max="10" min="0" step="1" type="range" value="9"/></div>
+        </div>
+
+        <div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <div class="flex flex-col">
+              <span class="font-label-md text-label-md text-on-surface font-semibold">5. Presentation &amp; Documentation</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">Clarity of demo video, pitch deck coherence, and README completeness.</span>
+            </div>
+            <span class="font-headline-sm text-headline-sm text-primary font-bold font-code-inline min-w-[2.5rem] text-right" id="scoreVal-5">9</span>
+          </div>
+          <div class="flex items-center gap-4"><input class="rubric-slider w-full accent-primary h-2 bg-surface-container rounded-lg cursor-pointer" data-target="scoreVal-5" max="10" min="0" step="1" type="range" value="9"/></div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-space-md pt-space-sm">
+        <h4 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[20px]">chat</span> Qualitative Feedback
+        </h4>
+        <div class="flex flex-col gap-1">
+          <label class="font-label-md text-label-md text-on-surface font-semibold">Strengths &amp; Highlights</label>
+          <textarea class="w-full p-space-md bg-surface-container rounded-xl text-body-sm font-body-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20" id="feedbackStrengths" placeholder="Mention key technical strengths, clever code practices, or novel implementations..." rows="2">Clean multi-modal pipeline integration with great local inference latency.</textarea>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="font-label-md text-label-md text-on-surface font-semibold">Areas for Improvement</label>
+          <textarea class="w-full p-space-md bg-surface-container rounded-xl text-body-sm font-body-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20" id="feedbackImprovements" placeholder="Provide actionable advice for iteration before demo day..." rows="2">Fallback error boundaries when external health API rate limits trigger.</textarea>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="font-label-md text-label-md text-on-surface font-semibold">Confidential Jury Summary</label>
+          <textarea class="w-full p-space-md bg-surface-container rounded-xl text-body-sm font-body-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20" id="feedbackComments" placeholder="Private notes visible only to the organizing committee and co-jurors..." rows="2">Strong contender for Top 3 AI Track finish.</textarea>
+        </div>
+      </div>
+    </form>
+
+    <div class="p-space-lg bg-surface-container-low flex items-center justify-between">
+      <button class="px-space-md py-2.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors" id="cancelEvalModalBtn" type="button">Cancel</button>
+      <div class="flex items-center gap-space-sm">
+        <button class="px-space-md py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-all" id="saveDraftBtn" type="button">Save Draft</button>
+        <button class="px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md shadow-[0_4px_12px_rgba(108,76,232,0.25)] hover:bg-primary-container transition-all font-semibold" id="submitEvaluationBtn" type="button">Submit Evaluation</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- READ-ONLY MODAL -->
+<div class="fixed inset-0 z-50 hidden bg-inverse-surface/40 backdrop-blur-sm flex items-center justify-center p-4" id="readOnlyModal">
+  <div class="bg-surface-container-lowest rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden animate-fadeIn">
+    <div class="p-space-lg bg-surface-container-low flex items-start justify-between">
+      <div class="flex flex-col">
+        <span class="font-label-sm text-label-sm text-tertiary font-semibold uppercase tracking-wider">Finalized Scorecard</span>
+        <h3 class="font-headline-lg text-headline-lg text-on-surface font-bold mt-1" id="roProjectTitle">SmartHealth AI</h3>
+        <span class="text-body-sm font-body-sm text-on-surface-variant" id="roTeamName">Team Code Warriors • AI Innovation Challenge</span>
+      </div>
+      <button class="p-2 text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container transition-colors" id="closeReadOnlyModalBtn" type="button">
+        <span class="material-symbols-outlined text-[24px]">close</span>
+      </button>
+    </div>
+
+    <div class="p-space-lg overflow-y-auto flex flex-col gap-space-md flex-1">
+      <div class="p-space-md rounded-xl bg-surface-container-low flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-tertiary-fixed text-tertiary flex items-center justify-center font-bold"><span class="material-symbols-outlined text-[20px]">verified</span></div>
+          <div class="flex flex-col">
+            <span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">Evaluator</span>
+            <span class="font-label-md text-label-md text-on-surface font-bold" id="roEvaluator">Sarah M.</span>
+          </div>
+        </div>
+        <div class="flex items-baseline gap-1">
+          <span class="font-headline-xl text-headline-xl text-primary font-bold" id="roScore">91</span>
+          <span class="font-headline-sm text-headline-sm text-on-surface-variant">/100</span>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Rubric Breakdown</span>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-space-sm" id="roRubricGrid">
+          <div class="p-space-sm rounded-lg bg-surface-container flex flex-col"><span class="text-body-sm text-on-surface-variant">Innovation</span><span class="font-headline-sm font-bold text-on-surface" id="roRubric-innov">9/10</span></div>
+          <div class="p-space-sm rounded-lg bg-surface-container flex flex-col"><span class="text-body-sm text-on-surface-variant">Technical</span><span class="font-headline-sm font-bold text-on-surface" id="roRubric-tech">10/10</span></div>
+          <div class="p-space-sm rounded-lg bg-surface-container flex flex-col"><span class="text-body-sm text-on-surface-variant">UX Polish</span><span class="font-headline-sm font-bold text-on-surface" id="roRubric-ux">9/10</span></div>
+          <div class="p-space-sm rounded-lg bg-surface-container flex flex-col"><span class="text-body-sm text-on-surface-variant">Impact</span><span class="font-headline-sm font-bold text-on-surface" id="roRubric-impact">9/10</span></div>
+          <div class="p-space-sm rounded-lg bg-surface-container flex flex-col"><span class="text-body-sm text-on-surface-variant">Presentation</span><span class="font-headline-sm font-bold text-on-surface" id="roRubric-pres">9/10</span></div>
+        </div>
+      </div>
+
+      <div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-1 mt-2">
+        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Official Jury Review</span>
+        <p class="font-body-md text-body-md text-on-surface italic mt-1" id="roFeedback">“Superb architecture and robust LLM fine-tuning workflow.”</p>
+      </div>
+    </div>
+
+    <div class="p-space-lg bg-surface-container-low flex items-center justify-end">
+      <button class="px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors" id="closeReadOnlyModalBtn2" type="button">Close Scorecard</button>
+    </div>
+  </div>
+</div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function() {
+  // 1. Tabs
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabPanes = document.querySelectorAll('.tab-pane');
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-tab-target');
+      tabButtons.forEach(b => {
+        b.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+        b.classList.add('text-on-surface-variant');
+      });
+      btn.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+      btn.classList.remove('text-on-surface-variant');
+      tabPanes.forEach(pane => pane.classList.toggle('hidden', pane.id !== targetId));
+    });
+  });
+
+  // 2. Search & filters
+  const searchInput = document.getElementById('evalSearchInput');
+  const filterHackathon = document.getElementById('filterHackathon');
+  const filterStatus = document.getElementById('filterStatus');
+  const resetFiltersBtn = document.getElementById('resetFiltersBtn');
+
+  function applyFilters() {
+    const query = (searchInput.value || '').toLowerCase().trim();
+    const selectedHack = filterHackathon.value;
+    const selectedStat = filterStatus.value;
+
+    document.querySelectorAll('.pending-row').forEach(row => {
+      const project = (row.getAttribute('data-project') || '').toLowerCase();
+      const team = (row.getAttribute('data-team') || '').toLowerCase();
+      const matchesQuery = !query || project.includes(query) || team.includes(query);
+      const matchesHack = selectedHack === 'all' || row.getAttribute('data-hackathon') === selectedHack;
+      const matchesStat = selectedStat === 'all' || row.getAttribute('data-status') === selectedStat;
+      row.style.display = (matchesQuery && matchesHack && matchesStat) ? '' : 'none';
+    });
+
+    document.querySelectorAll('.completed-item').forEach(card => {
+      const project = (card.getAttribute('data-project') || '').toLowerCase();
+      const team = (card.getAttribute('data-team') || '').toLowerCase();
+      const matchesQuery = !query || project.includes(query) || team.includes(query);
+      const matchesHack = selectedHack === 'all' || card.getAttribute('data-hackathon') === selectedHack;
+      const matchesStat = selectedStat === 'all' || selectedStat === 'Completed';
+      card.style.display = (matchesQuery && matchesHack && matchesStat) ? '' : 'none';
+    });
+  }
+
+  if (searchInput) searchInput.addEventListener('input', applyFilters);
+  if (filterHackathon) filterHackathon.addEventListener('change', applyFilters);
+  if (filterStatus) filterStatus.addEventListener('change', applyFilters);
+  if (resetFiltersBtn) {
+    resetFiltersBtn.addEventListener('click', () => {
+      if (searchInput) searchInput.value = '';
+      if (filterHackathon) filterHackathon.value = 'all';
+      if (filterStatus) filterStatus.value = 'all';
+      applyFilters();
+    });
+  }
+
+  // 3. Rubric score calculation
+  const sliders = document.querySelectorAll('.rubric-slider');
+  const totalScoreEl = document.getElementById('calculatedTotalScore');
+  function recalculateTotal() {
+    let sum = 0;
+    sliders.forEach(slider => {
+      const val = parseFloat(slider.value) || 0;
+      sum += val;
+      const targetSpan = document.getElementById(slider.getAttribute('data-target'));
+      if (targetSpan) targetSpan.textContent = val;
+    });
+    if (totalScoreEl) totalScoreEl.textContent = Math.round((sum / 50) * 100);
+  }
+  sliders.forEach(slider => slider.addEventListener('input', recalculateTotal));
+  recalculateTotal();
+
+  // 4. Evaluation modal
+  const evalModal = document.getElementById('evalModal');
+  const openEvalModalBtn = document.getElementById('openEvalModalBtn');
+  const closeEvalModalBtn = document.getElementById('closeEvalModalBtn');
+  const cancelEvalModalBtn = document.getElementById('cancelEvalModalBtn');
+
+  function openEvalForProject(project, team, hackathon) {
+    document.getElementById('modalProjectTitle').textContent = project || 'SmartHealth AI';
+    document.getElementById('modalTeamName').textContent = team || 'Code Warriors';
+    document.getElementById('modalHackathonPill').textContent = hackathon || 'AI Innovation Challenge';
+    evalModal.classList.remove('hidden');
+  }
+
+  if (openEvalModalBtn) {
+    openEvalModalBtn.addEventListener('click', () => openEvalForProject('SmartHealth AI', 'Code Warriors', 'AI Innovation Challenge'));
+  }
+  document.querySelectorAll('.btn-review-project').forEach(btn => {
+    btn.addEventListener('click', () => {
+      openEvalForProject(btn.getAttribute('data-project'), btn.getAttribute('data-team'), btn.getAttribute('data-hackathon'));
+    });
+  });
+
+  function closeEval() { evalModal.classList.add('hidden'); }
+  if (closeEvalModalBtn) closeEvalModalBtn.addEventListener('click', closeEval);
+  if (cancelEvalModalBtn) cancelEvalModalBtn.addEventListener('click', closeEval);
+
+  // 5. Read-only modal
+  const roModal = document.getElementById('readOnlyModal');
+  const closeROBtn = document.getElementById('closeReadOnlyModalBtn');
+  const closeROBtn2 = document.getElementById('closeReadOnlyModalBtn2');
+
+  document.querySelectorAll('.btn-view-eval').forEach(btn => {
+    btn.addEventListener('click', () => {
+      let rubric = { innov: 9, tech: 9, ux: 8, impact: 9, pres: 9 };
+      try { rubric = JSON.parse(btn.getAttribute('data-rubric')) || rubric; } catch (e) {}
+
+      document.getElementById('roProjectTitle').textContent = btn.getAttribute('data-project');
+      document.getElementById('roTeamName').textContent = 'Team: ' + btn.getAttribute('data-team');
+      document.getElementById('roScore').textContent = btn.getAttribute('data-score');
+      document.getElementById('roEvaluator').textContent = btn.getAttribute('data-evaluator');
+      document.getElementById('roFeedback').textContent = '“' + btn.getAttribute('data-feedback') + '”';
+
+      ['innov', 'tech', 'ux', 'impact', 'pres'].forEach(k => {
+        const el = document.getElementById('roRubric-' + k);
+        if (el) el.textContent = rubric[k] + '/10';
+      });
+      roModal.classList.remove('hidden');
+    });
+  });
+
+  function closeRO() { roModal.classList.add('hidden'); }
+  if (closeROBtn) closeROBtn.addEventListener('click', closeRO);
+  if (closeROBtn2) closeROBtn2.addEventListener('click', closeRO);
+
+  // 6. Submit / draft + toast
+  const submitBtn = document.getElementById('submitEvaluationBtn');
+  const saveDraftBtn = document.getElementById('saveDraftBtn');
+  const toast = document.getElementById('evalToast');
+  const toastMessage = document.getElementById('toastMessage');
+
+  function showToast(msg) {
+    toastMessage.textContent = msg;
+    toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
+    toast.classList.add('opacity-100', 'translate-y-0');
+    setTimeout(() => {
+      toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
+      toast.classList.remove('opacity-100', 'translate-y-0');
+    }, 3200);
+  }
+
+  if (submitBtn) submitBtn.addEventListener('click', () => { closeEval(); showToast('Evaluation submitted and score published to leaderboard!'); });
+  if (saveDraftBtn) saveDraftBtn.addEventListener('click', () => { closeEval(); showToast('Draft progress successfully stored.'); });
+
+  // 7. CSV export
+  const exportBtn = document.getElementById('exportCsvBtn');
+  if (exportBtn) {
+    exportBtn.addEventListener('click', () => {
+      const csvRows = [
+        ["Project Name", "Team", "Hackathon", "Evaluator", "Final Score", "Status", "Feedback"],
+        ["SmartHealth AI", "Code Warriors", "AI Innovation Challenge", "Sarah M.", "91", "Completed", "Superb architecture and robust LLM fine-tuning workflow."],
+        ["EcoTrack", "Green Innovators", "GreenTech Hackathon", "Ahmed B.", "87", "Completed", "Clean UI and pragmatic IoT telemetry pipeline."],
+        ["FinWise", "FinVision", "FinTech Future", "Lina K.", "82", "Completed", "Solid cryptographic verification, needs better onboarding UX."],
+        ["SecureVault", "Byte Builders", "FinTech Future", "Marcus R.", "89", "Completed", "Excellent RBAC controls and comprehensive audit trails."],
+        ["CampusConnect", "Pixel Pioneers", "Web Creators Weekend", "Karim S.", "--", "Pending", "Awaiting review"]
+      ];
+      const csvContent = "data:text/csv;charset=utf-8," + csvRows.map(e => e.map(i => `"${i}"`).join(",")).join("\n");
+      const link = document.createElement("a");
+      link.setAttribute("href", encodeURI(csvContent));
+      link.setAttribute("download", "codestorm_evaluations_report.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('CSV export generated and downloaded.');
+    });
+  }
+})();
+</script>
+{% endblock %}

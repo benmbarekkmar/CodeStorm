@@ -1,0 +1,33 @@
+# Python
+
+**pycache**/
+*.py[cod]
+*.pyo
+
+# Environnement virtuel
+
+venv/
+.venv/
+env/
+
+# Django
+
+*.log
+db.sqlite3
+media/
+
+# Variables secrètes
+
+.env
+.env.*
+!.env.example
+
+# IDE
+
+.vscode/
+.idea/
+
+# Tests et couverture
+
+.coverage
+htmlcov/
