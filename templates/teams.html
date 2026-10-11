@@ -1,27 +1,27 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}Teams · CodeStorm{% endblock %}
+{% block title %}{% trans "Teams · CodeStorm" %}{% endblock %}
 {% block page_name %}teams{% endblock %}
-{% block breadcrumb_section %}Core{% endblock %}
-{% block breadcrumb_page %}Teams{% endblock %}
+{% block breadcrumb_section %}{% trans "Core" %}{% endblock %}
+{% block breadcrumb_page %}{% trans "Teams" %}{% endblock %}
 
 {% block content %}
 <!-- Toast container -->
-<div class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none" id="toast-container"></div>
+<div class="fixed bottom-6 end-6 z-50 flex flex-col gap-2 pointer-events-none" id="toast-container"></div>
 
 <!-- ============ HEADER ============ -->
 <div class="w-full px-margin py-space-lg flex flex-col md:flex-row md:items-center justify-between gap-space-md">
   <div class="flex flex-col gap-1">
-    <h1 class="font-headline-lg text-headline-lg text-on-surface">Teams Management</h1>
-    <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Create your team, discover other teams, and collaborate to build something amazing.</p>
+    <h1 class="font-headline-lg text-headline-lg text-on-surface">{% trans "Teams Management" %}</h1>
+    <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">{% trans "Create your team, discover other teams, and collaborate to build something amazing." %}</p>
   </div>
   <div class="flex items-center gap-space-sm self-start md:self-auto">
     <button class="px-space-md py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container-low transition-all flex items-center gap-2" id="btn-switch-discover" type="button">
-      <span class="material-symbols-outlined text-[18px] text-secondary">explore</span><span>Join a Team</span>
+      <span class="material-symbols-outlined text-[18px] text-secondary">explore</span><span>{% trans "Join a Team" %}</span>
     </button>
     <button class="px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md shadow-sm hover:bg-surface-tint active:scale-[0.98] transition-all flex items-center gap-2" id="btn-open-create-modal" type="button">
-      <span class="material-symbols-outlined text-[18px]">add</span><span>Create Team</span>
+      <span class="material-symbols-outlined text-[18px]">add</span><span>{% trans "Create Team" %}</span>
     </button>
   </div>
 </div>
@@ -32,36 +32,36 @@
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
     <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between transition-all hover:shadow-md">
       <div class="flex flex-col gap-1">
-        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">My Teams</span>
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "My Teams" %}</span>
         <div class="font-headline-md text-headline-md font-bold text-on-surface" id="kpi-my-teams">03</div>
-        <span class="font-body-sm text-body-sm text-on-surface-variant">Active in your hackathons</span>
+        <span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Active in your hackathons" %}</span>
       </div>
       <div class="w-12 h-12 rounded-xl bg-primary-fixed flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[24px]">groups</span></div>
     </div>
     <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between transition-all hover:shadow-md">
       <div class="flex flex-col gap-1">
         <div class="flex items-center gap-2">
-          <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Invitations</span>
+          <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Invitations" %}</span>
           <span class="w-2 h-2 rounded-full bg-secondary-fixed-dim animate-pulse"></span>
         </div>
         <div class="font-headline-md text-headline-md font-bold text-on-surface" id="kpi-invites">03</div>
-        <span class="font-body-sm text-body-sm text-secondary font-medium">Waiting for your answer</span>
+        <span class="font-body-sm text-body-sm text-secondary font-medium">{% trans "Waiting for your answer" %}</span>
       </div>
       <div class="w-12 h-12 rounded-xl bg-secondary-fixed/40 flex items-center justify-center text-secondary"><span class="material-symbols-outlined text-[24px]">mark_email_unread</span></div>
     </div>
     <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between transition-all hover:shadow-md">
       <div class="flex flex-col gap-1">
-        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Pending Requests</span>
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Pending Requests" %}</span>
         <div class="font-headline-md text-headline-md font-bold text-on-surface" id="kpi-pending">01</div>
-        <span class="font-body-sm text-body-sm text-on-surface-variant">Awaiting team approval</span>
+        <span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Awaiting team approval" %}</span>
       </div>
       <div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-on-surface-variant"><span class="material-symbols-outlined text-[24px]">hourglass_top</span></div>
     </div>
     <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between transition-all hover:shadow-md">
       <div class="flex flex-col gap-1">
-        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Total Members</span>
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Total Members" %}</span>
         <div class="font-headline-md text-headline-md font-bold text-on-surface">12</div>
-        <span class="font-body-sm text-body-sm text-on-surface-variant">Collaborators across squads</span>
+        <span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Collaborators across squads" %}</span>
       </div>
       <div class="w-12 h-12 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary"><span class="material-symbols-outlined text-[24px]">diversity_3</span></div>
     </div>
@@ -71,24 +71,24 @@
   <div class="w-full flex items-center justify-between overflow-x-auto p-1 bg-surface-container-low rounded-xl">
     <div class="flex items-center gap-1.5 w-full sm:w-auto">
       <button class="tab-trigger flex-1 sm:flex-none px-space-md py-2.5 rounded-lg bg-surface-container-lowest text-primary font-label-md text-label-md shadow-sm transition-all flex items-center justify-center gap-2" data-tab-target="pane-my-teams" type="button">
-        <span class="material-symbols-outlined text-[18px]">domain</span><span>My Teams</span>
+        <span class="material-symbols-outlined text-[18px]">domain</span><span>{% trans "My Teams" %}</span>
         <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-code-inline text-code-inline text-[11px] font-bold" id="badge-teams-count">3</span>
       </button>
       <button class="tab-trigger flex-1 sm:flex-none px-space-md py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all flex items-center justify-center gap-2" data-tab-target="pane-discover" type="button">
-        <span class="material-symbols-outlined text-[18px]">travel_explore</span><span>Discover Teams</span>
+        <span class="material-symbols-outlined text-[18px]">travel_explore</span><span>{% trans "Discover Teams" %}</span>
         <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]" id="badge-discover-count">3</span>
       </button>
       <button class="tab-trigger flex-1 sm:flex-none px-space-md py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all flex items-center justify-center gap-2" data-tab-target="pane-invitations" type="button">
-        <span class="material-symbols-outlined text-[18px]">forward_to_inbox</span><span>Invitations</span>
+        <span class="material-symbols-outlined text-[18px]">forward_to_inbox</span><span>{% trans "Invitations" %}</span>
         <span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-code-inline text-code-inline text-[11px] font-bold" id="badge-invites-count">3</span>
       </button>
       <button class="tab-trigger flex-1 sm:flex-none px-space-md py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all flex items-center justify-center gap-2" data-tab-target="pane-requests" type="button">
-        <span class="material-symbols-outlined text-[18px]">how_to_reg</span><span>Join Requests</span>
+        <span class="material-symbols-outlined text-[18px]">how_to_reg</span><span>{% trans "Join Requests" %}</span>
         <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]" id="badge-requests-count">2</span>
       </button>
     </div>
-    <div class="hidden lg:flex items-center gap-2 pr-space-sm text-outline font-label-sm text-label-sm">
-      <span class="material-symbols-outlined text-[16px]">sync</span><span>Auto-synced with Git repo hooks</span>
+    <div class="hidden lg:flex items-center gap-2 pe-space-sm text-outline font-label-sm text-label-sm">
+      <span class="material-symbols-outlined text-[16px]">sync</span><span>{% trans "Auto-synced with Git repo hooks" %}</span>
     </div>
   </div>
 
@@ -99,104 +99,104 @@
       <div class="my-team-card bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
         <div class="flex flex-col gap-space-sm">
           <div class="flex items-center justify-between">
-            <span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-semibold">AI &amp; ML</span>
-            <div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm"><span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-ping"></span><span>Recruiting</span></div>
+            <span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-semibold">{% trans "AI &amp; ML" %}</span>
+            <div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm"><span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-ping"></span><span>{% trans "Recruiting" %}</span></div>
           </div>
           <div class="flex flex-col gap-1 mt-1">
             <div class="flex items-center justify-between">
-              <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Code Warriors</h3>
-              <span class="px-2 py-0.5 rounded bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold">Team Leader</span>
+              <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">{% trans "Code Warriors" %}</h3>
+              <span class="px-2 py-0.5 rounded bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold">{% trans "Team Leader" %}</span>
             </div>
-            <p class="font-body-sm text-body-sm text-outline">Hackathon: <span class="text-on-surface font-medium">AI Innovation Challenge</span></p>
+            <p class="font-body-sm text-body-sm text-outline">{% trans "Hackathon:" %} <span class="text-on-surface font-medium">{% trans "AI Innovation Challenge" %}</span></p>
           </div>
-          <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Building intelligent solutions for real-world challenges with generative edge agents and responsive UI telemetry.</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">{% trans "Building intelligent solutions for real-world challenges with generative edge agents and responsive UI telemetry." %}</p>
           <div class="pt-2 flex items-center justify-between">
             <div class="flex items-center -space-x-2">
-              <div class="w-8 h-8 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">KW</div>
-              <div class="w-8 h-8 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">AA</div>
-              <div class="w-8 h-8 rounded-full bg-tertiary text-on-tertiary font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">ZB</div>
+              <div class="w-8 h-8 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">{% trans "KW" %}</div>
+              <div class="w-8 h-8 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">{% trans "AA" %}</div>
+              <div class="w-8 h-8 rounded-full bg-tertiary text-on-tertiary font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">{% trans "ZB" %}</div>
               <div class="w-8 h-8 rounded-full bg-surface-container text-outline font-label-sm text-label-sm flex items-center justify-center shadow-inner">+1</div>
               <div class="w-8 h-8 rounded-full bg-surface-container text-outline font-label-sm text-label-sm flex items-center justify-center shadow-inner">+1</div>
             </div>
-            <span class="font-code-inline text-code-inline text-on-surface-variant font-medium">3/5 members</span>
+            <span class="font-code-inline text-code-inline text-on-surface-variant font-medium">{% trans "3/5 members" %}</span>
           </div>
           <div class="pt-space-sm flex flex-col gap-1.5">
-            <div class="flex justify-between items-center font-label-sm text-label-sm"><span class="text-outline">Project Progress</span><span class="text-primary font-bold">70%</span></div>
+            <div class="flex justify-between items-center font-label-sm text-label-sm"><span class="text-outline">{% trans "Project Progress" %}</span><span class="text-primary font-bold">70%</span></div>
             <div class="w-full h-2 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 70%"></div></div>
           </div>
         </div>
         <div class="pt-space-md mt-space-md flex items-center gap-space-sm">
-          <button class="flex-1 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all text-center" onclick="openModal('modal-view-team')" type="button">View Team</button>
-          <button class="flex-1 py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all text-center" onclick="openModal('modal-manage-members')" type="button">Manage Members</button>
+          <button class="flex-1 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all text-center" onclick="openModal('modal-view-team')" type="button">{% trans "View Team" %}</button>
+          <button class="flex-1 py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all text-center" onclick="openModal('modal-manage-members')" type="button">{% trans "Manage Members" %}</button>
         </div>
       </div>
 
       <div class="my-team-card bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
         <div class="flex flex-col gap-space-sm">
           <div class="flex items-center justify-between">
-            <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">Web Dev</span>
-            <div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm"><span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-ping"></span><span>Recruiting</span></div>
+            <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">{% trans "Web Dev" %}</span>
+            <div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm"><span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-ping"></span><span>{% trans "Recruiting" %}</span></div>
           </div>
           <div class="flex flex-col gap-1 mt-1">
             <div class="flex items-center justify-between">
-              <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Pixel Pioneers</h3>
-              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold">Member</span>
+              <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">{% trans "Pixel Pioneers" %}</h3>
+              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold">{% trans "Member" %}</span>
             </div>
-            <p class="font-body-sm text-body-sm text-outline">Hackathon: <span class="text-on-surface font-medium">Web Creators Weekend</span></p>
+            <p class="font-body-sm text-body-sm text-outline">{% trans "Hackathon:" %} <span class="text-on-surface font-medium">{% trans "Web Creators Weekend" %}</span></p>
           </div>
-          <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Creating modern, accessible, and beautiful web experiences with reactive state and lightweight architecture.</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">{% trans "Creating modern, accessible, and beautiful web experiences with reactive state and lightweight architecture." %}</p>
           <div class="pt-2 flex items-center justify-between">
             <div class="flex items-center -space-x-2">
-              <div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">JB</div>
-              <div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">OM</div>
+              <div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">{% trans "JB" %}</div>
+              <div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">{% trans "OM" %}</div>
               <div class="w-8 h-8 rounded-full bg-surface-container text-outline font-label-sm text-label-sm flex items-center justify-center shadow-inner">+1</div>
               <div class="w-8 h-8 rounded-full bg-surface-container text-outline font-label-sm text-label-sm flex items-center justify-center shadow-inner">+1</div>
               <div class="w-8 h-8 rounded-full bg-surface-container text-outline font-label-sm text-label-sm flex items-center justify-center shadow-inner">+1</div>
             </div>
-            <span class="font-code-inline text-code-inline text-on-surface-variant font-medium">2/5 members</span>
+            <span class="font-code-inline text-code-inline text-on-surface-variant font-medium">{% trans "2/5 members" %}</span>
           </div>
           <div class="pt-space-sm flex flex-col gap-1.5">
-            <div class="flex justify-between items-center font-label-sm text-label-sm"><span class="text-outline">Project Progress</span><span class="text-secondary font-bold">45%</span></div>
+            <div class="flex justify-between items-center font-label-sm text-label-sm"><span class="text-outline">{% trans "Project Progress" %}</span><span class="text-secondary font-bold">45%</span></div>
             <div class="w-full h-2 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-secondary rounded-full" style="width: 45%"></div></div>
           </div>
         </div>
         <div class="pt-space-md mt-space-md flex items-center gap-space-sm">
-          <button class="flex-1 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all text-center" onclick="openModal('modal-view-team')" type="button">View Team</button>
-          <button class="flex-1 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant font-label-md text-label-md transition-all text-center" onclick="openModal('modal-manage-members')" type="button">Team Roster</button>
+          <button class="flex-1 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all text-center" onclick="openModal('modal-view-team')" type="button">{% trans "View Team" %}</button>
+          <button class="flex-1 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant font-label-md text-label-md transition-all text-center" onclick="openModal('modal-manage-members')" type="button">{% trans "Team Roster" %}</button>
         </div>
       </div>
 
       <div class="my-team-card bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
         <div class="flex flex-col gap-space-sm">
           <div class="flex items-center justify-between">
-            <span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">GreenTech</span>
-            <div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold"><span>Full</span></div>
+            <span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">{% trans "GreenTech" %}</span>
+            <div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold"><span>{% trans "Full" %}</span></div>
           </div>
           <div class="flex flex-col gap-1 mt-1">
             <div class="flex items-center justify-between">
-              <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Green Innovators</h3>
-              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold">Member</span>
+              <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">{% trans "Green Innovators" %}</h3>
+              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold">{% trans "Member" %}</span>
             </div>
-            <p class="font-body-sm text-body-sm text-outline">Hackathon: <span class="text-on-surface font-medium">GreenTech Hackathon</span></p>
+            <p class="font-body-sm text-body-sm text-outline">{% trans "Hackathon:" %} <span class="text-on-surface font-medium">{% trans "GreenTech Hackathon" %}</span></p>
           </div>
-          <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Developing technology for a greener, sustainable future with solar optimization calculations and edge battery monitoring.</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">{% trans "Developing technology for a greener, sustainable future with solar optimization calculations and edge battery monitoring." %}</p>
           <div class="pt-2 flex items-center justify-between">
             <div class="flex items-center -space-x-2">
-              <div class="w-8 h-8 rounded-full bg-tertiary text-on-tertiary font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">AA</div>
-              <div class="w-8 h-8 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">KW</div>
-              <div class="w-8 h-8 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">JB</div>
-              <div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">ZB</div>
+              <div class="w-8 h-8 rounded-full bg-tertiary text-on-tertiary font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">{% trans "AA" %}</div>
+              <div class="w-8 h-8 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">{% trans "KW" %}</div>
+              <div class="w-8 h-8 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">{% trans "JB" %}</div>
+              <div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">{% trans "ZB" %}</div>
             </div>
-            <span class="font-code-inline text-code-inline text-on-surface font-semibold">4/4 members</span>
+            <span class="font-code-inline text-code-inline text-on-surface font-semibold">{% trans "4/4 members" %}</span>
           </div>
           <div class="pt-space-sm flex flex-col gap-1.5">
-            <div class="flex justify-between items-center font-label-sm text-label-sm"><span class="text-outline">Project Progress</span><span class="text-tertiary font-bold">90%</span></div>
+            <div class="flex justify-between items-center font-label-sm text-label-sm"><span class="text-outline">{% trans "Project Progress" %}</span><span class="text-tertiary font-bold">90%</span></div>
             <div class="w-full h-2 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-tertiary rounded-full" style="width: 90%"></div></div>
           </div>
         </div>
         <div class="pt-space-md mt-space-md flex items-center gap-space-sm">
-          <button class="flex-1 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all text-center" onclick="openModal('modal-view-team')" type="button">View Team</button>
-          <button class="flex-1 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant font-label-md text-label-md transition-all text-center" onclick="openModal('modal-manage-members')" type="button">Team Roster</button>
+          <button class="flex-1 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all text-center" onclick="openModal('modal-view-team')" type="button">{% trans "View Team" %}</button>
+          <button class="flex-1 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant font-label-md text-label-md transition-all text-center" onclick="openModal('modal-manage-members')" type="button">{% trans "Team Roster" %}</button>
         </div>
       </div>
     </div>
@@ -206,25 +206,25 @@
   <div class="tab-pane hidden flex-col gap-space-md" id="pane-discover">
     <div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col lg:flex-row items-center justify-between gap-space-md">
       <div class="relative w-full lg:w-96 flex items-center">
-        <span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">search</span>
-        <input class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg pl-9 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline" id="filter-input-search" placeholder="Search teams, skills or hackathons..." type="text"/>
+        <span class="material-symbols-outlined absolute start-3 text-outline text-[18px]">search</span>
+        <input class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg ps-9 pe-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline" id="filter-input-search" placeholder"{% trans "Search teams, skills or hackathons..." %}" type="text"/>
       </div>
       <div class="flex flex-wrap items-center gap-space-sm w-full lg:w-auto">
         <div class="flex items-center gap-2">
-          <span class="font-label-sm text-label-sm text-outline">Hackathon:</span>
+          <span class="font-label-sm text-label-sm text-outline">{% trans "Hackathon:" %}</span>
           <select class="bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer" id="filter-select-hackathon">
-            <option value="all">All Hackathons</option>
-            <option value="AI Innovation Challenge">AI Innovation Challenge</option>
-            <option value="GreenTech Hackathon">GreenTech Hackathon</option>
-            <option value="FinTech Future">FinTech Future</option>
+            <option value="all">{% trans "All Hackathons" %}</option>
+            <option value="AI Innovation Challenge">{% trans "AI Innovation Challenge" %}</option>
+            <option value="GreenTech Hackathon">{% trans "GreenTech Hackathon" %}</option>
+            <option value="FinTech Future">{% trans "FinTech Future" %}</option>
           </select>
         </div>
         <div class="flex items-center gap-2">
-          <span class="font-label-sm text-label-sm text-outline">Availability:</span>
+          <span class="font-label-sm text-label-sm text-outline">{% trans "Availability:" %}</span>
           <select class="bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer" id="filter-select-status">
-            <option value="all">All Status</option>
-            <option value="recruiting">Recruiting Only</option>
-            <option value="full">Full Teams</option>
+            <option value="all">{% trans "All Status" %}</option>
+            <option value="recruiting">{% trans "Recruiting Only" %}</option>
+            <option value="full">{% trans "Full Teams" %}</option>
           </select>
         </div>
       </div>
@@ -234,26 +234,26 @@
       <div class="discover-card bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between hover:shadow-md transition-all" data-hackathon="AI Innovation Challenge" data-status="recruiting">
         <div class="flex flex-col gap-space-sm">
           <div class="flex items-center justify-between">
-            <span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-semibold">AI Innovation Challenge</span>
-            <span class="font-code-inline text-code-inline text-on-surface-variant font-semibold">3/5 members</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-semibold">{% trans "AI Innovation Challenge" %}</span>
+            <span class="font-code-inline text-code-inline text-on-surface-variant font-semibold">{% trans "3/5 members" %}</span>
           </div>
           <div class="flex flex-col gap-0.5">
-            <h3 class="team-name font-headline-sm text-headline-sm text-on-surface font-bold">Neural Sparks</h3>
-            <p class="font-body-sm text-body-sm text-outline">Led by <span class="leader-name text-on-surface font-semibold">Amine K.</span></p>
+            <h3 class="team-name font-headline-sm text-headline-sm text-on-surface font-bold">{% trans "Neural Sparks" %}</h3>
+            <p class="font-body-sm text-body-sm text-outline">{% trans "Led by" %} <span class="leader-name text-on-surface font-semibold">{% trans "Amine K." %}</span></p>
           </div>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Developing real-time neural edge processing tools for edge inference on low-power devices.</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Developing real-time neural edge processing tools for edge inference on low-power devices." %}</p>
           <div class="flex flex-col gap-1.5 pt-1">
-            <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Desired Skills</span>
+            <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Desired Skills" %}</span>
             <div class="flex flex-wrap gap-1.5">
-              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">Python</span>
-              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">AI</span>
-              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">Data Science</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">{% trans "Python" %}</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">{% trans "AI" %}</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">{% trans "Data Science" %}</span>
             </div>
           </div>
         </div>
         <div class="pt-space-lg">
           <button class="w-full py-2.5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary transition-all flex items-center justify-center gap-2" onclick="requestToJoinTeam(this)" type="button">
-            <span class="material-symbols-outlined text-[18px]">group_add</span><span>Request to Join</span>
+            <span class="material-symbols-outlined text-[18px]">group_add</span><span>{% trans "Request to Join" %}</span>
           </button>
         </div>
       </div>
@@ -261,26 +261,26 @@
       <div class="discover-card bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between hover:shadow-md transition-all" data-hackathon="GreenTech Hackathon" data-status="recruiting">
         <div class="flex flex-col gap-space-sm">
           <div class="flex items-center justify-between">
-            <span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">GreenTech Hackathon</span>
-            <span class="font-code-inline text-code-inline text-on-surface-variant font-semibold">2/4 members</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">{% trans "GreenTech Hackathon" %}</span>
+            <span class="font-code-inline text-code-inline text-on-surface-variant font-semibold">{% trans "2/4 members" %}</span>
           </div>
           <div class="flex flex-col gap-0.5">
-            <h3 class="team-name font-headline-sm text-headline-sm text-on-surface font-bold">EcoTech Crew</h3>
-            <p class="font-body-sm text-body-sm text-outline">Led by <span class="leader-name text-on-surface font-semibold">Sami B.</span></p>
+            <h3 class="team-name font-headline-sm text-headline-sm text-on-surface font-bold">{% trans "EcoTech Crew" %}</h3>
+            <p class="font-body-sm text-body-sm text-outline">{% trans "Led by" %} <span class="leader-name text-on-surface font-semibold">{% trans "Sami B." %}</span></p>
           </div>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">IoT telemetry pipeline for urban carbon tracking and neighborhood eco-credit incentives.</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "IoT telemetry pipeline for urban carbon tracking and neighborhood eco-credit incentives." %}</p>
           <div class="flex flex-col gap-1.5 pt-1">
-            <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Desired Skills</span>
+            <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Desired Skills" %}</span>
             <div class="flex flex-wrap gap-1.5">
-              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">Sustainability</span>
-              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">UI/UX</span>
-              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">Python</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">{% trans "Sustainability" %}</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">{% trans "UI/UX" %}</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">{% trans "Python" %}</span>
             </div>
           </div>
         </div>
         <div class="pt-space-lg">
           <button class="w-full py-2.5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary transition-all flex items-center justify-center gap-2" onclick="requestToJoinTeam(this)" type="button">
-            <span class="material-symbols-outlined text-[18px]">group_add</span><span>Request to Join</span>
+            <span class="material-symbols-outlined text-[18px]">group_add</span><span>{% trans "Request to Join" %}</span>
           </button>
         </div>
       </div>
@@ -288,26 +288,26 @@
       <div class="discover-card bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between hover:shadow-md transition-all" data-hackathon="FinTech Future" data-status="recruiting">
         <div class="flex flex-col gap-space-sm">
           <div class="flex items-center justify-between">
-            <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">FinTech Future</span>
-            <span class="font-code-inline text-code-inline text-on-surface-variant font-semibold">4/5 members</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">{% trans "FinTech Future" %}</span>
+            <span class="font-code-inline text-code-inline text-on-surface-variant font-semibold">{% trans "4/5 members" %}</span>
           </div>
           <div class="flex flex-col gap-0.5">
-            <h3 class="team-name font-headline-sm text-headline-sm text-on-surface font-bold">FinVision</h3>
-            <p class="font-body-sm text-body-sm text-outline">Led by <span class="leader-name text-on-surface font-semibold">Sara M.</span></p>
+            <h3 class="team-name font-headline-sm text-headline-sm text-on-surface font-bold">{% trans "FinVision" %}</h3>
+            <p class="font-body-sm text-body-sm text-outline">{% trans "Led by" %} <span class="leader-name text-on-surface font-semibold">{% trans "Sara M." %}</span></p>
           </div>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Decentralized micro-lending verification platform incorporating cryptographic proofs.</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Decentralized micro-lending verification platform incorporating cryptographic proofs." %}</p>
           <div class="flex flex-col gap-1.5 pt-1">
-            <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Desired Skills</span>
+            <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Desired Skills" %}</span>
             <div class="flex flex-wrap gap-1.5">
-              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">Angular</span>
-              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">Python</span>
-              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">Security</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">{% trans "Angular" %}</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">{% trans "Python" %}</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">{% trans "Security" %}</span>
             </div>
           </div>
         </div>
         <div class="pt-space-lg">
           <button class="w-full py-2.5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary transition-all flex items-center justify-center gap-2" onclick="requestToJoinTeam(this)" type="button">
-            <span class="material-symbols-outlined text-[18px]">group_add</span><span>Request to Join</span>
+            <span class="material-symbols-outlined text-[18px]">group_add</span><span>{% trans "Request to Join" %}</span>
           </button>
         </div>
       </div>
@@ -320,55 +320,55 @@
 
       <div class="invite-item p-space-lg bg-surface-container-lowest rounded-xl shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-space-md transition-all">
         <div class="flex items-start gap-space-md">
-          <div class="w-12 h-12 rounded-xl bg-primary-fixed text-on-primary-fixed-variant flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">NS</div>
+          <div class="w-12 h-12 rounded-xl bg-primary-fixed text-on-primary-fixed-variant flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">{% trans "NS" %}</div>
           <div class="flex flex-col gap-1">
             <div class="flex flex-wrap items-center gap-2">
-              <h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Neural Sparks</h4>
-              <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm">AI Innovation Challenge</span>
-              <span class="text-outline text-body-sm font-body-sm">• October 9, 2026</span>
+              <h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">{% trans "Neural Sparks" %}</h4>
+              <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm">{% trans "AI Innovation Challenge" %}</span>
+              <span class="text-outline text-body-sm font-body-sm">{% trans "• October 9, 2026" %}</span>
             </div>
-            <p class="font-body-sm text-body-sm text-on-surface-variant"><span class="font-semibold text-on-surface">Amine K.</span> sent an invitation: <span class="italic text-outline">"Hey! We saw your experience in ML and would love to have you on our core sprint pipeline."</span></p>
+            <p class="font-body-sm text-body-sm text-on-surface-variant"><span class="font-semibold text-on-surface">{% trans "Amine K." %}</span> {% trans "sent an invitation:" %} <span class="italic text-outline">"Hey! We saw your experience in ML and would love to have you on our core sprint pipeline."</span></p>
           </div>
         </div>
         <div class="flex items-center gap-space-sm self-end md:self-center flex-shrink-0">
-          <button class="px-4 py-2 rounded-lg bg-surface-container-low text-error hover:bg-error-container hover:text-on-error-container font-label-md text-label-md transition-all" onclick="respondInvite(this, false, 'Neural Sparks')" type="button">Decline</button>
-          <button class="px-4 py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md shadow-sm transition-all" onclick="respondInvite(this, true, 'Neural Sparks')" type="button">Accept</button>
+          <button class="px-4 py-2 rounded-lg bg-surface-container-low text-error hover:bg-error-container hover:text-on-error-container font-label-md text-label-md transition-all" onclick="respondInvite(this, false, 'Neural Sparks')" type="button">{% trans "Decline" %}</button>
+          <button class="px-4 py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md shadow-sm transition-all" onclick="respondInvite(this, true, 'Neural Sparks')" type="button">{% trans "Accept" %}</button>
         </div>
       </div>
 
       <div class="invite-item p-space-lg bg-surface-container-lowest rounded-xl shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-space-md transition-all">
         <div class="flex items-start gap-space-md">
-          <div class="w-12 h-12 rounded-xl bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">FV</div>
+          <div class="w-12 h-12 rounded-xl bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">{% trans "FV" %}</div>
           <div class="flex flex-col gap-1">
             <div class="flex flex-wrap items-center gap-2">
-              <h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">FinVision</h4>
-              <span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">FinTech Future</span>
-              <span class="text-outline text-body-sm font-body-sm">• October 8, 2026</span>
+              <h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">{% trans "FinVision" %}</h4>
+              <span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">{% trans "FinTech Future" %}</span>
+              <span class="text-outline text-body-sm font-body-sm">{% trans "• October 8, 2026" %}</span>
             </div>
-            <p class="font-body-sm text-body-sm text-on-surface-variant"><span class="font-semibold text-on-surface">Sara M.</span> sent an invitation: <span class="italic text-outline">"Looking for a backend engineer familiar with high-throughput Python API architectures."</span></p>
+            <p class="font-body-sm text-body-sm text-on-surface-variant"><span class="font-semibold text-on-surface">{% trans "Sara M." %}</span> {% trans "sent an invitation:" %} <span class="italic text-outline">"Looking for a backend engineer familiar with high-throughput Python API architectures."</span></p>
           </div>
         </div>
         <div class="flex items-center gap-space-sm self-end md:self-center flex-shrink-0">
-          <button class="px-4 py-2 rounded-lg bg-surface-container-low text-error hover:bg-error-container hover:text-on-error-container font-label-md text-label-md transition-all" onclick="respondInvite(this, false, 'FinVision')" type="button">Decline</button>
-          <button class="px-4 py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md shadow-sm transition-all" onclick="respondInvite(this, true, 'FinVision')" type="button">Accept</button>
+          <button class="px-4 py-2 rounded-lg bg-surface-container-low text-error hover:bg-error-container hover:text-on-error-container font-label-md text-label-md transition-all" onclick="respondInvite(this, false, 'FinVision')" type="button">{% trans "Decline" %}</button>
+          <button class="px-4 py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md shadow-sm transition-all" onclick="respondInvite(this, true, 'FinVision')" type="button">{% trans "Accept" %}</button>
         </div>
       </div>
 
       <div class="invite-item p-space-lg bg-surface-container-lowest rounded-xl shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-space-md transition-all">
         <div class="flex items-start gap-space-md">
-          <div class="w-12 h-12 rounded-xl bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">DD</div>
+          <div class="w-12 h-12 rounded-xl bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">{% trans "DD" %}</div>
           <div class="flex flex-col gap-1">
             <div class="flex flex-wrap items-center gap-2">
-              <h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Data Dreamers</h4>
-              <span class="px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm">Global AI Sprint</span>
-              <span class="text-outline text-body-sm font-body-sm">• October 7, 2026</span>
+              <h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">{% trans "Data Dreamers" %}</h4>
+              <span class="px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm">{% trans "Global AI Sprint" %}</span>
+              <span class="text-outline text-body-sm font-body-sm">{% trans "• October 7, 2026" %}</span>
             </div>
-            <p class="font-body-sm text-body-sm text-on-surface-variant"><span class="font-semibold text-on-surface">Youssef B.</span> sent an invitation: <span class="italic text-outline">"We are building an agentic data cleaning tool, join us!"</span></p>
+            <p class="font-body-sm text-body-sm text-on-surface-variant"><span class="font-semibold text-on-surface">{% trans "Youssef B." %}</span> {% trans "sent an invitation:" %} <span class="italic text-outline">"We are building an agentic data cleaning tool, join us!"</span></p>
           </div>
         </div>
         <div class="flex items-center gap-space-sm self-end md:self-center flex-shrink-0">
-          <button class="px-4 py-2 rounded-lg bg-surface-container-low text-error hover:bg-error-container hover:text-on-error-container font-label-md text-label-md transition-all" onclick="respondInvite(this, false, 'Data Dreamers')" type="button">Decline</button>
-          <button class="px-4 py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md shadow-sm transition-all" onclick="respondInvite(this, true, 'Data Dreamers')" type="button">Accept</button>
+          <button class="px-4 py-2 rounded-lg bg-surface-container-low text-error hover:bg-error-container hover:text-on-error-container font-label-md text-label-md transition-all" onclick="respondInvite(this, false, 'Data Dreamers')" type="button">{% trans "Decline" %}</button>
+          <button class="px-4 py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md shadow-sm transition-all" onclick="respondInvite(this, true, 'Data Dreamers')" type="button">{% trans "Accept" %}</button>
         </div>
       </div>
     </div>
@@ -378,33 +378,33 @@
   <div class="tab-pane hidden flex-col gap-space-xl" id="pane-requests">
     <div class="flex flex-col gap-space-sm">
       <div class="flex items-center justify-between">
-        <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Requests Sent by You</h3>
-        <span class="font-label-sm text-label-sm text-outline">Tracking your submitted applications</span>
+        <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">{% trans "Requests Sent by You" %}</h3>
+        <span class="font-label-sm text-label-sm text-outline">{% trans "Tracking your submitted applications" %}</span>
       </div>
       <div class="overflow-x-auto bg-surface-container-lowest rounded-xl shadow-sm">
-        <table class="w-full text-left font-body-sm text-body-sm">
+        <table class="w-full text-start font-body-sm text-body-sm">
           <thead class="bg-surface-container-low font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
             <tr>
-              <th class="py-3 px-space-md">Team</th><th class="py-3 px-space-md">Hackathon</th><th class="py-3 px-space-md">Date</th>
-              <th class="py-3 px-space-md">Leader</th><th class="py-3 px-space-md">Status</th><th class="py-3 px-space-md text-right">Action</th>
+              <th class="py-3 px-space-md">{% trans "Team" %}</th><th class="py-3 px-space-md">{% trans "Hackathon" %}</th><th class="py-3 px-space-md">{% trans "Date" %}</th>
+              <th class="py-3 px-space-md">{% trans "Leader" %}</th><th class="py-3 px-space-md">{% trans "Status" %}</th><th class="py-3 px-space-md text-end">{% trans "Action" %}</th>
             </tr>
           </thead>
           <tbody class="text-on-surface" id="sent-requests-body">
             <tr class="hover:bg-surface-container-low/50 transition-colors">
-              <td class="py-3.5 px-space-md font-semibold">CyberSentinels</td>
-              <td class="py-3.5 px-space-md text-on-surface-variant">FinTech Future</td>
+              <td class="py-3.5 px-space-md font-semibold">{% trans "CyberSentinels" %}</td>
+              <td class="py-3.5 px-space-md text-on-surface-variant">{% trans "FinTech Future" %}</td>
               <td class="py-3.5 px-space-md font-code-inline text-code-inline text-outline">2026-10-09</td>
-              <td class="py-3.5 px-space-md">Malek K.</td>
-              <td class="py-3.5 px-space-md"><span class="status-pill px-2 py-0.5 rounded-full bg-secondary-fixed/40 text-on-secondary-fixed font-label-sm text-label-sm font-semibold">Pending</span></td>
-              <td class="py-3.5 px-space-md text-right"><button class="text-error hover:underline font-label-sm text-label-sm" onclick="cancelRequest(this, 'CyberSentinels')" type="button">Cancel</button></td>
+              <td class="py-3.5 px-space-md">{% trans "Malek K." %}</td>
+              <td class="py-3.5 px-space-md"><span class="status-pill px-2 py-0.5 rounded-full bg-secondary-fixed/40 text-on-secondary-fixed font-label-sm text-label-sm font-semibold" data-status="pending">{% trans "Pending" %}</span></td>
+              <td class="py-3.5 px-space-md text-end"><button class="text-error hover:underline font-label-sm text-label-sm" onclick="cancelRequest(this, 'CyberSentinels')" type="button">{% trans "Cancel" %}</button></td>
             </tr>
             <tr class="hover:bg-surface-container-low/50 transition-colors">
-              <td class="py-3.5 px-space-md font-semibold">Quantum Leap</td>
-              <td class="py-3.5 px-space-md text-on-surface-variant">Global AI Sprint</td>
+              <td class="py-3.5 px-space-md font-semibold">{% trans "Quantum Leap" %}</td>
+              <td class="py-3.5 px-space-md text-on-surface-variant">{% trans "Global AI Sprint" %}</td>
               <td class="py-3.5 px-space-md font-code-inline text-code-inline text-outline">2026-10-05</td>
-              <td class="py-3.5 px-space-md">Nadia T.</td>
-              <td class="py-3.5 px-space-md"><span class="status-pill px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">Accepted</span></td>
-              <td class="py-3.5 px-space-md text-right"><span class="text-outline font-label-sm text-label-sm">Completed</span></td>
+              <td class="py-3.5 px-space-md">{% trans "Nadia T." %}</td>
+              <td class="py-3.5 px-space-md"><span class="status-pill px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">{% trans "Accepted" %}</span></td>
+              <td class="py-3.5 px-space-md text-end"><span class="text-outline font-label-sm text-label-sm">{% trans "Completed" %}</span></td>
             </tr>
           </tbody>
         </table>
@@ -414,46 +414,46 @@
     <div class="flex flex-col gap-space-sm">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
-          <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Incoming Join Requests</h3>
-          <span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-bold">Code Warriors</span>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">{% trans "Incoming Join Requests" %}</h3>
+          <span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-bold">{% trans "Code Warriors" %}</span>
         </div>
-        <span class="font-label-sm text-label-sm text-outline">You are reviewing as Team Leader</span>
+        <span class="font-label-sm text-label-sm text-outline">{% trans "You are reviewing as Team Leader" %}</span>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md" id="incoming-requests-grid">
         <div class="candidate-card p-space-lg bg-surface-container-lowest rounded-xl shadow-sm flex flex-col justify-between gap-space-md">
           <div class="flex flex-col gap-space-sm">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary font-label-md text-label-md font-bold flex items-center justify-center">LM</div>
-              <div class="flex flex-col"><span class="font-label-md text-label-md font-bold text-on-surface">Leila Mansour</span><span class="font-body-sm text-body-sm text-outline">Software Engineer • Applied 2h ago</span></div>
+              <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary font-label-md text-label-md font-bold flex items-center justify-center">{% trans "LM" %}</div>
+              <div class="flex flex-col"><span class="font-label-md text-label-md font-bold text-on-surface">{% trans "Leila Mansour" %}</span><span class="font-body-sm text-body-sm text-outline">{% trans "Software Engineer • Applied 2h ago" %}</span></div>
             </div>
             <p class="font-body-sm text-body-sm text-on-surface-variant">"Full-stack developer eager to build frontend dashboards and Django API endpoints for your AI Challenge pipeline."</p>
             <div class="flex flex-wrap gap-1.5">
-              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">React</span>
-              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">Django</span>
-              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">PostgreSQL</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">{% trans "React" %}</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">{% trans "Django" %}</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">{% trans "PostgreSQL" %}</span>
             </div>
           </div>
           <div class="flex items-center gap-2 pt-space-xs">
-            <button class="flex-1 py-2 rounded-lg bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high font-label-md text-label-md transition-all" onclick="handleCandidate(this, false, 'Leila Mansour')" type="button">Decline</button>
-            <button class="flex-1 py-2 rounded-lg bg-tertiary text-on-tertiary hover:bg-tertiary-container font-label-md text-label-md shadow-sm transition-all" onclick="handleCandidate(this, true, 'Leila Mansour')" type="button">Accept Candidate</button>
+            <button class="flex-1 py-2 rounded-lg bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high font-label-md text-label-md transition-all" onclick="handleCandidate(this, false, 'Leila Mansour')" type="button">{% trans "Decline" %}</button>
+            <button class="flex-1 py-2 rounded-lg bg-tertiary text-on-tertiary hover:bg-tertiary-container font-label-md text-label-md shadow-sm transition-all" onclick="handleCandidate(this, true, 'Leila Mansour')" type="button">{% trans "Accept Candidate" %}</button>
           </div>
         </div>
         <div class="candidate-card p-space-lg bg-surface-container-lowest rounded-xl shadow-sm flex flex-col justify-between gap-space-md">
           <div class="flex flex-col gap-space-sm">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-secondary text-on-secondary font-label-md text-label-md font-bold flex items-center justify-center">KT</div>
-              <div class="flex flex-col"><span class="font-label-md text-label-md font-bold text-on-surface">Karim Trabelsi</span><span class="font-body-sm text-body-sm text-outline">ML Specialist • Applied 5h ago</span></div>
+              <div class="w-10 h-10 rounded-full bg-secondary text-on-secondary font-label-md text-label-md font-bold flex items-center justify-center">{% trans "KT" %}</div>
+              <div class="flex flex-col"><span class="font-label-md text-label-md font-bold text-on-surface">{% trans "Karim Trabelsi" %}</span><span class="font-body-sm text-body-sm text-outline">{% trans "ML Specialist • Applied 5h ago" %}</span></div>
             </div>
             <p class="font-body-sm text-body-sm text-on-surface-variant">"ML engineer with experience in YOLO vision pipelines and real-time tensor inference acceleration."</p>
             <div class="flex flex-wrap gap-1.5">
-              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">PyTorch</span>
-              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">Computer Vision</span>
-              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">FastAPI</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">{% trans "PyTorch" %}</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">{% trans "Computer Vision" %}</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-inline text-code-inline text-[11px]">{% trans "FastAPI" %}</span>
             </div>
           </div>
           <div class="flex items-center gap-2 pt-space-xs">
-            <button class="flex-1 py-2 rounded-lg bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high font-label-md text-label-md transition-all" onclick="handleCandidate(this, false, 'Karim Trabelsi')" type="button">Decline</button>
-            <button class="flex-1 py-2 rounded-lg bg-tertiary text-on-tertiary hover:bg-tertiary-container font-label-md text-label-md shadow-sm transition-all" onclick="handleCandidate(this, true, 'Karim Trabelsi')" type="button">Accept Candidate</button>
+            <button class="flex-1 py-2 rounded-lg bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high font-label-md text-label-md transition-all" onclick="handleCandidate(this, false, 'Karim Trabelsi')" type="button">{% trans "Decline" %}</button>
+            <button class="flex-1 py-2 rounded-lg bg-tertiary text-on-tertiary hover:bg-tertiary-container font-label-md text-label-md shadow-sm transition-all" onclick="handleCandidate(this, true, 'Karim Trabelsi')" type="button">{% trans "Accept Candidate" %}</button>
           </div>
         </div>
       </div>
@@ -465,45 +465,45 @@
 <div class="fixed inset-0 z-50 hidden items-center justify-center bg-inverse-surface/40 backdrop-blur-sm p-4" id="modal-create-team">
   <div class="bg-surface-container-lowest w-full max-w-xl rounded-2xl shadow-xl flex flex-col overflow-hidden">
     <div class="px-space-lg py-space-md bg-surface-container-low flex items-center justify-between">
-      <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[22px]">group_add</span><h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Create a New Team</h3></div>
+      <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[22px]">group_add</span><h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">{% trans "Create a New Team" %}</h3></div>
       <button class="p-1 rounded-md text-outline hover:text-on-surface transition-colors" onclick="closeModal('modal-create-team')" type="button"><span class="material-symbols-outlined text-[20px]">close</span></button>
     </div>
     {# Pour le backend : method="post" action="{% url 'team_create' %}" + {% csrf_token %} #}
     <form class="p-space-lg flex flex-col gap-space-md" id="form-create-team" onsubmit="handleCreateTeamSubmit(event)">
       <div class="flex flex-col gap-1.5">
-        <label class="font-label-md text-label-md text-on-surface font-semibold" for="ct-name">Team Name <span class="text-error">*</span></label>
-        <input class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline" id="ct-name" name="name" placeholder="e.g. Quantum Pioneers" required type="text"/>
+        <label class="font-label-md text-label-md text-on-surface font-semibold" for="ct-name">{% trans "Team Name" %} <span class="text-error">*</span></label>
+        <input class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline" id="ct-name" name="name" placeholder"{% trans "e.g. Quantum Pioneers" %}" required type="text"/>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
         <div class="flex flex-col gap-1.5">
-          <label class="font-label-md text-label-md text-on-surface font-semibold" for="ct-hack">Hackathon <span class="text-error">*</span></label>
+          <label class="font-label-md text-label-md text-on-surface font-semibold" for="ct-hack">{% trans "Hackathon" %} <span class="text-error">*</span></label>
           <select class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20" id="ct-hack" name="hackathon" required>
-            <option value="">Select a hackathon</option>
-            <option value="AI Innovation Challenge">AI Innovation Challenge</option>
-            <option value="GreenTech Hackathon">GreenTech Hackathon</option>
-            <option value="FinTech Future">FinTech Future</option>
+            <option value="">{% trans "Select a hackathon" %}</option>
+            <option value="AI Innovation Challenge">{% trans "AI Innovation Challenge" %}</option>
+            <option value="GreenTech Hackathon">{% trans "GreenTech Hackathon" %}</option>
+            <option value="FinTech Future">{% trans "FinTech Future" %}</option>
           </select>
         </div>
         <div class="flex flex-col gap-1.5">
-          <label class="font-label-md text-label-md text-on-surface font-semibold" for="ct-max">Max Members</label>
+          <label class="font-label-md text-label-md text-on-surface font-semibold" for="ct-max">{% trans "Max Members" %}</label>
           <input class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20" id="ct-max" max="5" min="2" name="max_members" type="number" value="4"/>
         </div>
       </div>
       <div class="flex flex-col gap-1.5">
-        <label class="font-label-md text-label-md text-on-surface font-semibold" for="ct-desc">Team Description</label>
-        <textarea class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline" id="ct-desc" name="description" placeholder="Briefly describe what your team aims to build and solve..." rows="3"></textarea>
+        <label class="font-label-md text-label-md text-on-surface font-semibold" for="ct-desc">{% trans "Team Description" %}</label>
+        <textarea class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline" id="ct-desc" name="description" placeholder"{% trans "Briefly describe what your team aims to build and solve..." %}" rows="3"></textarea>
       </div>
       <div class="flex flex-col gap-1.5">
-        <label class="font-label-md text-label-md text-on-surface font-semibold" for="ct-skills">Desired Skills (Comma-separated)</label>
-        <input class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline" id="ct-skills" name="skills" placeholder="e.g. Python, UI/UX, Docker, PyTorch" type="text"/>
+        <label class="font-label-md text-label-md text-on-surface font-semibold" for="ct-skills">{% trans "Desired Skills (Comma-separated)" %}</label>
+        <input class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline" id="ct-skills" name="skills" placeholder"{% trans "e.g. Python, UI/UX, Docker, PyTorch" %}" type="text"/>
       </div>
       <div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low">
-        <div class="flex flex-col"><span class="font-label-md text-label-md text-on-surface font-semibold">Recruiting Status</span><span class="font-body-sm text-body-sm text-outline">Allow other hackathon participants to request to join</span></div>
+        <div class="flex flex-col"><span class="font-label-md text-label-md text-on-surface font-semibold">{% trans "Recruiting Status" %}</span><span class="font-body-sm text-body-sm text-outline">{% trans "Allow other hackathon participants to request to join" %}</span></div>
         <input checked class="w-5 h-5 accent-primary cursor-pointer" id="ct-recruit" name="recruiting" type="checkbox"/>
       </div>
       <div class="pt-space-xs flex items-center justify-end gap-space-sm">
-        <button class="px-4 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all" onclick="closeModal('modal-create-team')" type="button">Cancel</button>
-        <button class="px-5 py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md shadow-sm transition-all" type="submit">Create Team</button>
+        <button class="px-4 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all" onclick="closeModal('modal-create-team')" type="button">{% trans "Cancel" %}</button>
+        <button class="px-5 py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md shadow-sm transition-all" type="submit">{% trans "Create Team" %}</button>
       </div>
     </form>
   </div>
@@ -514,13 +514,13 @@
   <div class="bg-surface-container-lowest w-full max-w-2xl rounded-2xl shadow-xl flex flex-col overflow-hidden">
     <div class="p-space-lg bg-surface-container-low flex items-start justify-between">
       <div class="flex items-center gap-space-md">
-        <div class="w-14 h-14 rounded-2xl bg-primary text-on-primary font-headline-md text-headline-md font-bold flex items-center justify-center shadow-md">CW</div>
+        <div class="w-14 h-14 rounded-2xl bg-primary text-on-primary font-headline-md text-headline-md font-bold flex items-center justify-center shadow-md">{% trans "CW" %}</div>
         <div class="flex flex-col gap-0.5">
           <div class="flex items-center gap-2">
-            <h2 class="font-headline-md text-headline-md font-bold text-on-surface">Code Warriors</h2>
-            <span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">Recruiting</span>
+            <h2 class="font-headline-md text-headline-md font-bold text-on-surface">{% trans "Code Warriors" %}</h2>
+            <span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">{% trans "Recruiting" %}</span>
           </div>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Associated Hackathon: <span class="font-semibold text-primary">AI Innovation Challenge 2026</span></p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Associated Hackathon:" %} <span class="font-semibold text-primary">{% trans "AI Innovation Challenge 2026" %}</span></p>
         </div>
       </div>
       <button class="p-1 rounded-md text-outline hover:text-on-surface transition-colors" onclick="closeModal('modal-view-team')" type="button"><span class="material-symbols-outlined text-[22px]">close</span></button>
@@ -528,52 +528,52 @@
     <div class="p-space-lg flex flex-col gap-space-lg max-h-[70vh] overflow-y-auto">
       <div class="p-4 rounded-xl bg-surface-container-low flex flex-col gap-2">
         <div class="flex justify-between items-center font-label-md text-label-md">
-          <span class="text-on-surface font-semibold flex items-center gap-1.5"><span class="material-symbols-outlined text-[18px] text-primary">rocket_launch</span>Sprint Completion</span>
-          <span class="text-primary font-bold">70% Finished</span>
+          <span class="text-on-surface font-semibold flex items-center gap-1.5"><span class="material-symbols-outlined text-[18px] text-primary">rocket_launch</span>{% trans "Sprint Completion" %}</span>
+          <span class="text-primary font-bold">70% {% trans "Finished" %}</span>
         </div>
         <div class="w-full h-2.5 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-primary rounded-full transition-all duration-500" style="width: 70%"></div></div>
         <div class="flex items-center justify-between font-label-sm text-label-sm text-outline pt-1">
-          <span>Repository: <a class="text-primary hover:underline" href="#">github.com/codewarriors/sprint-core</a></span>
-          <span>Target Pitch: In 48 hours</span>
+          <span>{% trans "Repository:" %} <a class="text-primary hover:underline" href="#">{% trans "github.com/codewarriors/sprint-core" %}</a></span>
+          <span>{% trans "Target Pitch: In 48 hours" %}</span>
         </div>
       </div>
       <div class="flex flex-col gap-space-sm">
-        <h4 class="font-label-md text-label-md text-outline uppercase tracking-wider">Active Team Members (3/5)</h4>
+        <h4 class="font-label-md text-label-md text-outline uppercase tracking-wider">{% trans "Active Team Members (3/5)" %}</h4>
         <div class="flex flex-col gap-2">
           <div class="p-3 rounded-lg bg-surface-container-low/60 flex items-center justify-between">
             <div class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-full bg-primary text-on-primary font-label-md text-label-md font-bold flex items-center justify-center">KW</div>
-              <div class="flex flex-col"><span class="font-label-md text-label-md font-bold text-on-surface">Kmar Weslati (You)</span><span class="font-body-sm text-body-sm text-outline">Lead Architect • Joined Oct 1</span></div>
+              <div class="w-9 h-9 rounded-full bg-primary text-on-primary font-label-md text-label-md font-bold flex items-center justify-center">{% trans "KW" %}</div>
+              <div class="flex flex-col"><span class="font-label-md text-label-md font-bold text-on-surface">{% trans "Kmar Weslati (You)" %}</span><span class="font-body-sm text-body-sm text-outline">{% trans "Lead Architect • Joined Oct 1" %}</span></div>
             </div>
-            <span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-semibold">Team Leader</span>
+            <span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-semibold">{% trans "Team Leader" %}</span>
           </div>
           <div class="p-3 rounded-lg bg-surface-container-low/60 flex items-center justify-between">
             <div class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-full bg-secondary text-on-secondary font-label-md text-label-md font-bold flex items-center justify-center">AA</div>
-              <div class="flex flex-col"><span class="font-label-md text-label-md font-bold text-on-surface">Abir Ayari</span><span class="font-body-sm text-body-sm text-outline">Full-Stack Engineer • Joined Oct 2</span></div>
+              <div class="w-9 h-9 rounded-full bg-secondary text-on-secondary font-label-md text-label-md font-bold flex items-center justify-center">{% trans "AA" %}</div>
+              <div class="flex flex-col"><span class="font-label-md text-label-md font-bold text-on-surface">{% trans "Abir Ayari" %}</span><span class="font-body-sm text-body-sm text-outline">{% trans "Full-Stack Engineer • Joined Oct 2" %}</span></div>
             </div>
-            <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Frontend Lead</span>
+            <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">{% trans "Frontend Lead" %}</span>
           </div>
           <div class="p-3 rounded-lg bg-surface-container-low/60 flex items-center justify-between">
             <div class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-full bg-tertiary text-on-tertiary font-label-md text-label-md font-bold flex items-center justify-center">ZB</div>
-              <div class="flex flex-col"><span class="font-label-md text-label-md font-bold text-on-surface">Zeineb Ben Ali</span><span class="font-body-sm text-body-sm text-outline">AI &amp; ML Specialist • Joined Oct 3</span></div>
+              <div class="w-9 h-9 rounded-full bg-tertiary text-on-tertiary font-label-md text-label-md font-bold flex items-center justify-center">{% trans "ZB" %}</div>
+              <div class="flex flex-col"><span class="font-label-md text-label-md font-bold text-on-surface">{% trans "Zeineb Ben Ali" %}</span><span class="font-body-sm text-body-sm text-outline">{% trans "AI &amp; ML Specialist • Joined Oct 3" %}</span></div>
             </div>
-            <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">AI Engineer</span>
+            <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">{% trans "AI Engineer" %}</span>
           </div>
         </div>
       </div>
       <div class="flex flex-col gap-2">
-        <h4 class="font-label-md text-label-md text-outline uppercase tracking-wider">Required Skills for Empty Slots</h4>
+        <h4 class="font-label-md text-label-md text-outline uppercase tracking-wider">{% trans "Required Skills for Empty Slots" %}</h4>
         <div class="flex flex-wrap gap-2">
-          <span class="px-2.5 py-1 rounded-md bg-surface-container-high text-on-surface font-code-inline text-code-inline text-xs">FastAPI</span>
-          <span class="px-2.5 py-1 rounded-md bg-surface-container-high text-on-surface font-code-inline text-code-inline text-xs">Docker / Kubernetes</span>
-          <span class="px-2.5 py-1 rounded-md bg-surface-container-high text-on-surface font-code-inline text-code-inline text-xs">UI/UX Prototype</span>
+          <span class="px-2.5 py-1 rounded-md bg-surface-container-high text-on-surface font-code-inline text-code-inline text-xs">{% trans "FastAPI" %}</span>
+          <span class="px-2.5 py-1 rounded-md bg-surface-container-high text-on-surface font-code-inline text-code-inline text-xs">{% trans "Docker / Kubernetes" %}</span>
+          <span class="px-2.5 py-1 rounded-md bg-surface-container-high text-on-surface font-code-inline text-code-inline text-xs">{% trans "UI/UX Prototype" %}</span>
         </div>
       </div>
     </div>
     <div class="p-space-md bg-surface-container-low flex justify-end">
-      <button class="px-5 py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all" onclick="closeModal('modal-view-team')" type="button">Close</button>
+      <button class="px-5 py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all" onclick="closeModal('modal-view-team')" type="button">{% trans "Close" %}</button>
     </div>
   </div>
 </div>
@@ -582,49 +582,49 @@
 <div class="fixed inset-0 z-50 hidden items-center justify-center bg-inverse-surface/40 backdrop-blur-sm p-4" id="modal-manage-members">
   <div class="bg-surface-container-lowest w-full max-w-xl rounded-2xl shadow-xl flex flex-col overflow-hidden">
     <div class="p-space-lg bg-surface-container-low flex items-center justify-between">
-      <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[22px]">manage_accounts</span><h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Manage Team Members</h3></div>
+      <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[22px]">manage_accounts</span><h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">{% trans "Manage Team Members" %}</h3></div>
       <button class="p-1 rounded-md text-outline hover:text-on-surface transition-colors" onclick="closeModal('modal-manage-members')" type="button"><span class="material-symbols-outlined text-[20px]">close</span></button>
     </div>
     <div class="p-space-lg flex flex-col gap-space-lg">
       <div class="flex flex-col gap-2">
-        <label class="font-label-md text-label-md text-on-surface font-semibold" for="input-invite-member">Invite via Email or GitHub Handle</label>
+        <label class="font-label-md text-label-md text-on-surface font-semibold" for="input-invite-member">{% trans "Invite via Email or GitHub Handle" %}</label>
         <div class="flex items-center gap-2">
-          <input class="flex-1 bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline" id="input-invite-member" placeholder="colleague@domain.com or @handle" type="text"/>
-          <button class="px-4 py-2.5 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all" onclick="sendQuickInvite()" type="button">Send Invite</button>
+          <input class="flex-1 bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline" id="input-invite-member" placeholder"{% trans "colleague@domain.com or @handle" %}" type="text"/>
+          <button class="px-4 py-2.5 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all" onclick="sendQuickInvite()" type="button">{% trans "Send Invite" %}</button>
         </div>
       </div>
       <div class="flex flex-col gap-space-sm">
-        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Current Squad</span>
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Current Squad" %}</span>
         <div class="flex flex-col gap-2" id="manage-roster-list">
           <div class="roster-row p-3 rounded-lg bg-surface-container-low flex items-center justify-between gap-3">
             <div class="flex items-center gap-2.5">
-              <div class="w-8 h-8 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm font-bold flex items-center justify-center">AA</div>
-              <div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">Abir Ayari</span><span class="font-body-sm text-body-sm text-outline">Frontend Lead</span></div>
+              <div class="w-8 h-8 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm font-bold flex items-center justify-center">{% trans "AA" %}</div>
+              <div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">{% trans "Abir Ayari" %}</span><span class="font-body-sm text-body-sm text-outline">{% trans "Frontend Lead" %}</span></div>
             </div>
             <div class="flex items-center gap-2">
-              <select class="bg-surface-container-lowest text-on-surface font-body-sm text-body-sm rounded px-2.5 py-1 focus:outline-none"><option selected>Member</option><option>Co-Leader</option></select>
-              <button class="p-1 text-error hover:bg-error-container rounded transition-colors" onclick="removeRosterMember(this, 'Abir Ayari')" title="Remove member" type="button"><span class="material-symbols-outlined text-[18px]">person_remove</span></button>
+              <select class="bg-surface-container-lowest text-on-surface font-body-sm text-body-sm rounded px-2.5 py-1 focus:outline-none"><option selected>{% trans "Member" %}</option><option>{% trans "Co-Leader" %}</option></select>
+              <button class="p-1 text-error hover:bg-error-container rounded transition-colors" onclick="removeRosterMember(this, 'Abir Ayari')" title="{% trans "Remove member" %}" type="button"><span class="material-symbols-outlined text-[18px]">person_remove</span></button>
             </div>
           </div>
           <div class="roster-row p-3 rounded-lg bg-surface-container-low flex items-center justify-between gap-3">
             <div class="flex items-center gap-2.5">
-              <div class="w-8 h-8 rounded-full bg-tertiary text-on-tertiary font-label-sm text-label-sm font-bold flex items-center justify-center">ZB</div>
-              <div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">Zeineb Ben Ali</span><span class="font-body-sm text-body-sm text-outline">AI Engineer</span></div>
+              <div class="w-8 h-8 rounded-full bg-tertiary text-on-tertiary font-label-sm text-label-sm font-bold flex items-center justify-center">{% trans "ZB" %}</div>
+              <div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">{% trans "Zeineb Ben Ali" %}</span><span class="font-body-sm text-body-sm text-outline">{% trans "AI Engineer" %}</span></div>
             </div>
             <div class="flex items-center gap-2">
-              <select class="bg-surface-container-lowest text-on-surface font-body-sm text-body-sm rounded px-2.5 py-1 focus:outline-none"><option selected>Member</option><option>Co-Leader</option></select>
-              <button class="p-1 text-error hover:bg-error-container rounded transition-colors" onclick="removeRosterMember(this, 'Zeineb Ben Ali')" title="Remove member" type="button"><span class="material-symbols-outlined text-[18px]">person_remove</span></button>
+              <select class="bg-surface-container-lowest text-on-surface font-body-sm text-body-sm rounded px-2.5 py-1 focus:outline-none"><option selected>{% trans "Member" %}</option><option>{% trans "Co-Leader" %}</option></select>
+              <button class="p-1 text-error hover:bg-error-container rounded transition-colors" onclick="removeRosterMember(this, 'Zeineb Ben Ali')" title="{% trans "Remove member" %}" type="button"><span class="material-symbols-outlined text-[18px]">person_remove</span></button>
             </div>
           </div>
         </div>
       </div>
       <div class="pt-2 p-3 rounded-xl bg-surface-container-high/60 flex items-center justify-between">
-        <div class="flex flex-col"><span class="font-label-md text-label-md text-on-surface font-semibold">Transfer Leadership</span><span class="font-body-sm text-body-sm text-outline">Pass administrative ownership to another active member</span></div>
-        <button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface hover:text-primary font-label-sm text-label-sm transition-all shadow-sm" onclick="showToast('Select a co-leader to transfer ownership.', 'info')" type="button">Transfer...</button>
+        <div class="flex flex-col"><span class="font-label-md text-label-md text-on-surface font-semibold">{% trans "Transfer Leadership" %}</span><span class="font-body-sm text-body-sm text-outline">{% trans "Pass administrative ownership to another active member" %}</span></div>
+        <button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface hover:text-primary font-label-sm text-label-sm transition-all shadow-sm" onclick="showToast('{% trans "Select a co-leader to transfer ownership." %}', 'info')" type="button">{% trans "Transfer..." %}</button>
       </div>
     </div>
     <div class="p-space-md bg-surface-container-low flex justify-end">
-      <button class="px-5 py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all" onclick="closeModal('modal-manage-members')" type="button">Done</button>
+      <button class="px-5 py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all" onclick="closeModal('modal-manage-members')" type="button">{% trans "Done" %}</button>
     </div>
   </div>
 </div>
@@ -632,8 +632,6 @@
 
 
 {% block extra_js %}
-{# verbatim : Django n'interprète pas les ${...} / {{ }} du JS #}
-{% verbatim %}
 <script>
   // ---------- HELPERS ----------
   const $ = (id) => document.getElementById(id);
@@ -648,7 +646,7 @@
     const invites = document.querySelectorAll("#invitations-container .invite-item").length;
     const incoming = document.querySelectorAll("#incoming-requests-grid .candidate-card").length;
     const pending = Array.from(document.querySelectorAll("#sent-requests-body .status-pill"))
-      .filter((p) => p.textContent.trim() === "Pending").length;
+      .filter((p) => p.dataset.status === "pending").length;
     const discover = Array.from(document.querySelectorAll(".discover-card")).filter((c) => !c.classList.contains("hidden")).length;
 
     $("kpi-my-teams").textContent = pad(teams);
@@ -724,7 +722,7 @@
 
     button.disabled = true;
     button.className = "w-full py-2.5 rounded-lg bg-surface-container-high text-on-surface-variant font-label-md text-label-md flex items-center justify-center gap-2 cursor-default";
-    button.innerHTML = '<span class="material-symbols-outlined text-[18px] text-tertiary">check</span><span>Request Pending</span>';
+    button.innerHTML = '<span class="material-symbols-outlined text-[18px] text-tertiary">check</span><span>{% trans "Request Pending" %}</span>';
 
     // Ajoute aussi la ligne dans le tableau « Requests Sent by You »
     const tr = document.createElement("tr");
@@ -734,13 +732,13 @@
       <td class="py-3.5 px-space-md text-on-surface-variant">${esc(card.dataset.hackathon)}</td>
       <td class="py-3.5 px-space-md font-code-inline text-code-inline text-outline">${new Date().toISOString().slice(0, 10)}</td>
       <td class="py-3.5 px-space-md">${esc(leader)}</td>
-      <td class="py-3.5 px-space-md"><span class="status-pill px-2 py-0.5 rounded-full bg-secondary-fixed/40 text-on-secondary-fixed font-label-sm text-label-sm font-semibold">Pending</span></td>
-      <td class="py-3.5 px-space-md text-right"><button class="text-error hover:underline font-label-sm text-label-sm" type="button">Cancel</button></td>`;
+      <td class="py-3.5 px-space-md"><span class="status-pill px-2 py-0.5 rounded-full bg-secondary-fixed/40 text-on-secondary-fixed font-label-sm text-label-sm font-semibold" data-status="pending">{% trans "Pending" %}</span></td>
+      <td class="py-3.5 px-space-md text-right"><button class="text-error hover:underline font-label-sm text-label-sm" type="button">{% trans "Cancel" %}</button></td>`;
     tr.querySelector("button").addEventListener("click", function () { cancelRequest(this, teamName); });
     $("sent-requests-body").prepend(tr);
 
     refreshCounters();
-    showToast(`Join request submitted to ${teamName}!`);
+    showToast(`{% trans "Join request submitted to" %} ${teamName}!`);
   }
 
   // ---------- INVITATIONS ----------
@@ -751,7 +749,7 @@
     setTimeout(() => {
       card.remove();
       refreshCounters();
-      showToast(accepted ? `Accepted invitation to ${teamName}!` : `Declined invitation from ${teamName}.`, accepted ? "success" : "info");
+      showToast(accepted ? `{% trans "Accepted invitation to" %} ${teamName}!` : `{% trans "Declined invitation from" %} ${teamName}.`, accepted ? "success" : "info");
     }, 200);
   }
 
@@ -763,7 +761,7 @@
     setTimeout(() => {
       row.remove();
       refreshCounters();
-      showToast(`Cancelled request to join ${teamName}.`, "info");
+      showToast(`{% trans "Cancelled request to join" %} ${teamName}.`, "info");
     }, 200);
   }
 
@@ -775,23 +773,23 @@
     setTimeout(() => {
       card.remove();
       refreshCounters();
-      showToast(accepted ? `${name} added to Code Warriors!` : `Declined ${name}'s application.`, accepted ? "success" : "info");
+      showToast(accepted ? `${name} {% trans "added to the team!" %}` : `{% trans "Declined application from" %} ${name}.`, accepted ? "success" : "info");
     }, 200);
   }
 
   // ---------- ROSTER ----------
   function removeRosterMember(button, name) {
-    if (!confirm(`Remove ${name} from the active team?`)) return;
+    if (!confirm(`{% trans "Remove" %} ${name} {% trans "from the active team?" %}`)) return;
     const row = button.closest(".roster-row");
-    if (row) { row.remove(); showToast(`${name} removed from squad roster.`, "info"); }
+    if (row) { row.remove(); showToast(`${name} {% trans "removed from squad roster." %}`, "info"); }
   }
 
   function sendQuickInvite() {
     const input = $("input-invite-member");
     const val = input.value.trim();
-    if (!val) { showToast("Please enter an email or handle.", "error"); return; }
+    if (!val) { showToast("{% trans "Please enter an email or handle." %}", "error"); return; }
     input.value = "";
-    showToast(`Invitation dispatched to ${val}!`);
+    showToast(`{% trans "Invitation dispatched to" %} ${val}!`);
   }
 
   // ---------- CRÉER UNE ÉQUIPE : lit vraiment le formulaire ----------
@@ -800,7 +798,7 @@
     const name = $("ct-name").value.trim();
     const hack = $("ct-hack").value;
     const max = parseInt($("ct-max").value, 10) || 4;
-    const desc = $("ct-desc").value.trim() || "No description yet.";
+    const desc = $("ct-desc").value.trim() || "{% trans "No description yet." %}";
     const recruiting = $("ct-recruit").checked;
     const initials = name.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
 
@@ -811,29 +809,29 @@
         <div class="flex items-center justify-between">
           <span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-semibold">${esc(hack)}</span>
           <div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full ${recruiting ? "bg-tertiary-fixed text-on-tertiary-fixed" : "bg-surface-container-high text-on-surface-variant"} font-label-sm text-label-sm">
-            <span>${recruiting ? "Recruiting" : "Closed"}</span>
+            <span>${recruiting ? "{% trans "Recruiting" %}" : "{% trans "Closed" %}"}</span>
           </div>
         </div>
         <div class="flex flex-col gap-1 mt-1">
           <div class="flex items-center justify-between">
             <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">${esc(name)}</h3>
-            <span class="px-2 py-0.5 rounded bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold">Team Leader</span>
+            <span class="px-2 py-0.5 rounded bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold">{% trans "Team Leader" %}</span>
           </div>
-          <p class="font-body-sm text-body-sm text-outline">Hackathon: <span class="text-on-surface font-medium">${esc(hack)}</span></p>
+          <p class="font-body-sm text-body-sm text-outline">{% trans "Hackathon:" %} <span class="text-on-surface font-medium">${esc(hack)}</span></p>
         </div>
         <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">${esc(desc)}</p>
         <div class="pt-2 flex items-center justify-between">
           <div class="w-8 h-8 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">${esc(initials)}</div>
-          <span class="font-code-inline text-code-inline text-on-surface-variant font-medium">1/${max} members</span>
+          <span class="font-code-inline text-code-inline text-on-surface-variant font-medium">1/${max} {% trans "members" %}</span>
         </div>
         <div class="pt-space-sm flex flex-col gap-1.5">
-          <div class="flex justify-between items-center font-label-sm text-label-sm"><span class="text-outline">Project Progress</span><span class="text-primary font-bold">0%</span></div>
+          <div class="flex justify-between items-center font-label-sm text-label-sm"><span class="text-outline">{% trans "Project Progress" %}</span><span class="text-primary font-bold">0%</span></div>
           <div class="w-full h-2 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: 0%"></div></div>
         </div>
       </div>
       <div class="pt-space-md mt-space-md flex items-center gap-space-sm">
-        <button class="flex-1 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all text-center" onclick="openModal('modal-view-team')" type="button">View Team</button>
-        <button class="flex-1 py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all text-center" onclick="openModal('modal-manage-members')" type="button">Manage Members</button>
+        <button class="flex-1 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all text-center" onclick="openModal('modal-view-team')" type="button">{% trans "View Team" %}</button>
+        <button class="flex-1 py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all text-center" onclick="openModal('modal-manage-members')" type="button">{% trans "Manage Members" %}</button>
       </div>`;
     $("my-teams-grid").prepend(card);
 
@@ -841,7 +839,7 @@
     closeModal("modal-create-team");
     activateTab("pane-my-teams");
     refreshCounters();
-    showToast("Team successfully created! You are designated as Leader.");
+    showToast("{% trans "Team successfully created! You are designated as Leader." %}");
   }
 
   // ---------- FILTRES (Discover) ----------
@@ -864,5 +862,4 @@
   // ---------- INIT ----------
   refreshCounters();
 </script>
-{% endverbatim %}
 {% endblock %}

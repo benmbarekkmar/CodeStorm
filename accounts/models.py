@@ -1,21 +1,26 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class User(AbstractUser):
     class Role(models.TextChoices):
-        PARTICIPANT = 'participant', 'Participant'
-        ORGANIZER = 'organizer', 'Organizer'
-        JURY = 'jury', 'Jury / Mentor'
+        PARTICIPANT = 'participant', _('Participant')
+        ORGANIZER = 'organizer', _('Organizer')
+        JURY = 'jury', _('Jury / Mentor')
 
     class Theme(models.TextChoices):
-        LIGHT = 'light', 'Light'
-        DARK = 'dark', 'Dark'
-        SYSTEM = 'system', 'System'
+        LIGHT = 'light', _('Light')
+        DARK = 'dark', _('Dark')
+        SYSTEM = 'system', _('System')
 
     class Density(models.TextChoices):
-        COMFORTABLE = 'comfortable', 'Comfortable'
-        COMPACT = 'compact', 'Compact'
+        COMFORTABLE = 'comfortable', _('Comfortable')
+        COMPACT = 'compact', _('Compact')
+
+    class Language(models.TextChoices):
+        EN = 'en', 'English'
+        FR = 'fr', 'Français'
 
     role = models.CharField(
         max_length=20,
@@ -32,7 +37,7 @@ class User(AbstractUser):
     theme = models.CharField(max_length=10, choices=Theme.choices, default=Theme.LIGHT)
     accent = models.CharField(max_length=10, default='purple')
     density = models.CharField(max_length=12, choices=Density.choices, default=Density.COMFORTABLE)
-    language = models.CharField(max_length=10, default='en-US')
+    language = models.CharField(max_length=10, choices=Language.choices, default=Language.EN)
 
     notif_in_app = models.BooleanField(default=True)
     notif_email = models.BooleanField(default=True)

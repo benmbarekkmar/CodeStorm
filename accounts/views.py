@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
+from django.utils.translation import gettext_lazy as _
 
 from accounts.forms import (
     AppearanceForm,
@@ -45,7 +46,7 @@ def profile_settings(request):
             personal_form = PersonalInfoForm(request.POST, request.FILES, instance=user, prefix='p')
             if personal_form.is_valid():
                 personal_form.save()
-                messages.success(request, 'Your personal information has been updated.')
+                messages.success(request, _('Your personal information has been updated.'))
                 return redirect(f'{request.path}{base_query}')
         elif section == 'password':
             active_tab = 'security'
@@ -53,21 +54,21 @@ def profile_settings(request):
             if password_form.is_valid():
                 password_form.save()
                 update_session_auth_hash(request, user)
-                messages.success(request, 'Your password has been changed successfully.')
+                messages.success(request, _('Your password has been changed successfully.'))
                 return redirect(f'{request.path}{base_query}')
         elif section == 'notifications':
             active_tab = 'notifications'
             notification_form = NotificationForm(request.POST, instance=user, prefix='n')
             if notification_form.is_valid():
                 notification_form.save()
-                messages.success(request, 'Your notification preferences have been saved.')
+                messages.success(request, _('Your notification preferences have been saved.'))
                 return redirect(f'{request.path}{base_query}')
         elif section == 'appearance':
             active_tab = 'appearance'
             appearance_form = AppearanceForm(request.POST, instance=user, prefix='a')
             if appearance_form.is_valid():
                 appearance_form.save()
-                messages.success(request, 'Your appearance settings have been applied.')
+                messages.success(request, _('Your appearance settings have been applied.'))
                 return redirect(f'{request.path}{base_query}')
 
     context = {

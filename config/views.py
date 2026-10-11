@@ -1,8 +1,16 @@
 from django.shortcuts import render
 
 
+ROLE_DASHBOARDS = {
+    'organizer': 'organizer_dashboard.html',
+    'jury': 'jury_dashboard.html',
+    'participant': 'participant_dashboard.html',
+}
+
+
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    template = ROLE_DASHBOARDS.get(getattr(request.user, 'role', None), 'dashboard.html')
+    return render(request, template)
 
 def hackathons(request):
     return render(request, "hackathons.html")

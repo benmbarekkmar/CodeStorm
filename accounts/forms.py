@@ -1,5 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
 from accounts.models import User
 
@@ -18,18 +19,18 @@ class RegisterForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['username'].label = 'Username'
+        self.fields['username'].label = _('Username')
         self.fields['username'].widget.attrs.update({'placeholder': 'kmar_mbarek', 'autocomplete': 'username'})
-        self.fields['first_name'].label = 'First name'
+        self.fields['first_name'].label = _('First name')
         self.fields['first_name'].widget.attrs.update({'placeholder': 'Kmar'})
-        self.fields['last_name'].label = 'Last name'
+        self.fields['last_name'].label = _('Last name')
         self.fields['last_name'].widget.attrs.update({'placeholder': 'Ben Mbarek'})
-        self.fields['email'].label = 'Email'
+        self.fields['email'].label = _('Email')
         self.fields['email'].widget.attrs.update({'placeholder': 'kmar@example.com', 'autocomplete': 'email'})
-        self.fields['role'].label = 'I am a'
+        self.fields['role'].label = _('I am a')
         self.fields['role'].empty_label = None
-        self.fields['password1'].label = 'Password'
-        self.fields['password2'].label = 'Confirm password'
+        self.fields['password1'].label = _('Password')
+        self.fields['password2'].label = _('Confirm password')
         self.fields['password1'].widget.attrs.update({'placeholder': '••••••••', 'autocomplete': 'new-password'})
         self.fields['password2'].widget.attrs.update({'placeholder': '••••••••', 'autocomplete': 'new-password'})
 
@@ -47,9 +48,8 @@ PROFILE_INPUT = (
 )
 
 LANGUAGE_CHOICES = [
-    ('en-US', 'English (United States)'),
-    ('fr-FR', 'Français (France)'),
-    ('ar-TN', 'العربية (Tunisie)'),
+    ('en', 'English'),
+    ('fr', 'Français'),
 ]
 
 
@@ -67,14 +67,14 @@ class PersonalInfoForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         placeholders = {
-            'first_name': 'Kmar',
-            'last_name': 'Ben Mbarek',
-            'email': 'kmar@example.com',
-            'username': 'kmar_mbarek',
-            'phone': '+216 22 123 456',
-            'institution': 'Polytechnic Institute of Technology',
-            'field_of_study': 'Computer Science & AI',
-            'bio': 'Tell the community what you build…',
+            'first_name': _('Your first name'),
+            'last_name': _('Your last name'),
+            'email': _('Your email address'),
+            'username': _('Choose a unique username'),
+            'phone': _('Your phone number'),
+            'institution': _('Your university or institution'),
+            'field_of_study': _('Your field of study or specialization'),
+            'bio': _('Write a short biography about yourself'),
         }
         for name, field in self.fields.items():
             field.help_text = None
@@ -89,17 +89,17 @@ class PersonalInfoForm(forms.ModelForm):
                 base = PROFILE_INPUT.replace('py-2.5', 'py-2 px-3 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-primary-container file:text-on-primary-container file:px-3 file:py-1.5 file:font-semibold')
             existing = widget.attrs.get('class', '')
             widget.attrs['class'] = f'{existing} {base}'.strip()
-        self.fields['institution'].label = 'University / Institution'
-        self.fields['field_of_study'].label = 'Field of study / Specialization'
+        self.fields['institution'].label = _('University / Institution')
+        self.fields['field_of_study'].label = _('Field of study / Specialization')
 
 
 class ChangePasswordForm(PasswordChangeForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         placeholders = {
-            'old_password': 'Current password',
-            'new_password1': 'Enter new password',
-            'new_password2': 'Re-type new password',
+            'old_password': _('Current password'),
+            'new_password1': _('Enter new password'),
+            'new_password2': _('Re-type new password'),
         }
         for name, field in self.fields.items():
             field.help_text = None
@@ -116,14 +116,14 @@ class NotificationForm(forms.ModelForm):
             'notif_deadlines', 'notif_eval', 'notif_prizes', 'notif_weekly',
         )
         labels = {
-            'notif_in_app': 'In-App Notifications',
-            'notif_email': 'Email Notifications',
-            'notif_hackathon': 'Hackathon Announcements',
-            'notif_team': 'Team Invitations',
-            'notif_deadlines': 'Project Deadline Reminders',
-            'notif_eval': 'Evaluation Results',
-            'notif_prizes': 'Prizes & Certificates',
-            'notif_weekly': 'Weekly Summary Email',
+            'notif_in_app': _('In-App Notifications'),
+            'notif_email': _('Email Notifications'),
+            'notif_hackathon': _('Hackathon Announcements'),
+            'notif_team': _('Team Invitations'),
+            'notif_deadlines': _('Project Deadline Reminders'),
+            'notif_eval': _('Evaluation Results'),
+            'notif_prizes': _('Prizes & Certificates'),
+            'notif_weekly': _('Weekly Summary Email'),
         }
 
     def __init__(self, *args, **kwargs):

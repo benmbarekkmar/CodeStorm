@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Jury Dashboard | CodeStorm" %}{% endblock %}
+{% block page_name %}dashboard{% endblock %}
+{% block breadcrumb_section %}{% trans "Dashboard" %}{% endblock %}
+{% block breadcrumb_page %}{% trans "Jury Overview" %}{% endblock %}
+
+{% block content %}
+<div class="flex flex-col w-full">
+<div class="w-full px-space-md md:px-space-lg py-space-md flex flex-col gap-space-lg max-w-[1440px] mx-auto">
+
+<!-- 1. Header -->
+<header class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+  <div class="flex flex-col">
+    <div class="flex items-center gap-2">
+      <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">{% trans "Jury &amp; Mentor Dashboard" %}</h1>
+      <span class="px-2.5 py-1 rounded-full bg-secondary-fixed/50 text-on-secondary-fixed font-label-sm text-label-sm">{% trans "Jury" %}</span>
+    </div>
+    <p class="font-body-md text-body-md text-on-surface-variant">{% trans "Review submitted projects, assign scores and complete your pending evaluations." %}</p>
+  </div>
+  <div class="flex flex-wrap items-center gap-space-sm sm:gap-space-md">
+    <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-lowest shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] text-on-surface-variant font-label-md text-label-md">
+      <span class="material-symbols-outlined text-[18px] text-primary">calendar_today</span>
+      <span>{% trans "Today, Oct 12, 2026" %}</span>
+    </div>
+    <button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container text-on-primary hover:opacity-95 transition-all font-label-md text-label-md shadow-[0_4px_12px_rgba(108,76,232,0.25)] active:scale-[0.98]" type="button">
+      <span class="material-symbols-outlined text-[18px]">rate_review</span>
+      <span>{% trans "Start Evaluating" %}</span>
+    </button>
+  </div>
+</header>
+
+<!-- 2. Statistics Cards -->
+<section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+  <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] hover:shadow-md transition-shadow flex flex-col justify-between">
+    <div class="flex items-center justify-between mb-2">
+      <span class="font-label-md text-label-md text-on-surface-variant">{% trans "Projects Assigned" %}</span>
+      <div class="w-9 h-9 rounded-lg bg-primary-fixed flex items-center justify-center text-on-primary-fixed-variant"><span class="material-symbols-outlined text-[20px]">assignment</span></div>
+    </div>
+    <div class="flex items-baseline justify-between mt-1">
+      <span class="font-headline-lg text-headline-lg text-on-surface">24</span>
+      <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded-full">{% trans "Across 3 events" %}</span>
+    </div>
+  </div>
+  <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] hover:shadow-md transition-shadow flex flex-col justify-between">
+    <div class="flex items-center justify-between mb-2">
+      <span class="font-label-md text-label-md text-on-surface-variant">{% trans "Pending Evaluations" %}</span>
+      <div class="w-9 h-9 rounded-lg bg-error-container flex items-center justify-center text-on-error-container"><span class="material-symbols-outlined text-[20px]">hourglass_top</span></div>
+    </div>
+    <div class="flex items-baseline justify-between mt-1">
+      <span class="font-headline-lg text-headline-lg text-on-surface">09</span>
+      <span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-error bg-error-container px-2 py-0.5 rounded-full"><span class="material-symbols-outlined text-[14px]">schedule</span>{% trans "2 overdue" %}</span>
+    </div>
+  </div>
+  <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] hover:shadow-md transition-shadow flex flex-col justify-between">
+    <div class="flex items-center justify-between mb-2">
+      <span class="font-label-md text-label-md text-on-surface-variant">{% trans "Completed" %}</span>
+      <div class="w-9 h-9 rounded-lg bg-tertiary-fixed/40 flex items-center justify-center text-on-tertiary-fixed-variant"><span class="material-symbols-outlined text-[20px]">task_alt</span></div>
+    </div>
+    <div class="flex items-baseline justify-between mt-1">
+      <span class="font-headline-lg text-headline-lg text-on-surface">15</span>
+      <span class="font-label-sm text-label-sm text-tertiary-container bg-tertiary-fixed/30 px-2 py-0.5 rounded-full">{% trans "This week" %}</span>
+    </div>
+  </div>
+  <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] hover:shadow-md transition-shadow flex flex-col justify-between">
+    <div class="flex items-center justify-between mb-2">
+      <span class="font-label-md text-label-md text-on-surface-variant">{% trans "Average Given Score" %}</span>
+      <div class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[20px]">star</span></div>
+    </div>
+    <div class="flex items-baseline justify-between mt-1">
+      <div class="flex items-baseline">
+        <span class="font-headline-lg text-headline-lg text-on-surface">84</span>
+        <span class="font-body-sm text-body-sm text-on-surface-variant ms-1">/100</span>
+      </div>
+      <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded-full">{% trans "15 reviews" %}</span>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Main Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+
+  <!-- LEFT COLUMN: projects to evaluate -->
+  <div class="lg:col-span-7 flex flex-col gap-space-lg">
+    <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+      <div class="flex items-center justify-between pb-space-xs">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[22px]">rate_review</span>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Projects to Evaluate" %}</h3>
+        </div>
+        <a class="font-label-sm text-label-sm text-primary hover:underline font-semibold" href="{% url 'evaluations:home' %}">{% trans "View all" %}</a>
+      </div>
+      <div class="flex flex-col gap-3">
+        <div class="group flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-12 h-12 rounded-lg bg-primary-fixed flex items-center justify-center text-primary flex-shrink-0 group-hover:scale-105 transition-transform"><span class="material-symbols-outlined text-[24px]">description</span></div>
+            <div class="flex flex-col min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{% trans "NeuralMatch" %}</span>
+                <span class="px-2 py-0.5 rounded-full bg-secondary-fixed/50 text-on-secondary-fixed font-label-sm text-label-sm">{% trans "AI Innovation Challenge" %}</span>
+              </div>
+              <div class="flex items-center gap-3 text-on-surface-variant font-body-sm text-body-sm mt-0.5">
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">groups</span>{% trans "Code Warriors" %}</span>
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span>{% trans "Due Oct 15, 2026" %}</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 sm:self-center self-end flex-shrink-0">
+            <span class="px-2.5 py-1 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-error animate-ping"></span>{% trans "Not started" %}</span>
+            <button class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary font-label-sm text-label-sm hover:opacity-95 transition-colors shadow-sm" type="button">{% trans "Evaluate" %}</button>
+          </div>
+        </div>
+
+        <div class="group flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-12 h-12 rounded-lg bg-tertiary-fixed/50 flex items-center justify-center text-tertiary flex-shrink-0 group-hover:scale-105 transition-transform"><span class="material-symbols-outlined text-[24px]">description</span></div>
+            <div class="flex flex-col min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{% trans "SolarShare" %}</span>
+                <span class="px-2 py-0.5 rounded-full bg-tertiary-fixed/40 text-tertiary-container font-label-sm text-label-sm">{% trans "GreenTech Hackathon" %}</span>
+              </div>
+              <div class="flex items-center gap-3 text-on-surface-variant font-body-sm text-body-sm mt-0.5">
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">groups</span>{% trans "Green Grid" %}</span>
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span>{% trans "Due Oct 17, 2026" %}</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 sm:self-center self-end flex-shrink-0">
+            <span class="px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm">{% trans "In progress" %}</span>
+            <button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm hover:bg-primary hover:text-on-primary transition-colors shadow-sm" type="button">{% trans "Continue" %}</button>
+          </div>
+        </div>
+
+        <div class="group flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary flex-shrink-0 group-hover:scale-105 transition-transform"><span class="material-symbols-outlined text-[24px]">description</span></div>
+            <div class="flex flex-col min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{% trans "LedgerFlow" %}</span>
+                <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm">{% trans "FinTech Future 2026" %}</span>
+              </div>
+              <div class="flex items-center gap-3 text-on-surface-variant font-body-sm text-body-sm mt-0.5">
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">groups</span>{% trans "Byte Builders" %}</span>
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">task_alt</span>{% trans "Evaluated" %}</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 sm:self-center self-end flex-shrink-0">
+            <span class="px-2.5 py-1 rounded-full bg-tertiary-fixed/30 text-tertiary-container font-label-sm text-label-sm">{% trans "Done" %}</span>
+            <button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm hover:bg-primary hover:text-on-primary transition-colors shadow-sm" type="button">{% trans "View" %}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div class="lg:col-span-5 flex flex-col gap-space-lg">
+
+    <!-- Pending evaluations -->
+    <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+      <div class="flex items-center gap-2 pb-space-xs">
+        <span class="material-symbols-outlined text-error text-[22px]">hourglass_top</span>
+        <h3 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Evaluations Pending" %}</h3>
+      </div>
+      <div class="flex flex-col gap-2.5">
+        <div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low">
+          <div class="flex flex-col">
+            <span class="font-label-md text-label-md text-on-surface font-semibold">{% trans "NeuralMatch" %}</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Rubric: Innovation, Impact" %}</span>
+          </div>
+          <span class="px-2.5 py-1 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-error animate-ping"></span>{% trans "3 days left" %}</span>
+        </div>
+        <div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low">
+          <div class="flex flex-col">
+            <span class="font-label-md text-label-md text-on-surface font-semibold">{% trans "SolarShare" %}</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Rubric: Feasibility, Design" %}</span>
+          </div>
+          <span class="px-2.5 py-1 rounded-full bg-secondary-fixed/50 text-on-secondary-fixed font-label-sm text-label-sm font-semibold">{% trans "5 days left" %}</span>
+        </div>
+        <div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low">
+          <div class="flex flex-col">
+            <span class="font-label-md text-label-md text-on-surface font-semibold">{% trans "HealthBridge" %}</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Rubric: Technical, Pitch" %}</span>
+          </div>
+          <span class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">{% trans "8 days left" %}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- My scores -->
+    <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+      <div class="flex items-center justify-between pb-space-xs">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[22px]">score</span>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Scores I Gave" %}</h3>
+        </div>
+        <a class="font-label-sm text-label-sm text-primary hover:underline font-semibold" href="{% url 'evaluations:home' %}">{% trans "View all" %}</a>
+      </div>
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low">
+          <div class="flex flex-col">
+            <span class="font-label-md text-label-md text-on-surface font-semibold">{% trans "LedgerFlow" %}</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">{% trans "FinTech Future 2026" %}</span>
+          </div>
+          <span class="font-code-inline text-code-inline font-bold text-on-surface">{% trans "92" %}</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded-lg bg-primary-fixed/40">
+          <div class="flex flex-col">
+            <span class="font-label-md text-label-md text-on-surface font-semibold">{% trans "EcoTrack" %}</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">{% trans "GreenTech Hackathon" %}</span>
+          </div>
+          <span class="font-code-inline text-code-inline font-bold text-primary">{% trans "87" %}</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low">
+          <div class="flex flex-col">
+            <span class="font-label-md text-label-md text-on-surface font-semibold">{% trans "PixelPal" %}</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">{% trans "AI Innovation Challenge" %}</span>
+          </div>
+          <span class="font-code-inline text-code-inline font-bold text-on-surface">{% trans "78" %}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Next step -->
+    <div class="rounded-xl bg-surface-container-low p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-3">
+      <div class="flex items-center gap-2 text-primary font-semibold">
+        <span class="material-symbols-outlined text-[20px]">lightbulb</span>
+        <span class="font-headline-sm text-headline-sm">{% trans "Your next step" %}</span>
+      </div>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "NeuralMatch is waiting for your review and its deadline is approaching. Submit your scores to keep the track on schedule." %}</p>
+      <div class="pt-1">
+        <a class="inline-flex items-center justify-center w-full px-4 py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md hover:opacity-95 transition-all shadow-sm" href="{% url 'evaluations:home' %}">{% trans "Evaluate Now" %}</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+{% endblock %}

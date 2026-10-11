@@ -1,22 +1,22 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}Profile & Settings – CodeStorm{% endblock %}
+{% block title %}{% trans "Profile & Settings – CodeStorm" %}{% endblock %}
 {% block page_name %}profile-settings{% endblock %}
-{% block breadcrumb_section %}System{% endblock %}
-{% block breadcrumb_page %}Profile & Settings{% endblock %}
+{% block breadcrumb_section %}{% trans "System" %}{% endblock %}
+{% block breadcrumb_page %}{% trans "Profile & Settings" %}{% endblock %}
 
 {% block content %}
 <div class="flex flex-col w-full">
 
 <!-- Toast Notification -->
-<div class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-4 py-3 rounded-xl bg-surface-container-lowest shadow-xl text-on-surface" id="toastNotification">
+<div class="fixed bottom-6 end-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-4 py-3 rounded-xl bg-surface-container-lowest shadow-xl text-on-surface" id="toastNotification">
   <div class="w-8 h-8 rounded-lg bg-tertiary/10 text-tertiary flex items-center justify-center" id="toastIconWrap">
     <span class="material-symbols-outlined text-[20px]" id="toastIcon">check_circle</span>
   </div>
-  <div class="flex flex-col pr-3">
-    <span class="font-label-md text-label-md font-semibold text-on-surface" id="toastTitle">Changes Saved</span>
-    <span class="font-body-sm text-body-sm text-on-surface-variant" id="toastMessage">Done.</span>
+  <div class="flex flex-col pe-3">
+    <span class="font-label-md text-label-md font-semibold text-on-surface" id="toastTitle">{% trans "Changes Saved" %}</span>
+    <span class="font-body-sm text-body-sm text-on-surface-variant" id="toastMessage">{% trans "Done." %}</span>
   </div>
   <button class="text-outline hover:text-on-surface p-1 rounded-md" onclick="hideToast()" type="button">
     <span class="material-symbols-outlined text-[16px]">close</span>
@@ -29,14 +29,14 @@
 <div class="px-space-md lg:px-space-lg pt-6 pb-4">
   <div class="flex flex-col gap-1">
     <div class="flex items-center gap-1.5 font-label-sm text-label-sm text-on-surface-variant">
-      <span>Dashboard</span>
-      <span class="material-symbols-outlined text-[14px] text-outline-variant">chevron_right</span>
-      <span class="text-primary font-semibold">Profile &amp; Settings</span>
+      <span>{% trans "Dashboard" %}</span>
+      <span class="material-symbols-outlined rtl:rotate-180 text-[14px] text-outline-variant">chevron_right</span>
+      <span class="text-primary font-semibold">{% trans "Profile &amp; Settings" %}</span>
     </div>
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mt-1">
       <div>
-        <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Profile &amp; Settings</h1>
-        <p class="font-body-md text-body-md text-on-surface-variant mt-0.5">Manage your personal identity, platform security, and workspace preferences.</p>
+        <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">{% trans "Profile &amp; Settings" %}</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-0.5">{% trans "Manage your personal identity, platform security, and workspace preferences." %}</p>
       </div>
       <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed/40 text-on-secondary-fixed font-label-sm text-label-sm">
         <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
@@ -52,7 +52,7 @@
 
   <!-- 1. Profile Overview Header Card -->
   <div class="relative overflow-hidden rounded-xl bg-surface-container-lowest p-6 shadow-sm anim-fade-up">
-    <div class="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-primary/5 blur-3xl pointer-events-none"></div>
+    <div class="absolute -end-16 -top-16 w-64 h-64 rounded-full bg-primary/5 blur-3xl pointer-events-none"></div>
     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
       <!-- User Info -->
       <div class="flex flex-col sm:flex-row items-start sm:items-center gap-5">
@@ -72,7 +72,7 @@
             {% if profile_user.is_staff %}
             <span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed-dim/30 text-on-tertiary-fixed font-label-sm text-label-sm flex items-center gap-1">
               <span class="material-symbols-outlined text-[14px]">verified</span>
-              Staff
+              {% trans "Staff" %}
             </span>
             {% endif %}
           </div>
@@ -103,7 +103,7 @@
           </div>
           <div class="flex flex-col">
             <span class="font-headline-sm text-headline-sm leading-none font-bold text-on-surface">{{ profile_user.profile_completion }}%</span>
-            <span class="font-label-sm text-label-sm text-on-surface-variant">Complete</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant">{% trans "Complete" %}</span>
           </div>
         </div>
         <div class="flex items-center gap-2 p-2 px-3.5 rounded-xl bg-surface-container-low">
@@ -112,7 +112,7 @@
           </div>
           <div class="flex flex-col">
             <span class="font-headline-sm text-headline-sm leading-none font-bold text-on-surface">{{ profile_user.get_role_display }}</span>
-            <span class="font-label-sm text-label-sm text-on-surface-variant">Role</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant">{% trans "Role" %}</span>
           </div>
         </div>
       </div>
@@ -122,16 +122,16 @@
   <!-- 2. Navigation Tabs -->
   <div class="bg-surface-container-low p-1.5 rounded-xl flex flex-wrap items-center gap-1 shadow-sm">
     <button class="tab-btn flex-1 min-w-[140px] flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg font-label-md text-label-md transition-all {% if active_tab == 'personal' %}bg-surface-container-lowest font-semibold text-primary shadow-sm{% else %}text-on-surface-variant hover:text-on-surface{% endif %}" id="tabBtn-personal" onclick="switchSettingsTab('personal')" type="button">
-      <span class="material-symbols-outlined text-[18px]">person</span><span>Personal Information</span>
+      <span class="material-symbols-outlined text-[18px]">person</span><span>{% trans "Personal Information" %}</span>
     </button>
     <button class="tab-btn flex-1 min-w-[140px] flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg font-label-md text-label-md transition-all {% if active_tab == 'security' %}bg-surface-container-lowest font-semibold text-primary shadow-sm{% else %}text-on-surface-variant hover:text-on-surface{% endif %}" id="tabBtn-security" onclick="switchSettingsTab('security')" type="button">
-      <span class="material-symbols-outlined text-[18px]">lock_reset</span><span>Account Security</span>
+      <span class="material-symbols-outlined text-[18px]">lock_reset</span><span>{% trans "Account Security" %}</span>
     </button>
     <button class="tab-btn flex-1 min-w-[140px] flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg font-label-md text-label-md transition-all {% if active_tab == 'notifications' %}bg-surface-container-lowest font-semibold text-primary shadow-sm{% else %}text-on-surface-variant hover:text-on-surface{% endif %}" id="tabBtn-notifications" onclick="switchSettingsTab('notifications')" type="button">
-      <span class="material-symbols-outlined text-[18px]">notifications_active</span><span>Notifications</span>
+      <span class="material-symbols-outlined text-[18px]">notifications_active</span><span>{% trans "Notifications" %}</span>
     </button>
     <button class="tab-btn flex-1 min-w-[140px] flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg font-label-md text-label-md transition-all {% if active_tab == 'appearance' %}bg-surface-container-lowest font-semibold text-primary shadow-sm{% else %}text-on-surface-variant hover:text-on-surface{% endif %}" id="tabBtn-appearance" onclick="switchSettingsTab('appearance')" type="button">
-      <span class="material-symbols-outlined text-[18px]">palette</span><span>Appearance</span>
+      <span class="material-symbols-outlined text-[18px]">palette</span><span>{% trans "Appearance" %}</span>
     </button>
   </div>
 
@@ -142,12 +142,12 @@
       <input type="hidden" name="section" value="personal"/>
       <div class="flex items-center justify-between gap-4 pb-4 border-b border-outline-variant/30">
         <div>
-          <h2 class="font-headline-sm text-headline-sm text-on-surface">Personal Information</h2>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Update your public profile and hackathon contact details.</p>
+          <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Personal Information" %}</h2>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Update your public profile and hackathon contact details." %}</p>
         </div>
         <button id="editProfileBtn" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-primary/30 text-primary font-label-md text-label-md font-semibold hover:bg-primary/5 hover:border-primary/50 active:scale-[.98] transition-all" onclick="toggleProfileEdit(true)" type="button">
           <span class="material-symbols-outlined text-[18px]">edit_square</span>
-          Edit Profile
+          {% trans "Edit Profile" %}
         </button>
       </div>
 
@@ -159,49 +159,49 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div class="flex flex-col gap-1.5">
-          <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.first_name.id_for_label }}">First Name <span class="text-error">*</span></label>
+          <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.first_name.id_for_label }}">{% trans "First Name" %} <span class="text-error">*</span></label>
           {{ personal_form.first_name }}{% include "partials/_field_errors.html" with field=personal_form.first_name %}
         </div>
         <div class="flex flex-col gap-1.5">
-          <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.last_name.id_for_label }}">Last Name <span class="text-error">*</span></label>
+          <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.last_name.id_for_label }}">{% trans "Last Name" %} <span class="text-error">*</span></label>
           {{ personal_form.last_name }}{% include "partials/_field_errors.html" with field=personal_form.last_name %}
         </div>
         <div class="flex flex-col gap-1.5">
-          <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.email.id_for_label }}">Email Address <span class="text-error">*</span></label>
+          <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.email.id_for_label }}">{% trans "Email Address" %} <span class="text-error">*</span></label>
           {{ personal_form.email }}{% include "partials/_field_errors.html" with field=personal_form.email %}
         </div>
         <div class="flex flex-col gap-1.5">
-          <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.username.id_for_label }}">Username <span class="text-error">*</span></label>
+          <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.username.id_for_label }}">{% trans "Username" %} <span class="text-error">*</span></label>
           {{ personal_form.username }}{% include "partials/_field_errors.html" with field=personal_form.username %}
         </div>
         <div class="flex flex-col gap-1.5">
-          <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.phone.id_for_label }}">Phone Number</label>
+          <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.phone.id_for_label }}">{% trans "Phone Number" %}</label>
           {{ personal_form.phone }}{% include "partials/_field_errors.html" with field=personal_form.phone %}
         </div>
         <div class="flex flex-col gap-1.5">
-          <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.institution.id_for_label }}">University / Institution</label>
+          <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.institution.id_for_label }}">{% trans "University / Institution" %}</label>
           {{ personal_form.institution }}{% include "partials/_field_errors.html" with field=personal_form.institution %}
         </div>
         <div class="flex flex-col gap-1.5 md:col-span-2">
-          <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.field_of_study.id_for_label }}">Field of Study / Specialization</label>
+          <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.field_of_study.id_for_label }}">{% trans "Field of Study / Specialization" %}</label>
           {{ personal_form.field_of_study }}{% include "partials/_field_errors.html" with field=personal_form.field_of_study %}
         </div>
         <div class="flex flex-col gap-1.5 md:col-span-2">
           <div class="flex items-center justify-between">
-            <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.bio.id_for_label }}">Short Biography</label>
+            <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.bio.id_for_label }}">{% trans "Short Biography" %}</label>
             <span class="font-code-inline text-code-inline text-outline" id="bioCounter">{{ profile_user.bio|length }} / 250</span>
           </div>
           {{ personal_form.bio }}{% include "partials/_field_errors.html" with field=personal_form.bio %}
         </div>
         <div class="flex flex-col gap-1.5 md:col-span-2">
-          <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.avatar.id_for_label }}">Profile Avatar</label>
+          <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.avatar.id_for_label }}">{% trans "Profile Avatar" %}</label>
           <div class="flex items-center gap-4 p-4 rounded-xl bg-surface-container-low">
             <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-primary-container text-on-primary flex items-center justify-center font-semibold overflow-hidden shrink-0">
               {% if profile_user.avatar %}<img alt="" class="w-full h-full object-cover" src="{{ profile_user.avatar.url }}"/>{% else %}{{ profile_user.initials }}{% endif %}
             </div>
             <div class="flex flex-col gap-1">
               {{ personal_form.avatar }}
-              <span class="font-body-sm text-body-sm text-on-surface-variant">PNG, JPG or WEBP up to 5MB.</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "PNG, JPG or WEBP up to 5MB." %}</span>
             </div>
           </div>
           {% include "partials/_field_errors.html" with field=personal_form.avatar %}
@@ -209,9 +209,9 @@
       </div>
 
       <div class="flex items-center justify-end gap-3 pt-3 hidden" id="personalSubmitRow">
-        <a class="px-5 py-2.5 rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md hover:bg-surface-container transition-colors" href="{% url 'profile_settings' %}{% if request.GET.embed %}?embed=1{% endif %}" onclick="return cancelProfileEdit()" type="button">Cancel</a>
+        <a class="px-5 py-2.5 rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md hover:bg-surface-container transition-colors" href="{% url 'profile_settings' %}{% if request.GET.embed %}?embed=1{% endif %}" onclick="return cancelProfileEdit()" type="button">{% trans "Cancel" %}</a>
         <button class="px-6 py-2.5 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md font-semibold hover:opacity-95 shadow-sm transition-all flex items-center gap-2" type="submit">
-          <span class="material-symbols-outlined text-[18px]">check</span>Save Changes
+          <span class="material-symbols-outlined text-[18px]">check</span>{% trans "Save Changes" %}
         </button>
       </div>
     </form>
@@ -223,8 +223,8 @@
       {% csrf_token %}
       <input type="hidden" name="section" value="password"/>
       <div class="pb-2">
-        <h2 class="font-headline-sm text-headline-sm text-on-surface">Update Password</h2>
-        <p class="font-body-sm text-body-sm text-on-surface-variant">Ensure your account is protected with a strong, distinct passphrase.</p>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Update Password" %}</h2>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Ensure your account is protected with a strong, distinct passphrase." %}</p>
       </div>
 
       {% if password_form.non_field_errors %}
@@ -235,26 +235,26 @@
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
         <div class="flex flex-col gap-1.5">
-          <label class="font-label-md text-label-md text-on-surface" for="{{ password_form.old_password.id_for_label }}">Current Password</label>
+          <label class="font-label-md text-label-md text-on-surface" for="{{ password_form.old_password.id_for_label }}">{% trans "Current Password" %}</label>
           <div class="relative flex items-center">
             {{ password_form.old_password }}
-            <button class="absolute right-3 text-outline hover:text-on-surface p-1" onclick="togglePasswordVisibility('{{ password_form.old_password.id_for_label }}', this)" type="button"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+            <button class="absolute end-3 text-outline hover:text-on-surface p-1" onclick="togglePasswordVisibility('{{ password_form.old_password.id_for_label }}', this)" type="button"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
           </div>
           {% include "partials/_field_errors.html" with field=password_form.old_password %}
         </div>
         <div class="flex flex-col gap-1.5">
-          <label class="font-label-md text-label-md text-on-surface" for="{{ password_form.new_password1.id_for_label }}">New Password</label>
+          <label class="font-label-md text-label-md text-on-surface" for="{{ password_form.new_password1.id_for_label }}">{% trans "New Password" %}</label>
           <div class="relative flex items-center">
             {{ password_form.new_password1 }}
-            <button class="absolute right-3 text-outline hover:text-on-surface p-1" onclick="togglePasswordVisibility('{{ password_form.new_password1.id_for_label }}', this)" type="button"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+            <button class="absolute end-3 text-outline hover:text-on-surface p-1" onclick="togglePasswordVisibility('{{ password_form.new_password1.id_for_label }}', this)" type="button"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
           </div>
           {% include "partials/_field_errors.html" with field=password_form.new_password1 %}
         </div>
         <div class="flex flex-col gap-1.5">
-          <label class="font-label-md text-label-md text-on-surface" for="{{ password_form.new_password2.id_for_label }}">Confirm Password</label>
+          <label class="font-label-md text-label-md text-on-surface" for="{{ password_form.new_password2.id_for_label }}">{% trans "Confirm Password" %}</label>
           <div class="relative flex items-center">
             {{ password_form.new_password2 }}
-            <button class="absolute right-3 text-outline hover:text-on-surface p-1" onclick="togglePasswordVisibility('{{ password_form.new_password2.id_for_label }}', this)" type="button"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+            <button class="absolute end-3 text-outline hover:text-on-surface p-1" onclick="togglePasswordVisibility('{{ password_form.new_password2.id_for_label }}', this)" type="button"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
           </div>
           {% include "partials/_field_errors.html" with field=password_form.new_password2 %}
         </div>
@@ -263,22 +263,22 @@
       <!-- Password Strength Indicator -->
       <div class="p-4 rounded-xl bg-surface-container-low flex flex-col gap-3">
         <div class="flex items-center justify-between">
-          <span class="font-label-sm text-label-sm text-on-surface font-semibold">Password Strength: <span class="text-outline" id="strengthTextLabel">None</span></span>
+          <span class="font-label-sm text-label-sm text-on-surface font-semibold">{% trans "Password Strength:" %} <span class="text-outline" id="strengthTextLabel">{% trans "None" %}</span></span>
           <span class="font-code-inline text-code-inline text-on-surface-variant" id="strengthPercentage">0%</span>
         </div>
         <div class="w-full h-1.5 rounded-full bg-surface-container-highest overflow-hidden">
           <div class="h-full w-0 bg-outline transition-all duration-300" id="strengthProgressBar"></div>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-2 pt-1 font-label-sm text-label-sm">
-          <span class="flex items-center gap-1.5 text-outline" id="rule-length"><span class="material-symbols-outlined text-[15px]">radio_button_unchecked</span> ≥ 8 characters</span>
-          <span class="flex items-center gap-1.5 text-outline" id="rule-upper"><span class="material-symbols-outlined text-[15px]">radio_button_unchecked</span> Uppercase letter</span>
-          <span class="flex items-center gap-1.5 text-outline" id="rule-number"><span class="material-symbols-outlined text-[15px]">radio_button_unchecked</span> Number (0-9)</span>
-          <span class="flex items-center gap-1.5 text-outline" id="rule-symbol"><span class="material-symbols-outlined text-[15px]">radio_button_unchecked</span> Special character</span>
+          <span class="flex items-center gap-1.5 text-outline" id="rule-length"><span class="material-symbols-outlined text-[15px]">radio_button_unchecked</span> {% trans "≥ 8 characters" %}</span>
+          <span class="flex items-center gap-1.5 text-outline" id="rule-upper"><span class="material-symbols-outlined text-[15px]">radio_button_unchecked</span> {% trans "Uppercase letter" %}</span>
+          <span class="flex items-center gap-1.5 text-outline" id="rule-number"><span class="material-symbols-outlined text-[15px]">radio_button_unchecked</span> {% trans "Number (0-9)" %}</span>
+          <span class="flex items-center gap-1.5 text-outline" id="rule-symbol"><span class="material-symbols-outlined text-[15px]">radio_button_unchecked</span> {% trans "Special character" %}</span>
         </div>
       </div>
 
       <div class="flex items-center justify-end pt-1">
-        <button class="px-5 py-2.5 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md font-semibold hover:opacity-95 shadow-sm transition-opacity" type="submit">Update Password</button>
+        <button class="px-5 py-2.5 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md font-semibold hover:opacity-95 shadow-sm transition-opacity" type="submit">{% trans "Update Password" %}</button>
       </div>
     </form>
   </div>
@@ -289,19 +289,19 @@
       {% csrf_token %}
       <input type="hidden" name="section" value="notifications"/>
       <div>
-        <h2 class="font-headline-sm text-headline-sm text-on-surface">Notification Preferences</h2>
-        <p class="font-body-sm text-body-sm text-on-surface-variant">Choose which updates you receive during hackathon sprints.</p>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Notification Preferences" %}</h2>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Choose which updates you receive during hackathon sprints." %}</p>
       </div>
 
       <div class="flex flex-col gap-4">
-        <h3 class="font-label-md text-label-md font-semibold text-primary uppercase tracking-wider">Dispatch Channels</h3>
+        <h3 class="font-label-md text-label-md font-semibold text-primary uppercase tracking-wider">{% trans "Dispatch Channels" %}</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="flex items-center justify-between p-4 rounded-xl bg-surface-container-low">
             <div class="flex items-center gap-3">
               <span class="material-symbols-outlined text-primary text-[22px]">laptop</span>
               <div class="flex flex-col">
                 <span class="font-label-md text-label-md font-semibold text-on-surface">{{ notification_form.notif_in_app.label }}</span>
-                <span class="font-body-sm text-body-sm text-on-surface-variant">Push alerts in the top navigation bell.</span>
+                <span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Push alerts in the top navigation bell." %}</span>
               </div>
             </div>
             <label class="relative inline-flex items-center cursor-pointer">{{ notification_form.notif_in_app }}<span class="toggle-track"></span></label>
@@ -320,30 +320,30 @@
       </div>
 
       <div class="flex flex-col gap-4 pt-2">
-        <h3 class="font-label-md text-label-md font-semibold text-primary uppercase tracking-wider">Event &amp; Activity Notifications</h3>
+        <h3 class="font-label-md text-label-md font-semibold text-primary uppercase tracking-wider">{% trans "Event &amp; Activity Notifications" %}</h3>
         <div class="flex flex-col gap-3">
           <div class="flex items-center justify-between p-4 rounded-xl bg-surface-container-lowest shadow-sm hover:bg-surface-container-low transition-colors">
-            <div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">{{ notification_form.notif_hackathon.label }}</span><span class="font-body-sm text-body-sm text-on-surface-variant">Organizer updates, keynote times, schedule changes.</span></div>
+            <div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">{{ notification_form.notif_hackathon.label }}</span><span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Organizer updates, keynote times, schedule changes." %}</span></div>
             <label class="relative inline-flex items-center cursor-pointer">{{ notification_form.notif_hackathon }}<span class="toggle-track"></span></label>
           </div>
           <div class="flex items-center justify-between p-4 rounded-xl bg-surface-container-lowest shadow-sm hover:bg-surface-container-low transition-colors">
-            <div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">{{ notification_form.notif_team.label }}</span><span class="font-body-sm text-body-sm text-on-surface-variant">Member requests, roster changes, role assignments.</span></div>
+            <div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">{{ notification_form.notif_team.label }}</span><span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Member requests, roster changes, role assignments." %}</span></div>
             <label class="relative inline-flex items-center cursor-pointer">{{ notification_form.notif_team }}<span class="toggle-track"></span></label>
           </div>
           <div class="flex items-center justify-between p-4 rounded-xl bg-surface-container-lowest shadow-sm hover:bg-surface-container-low transition-colors">
-            <div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">{{ notification_form.notif_deadlines.label }}</span><span class="font-body-sm text-body-sm text-on-surface-variant">T-24h, T-6h and T-1h reminders before code freeze.</span></div>
+            <div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">{{ notification_form.notif_deadlines.label }}</span><span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "T-24h, T-6h and T-1h reminders before code freeze." %}</span></div>
             <label class="relative inline-flex items-center cursor-pointer">{{ notification_form.notif_deadlines }}<span class="toggle-track"></span></label>
           </div>
           <div class="flex items-center justify-between p-4 rounded-xl bg-surface-container-lowest shadow-sm hover:bg-surface-container-low transition-colors">
-            <div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">{{ notification_form.notif_eval.label }}</span><span class="font-body-sm text-body-sm text-on-surface-variant">Live jury score releases and judge feedback.</span></div>
+            <div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">{{ notification_form.notif_eval.label }}</span><span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Live jury score releases and judge feedback." %}</span></div>
             <label class="relative inline-flex items-center cursor-pointer">{{ notification_form.notif_eval }}<span class="toggle-track"></span></label>
           </div>
           <div class="flex items-center justify-between p-4 rounded-xl bg-surface-container-lowest shadow-sm hover:bg-surface-container-low transition-colors">
-            <div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">{{ notification_form.notif_prizes.label }}</span><span class="font-body-sm text-body-sm text-on-surface-variant">Winner announcements and bounty claim instructions.</span></div>
+            <div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">{{ notification_form.notif_prizes.label }}</span><span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Winner announcements and bounty claim instructions." %}</span></div>
             <label class="relative inline-flex items-center cursor-pointer">{{ notification_form.notif_prizes }}<span class="toggle-track"></span></label>
           </div>
           <div class="flex items-center justify-between p-4 rounded-xl bg-surface-container-lowest shadow-sm hover:bg-surface-container-low transition-colors">
-            <div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">{{ notification_form.notif_weekly.label }}</span><span class="font-body-sm text-body-sm text-on-surface-variant">Weekly developer roundup and community news.</span></div>
+            <div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">{{ notification_form.notif_weekly.label }}</span><span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Weekly developer roundup and community news." %}</span></div>
             <label class="relative inline-flex items-center cursor-pointer">{{ notification_form.notif_weekly }}<span class="toggle-track"></span></label>
           </div>
         </div>
@@ -351,7 +351,7 @@
 
       <div class="flex items-center justify-end gap-3 pt-4">
         <button class="px-6 py-2.5 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md font-semibold hover:opacity-95 shadow-sm transition-all flex items-center gap-2" type="submit">
-          <span class="material-symbols-outlined text-[18px]">check</span>Save Preferences
+          <span class="material-symbols-outlined text-[18px]">check</span>{% trans "Save Preferences" %}
         </button>
       </div>
     </form>
@@ -366,61 +366,61 @@
       {{ appearance_form.accent }}
       {{ appearance_form.density }}
       <div>
-        <h2 class="font-headline-sm text-headline-sm text-on-surface">Appearance &amp; Interface</h2>
-        <p class="font-body-sm text-body-sm text-on-surface-variant">Customize theme, accent color, density and language. Saved to your account.</p>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Appearance &amp; Interface" %}</h2>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Customize theme, accent color, density and language. Saved to your account." %}</p>
       </div>
 
       <div class="flex flex-col gap-3">
-        <label class="font-label-md text-label-md font-semibold text-on-surface">Theme Mode</label>
+        <label class="font-label-md text-label-md font-semibold text-on-surface">{% trans "Theme Mode" %}</label>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div class="theme-card cursor-pointer p-4 rounded-xl bg-surface-container-low transition-all flex flex-col gap-3" data-theme="light" onclick="selectTheme('light')">
             <div class="h-20 rounded-lg bg-white p-2.5 shadow-sm flex flex-col gap-1.5 overflow-hidden">
               <div class="h-2 w-12 bg-primary rounded-full"></div>
               <div class="flex gap-1.5 flex-1"><div class="w-6 h-full bg-surface-container-low rounded"></div><div class="flex-1 flex flex-col gap-1"><div class="h-2 w-full bg-surface-container rounded"></div><div class="h-2 w-3/4 bg-surface-container rounded"></div></div></div>
             </div>
-            <div class="flex items-center justify-between"><span class="font-label-md text-label-md font-semibold text-on-surface">Light Mode</span><span class="material-symbols-outlined text-primary text-[20px]" data-check="light">check_circle</span></div>
+            <div class="flex items-center justify-between"><span class="font-label-md text-label-md font-semibold text-on-surface">{% trans "Light Mode" %}</span><span class="material-symbols-outlined text-primary text-[20px]" data-check="light">check_circle</span></div>
           </div>
           <div class="theme-card cursor-pointer p-4 rounded-xl bg-surface-container-low transition-all flex flex-col gap-3" data-theme="dark" onclick="selectTheme('dark')">
             <div class="h-20 rounded-lg bg-inverse-surface p-2.5 shadow-sm flex flex-col gap-1.5 overflow-hidden">
               <div class="h-2 w-12 bg-primary-fixed-dim rounded-full"></div>
               <div class="flex gap-1.5 flex-1"><div class="w-6 h-full bg-white/10 rounded"></div><div class="flex-1 flex flex-col gap-1"><div class="h-2 w-full bg-white/10 rounded"></div><div class="h-2 w-3/4 bg-white/10 rounded"></div></div></div>
             </div>
-            <div class="flex items-center justify-between"><span class="font-label-md text-label-md font-semibold text-on-surface">Dark Mode</span><span class="material-symbols-outlined text-outline-variant text-[20px]" data-check="dark">radio_button_unchecked</span></div>
+            <div class="flex items-center justify-between"><span class="font-label-md text-label-md font-semibold text-on-surface">{% trans "Dark Mode" %}</span><span class="material-symbols-outlined text-outline-variant text-[20px]" data-check="dark">radio_button_unchecked</span></div>
           </div>
           <div class="theme-card cursor-pointer p-4 rounded-xl bg-surface-container-low transition-all flex flex-col gap-3" data-theme="system" onclick="selectTheme('system')">
             <div class="h-20 rounded-lg bg-gradient-to-r from-white to-inverse-surface p-2.5 shadow-sm flex items-center justify-center overflow-hidden"><span class="material-symbols-outlined text-on-surface-variant text-[24px]">devices</span></div>
-            <div class="flex items-center justify-between"><span class="font-label-md text-label-md font-semibold text-on-surface">System Default</span><span class="material-symbols-outlined text-outline-variant text-[20px]" data-check="system">radio_button_unchecked</span></div>
+            <div class="flex items-center justify-between"><span class="font-label-md text-label-md font-semibold text-on-surface">{% trans "System Default" %}</span><span class="material-symbols-outlined text-outline-variant text-[20px]" data-check="system">radio_button_unchecked</span></div>
           </div>
         </div>
       </div>
 
       <div class="flex flex-col gap-3 pt-2">
-        <label class="font-label-md text-label-md font-semibold text-on-surface">Platform Accent Color</label>
+        <label class="font-label-md text-label-md font-semibold text-on-surface">{% trans "Platform Accent Color" %}</label>
         <div class="flex flex-wrap items-center gap-4">
-          <button class="accent-btn flex items-center gap-2.5 px-4 py-2 rounded-xl transition-all" data-accent="purple" onclick="selectAccent('purple')" type="button"><span class="w-4 h-4 rounded-full bg-primary-container shadow-sm"></span><span class="font-label-md text-label-md font-semibold text-on-surface">Electric Purple</span></button>
-          <button class="accent-btn flex items-center gap-2.5 px-4 py-2 rounded-xl transition-all" data-accent="cyan" onclick="selectAccent('cyan')" type="button"><span class="w-4 h-4 rounded-full bg-secondary shadow-sm"></span><span class="font-label-md text-label-md text-on-surface">Vibrant Cyan</span></button>
-          <button class="accent-btn flex items-center gap-2.5 px-4 py-2 rounded-xl transition-all" data-accent="green" onclick="selectAccent('green')" type="button"><span class="w-4 h-4 rounded-full bg-tertiary shadow-sm"></span><span class="font-label-md text-label-md text-on-surface">Emerald Green</span></button>
-          <button class="accent-btn flex items-center gap-2.5 px-4 py-2 rounded-xl transition-all" data-accent="orange" onclick="selectAccent('orange')" type="button"><span class="w-4 h-4 rounded-full bg-[#f59e0b] shadow-sm"></span><span class="font-label-md text-label-md text-on-surface">Sunset Orange</span></button>
+          <button class="accent-btn flex items-center gap-2.5 px-4 py-2 rounded-xl transition-all" data-accent="purple" onclick="selectAccent('purple')" type="button"><span class="w-4 h-4 rounded-full bg-primary-container shadow-sm"></span><span class="font-label-md text-label-md font-semibold text-on-surface">{% trans "Electric Purple" %}</span></button>
+          <button class="accent-btn flex items-center gap-2.5 px-4 py-2 rounded-xl transition-all" data-accent="cyan" onclick="selectAccent('cyan')" type="button"><span class="w-4 h-4 rounded-full bg-secondary shadow-sm"></span><span class="font-label-md text-label-md text-on-surface">{% trans "Vibrant Cyan" %}</span></button>
+          <button class="accent-btn flex items-center gap-2.5 px-4 py-2 rounded-xl transition-all" data-accent="green" onclick="selectAccent('green')" type="button"><span class="w-4 h-4 rounded-full bg-tertiary shadow-sm"></span><span class="font-label-md text-label-md text-on-surface">{% trans "Emerald Green" %}</span></button>
+          <button class="accent-btn flex items-center gap-2.5 px-4 py-2 rounded-xl transition-all" data-accent="orange" onclick="selectAccent('orange')" type="button"><span class="w-4 h-4 rounded-full bg-[#f59e0b] shadow-sm"></span><span class="font-label-md text-label-md text-on-surface">{% trans "Sunset Orange" %}</span></button>
         </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5 pt-2">
         <div class="flex flex-col gap-2">
-          <label class="font-label-md text-label-md font-semibold text-on-surface">Interface Density</label>
+          <label class="font-label-md text-label-md font-semibold text-on-surface">{% trans "Interface Density" %}</label>
           <div class="flex items-center gap-3">
-            <button class="density-btn flex-1 py-2.5 px-4 rounded-lg transition-all flex items-center justify-center gap-2" data-density="comfortable" onclick="selectDensity('comfortable')" type="button"><span class="material-symbols-outlined text-[18px]">view_agenda</span>Comfortable</button>
-            <button class="density-btn flex-1 py-2.5 px-4 rounded-lg transition-all flex items-center justify-center gap-2" data-density="compact" onclick="selectDensity('compact')" type="button"><span class="material-symbols-outlined text-[18px]">view_compact</span>Compact</button>
+            <button class="density-btn flex-1 py-2.5 px-4 rounded-lg transition-all flex items-center justify-center gap-2" data-density="comfortable" onclick="selectDensity('comfortable')" type="button"><span class="material-symbols-outlined text-[18px]">view_agenda</span>{% trans "Comfortable" %}</button>
+            <button class="density-btn flex-1 py-2.5 px-4 rounded-lg transition-all flex items-center justify-center gap-2" data-density="compact" onclick="selectDensity('compact')" type="button"><span class="material-symbols-outlined text-[18px]">view_compact</span>{% trans "Compact" %}</button>
           </div>
         </div>
         <div class="flex flex-col gap-2">
-          <label class="font-label-md text-label-md font-semibold text-on-surface" for="{{ appearance_form.language.id_for_label }}">Display Language</label>
+          <label class="font-label-md text-label-md font-semibold text-on-surface" for="{{ appearance_form.language.id_for_label }}">{% trans "Display Language" %}</label>
           {{ appearance_form.language }}
         </div>
       </div>
 
       <div class="flex items-center justify-end gap-3 pt-2">
         <button class="px-6 py-2.5 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md font-semibold hover:opacity-95 shadow-sm transition-all flex items-center gap-2" type="submit">
-          <span class="material-symbols-outlined text-[18px]">done_all</span>Apply Appearance Settings
+          <span class="material-symbols-outlined text-[18px]">done_all</span>{% trans "Apply Appearance Settings" %}
         </button>
       </div>
     </form>
@@ -567,7 +567,7 @@
     rule(document.getElementById('rule-symbol'), hasSym);
     let score = (hasLen + hasUpper + hasNum + hasSym) * 25;
     bar.style.width = score + '%'; pct.textContent = score + '%';
-    const map = { 0: ['None','text-outline','bg-outline'], 25: ['Weak','text-error font-semibold','bg-error'], 50: ['Fair','text-[#f59e0b] font-semibold','bg-[#f59e0b]'], 75: ['Good','text-secondary font-semibold','bg-secondary'], 100: ['Strong','text-tertiary font-semibold','bg-tertiary'] };
+    const map = { 0: ["{% trans "None" %}",'text-outline','bg-outline'], 25: ["{% trans "Weak" %}",'text-error font-semibold','bg-error'], 50: ["{% trans "Fair" %}",'text-[#f59e0b] font-semibold','bg-[#f59e0b]'], 75: ["{% trans "Good" %}",'text-secondary font-semibold','bg-secondary'], 100: ["{% trans "Strong" %}",'text-tertiary font-semibold','bg-tertiary'] };
     const m = map[score]; label.textContent = m[0]; label.className = m[1]; bar.className = 'h-full transition-all duration-300 ' + m[2];
   }
   if (newPwd) newPwd.addEventListener('input', () => evaluatePasswordStrength(newPwd.value));
@@ -608,7 +608,7 @@
 
   // ---------- Flash messages -> toast ----------
   document.querySelectorAll('.flash-msg').forEach(el => {
-    showToast('Saved', el.dataset.message);
+    showToast("{% trans "Saved" %}", el.dataset.message);
     el.remove();
   });
 
@@ -619,6 +619,16 @@
       type: 'codestorm:theme',
       theme: h.dataset.theme, accent: h.dataset.accent, density: h.dataset.density
     }, '*');
+
+    // La langue est rendue côté serveur : si elle diffère de celle de la page
+    // parente (changement appliqué), on recharge toute l'application.
+    try {
+      const parentLang = window.parent.document.documentElement.getAttribute('lang');
+      const myLang = h.getAttribute('lang');
+      if (parentLang && myLang && parentLang !== myLang) {
+        window.parent.location.reload();
+      }
+    } catch (e) { /* cross-origin: ignorer */ }
   }
 </script>
 {% endblock %}

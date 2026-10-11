@@ -1,23 +1,24 @@
 {% extends "auth_base.html" %}
+{% load i18n %}
 
-{% block title %}Register | CodeStorm{% endblock %}
+{% block title %}{% trans "Register | CodeStorm" %}{% endblock %}
 
 {% block auth_content %}
 <div class="auth-card p-8 sm:p-9">
   <div class="flex flex-col gap-6 stagger">
     <div class="flex flex-col gap-1">
-      <h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Create an account</h2>
-      <p class="font-body-md text-body-md text-on-surface-variant">Join CodeStorm and launch your first hackathon.</p>
+      <h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">{% trans "Create an account" %}</h2>
+      <p class="font-body-md text-body-md text-on-surface-variant">{% trans "Join CodeStorm and launch your first hackathon." %}</p>
     </div>
 
     <!-- Login / Register tabs -->
     <div class="tabs-wrap bg-surface-container-low rounded-xl flex items-center p-1.5">
       <span class="tab-pill right"></span>
       <a href="{% url 'login' %}" class="relative z-10 flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors">
-        <span class="material-symbols-outlined text-[18px]">login</span> Login
+        <span class="material-symbols-outlined text-[18px]">login</span> {% trans "Login" %}
       </a>
       <span class="relative z-10 flex-1 flex items-center justify-center gap-2 py-2.5 px-4 font-label-md text-label-md font-semibold text-on-primary">
-        <span class="material-symbols-outlined text-[18px]">person_add</span> Register
+        <span class="material-symbols-outlined text-[18px]">person_add</span> {% trans "Register" %}
       </span>
     </div>
 
@@ -51,8 +52,8 @@
           <label for="{{ field.id_for_label }}" class="font-label-md text-label-md text-on-surface-variant">{{ field.label }}</label>
           <div class="relative group">
             {{ field }}
-            <button type="button" data-toggle-password="{{ field.id_for_label }}" aria-label="Show password"
-                    class="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-outline hover:text-on-surface transition-colors">
+            <button type="button" data-toggle-password="{{ field.id_for_label }}" aria-label"{% trans "Show password" %}"
+                    class="absolute end-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-outline hover:text-on-surface transition-colors">
               <span class="material-symbols-outlined text-[20px]">visibility</span>
             </button>
           </div>
@@ -64,15 +65,15 @@
             <div class="flex-1 h-1.5 rounded-full bg-surface-container-high overflow-hidden">
               <div id="pwdMeterBar" class="h-full w-0 rounded-full transition-all duration-300 bg-error"></div>
             </div>
-            <span id="pwdMeterLabel" class="font-label-sm text-label-sm text-outline">Strength</span>
+            <span id="pwdMeterLabel" class="font-label-sm text-label-sm text-outline">{% trans "Strength" %}</span>
           </div>
           <details class="font-body-sm text-body-sm text-on-surface-variant">
-            <summary class="cursor-pointer text-primary font-semibold">Password requirements</summary>
-            <ul class="mt-1 pl-4 list-disc flex flex-col gap-0.5">
-              <li>At least 8 characters</li>
-              <li>Not entirely numeric</li>
-              <li>Not too similar to your username or email</li>
-              <li>Not a commonly used password</li>
+            <summary class="cursor-pointer text-primary font-semibold">{% trans "Password requirements" %}</summary>
+            <ul class="mt-1 ps-4 list-disc flex flex-col gap-0.5">
+              <li>{% trans "At least 8 characters" %}</li>
+              <li>{% trans "Not entirely numeric" %}</li>
+              <li>{% trans "Not too similar to your username or email" %}</li>
+              <li>{% trans "Not a commonly used password" %}</li>
             </ul>
           </details>
           {% endif %}
@@ -82,13 +83,13 @@
 
       <button type="submit" id="registerSubmit"
               class="cta-btn w-full flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-primary-container text-on-primary font-label-md text-label-md rounded-lg py-3.5 shadow-md">
-        <span class="material-symbols-outlined text-[20px] btn-icon">person_add</span> <span class="btn-label">Create my account</span>
+        <span class="material-symbols-outlined text-[20px] btn-icon">person_add</span> <span class="btn-label">{% trans "Create my account" %}</span>
       </button>
     </form>
 
     <p class="font-body-sm text-body-sm text-on-surface-variant text-center">
-      Already have an account?
-      <a href="{% url 'login' %}" class="text-primary font-semibold hover:underline">Sign in</a>
+      {% trans "Already have an account?" %}
+      <a href="{% url 'login' %}" class="text-primary font-semibold hover:underline">{% trans "Sign in" %}</a>
     </p>
   </div>
 </div>
@@ -140,7 +141,7 @@
     btn.disabled = true;
     btn.querySelector('.btn-icon').textContent = 'progress_activity';
     btn.querySelector('.btn-icon').classList.add('animate-spin');
-    btn.querySelector('.btn-label').textContent = 'Creating account…';
+    btn.querySelector('.btn-label').textContent = "{% trans "Creating account…" %}";
   });
 </script>
 {% endblock %}

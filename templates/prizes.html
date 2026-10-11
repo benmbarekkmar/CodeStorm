@@ -1,10 +1,10 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}Prizes & Leaderboard – CodeStorm{% endblock %}
+{% block title %}{% trans "Prizes & Leaderboard – CodeStorm" %}{% endblock %}
 {% block page_name %}prizes-leaderboard{% endblock %}
-{% block breadcrumb_section %}Review & Scoring{% endblock %}
-{% block breadcrumb_page %}Prizes & Leaderboard{% endblock %}
+{% block breadcrumb_section %}{% trans "Review & Scoring" %}{% endblock %}
+{% block breadcrumb_page %}{% trans "Prizes & Leaderboard" %}{% endblock %}
 
 {% block content %}
 <div class="flex flex-col w-full">
@@ -17,28 +17,28 @@
     <div class="flex flex-col gap-space-xs">
       <div class="flex items-center gap-2 flex-wrap">
         <span class="font-label-sm text-label-sm text-outline flex items-center gap-1">
-          <span>Dashboard</span>
-          <span class="material-symbols-outlined text-xs">chevron_right</span>
-          <span class="text-on-surface font-semibold">Prizes &amp; Leaderboard</span>
+          <span>{% trans "Dashboard" %}</span>
+          <span class="material-symbols-outlined rtl:rotate-180 text-xs">chevron_right</span>
+          <span class="text-on-surface font-semibold">{% trans "Prizes &amp; Leaderboard" %}</span>
         </span>
         <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold tracking-wide uppercase">
           <span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
-          FINAL ROUND :: PRIZE ALLOCATION &amp; AWARDS
+          {% trans "FINAL ROUND :: PRIZE ALLOCATION &amp; AWARDS" %}
         </span>
       </div>
-      <h1 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">Prizes &amp; Leaderboard</h1>
+      <h1 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">{% trans "Prizes &amp; Leaderboard" %}</h1>
       <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
-        Celebrate innovation, recognize outstanding teams, and track hackathon rankings across cohorts.
+        {% trans "Celebrate innovation, recognize outstanding teams, and track hackathon rankings across cohorts." %}
       </p>
     </div>
     <div class="flex items-center gap-space-sm flex-shrink-0">
       <button class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md font-semibold shadow-sm hover:bg-surface-container-low transition-colors" id="btnExportResults" type="button">
         <span class="material-symbols-outlined text-base leading-none">download</span>
-        <span>Export Results</span>
+        <span>{% trans "Export Results" %}</span>
       </button>
       <button class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold shadow-sm hover:opacity-95 transition-opacity" id="btnOpenAddPrize" type="button">
         <span class="material-symbols-outlined text-base leading-none">add_circle</span>
-        <span>+ Add Prize</span>
+        <span>{% trans "+ Add Prize" %}</span>
       </button>
     </div>
   </div>
@@ -47,9 +47,9 @@
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
     <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between gap-space-md">
       <div class="flex flex-col">
-        <span class="font-label-sm text-label-sm text-outline tracking-wider font-semibold uppercase">Total Prize Pool</span>
+        <span class="font-label-sm text-label-sm text-outline tracking-wider font-semibold uppercase">{% trans "Total Prize Pool" %}</span>
         <span class="font-headline-lg text-headline-lg font-bold text-on-surface mt-1">$15,000</span>
-        <span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Across 6 active hackathons</span>
+        <span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">{% trans "Across 6 active hackathons" %}</span>
       </div>
       <div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center flex-shrink-0 text-primary">
         <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
@@ -57,9 +57,9 @@
     </div>
     <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between gap-space-md">
       <div class="flex flex-col">
-        <span class="font-label-sm text-label-sm text-outline tracking-wider font-semibold uppercase">Available Prizes</span>
+        <span class="font-label-sm text-label-sm text-outline tracking-wider font-semibold uppercase">{% trans "Available Prizes" %}</span>
         <span class="font-headline-lg text-headline-lg font-bold text-on-surface mt-1">08</span>
-        <span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Ready for allocation</span>
+        <span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">{% trans "Ready for allocation" %}</span>
       </div>
       <div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center flex-shrink-0 text-secondary">
         <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">featured_seasonal_and_gifts</span>
@@ -67,10 +67,10 @@
     </div>
     <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between gap-space-md">
       <div class="flex flex-col">
-        <span class="font-label-sm text-label-sm text-outline tracking-wider font-semibold uppercase">Awarded Prizes</span>
+        <span class="font-label-sm text-label-sm text-outline tracking-wider font-semibold uppercase">{% trans "Awarded Prizes" %}</span>
         <span class="font-headline-lg text-headline-lg font-bold text-on-surface mt-1">12</span>
         <span class="font-body-sm text-body-sm text-tertiary font-medium mt-0.5 flex items-center gap-1">
-          <span class="material-symbols-outlined text-xs">verified</span> Confirmed by jury
+          <span class="material-symbols-outlined text-xs">verified</span> {% trans "Confirmed by jury" %}
         </span>
       </div>
       <div class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center flex-shrink-0 text-tertiary">
@@ -79,9 +79,9 @@
     </div>
     <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between gap-space-md">
       <div class="flex flex-col">
-        <span class="font-label-sm text-label-sm text-outline tracking-wider font-semibold uppercase">Completed Hackathons</span>
+        <span class="font-label-sm text-label-sm text-outline tracking-wider font-semibold uppercase">{% trans "Completed Hackathons" %}</span>
         <span class="font-headline-lg text-headline-lg font-bold text-on-surface mt-1">06</span>
-        <span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Rankings finalized</span>
+        <span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">{% trans "Rankings finalized" %}</span>
       </div>
       <div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center flex-shrink-0 text-primary">
         <span class="material-symbols-outlined text-2xl">flag_circle</span>
@@ -93,31 +93,31 @@
   <div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md bg-surface-container-lowest p-2 rounded-xl shadow-sm">
     <div class="flex items-center gap-1 overflow-x-auto pb-1 md:pb-0" id="tabNav">
       <button class="tab-btn px-4 py-2 rounded-lg font-title-sm text-title-sm font-semibold flex items-center gap-2 bg-primary text-on-primary transition-all" data-tab-target="tabOverview" type="button">
-        <span>Overview &amp; Leaderboard</span>
-        <span class="px-2 py-0.5 rounded-full text-xs bg-primary-container text-on-primary">05 Teams</span>
+        <span>{% trans "Overview &amp; Leaderboard" %}</span>
+        <span class="px-2 py-0.5 rounded-full text-xs bg-primary-container text-on-primary">{% trans "05 Teams" %}</span>
       </button>
       <button class="tab-btn px-4 py-2 rounded-lg font-title-sm text-title-sm font-semibold flex items-center gap-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-all" data-tab-target="tabPrizes" type="button">
-        <span>Prize Management</span>
-        <span class="px-2 py-0.5 rounded-full text-xs bg-surface-container text-on-surface-variant">06 Prizes</span>
+        <span>{% trans "Prize Management" %}</span>
+        <span class="px-2 py-0.5 rounded-full text-xs bg-surface-container text-on-surface-variant">{% trans "06 Prizes" %}</span>
       </button>
       <button class="tab-btn px-4 py-2 rounded-lg font-title-sm text-title-sm font-semibold flex items-center gap-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-all" data-tab-target="tabCertificates" type="button">
-        <span>Certificates</span>
-        <span class="px-2 py-0.5 rounded-full text-xs bg-surface-container text-on-surface-variant">04 Issued</span>
+        <span>{% trans "Certificates" %}</span>
+        <span class="px-2 py-0.5 rounded-full text-xs bg-surface-container text-on-surface-variant">{% trans "04 Issued" %}</span>
       </button>
     </div>
     <div class="flex items-center gap-2">
       <div class="relative">
-        <select class="h-9 pl-3 pr-8 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm font-medium focus:outline-none appearance-none cursor-pointer" id="hackathonFilter">
-          <option value="all">AI Innovation Challenge (Global 2025)</option>
-          <option value="greentech">GreenTech Hackathon</option>
-          <option value="fintech">FinTech Future Sprint</option>
-          <option value="cyber">CyberSecure 2025</option>
+        <select class="h-9 ps-3 pe-8 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm font-medium focus:outline-none appearance-none cursor-pointer" id="hackathonFilter">
+          <option value="all">{% trans "AI Innovation Challenge (Global 2025)" %}</option>
+          <option value="greentech">{% trans "GreenTech Hackathon" %}</option>
+          <option value="fintech">{% trans "FinTech Future Sprint" %}</option>
+          <option value="cyber">{% trans "CyberSecure 2025" %}</option>
         </select>
-        <span class="material-symbols-outlined text-outline text-base absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none">expand_more</span>
+        <span class="material-symbols-outlined text-outline text-base absolute end-2.5 top-1/2 -translate-y-1/2 pointer-events-none">expand_more</span>
       </div>
       <div class="relative w-48 sm:w-60">
-        <span class="material-symbols-outlined text-outline text-base absolute left-2.5 top-1/2 -translate-y-1/2">search</span>
-        <input class="w-full h-9 pl-8 pr-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm placeholder:text-outline focus:outline-none" id="teamSearchInput" placeholder="Search teams..." type="text"/>
+        <span class="material-symbols-outlined text-outline text-base absolute start-2.5 top-1/2 -translate-y-1/2">search</span>
+        <input class="w-full h-9 ps-8 pe-3 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm placeholder:text-outline focus:outline-none" id="teamSearchInput" placeholder"{% trans "Search teams..." %}" type="text"/>
       </div>
     </div>
   </div>
@@ -130,35 +130,35 @@
 
       <!-- Rank 2 -->
       <div class="order-2 md:order-1 rounded-2xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col relative transition-all hover:shadow-md">
-        <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-sm">
+        <div class="absolute -top-3 start-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-sm">
           <span class="material-symbols-outlined text-sm leading-none" style="font-variation-settings: 'FILL' 1;">military_tech</span>
-          <span>RANK #2 · SILVER</span>
+          <span>{% trans "RANK #2 · SILVER" %}</span>
         </div>
         <div class="flex items-start justify-between mt-2">
           <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-surface-variant flex items-center justify-center font-bold text-on-surface-variant font-title-sm text-title-sm shadow-inner">CW</div>
+            <div class="w-11 h-11 rounded-xl bg-surface-variant flex items-center justify-center font-bold text-on-surface-variant font-title-sm text-title-sm shadow-inner">{% trans "CW" %}</div>
             <div class="flex flex-col">
               <div class="flex items-center gap-1.5">
-                <span class="font-title-md text-title-md font-bold text-on-surface">Code Warriors</span>
-                <span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed font-semibold">Finalist</span>
+                <span class="font-title-md text-title-md font-bold text-on-surface">{% trans "Code Warriors" %}</span>
+                <span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed font-semibold">{% trans "Finalist" %}</span>
               </div>
-              <span class="font-body-sm text-body-sm text-on-surface-variant">Project: SmartHealth AI</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Project: SmartHealth AI" %}</span>
             </div>
           </div>
-          <div class="text-right">
-            <div class="px-2.5 py-1 rounded-lg bg-surface-container font-code-inline text-code-inline font-bold text-primary">93.2 pts</div>
+          <div class="text-end">
+            <div class="px-2.5 py-1 rounded-lg bg-surface-container font-code-inline text-code-inline font-bold text-primary">{% trans "93.2 pts" %}</div>
           </div>
         </div>
         <div class="my-4 py-3 px-4 rounded-xl bg-surface-container-low flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
-          <span>Innovation: <strong class="text-on-surface font-semibold">9.4/10</strong></span>
-          <span>Technical: <strong class="text-on-surface font-semibold">9.1/10</strong></span>
+          <span>{% trans "Innovation:" %} <strong class="text-on-surface font-semibold">9.4/10</strong></span>
+          <span>{% trans "Technical:" %} <strong class="text-on-surface font-semibold">9.1/10</strong></span>
         </div>
         <div class="flex items-center justify-between pt-2">
           <div class="flex flex-col">
-            <span class="font-label-sm text-label-sm text-outline">Award Allocation</span>
+            <span class="font-label-sm text-label-sm text-outline">{% trans "Award Allocation" %}</span>
             <span class="font-label-md text-label-md font-bold text-secondary">Second Place ($3,000)</span>
           </div>
-          <button class="p-2 rounded-lg bg-surface-container-lowest text-primary hover:bg-surface-container transition-colors shadow-sm" onclick="previewCertificate('Code Warriors', 'AI Innovation Challenge', 'Second Place ($3,000)', 'Oct 12, 2026')" title="Preview Certificate" type="button">
+          <button class="p-2 rounded-lg bg-surface-container-lowest text-primary hover:bg-surface-container transition-colors shadow-sm" onclick="previewCertificate('Code Warriors', 'AI Innovation Challenge', 'Second Place ($3,000)', 'Oct 12, 2026')" title="{% trans "Preview Certificate" %}" type="button">
             <span class="material-symbols-outlined text-base">workspace_premium</span>
           </button>
         </div>
@@ -166,82 +166,82 @@
 
       <!-- Rank 1 -->
       <div class="order-1 md:order-2 rounded-2xl bg-surface-container-lowest p-space-lg shadow-md flex flex-col relative md:-translate-y-4 transition-all">
-        <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-surface-container-highest text-primary font-label-md text-label-md font-bold flex items-center gap-1.5 shadow-md">
+        <div class="absolute -top-4 start-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-surface-container-highest text-primary font-label-md text-label-md font-bold flex items-center gap-1.5 shadow-md">
           <span class="material-symbols-outlined text-base leading-none text-secondary" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
-          <span>GRAND CHAMPION · RANK #1</span>
+          <span>{% trans "GRAND CHAMPION · RANK #1" %}</span>
         </div>
         <div class="flex items-start justify-between mt-3">
           <div class="flex items-center gap-3">
-            <div class="w-14 h-14 rounded-2xl bg-primary text-on-primary flex items-center justify-center font-bold text-headline-sm shadow-md">PP</div>
+            <div class="w-14 h-14 rounded-2xl bg-primary text-on-primary flex items-center justify-center font-bold text-headline-sm shadow-md">{% trans "PP" %}</div>
             <div class="flex flex-col">
               <div class="flex items-center gap-2">
-                <span class="font-headline-sm text-headline-sm font-bold text-on-surface">Pixel Pioneers</span>
-                <span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed font-bold">Winner</span>
+                <span class="font-headline-sm text-headline-sm font-bold text-on-surface">{% trans "Pixel Pioneers" %}</span>
+                <span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed font-bold">{% trans "Winner" %}</span>
               </div>
-              <span class="font-body-md text-body-md text-on-surface-variant font-medium">Project: CampusConnect</span>
+              <span class="font-body-md text-body-md text-on-surface-variant font-medium">{% trans "Project: CampusConnect" %}</span>
             </div>
           </div>
-          <div class="text-right">
+          <div class="text-end">
             <div class="px-3 py-1.5 rounded-xl bg-primary-fixed text-on-primary-fixed font-code-inline text-code-inline font-bold text-base shadow-sm">96.5 / 100</div>
           </div>
         </div>
         <div class="my-5 py-3.5 px-4 rounded-xl bg-surface-container-low flex items-center justify-between font-label-sm text-label-sm text-on-surface">
           <div class="flex items-center gap-1.5">
             <span class="w-2 h-2 rounded-full bg-secondary"></span>
-            <span>Innovation: <strong>9.5/10</strong></span>
+            <span>{% trans "Innovation:" %} <strong>9.5/10</strong></span>
           </div>
           <div class="flex items-center gap-1.5">
             <span class="w-2 h-2 rounded-full bg-primary"></span>
-            <span>Technical: <strong>9.8/10</strong></span>
+            <span>{% trans "Technical:" %} <strong>9.8/10</strong></span>
           </div>
           <div class="flex items-center gap-1.5">
             <span class="w-2 h-2 rounded-full bg-tertiary"></span>
-            <span>UX/Impact: <strong>9.7/10</strong></span>
+            <span>{% trans "UX/Impact:" %} <strong>9.7/10</strong></span>
           </div>
         </div>
         <div class="flex items-center justify-between pt-1">
           <div class="flex flex-col">
-            <span class="font-label-sm text-label-sm text-outline">Secured Grand Prize</span>
+            <span class="font-label-sm text-label-sm text-outline">{% trans "Secured Grand Prize" %}</span>
             <span class="font-headline-sm text-headline-sm font-bold text-primary">First Place ($5,000 USD)</span>
           </div>
           <button class="px-3 py-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold flex items-center gap-1.5 shadow-sm hover:opacity-90" onclick="previewCertificate('Pixel Pioneers', 'AI Innovation Challenge', 'First Place Grand Champion ($5,000)', 'Oct 12, 2026')" type="button">
             <span class="material-symbols-outlined text-sm leading-none">workspace_premium</span>
-            <span>Certificate</span>
+            <span>{% trans "Certificate" %}</span>
           </button>
         </div>
       </div>
 
       <!-- Rank 3 -->
       <div class="order-3 rounded-2xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col relative transition-all hover:shadow-md">
-        <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-sm">
+        <div class="absolute -top-3 start-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-sm">
           <span class="material-symbols-outlined text-sm leading-none" style="font-variation-settings: 'FILL' 1;">military_tech</span>
-          <span>RANK #3 · BRONZE</span>
+          <span>{% trans "RANK #3 · BRONZE" %}</span>
         </div>
         <div class="flex items-start justify-between mt-2">
           <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-surface-variant flex items-center justify-center font-bold text-on-surface-variant font-title-sm text-title-sm shadow-inner">GI</div>
+            <div class="w-11 h-11 rounded-xl bg-surface-variant flex items-center justify-center font-bold text-on-surface-variant font-title-sm text-title-sm shadow-inner">{% trans "GI" %}</div>
             <div class="flex flex-col">
               <div class="flex items-center gap-1.5">
-                <span class="font-title-md text-title-md font-bold text-on-surface">Green Innovators</span>
-                <span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed font-semibold">Finalist</span>
+                <span class="font-title-md text-title-md font-bold text-on-surface">{% trans "Green Innovators" %}</span>
+                <span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed font-semibold">{% trans "Finalist" %}</span>
               </div>
-              <span class="font-body-sm text-body-sm text-on-surface-variant">Project: EcoTrack</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Project: EcoTrack" %}</span>
             </div>
           </div>
-          <div class="text-right">
-            <div class="px-2.5 py-1 rounded-lg bg-surface-container font-code-inline text-code-inline font-bold text-primary">90.8 pts</div>
+          <div class="text-end">
+            <div class="px-2.5 py-1 rounded-lg bg-surface-container font-code-inline text-code-inline font-bold text-primary">{% trans "90.8 pts" %}</div>
           </div>
         </div>
         <div class="my-4 py-3 px-4 rounded-xl bg-surface-container-low flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
-          <span>Innovation: <strong class="text-on-surface font-semibold">9.0/10</strong></span>
-          <span>Technical: <strong class="text-on-surface font-semibold">9.2/10</strong></span>
+          <span>{% trans "Innovation:" %} <strong class="text-on-surface font-semibold">9.0/10</strong></span>
+          <span>{% trans "Technical:" %} <strong class="text-on-surface font-semibold">9.2/10</strong></span>
         </div>
         <div class="flex items-center justify-between pt-2">
           <div class="flex flex-col">
-            <span class="font-label-sm text-label-sm text-outline">Award Allocation</span>
+            <span class="font-label-sm text-label-sm text-outline">{% trans "Award Allocation" %}</span>
             <span class="font-label-md text-label-md font-bold text-secondary">Third Place ($1,500)</span>
           </div>
-          <button class="p-2 rounded-lg bg-surface-container-lowest text-primary hover:bg-surface-container transition-colors shadow-sm" onclick="previewCertificate('Green Innovators', 'AI Innovation Challenge', 'Third Place ($1,500)', 'Oct 12, 2026')" title="Preview Certificate" type="button">
+          <button class="p-2 rounded-lg bg-surface-container-lowest text-primary hover:bg-surface-container transition-colors shadow-sm" onclick="previewCertificate('Green Innovators', 'AI Innovation Challenge', 'Third Place ($1,500)', 'Oct 12, 2026')" title="{% trans "Preview Certificate" %}" type="button">
             <span class="material-symbols-outlined text-base">workspace_premium</span>
           </button>
         </div>
@@ -252,26 +252,26 @@
     <div class="bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden flex flex-col">
       <div class="p-space-lg flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm bg-surface-container-low/40">
         <div>
-          <h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Cohort Final Standings</h2>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Scored across rubric parameters: Technical Execution, Impact, Design &amp; Pitch</p>
+          <h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">{% trans "Cohort Final Standings" %}</h2>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Scored across rubric parameters: Technical Execution, Impact, Design &amp; Pitch" %}</p>
         </div>
         <div class="flex items-center gap-2">
-          <span class="font-label-sm text-label-sm text-outline">5 of 5 Teams Evaluated</span>
+          <span class="font-label-sm text-label-sm text-outline">{% trans "5 of 5 Teams Evaluated" %}</span>
           <span class="w-2 h-2 rounded-full bg-tertiary"></span>
         </div>
       </div>
       <div class="overflow-x-auto">
-        <table class="w-full text-left font-body-sm text-body-sm" id="leaderboardTable">
+        <table class="w-full text-start font-body-sm text-body-sm" id="leaderboardTable">
           <thead class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
             <tr>
-              <th class="py-3.5 px-6" scope="col">Rank</th>
-              <th class="py-3.5 px-6" scope="col">Team &amp; Squad</th>
-              <th class="py-3.5 px-6" scope="col">Project Name</th>
-              <th class="py-3.5 px-6 text-center" scope="col">Score</th>
-              <th class="py-3.5 px-6" scope="col">Rubric Metrics</th>
-              <th class="py-3.5 px-6" scope="col">Prize / Achievement</th>
-              <th class="py-3.5 px-6" scope="col">Status</th>
-              <th class="py-3.5 px-6 text-right" scope="col">Actions</th>
+              <th class="py-3.5 px-6" scope="col">{% trans "Rank" %}</th>
+              <th class="py-3.5 px-6" scope="col">{% trans "Team &amp; Squad" %}</th>
+              <th class="py-3.5 px-6" scope="col">{% trans "Project Name" %}</th>
+              <th class="py-3.5 px-6 text-center" scope="col">{% trans "Score" %}</th>
+              <th class="py-3.5 px-6" scope="col">{% trans "Rubric Metrics" %}</th>
+              <th class="py-3.5 px-6" scope="col">{% trans "Prize / Achievement" %}</th>
+              <th class="py-3.5 px-6" scope="col">{% trans "Status" %}</th>
+              <th class="py-3.5 px-6 text-end" scope="col">{% trans "Actions" %}</th>
             </tr>
           </thead>
           <tbody class="divide-y-0" id="leaderboardRows">
@@ -279,125 +279,125 @@
               <td class="py-4 px-6"><div class="w-8 h-8 rounded-full bg-primary text-on-primary font-bold font-code-inline text-code-inline flex items-center justify-center shadow-sm">1</div></td>
               <td class="py-4 px-6">
                 <div class="flex items-center gap-3">
-                  <div class="w-9 h-9 rounded-lg bg-surface-variant flex items-center justify-center font-bold text-primary font-label-md">PP</div>
+                  <div class="w-9 h-9 rounded-lg bg-surface-variant flex items-center justify-center font-bold text-primary font-label-md">{% trans "PP" %}</div>
                   <div class="flex flex-col">
-                    <span class="font-label-md text-label-md font-semibold text-on-surface">Pixel Pioneers</span>
-                    <span class="font-label-sm text-label-sm text-outline">Jacem &amp; Oussama</span>
+                    <span class="font-label-md text-label-md font-semibold text-on-surface">{% trans "Pixel Pioneers" %}</span>
+                    <span class="font-label-sm text-label-sm text-outline">{% trans "Jacem &amp; Oussama" %}</span>
                   </div>
                 </div>
               </td>
-              <td class="py-4 px-6 font-semibold text-on-surface">CampusConnect</td>
-              <td class="py-4 px-6 text-center"><span class="inline-flex px-2.5 py-1 rounded-lg bg-primary-fixed text-on-primary-fixed font-code-inline text-code-inline font-bold">96.5 pts</span></td>
-              <td class="py-4 px-6"><div class="flex items-center gap-3 text-on-surface-variant"><span>Innov: <strong class="text-on-surface">9.5</strong></span><span>Tech: <strong class="text-on-surface">9.8</strong></span></div></td>
+              <td class="py-4 px-6 font-semibold text-on-surface">{% trans "CampusConnect" %}</td>
+              <td class="py-4 px-6 text-center"><span class="inline-flex px-2.5 py-1 rounded-lg bg-primary-fixed text-on-primary-fixed font-code-inline text-code-inline font-bold">{% trans "96.5 pts" %}</span></td>
+              <td class="py-4 px-6"><div class="flex items-center gap-3 text-on-surface-variant"><span>{% trans "Innov:" %} <strong class="text-on-surface">9.5</strong></span><span>{% trans "Tech:" %} <strong class="text-on-surface">9.8</strong></span></div></td>
               <td class="py-4 px-6">
                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold">
                   <span class="material-symbols-outlined text-sm leading-none" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
                   First Place ($5,000)
                 </span>
               </td>
-              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">Finalist</span></td>
-              <td class="py-4 px-6 text-right">
-                <button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-primary font-semibold transition-colors" onclick="previewCertificate('Pixel Pioneers', 'AI Innovation Challenge', 'First Place ($5,000)', 'Oct 12, 2026')" type="button">View Breakdown</button>
+              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">{% trans "Finalist" %}</span></td>
+              <td class="py-4 px-6 text-end">
+                <button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-primary font-semibold transition-colors" onclick="previewCertificate('Pixel Pioneers', 'AI Innovation Challenge', 'First Place ($5,000)', 'Oct 12, 2026')" type="button">{% trans "View Breakdown" %}</button>
               </td>
             </tr>
             <tr class="hover:bg-surface-container-low/50 transition-colors">
               <td class="py-4 px-6"><div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface font-bold font-code-inline text-code-inline flex items-center justify-center">2</div></td>
               <td class="py-4 px-6">
                 <div class="flex items-center gap-3">
-                  <div class="w-9 h-9 rounded-lg bg-surface-variant flex items-center justify-center font-bold text-primary font-label-md">CW</div>
+                  <div class="w-9 h-9 rounded-lg bg-surface-variant flex items-center justify-center font-bold text-primary font-label-md">{% trans "CW" %}</div>
                   <div class="flex flex-col">
-                    <span class="font-label-md text-label-md font-semibold text-on-surface">Code Warriors</span>
-                    <span class="font-label-sm text-label-sm text-outline">Kmar, Abir, Zeineb</span>
+                    <span class="font-label-md text-label-md font-semibold text-on-surface">{% trans "Code Warriors" %}</span>
+                    <span class="font-label-sm text-label-sm text-outline">{% trans "Kmar, Abir, Zeineb" %}</span>
                   </div>
                 </div>
               </td>
-              <td class="py-4 px-6 font-semibold text-on-surface">SmartHealth AI</td>
-              <td class="py-4 px-6 text-center"><span class="inline-flex px-2.5 py-1 rounded-lg bg-surface-container font-code-inline text-code-inline font-bold text-primary">93.2 pts</span></td>
-              <td class="py-4 px-6"><div class="flex items-center gap-3 text-on-surface-variant"><span>Innov: <strong class="text-on-surface">9.4</strong></span><span>Tech: <strong class="text-on-surface">9.1</strong></span></div></td>
+              <td class="py-4 px-6 font-semibold text-on-surface">{% trans "SmartHealth AI" %}</td>
+              <td class="py-4 px-6 text-center"><span class="inline-flex px-2.5 py-1 rounded-lg bg-surface-container font-code-inline text-code-inline font-bold text-primary">{% trans "93.2 pts" %}</span></td>
+              <td class="py-4 px-6"><div class="flex items-center gap-3 text-on-surface-variant"><span>{% trans "Innov:" %} <strong class="text-on-surface">9.4</strong></span><span>{% trans "Tech:" %} <strong class="text-on-surface">9.1</strong></span></div></td>
               <td class="py-4 px-6">
                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">
                   <span class="material-symbols-outlined text-sm leading-none" style="font-variation-settings: 'FILL' 1;">military_tech</span>
                   Second Place ($3,000)
                 </span>
               </td>
-              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">Finalist</span></td>
-              <td class="py-4 px-6 text-right">
-                <button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-primary font-semibold transition-colors" onclick="previewCertificate('Code Warriors', 'AI Innovation Challenge', 'Second Place ($3,000)', 'Oct 12, 2026')" type="button">View Breakdown</button>
+              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">{% trans "Finalist" %}</span></td>
+              <td class="py-4 px-6 text-end">
+                <button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-primary font-semibold transition-colors" onclick="previewCertificate('Code Warriors', 'AI Innovation Challenge', 'Second Place ($3,000)', 'Oct 12, 2026')" type="button">{% trans "View Breakdown" %}</button>
               </td>
             </tr>
             <tr class="hover:bg-surface-container-low/50 transition-colors">
               <td class="py-4 px-6"><div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface font-bold font-code-inline text-code-inline flex items-center justify-center">3</div></td>
               <td class="py-4 px-6">
                 <div class="flex items-center gap-3">
-                  <div class="w-9 h-9 rounded-lg bg-surface-variant flex items-center justify-center font-bold text-primary font-label-md">GI</div>
+                  <div class="w-9 h-9 rounded-lg bg-surface-variant flex items-center justify-center font-bold text-primary font-label-md">{% trans "GI" %}</div>
                   <div class="flex flex-col">
-                    <span class="font-label-md text-label-md font-semibold text-on-surface">Green Innovators</span>
-                    <span class="font-label-sm text-label-sm text-outline">Jacem, Kmar, Zeineb</span>
+                    <span class="font-label-md text-label-md font-semibold text-on-surface">{% trans "Green Innovators" %}</span>
+                    <span class="font-label-sm text-label-sm text-outline">{% trans "Jacem, Kmar, Zeineb" %}</span>
                   </div>
                 </div>
               </td>
-              <td class="py-4 px-6 font-semibold text-on-surface">EcoTrack</td>
-              <td class="py-4 px-6 text-center"><span class="inline-flex px-2.5 py-1 rounded-lg bg-surface-container font-code-inline text-code-inline font-bold text-primary">90.8 pts</span></td>
-              <td class="py-4 px-6"><div class="flex items-center gap-3 text-on-surface-variant"><span>Innov: <strong class="text-on-surface">9.0</strong></span><span>Tech: <strong class="text-on-surface">9.2</strong></span></div></td>
+              <td class="py-4 px-6 font-semibold text-on-surface">{% trans "EcoTrack" %}</td>
+              <td class="py-4 px-6 text-center"><span class="inline-flex px-2.5 py-1 rounded-lg bg-surface-container font-code-inline text-code-inline font-bold text-primary">{% trans "90.8 pts" %}</span></td>
+              <td class="py-4 px-6"><div class="flex items-center gap-3 text-on-surface-variant"><span>{% trans "Innov:" %} <strong class="text-on-surface">9.0</strong></span><span>{% trans "Tech:" %} <strong class="text-on-surface">9.2</strong></span></div></td>
               <td class="py-4 px-6">
                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold">
                   <span class="material-symbols-outlined text-sm leading-none" style="font-variation-settings: 'FILL' 1;">military_tech</span>
                   Third Place ($1,500)
                 </span>
               </td>
-              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">Finalist</span></td>
-              <td class="py-4 px-6 text-right">
-                <button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-primary font-semibold transition-colors" onclick="previewCertificate('Green Innovators', 'AI Innovation Challenge', 'Third Place ($1,500)', 'Oct 12, 2026')" type="button">View Breakdown</button>
+              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">{% trans "Finalist" %}</span></td>
+              <td class="py-4 px-6 text-end">
+                <button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-primary font-semibold transition-colors" onclick="previewCertificate('Green Innovators', 'AI Innovation Challenge', 'Third Place ($1,500)', 'Oct 12, 2026')" type="button">{% trans "View Breakdown" %}</button>
               </td>
             </tr>
             <tr class="hover:bg-surface-container-low/50 transition-colors">
               <td class="py-4 px-6"><div class="w-8 h-8 rounded-full bg-surface-container text-on-surface-variant font-bold font-code-inline text-code-inline flex items-center justify-center">4</div></td>
               <td class="py-4 px-6">
                 <div class="flex items-center gap-3">
-                  <div class="w-9 h-9 rounded-lg bg-surface-variant flex items-center justify-center font-bold text-primary font-label-md">FV</div>
+                  <div class="w-9 h-9 rounded-lg bg-surface-variant flex items-center justify-center font-bold text-primary font-label-md">{% trans "FV" %}</div>
                   <div class="flex flex-col">
-                    <span class="font-label-md text-label-md font-semibold text-on-surface">FinVision</span>
-                    <span class="font-label-sm text-label-sm text-outline">Sara M. &amp; Amine K.</span>
+                    <span class="font-label-md text-label-md font-semibold text-on-surface">{% trans "FinVision" %}</span>
+                    <span class="font-label-sm text-label-sm text-outline">{% trans "Sara M. &amp; Amine K." %}</span>
                   </div>
                 </div>
               </td>
-              <td class="py-4 px-6 font-semibold text-on-surface">FinWise</td>
-              <td class="py-4 px-6 text-center"><span class="inline-flex px-2.5 py-1 rounded-lg bg-surface-container-low font-code-inline text-code-inline font-semibold text-on-surface">87.4 pts</span></td>
-              <td class="py-4 px-6"><div class="flex items-center gap-3 text-on-surface-variant"><span>Innov: <strong class="text-on-surface">8.7</strong></span><span>Tech: <strong class="text-on-surface">8.9</strong></span></div></td>
+              <td class="py-4 px-6 font-semibold text-on-surface">{% trans "FinWise" %}</td>
+              <td class="py-4 px-6 text-center"><span class="inline-flex px-2.5 py-1 rounded-lg bg-surface-container-low font-code-inline text-code-inline font-semibold text-on-surface">{% trans "87.4 pts" %}</span></td>
+              <td class="py-4 px-6"><div class="flex items-center gap-3 text-on-surface-variant"><span>{% trans "Innov:" %} <strong class="text-on-surface">8.7</strong></span><span>{% trans "Tech:" %} <strong class="text-on-surface">8.9</strong></span></div></td>
               <td class="py-4 px-6">
                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary-fixed-dim text-on-secondary-fixed font-label-sm text-label-sm font-semibold">
                   <span class="material-symbols-outlined text-sm leading-none">lightbulb</span>
                   Best FinTech Idea ($1,500)
                 </span>
               </td>
-              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">Finalist</span></td>
-              <td class="py-4 px-6 text-right">
-                <button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-primary font-semibold transition-colors" onclick="previewCertificate('FinVision', 'FinTech Future', 'Best FinTech Idea ($1,500)', 'Oct 12, 2026')" type="button">View Breakdown</button>
+              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">{% trans "Finalist" %}</span></td>
+              <td class="py-4 px-6 text-end">
+                <button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-primary font-semibold transition-colors" onclick="previewCertificate('FinVision', 'FinTech Future', 'Best FinTech Idea ($1,500)', 'Oct 12, 2026')" type="button">{% trans "View Breakdown" %}</button>
               </td>
             </tr>
             <tr class="hover:bg-surface-container-low/50 transition-colors">
               <td class="py-4 px-6"><div class="w-8 h-8 rounded-full bg-surface-container text-on-surface-variant font-bold font-code-inline text-code-inline flex items-center justify-center">5</div></td>
               <td class="py-4 px-6">
                 <div class="flex items-center gap-3">
-                  <div class="w-9 h-9 rounded-lg bg-surface-variant flex items-center justify-center font-bold text-primary font-label-md">BB</div>
+                  <div class="w-9 h-9 rounded-lg bg-surface-variant flex items-center justify-center font-bold text-primary font-label-md">{% trans "BB" %}</div>
                   <div class="flex flex-col">
-                    <span class="font-label-md text-label-md font-semibold text-on-surface">Byte Builders</span>
-                    <span class="font-label-sm text-label-sm text-outline">Tarek D., Nour H.</span>
+                    <span class="font-label-md text-label-md font-semibold text-on-surface">{% trans "Byte Builders" %}</span>
+                    <span class="font-label-sm text-label-sm text-outline">{% trans "Tarek D., Nour H." %}</span>
                   </div>
                 </div>
               </td>
-              <td class="py-4 px-6 font-semibold text-on-surface">SecureVault</td>
-              <td class="py-4 px-6 text-center"><span class="inline-flex px-2.5 py-1 rounded-lg bg-surface-container-low font-code-inline text-code-inline font-semibold text-on-surface">85.9 pts</span></td>
-              <td class="py-4 px-6"><div class="flex items-center gap-3 text-on-surface-variant"><span>Innov: <strong class="text-on-surface">8.5</strong></span><span>Tech: <strong class="text-on-surface">8.8</strong></span></div></td>
+              <td class="py-4 px-6 font-semibold text-on-surface">{% trans "SecureVault" %}</td>
+              <td class="py-4 px-6 text-center"><span class="inline-flex px-2.5 py-1 rounded-lg bg-surface-container-low font-code-inline text-code-inline font-semibold text-on-surface">{% trans "85.9 pts" %}</span></td>
+              <td class="py-4 px-6"><div class="flex items-center gap-3 text-on-surface-variant"><span>{% trans "Innov:" %} <strong class="text-on-surface">8.5</strong></span><span>{% trans "Tech:" %} <strong class="text-on-surface">8.8</strong></span></div></td>
               <td class="py-4 px-6">
                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">
                   <span class="material-symbols-outlined text-sm leading-none">security</span>
                   Best Security Solution ($2,000)
                 </span>
               </td>
-              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold">Evaluated</span></td>
-              <td class="py-4 px-6 text-right">
-                <button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-primary font-semibold transition-colors" onclick="previewCertificate('Byte Builders', 'CyberSecure Sprint', 'Best Security Solution ($2,000)', 'Oct 12, 2026')" type="button">View Breakdown</button>
+              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold">{% trans "Evaluated" %}</span></td>
+              <td class="py-4 px-6 text-end">
+                <button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-primary font-semibold transition-colors" onclick="previewCertificate('Byte Builders', 'CyberSecure Sprint', 'Best Security Solution ($2,000)', 'Oct 12, 2026')" type="button">{% trans "View Breakdown" %}</button>
               </td>
             </tr>
           </tbody>
@@ -410,12 +410,12 @@
   <div class="tab-content hidden flex-col gap-space-lg" id="tabPrizes">
     <div class="flex items-center justify-between">
       <div>
-        <h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Configured Event Prizes</h2>
-        <p class="font-body-sm text-body-sm text-on-surface-variant">Direct sponsor allocations, eligibility criteria, and distribution states.</p>
+        <h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">{% trans "Configured Event Prizes" %}</h2>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Direct sponsor allocations, eligibility criteria, and distribution states." %}</p>
       </div>
       <button class="px-3.5 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold flex items-center gap-1.5 shadow-sm" onclick="openAddPrizeModal()" type="button">
         <span class="material-symbols-outlined text-base">add</span>
-        <span>New Prize Tier</span>
+        <span>{% trans "New Prize Tier" %}</span>
       </button>
     </div>
 
@@ -426,22 +426,22 @@
         <div class="flex flex-col gap-space-sm">
           <div class="flex items-start justify-between">
             <span class="px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-code-inline text-code-inline font-bold">$5,000 USD</span>
-            <span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">Awarded</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">{% trans "Awarded" %}</span>
           </div>
-          <h3 class="font-label-md text-label-md font-bold text-on-surface mt-1">First Place — Overall Winner</h3>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Top-ranking team with highest combined technical and innovation evaluation scores.</p>
+          <h3 class="font-label-md text-label-md font-bold text-on-surface mt-1">{% trans "First Place — Overall Winner" %}</h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Top-ranking team with highest combined technical and innovation evaluation scores." %}</p>
           <div class="py-2.5 px-3 rounded-xl bg-surface-container-low flex flex-col gap-1 font-body-sm text-body-sm">
-            <div class="flex justify-between"><span class="text-outline">Hackathon:</span><span class="font-medium text-on-surface">AI Innovation Challenge</span></div>
-            <div class="flex justify-between"><span class="text-outline">Sponsor:</span><span class="font-medium text-on-surface">TechFuture Global</span></div>
-            <div class="flex justify-between"><span class="text-outline">Eligibility:</span><span class="font-medium text-on-surface">All hackathon finalists</span></div>
-            <div class="flex justify-between"><span class="text-outline">Recipient:</span><span class="font-bold text-primary">Pixel Pioneers</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Hackathon:" %}</span><span class="font-medium text-on-surface">{% trans "AI Innovation Challenge" %}</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Sponsor:" %}</span><span class="font-medium text-on-surface">{% trans "TechFuture Global" %}</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Eligibility:" %}</span><span class="font-medium text-on-surface">{% trans "All hackathon finalists" %}</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Recipient:" %}</span><span class="font-bold text-primary">{% trans "Pixel Pioneers" %}</span></div>
           </div>
         </div>
         <div class="pt-4 flex items-center justify-between">
-          <span class="font-label-sm text-label-sm text-outline">1 Winner Slot</span>
+          <span class="font-label-sm text-label-sm text-outline">{% trans "1 Winner Slot" %}</span>
           <div class="flex items-center gap-1">
-            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-primary transition-colors" title="Edit" type="button"><span class="material-symbols-outlined text-base">edit</span></button>
-            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-error transition-colors" title="Delete" type="button"><span class="material-symbols-outlined text-base">delete</span></button>
+            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-primary transition-colors" title="{% trans "Edit" %}" type="button"><span class="material-symbols-outlined text-base">edit</span></button>
+            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-error transition-colors" title="{% trans "Delete" %}" type="button"><span class="material-symbols-outlined text-base">delete</span></button>
           </div>
         </div>
       </div>
@@ -451,22 +451,22 @@
         <div class="flex flex-col gap-space-sm">
           <div class="flex items-start justify-between">
             <span class="px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-code-inline text-code-inline font-bold">$3,000 USD</span>
-            <span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">Awarded</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">{% trans "Awarded" %}</span>
           </div>
-          <h3 class="font-label-md text-label-md font-bold text-on-surface mt-1">Second Place — Runner Up</h3>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Outstanding project execution with notable community adoption potential.</p>
+          <h3 class="font-label-md text-label-md font-bold text-on-surface mt-1">{% trans "Second Place — Runner Up" %}</h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Outstanding project execution with notable community adoption potential." %}</p>
           <div class="py-2.5 px-3 rounded-xl bg-surface-container-low flex flex-col gap-1 font-body-sm text-body-sm">
-            <div class="flex justify-between"><span class="text-outline">Hackathon:</span><span class="font-medium text-on-surface">AI Innovation Challenge</span></div>
-            <div class="flex justify-between"><span class="text-outline">Sponsor:</span><span class="font-medium text-on-surface">Innovate Labs</span></div>
-            <div class="flex justify-between"><span class="text-outline">Eligibility:</span><span class="font-medium text-on-surface">Top 3 finalists</span></div>
-            <div class="flex justify-between"><span class="text-outline">Recipient:</span><span class="font-bold text-primary">Code Warriors</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Hackathon:" %}</span><span class="font-medium text-on-surface">{% trans "AI Innovation Challenge" %}</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Sponsor:" %}</span><span class="font-medium text-on-surface">{% trans "Innovate Labs" %}</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Eligibility:" %}</span><span class="font-medium text-on-surface">{% trans "Top 3 finalists" %}</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Recipient:" %}</span><span class="font-bold text-primary">{% trans "Code Warriors" %}</span></div>
           </div>
         </div>
         <div class="pt-4 flex items-center justify-between">
-          <span class="font-label-sm text-label-sm text-outline">1 Winner Slot</span>
+          <span class="font-label-sm text-label-sm text-outline">{% trans "1 Winner Slot" %}</span>
           <div class="flex items-center gap-1">
-            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-primary transition-colors" title="Edit" type="button"><span class="material-symbols-outlined text-base">edit</span></button>
-            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-error transition-colors" title="Delete" type="button"><span class="material-symbols-outlined text-base">delete</span></button>
+            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-primary transition-colors" title="{% trans "Edit" %}" type="button"><span class="material-symbols-outlined text-base">edit</span></button>
+            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-error transition-colors" title="{% trans "Delete" %}" type="button"><span class="material-symbols-outlined text-base">delete</span></button>
           </div>
         </div>
       </div>
@@ -476,22 +476,22 @@
         <div class="flex flex-col gap-space-sm">
           <div class="flex items-start justify-between">
             <span class="px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-code-inline text-code-inline font-bold">$1,500 USD</span>
-            <span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">Awarded</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">{% trans "Awarded" %}</span>
           </div>
-          <h3 class="font-label-md text-label-md font-bold text-on-surface mt-1">Third Place — Honorable Merit</h3>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Impressive technical architecture and robust user testing during prototype phase.</p>
+          <h3 class="font-label-md text-label-md font-bold text-on-surface mt-1">{% trans "Third Place — Honorable Merit" %}</h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Impressive technical architecture and robust user testing during prototype phase." %}</p>
           <div class="py-2.5 px-3 rounded-xl bg-surface-container-low flex flex-col gap-1 font-body-sm text-body-sm">
-            <div class="flex justify-between"><span class="text-outline">Hackathon:</span><span class="font-medium text-on-surface">AI Innovation Challenge</span></div>
-            <div class="flex justify-between"><span class="text-outline">Sponsor:</span><span class="font-medium text-on-surface">Digital Hub</span></div>
-            <div class="flex justify-between"><span class="text-outline">Eligibility:</span><span class="font-medium text-on-surface">Top 5 finalists</span></div>
-            <div class="flex justify-between"><span class="text-outline">Recipient:</span><span class="font-bold text-primary">Green Innovators</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Hackathon:" %}</span><span class="font-medium text-on-surface">{% trans "AI Innovation Challenge" %}</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Sponsor:" %}</span><span class="font-medium text-on-surface">{% trans "Digital Hub" %}</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Eligibility:" %}</span><span class="font-medium text-on-surface">{% trans "Top 5 finalists" %}</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Recipient:" %}</span><span class="font-bold text-primary">{% trans "Green Innovators" %}</span></div>
           </div>
         </div>
         <div class="pt-4 flex items-center justify-between">
-          <span class="font-label-sm text-label-sm text-outline">1 Winner Slot</span>
+          <span class="font-label-sm text-label-sm text-outline">{% trans "1 Winner Slot" %}</span>
           <div class="flex items-center gap-1">
-            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-primary transition-colors" title="Edit" type="button"><span class="material-symbols-outlined text-base">edit</span></button>
-            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-error transition-colors" title="Delete" type="button"><span class="material-symbols-outlined text-base">delete</span></button>
+            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-primary transition-colors" title="{% trans "Edit" %}" type="button"><span class="material-symbols-outlined text-base">edit</span></button>
+            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-error transition-colors" title="{% trans "Delete" %}" type="button"><span class="material-symbols-outlined text-base">delete</span></button>
           </div>
         </div>
       </div>
@@ -501,22 +501,22 @@
         <div class="flex flex-col gap-space-sm">
           <div class="flex items-start justify-between">
             <span class="px-2.5 py-1 rounded-full bg-surface-container font-code-inline text-code-inline font-bold text-on-surface">$2,000 USD</span>
-            <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">Available</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">{% trans "Available" %}</span>
           </div>
-          <h3 class="font-label-md text-label-md font-bold text-on-surface mt-1">Best Innovation Award</h3>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Exceptional novelty and sustainable ecological impact in the climate track.</p>
+          <h3 class="font-label-md text-label-md font-bold text-on-surface mt-1">{% trans "Best Innovation Award" %}</h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Exceptional novelty and sustainable ecological impact in the climate track." %}</p>
           <div class="py-2.5 px-3 rounded-xl bg-surface-container-low flex flex-col gap-1 font-body-sm text-body-sm">
-            <div class="flex justify-between"><span class="text-outline">Hackathon:</span><span class="font-medium text-on-surface">GreenTech Hackathon</span></div>
-            <div class="flex justify-between"><span class="text-outline">Sponsor:</span><span class="font-medium text-on-surface">EcoVision Ventures</span></div>
-            <div class="flex justify-between"><span class="text-outline">Eligibility:</span><span class="font-medium text-on-surface">GreenTech track submissions</span></div>
-            <div class="flex justify-between"><span class="text-outline">Recipient:</span><span class="font-medium text-outline">Unassigned</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Hackathon:" %}</span><span class="font-medium text-on-surface">{% trans "GreenTech Hackathon" %}</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Sponsor:" %}</span><span class="font-medium text-on-surface">{% trans "EcoVision Ventures" %}</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Eligibility:" %}</span><span class="font-medium text-on-surface">{% trans "GreenTech track submissions" %}</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Recipient:" %}</span><span class="font-medium text-outline">{% trans "Unassigned" %}</span></div>
           </div>
         </div>
         <div class="pt-4 flex items-center justify-between">
-          <span class="font-label-sm text-label-sm text-outline">1 Winner Slot</span>
+          <span class="font-label-sm text-label-sm text-outline">{% trans "1 Winner Slot" %}</span>
           <div class="flex items-center gap-1">
-            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-primary transition-colors" title="Edit" type="button"><span class="material-symbols-outlined text-base">edit</span></button>
-            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-error transition-colors" title="Delete" type="button"><span class="material-symbols-outlined text-base">delete</span></button>
+            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-primary transition-colors" title="{% trans "Edit" %}" type="button"><span class="material-symbols-outlined text-base">edit</span></button>
+            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-error transition-colors" title="{% trans "Delete" %}" type="button"><span class="material-symbols-outlined text-base">delete</span></button>
           </div>
         </div>
       </div>
@@ -526,22 +526,22 @@
         <div class="flex flex-col gap-space-sm">
           <div class="flex items-start justify-between">
             <span class="px-2.5 py-1 rounded-full bg-secondary-fixed-dim text-on-secondary-fixed font-code-inline text-code-inline font-bold">$1,500 USD</span>
-            <span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold">Assigned</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold">{% trans "Assigned" %}</span>
           </div>
-          <h3 class="font-label-md text-label-md font-bold text-on-surface mt-1">Best FinTech Idea</h3>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Revolutionary decentralized or algorithmic asset allocation architecture.</p>
+          <h3 class="font-label-md text-label-md font-bold text-on-surface mt-1">{% trans "Best FinTech Idea" %}</h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Revolutionary decentralized or algorithmic asset allocation architecture." %}</p>
           <div class="py-2.5 px-3 rounded-xl bg-surface-container-low flex flex-col gap-1 font-body-sm text-body-sm">
-            <div class="flex justify-between"><span class="text-outline">Hackathon:</span><span class="font-medium text-on-surface">FinTech Future</span></div>
-            <div class="flex justify-between"><span class="text-outline">Sponsor:</span><span class="font-medium text-on-surface">FinLabs Capital</span></div>
-            <div class="flex justify-between"><span class="text-outline">Eligibility:</span><span class="font-medium text-on-surface">FinTech track submissions</span></div>
-            <div class="flex justify-between"><span class="text-outline">Recipient:</span><span class="font-bold text-primary">FinVision</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Hackathon:" %}</span><span class="font-medium text-on-surface">{% trans "FinTech Future" %}</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Sponsor:" %}</span><span class="font-medium text-on-surface">{% trans "FinLabs Capital" %}</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Eligibility:" %}</span><span class="font-medium text-on-surface">{% trans "FinTech track submissions" %}</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Recipient:" %}</span><span class="font-bold text-primary">{% trans "FinVision" %}</span></div>
           </div>
         </div>
         <div class="pt-4 flex items-center justify-between">
-          <span class="font-label-sm text-label-sm text-outline">1 Winner Slot</span>
+          <span class="font-label-sm text-label-sm text-outline">{% trans "1 Winner Slot" %}</span>
           <div class="flex items-center gap-1">
-            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-primary transition-colors" title="Edit" type="button"><span class="material-symbols-outlined text-base">edit</span></button>
-            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-error transition-colors" title="Delete" type="button"><span class="material-symbols-outlined text-base">delete</span></button>
+            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-primary transition-colors" title="{% trans "Edit" %}" type="button"><span class="material-symbols-outlined text-base">edit</span></button>
+            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-error transition-colors" title="{% trans "Delete" %}" type="button"><span class="material-symbols-outlined text-base">delete</span></button>
           </div>
         </div>
       </div>
@@ -551,22 +551,22 @@
         <div class="flex flex-col gap-space-sm">
           <div class="flex items-start justify-between">
             <span class="px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-code-inline text-code-inline font-bold">$2,000 USD</span>
-            <span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">Awarded</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">{% trans "Awarded" %}</span>
           </div>
-          <h3 class="font-label-md text-label-md font-bold text-on-surface mt-1">Best Security Solution</h3>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Zero-trust network defense model and encrypted identity protection solution.</p>
+          <h3 class="font-label-md text-label-md font-bold text-on-surface mt-1">{% trans "Best Security Solution" %}</h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Zero-trust network defense model and encrypted identity protection solution." %}</p>
           <div class="py-2.5 px-3 rounded-xl bg-surface-container-low flex flex-col gap-1 font-body-sm text-body-sm">
-            <div class="flex justify-between"><span class="text-outline">Hackathon:</span><span class="font-medium text-on-surface">CyberSecure Sprint</span></div>
-            <div class="flex justify-between"><span class="text-outline">Sponsor:</span><span class="font-medium text-on-surface">SecureTech Systems</span></div>
-            <div class="flex justify-between"><span class="text-outline">Eligibility:</span><span class="font-medium text-on-surface">Cybersecurity track</span></div>
-            <div class="flex justify-between"><span class="text-outline">Recipient:</span><span class="font-bold text-primary">Byte Builders</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Hackathon:" %}</span><span class="font-medium text-on-surface">{% trans "CyberSecure Sprint" %}</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Sponsor:" %}</span><span class="font-medium text-on-surface">{% trans "SecureTech Systems" %}</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Eligibility:" %}</span><span class="font-medium text-on-surface">{% trans "Cybersecurity track" %}</span></div>
+            <div class="flex justify-between"><span class="text-outline">{% trans "Recipient:" %}</span><span class="font-bold text-primary">{% trans "Byte Builders" %}</span></div>
           </div>
         </div>
         <div class="pt-4 flex items-center justify-between">
-          <span class="font-label-sm text-label-sm text-outline">1 Winner Slot</span>
+          <span class="font-label-sm text-label-sm text-outline">{% trans "1 Winner Slot" %}</span>
           <div class="flex items-center gap-1">
-            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-primary transition-colors" title="Edit" type="button"><span class="material-symbols-outlined text-base">edit</span></button>
-            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-error transition-colors" title="Delete" type="button"><span class="material-symbols-outlined text-base">delete</span></button>
+            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-primary transition-colors" title="{% trans "Edit" %}" type="button"><span class="material-symbols-outlined text-base">edit</span></button>
+            <button class="p-1.5 rounded-lg hover:bg-surface-container text-outline hover:text-error transition-colors" title="{% trans "Delete" %}" type="button"><span class="material-symbols-outlined text-base">delete</span></button>
           </div>
         </div>
       </div>
@@ -577,90 +577,90 @@
   <div class="tab-content hidden flex-col gap-space-lg" id="tabCertificates">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
       <div>
-        <h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Official Award Certificates</h2>
-        <p class="font-body-sm text-body-sm text-on-surface-variant">Generate, preview, and issue cryptographically verifiable credentials for participants and winners.</p>
+        <h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">{% trans "Official Award Certificates" %}</h2>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Generate, preview, and issue cryptographically verifiable credentials for participants and winners." %}</p>
       </div>
       <div class="flex items-center gap-2">
-        <button class="px-4 py-2 rounded-lg bg-surface-container text-primary font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-colors" onclick="previewCertificate('Participant Cohort', 'Global AI Hackathon 2025', 'Official Participant', 'Oct 12, 2026')" type="button">Batch Issue All</button>
+        <button class="px-4 py-2 rounded-lg bg-surface-container text-primary font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-colors" onclick="previewCertificate('Participant Cohort', 'Global AI Hackathon 2025', 'Official Participant', 'Oct 12, 2026')" type="button">{% trans "Batch Issue All" %}</button>
       </div>
     </div>
 
     <div class="bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden">
       <div class="overflow-x-auto">
-        <table class="w-full text-left font-body-sm text-body-sm">
+        <table class="w-full text-start font-body-sm text-body-sm">
           <thead class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
             <tr>
-              <th class="py-3.5 px-6" scope="col">Recipient &amp; Team</th>
-              <th class="py-3.5 px-6" scope="col">Hackathon Event</th>
-              <th class="py-3.5 px-6" scope="col">Certificate Type</th>
-              <th class="py-3.5 px-6" scope="col">Issue Date</th>
-              <th class="py-3.5 px-6" scope="col">Status</th>
-              <th class="py-3.5 px-6 text-right" scope="col">Certificate Actions</th>
+              <th class="py-3.5 px-6" scope="col">{% trans "Recipient &amp; Team" %}</th>
+              <th class="py-3.5 px-6" scope="col">{% trans "Hackathon Event" %}</th>
+              <th class="py-3.5 px-6" scope="col">{% trans "Certificate Type" %}</th>
+              <th class="py-3.5 px-6" scope="col">{% trans "Issue Date" %}</th>
+              <th class="py-3.5 px-6" scope="col">{% trans "Status" %}</th>
+              <th class="py-3.5 px-6 text-end" scope="col">{% trans "Certificate Actions" %}</th>
             </tr>
           </thead>
           <tbody class="divide-y-0">
             <tr class="hover:bg-surface-container-low/50 transition-colors">
-              <td class="py-4 px-6"><div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">Pixel Pioneers</span><span class="font-label-sm text-label-sm text-outline">Jacem &amp; Oussama</span></div></td>
-              <td class="py-4 px-6 text-on-surface">Web Creators Weekend</td>
-              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold">Winner (First Place)</span></td>
-              <td class="py-4 px-6 font-code-inline text-code-inline text-outline">Oct 12, 2026</td>
-              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">Ready</span></td>
-              <td class="py-4 px-6 text-right">
+              <td class="py-4 px-6"><div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">{% trans "Pixel Pioneers" %}</span><span class="font-label-sm text-label-sm text-outline">{% trans "Jacem &amp; Oussama" %}</span></div></td>
+              <td class="py-4 px-6 text-on-surface">{% trans "Web Creators Weekend" %}</td>
+              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold">{% trans "Winner (First Place)" %}</span></td>
+              <td class="py-4 px-6 font-code-inline text-code-inline text-outline">{% trans "Oct 12, 2026" %}</td>
+              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">{% trans "Ready" %}</span></td>
+              <td class="py-4 px-6 text-end">
                 <div class="flex items-center justify-end gap-2">
-                  <button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-primary font-semibold transition-colors" onclick="previewCertificate('Pixel Pioneers', 'Web Creators Weekend', 'First Place Winner', 'Oct 12, 2026')" type="button">Preview</button>
-                  <button class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold hover:opacity-90 transition-opacity" onclick="window.print()" type="button">Generate Certificate</button>
+                  <button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-primary font-semibold transition-colors" onclick="previewCertificate('Pixel Pioneers', 'Web Creators Weekend', 'First Place Winner', 'Oct 12, 2026')" type="button">{% trans "Preview" %}</button>
+                  <button class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold hover:opacity-90 transition-opacity" onclick="window.print()" type="button">{% trans "Generate Certificate" %}</button>
                 </div>
               </td>
             </tr>
             <tr class="hover:bg-surface-container-low/50 transition-colors">
-              <td class="py-4 px-6"><div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">Code Warriors</span><span class="font-label-sm text-label-sm text-outline">Kmar, Abir, Zeineb</span></div></td>
-              <td class="py-4 px-6 text-on-surface">AI Innovation Challenge</td>
-              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">Winner (Second Place)</span></td>
-              <td class="py-4 px-6 font-code-inline text-code-inline text-outline">Oct 12, 2026</td>
-              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">Ready</span></td>
-              <td class="py-4 px-6 text-right">
+              <td class="py-4 px-6"><div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">{% trans "Code Warriors" %}</span><span class="font-label-sm text-label-sm text-outline">{% trans "Kmar, Abir, Zeineb" %}</span></div></td>
+              <td class="py-4 px-6 text-on-surface">{% trans "AI Innovation Challenge" %}</td>
+              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">{% trans "Winner (Second Place)" %}</span></td>
+              <td class="py-4 px-6 font-code-inline text-code-inline text-outline">{% trans "Oct 12, 2026" %}</td>
+              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">{% trans "Ready" %}</span></td>
+              <td class="py-4 px-6 text-end">
                 <div class="flex items-center justify-end gap-2">
-                  <button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-primary font-semibold transition-colors" onclick="previewCertificate('Code Warriors', 'AI Innovation Challenge', 'Second Place Winner', 'Oct 12, 2026')" type="button">Preview</button>
-                  <button class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold hover:opacity-90 transition-opacity" onclick="window.print()" type="button">Generate Certificate</button>
+                  <button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-primary font-semibold transition-colors" onclick="previewCertificate('Code Warriors', 'AI Innovation Challenge', 'Second Place Winner', 'Oct 12, 2026')" type="button">{% trans "Preview" %}</button>
+                  <button class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold hover:opacity-90 transition-opacity" onclick="window.print()" type="button">{% trans "Generate Certificate" %}</button>
                 </div>
               </td>
             </tr>
             <tr class="hover:bg-surface-container-low/50 transition-colors">
-              <td class="py-4 px-6"><div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">Green Innovators</span><span class="font-label-sm text-label-sm text-outline">Abir, Kmar, Jacem, Zeineb</span></div></td>
-              <td class="py-4 px-6 text-on-surface">GreenTech Hackathon</td>
-              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold">Winner (Third Place)</span></td>
-              <td class="py-4 px-6 font-code-inline text-code-inline text-outline">Oct 12, 2026</td>
-              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">Ready</span></td>
-              <td class="py-4 px-6 text-right">
+              <td class="py-4 px-6"><div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">{% trans "Green Innovators" %}</span><span class="font-label-sm text-label-sm text-outline">{% trans "Abir, Kmar, Jacem, Zeineb" %}</span></div></td>
+              <td class="py-4 px-6 text-on-surface">{% trans "GreenTech Hackathon" %}</td>
+              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold">{% trans "Winner (Third Place)" %}</span></td>
+              <td class="py-4 px-6 font-code-inline text-code-inline text-outline">{% trans "Oct 12, 2026" %}</td>
+              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">{% trans "Ready" %}</span></td>
+              <td class="py-4 px-6 text-end">
                 <div class="flex items-center justify-end gap-2">
-                  <button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-primary font-semibold transition-colors" onclick="previewCertificate('Green Innovators', 'GreenTech Hackathon', 'Third Place Winner', 'Oct 12, 2026')" type="button">Preview</button>
-                  <button class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold hover:opacity-90 transition-opacity" onclick="window.print()" type="button">Generate Certificate</button>
+                  <button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-primary font-semibold transition-colors" onclick="previewCertificate('Green Innovators', 'GreenTech Hackathon', 'Third Place Winner', 'Oct 12, 2026')" type="button">{% trans "Preview" %}</button>
+                  <button class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold hover:opacity-90 transition-opacity" onclick="window.print()" type="button">{% trans "Generate Certificate" %}</button>
                 </div>
               </td>
             </tr>
             <tr class="hover:bg-surface-container-low/50 transition-colors">
-              <td class="py-4 px-6"><div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">FinVision</span><span class="font-label-sm text-label-sm text-outline">Sara M., Amine K.</span></div></td>
-              <td class="py-4 px-6 text-on-surface">FinTech Future</td>
-              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed-dim text-on-secondary-fixed font-label-sm text-label-sm font-semibold">Special Award (Best FinTech)</span></td>
-              <td class="py-4 px-6 font-code-inline text-code-inline text-outline">Oct 12, 2026</td>
-              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">Ready</span></td>
-              <td class="py-4 px-6 text-right">
+              <td class="py-4 px-6"><div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">{% trans "FinVision" %}</span><span class="font-label-sm text-label-sm text-outline">{% trans "Sara M., Amine K." %}</span></div></td>
+              <td class="py-4 px-6 text-on-surface">{% trans "FinTech Future" %}</td>
+              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed-dim text-on-secondary-fixed font-label-sm text-label-sm font-semibold">{% trans "Special Award (Best FinTech)" %}</span></td>
+              <td class="py-4 px-6 font-code-inline text-code-inline text-outline">{% trans "Oct 12, 2026" %}</td>
+              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">{% trans "Ready" %}</span></td>
+              <td class="py-4 px-6 text-end">
                 <div class="flex items-center justify-end gap-2">
-                  <button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-primary font-semibold transition-colors" onclick="previewCertificate('FinVision', 'FinTech Future', 'Best FinTech Solution', 'Oct 12, 2026')" type="button">Preview</button>
-                  <button class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold hover:opacity-90 transition-opacity" onclick="window.print()" type="button">Generate Certificate</button>
+                  <button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-primary font-semibold transition-colors" onclick="previewCertificate('FinVision', 'FinTech Future', 'Best FinTech Solution', 'Oct 12, 2026')" type="button">{% trans "Preview" %}</button>
+                  <button class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold hover:opacity-90 transition-opacity" onclick="window.print()" type="button">{% trans "Generate Certificate" %}</button>
                 </div>
               </td>
             </tr>
             <tr class="hover:bg-surface-container-low/50 transition-colors">
-              <td class="py-4 px-6"><div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">Urban Minds</span><span class="font-label-sm text-label-sm text-outline">Participant Cohort</span></div></td>
-              <td class="py-4 px-6 text-on-surface">Smart City Hack</td>
-              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">Participation Certificate</span></td>
-              <td class="py-4 px-6 font-code-inline text-code-inline text-outline">Oct 12, 2026</td>
-              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">Issued</span></td>
-              <td class="py-4 px-6 text-right">
+              <td class="py-4 px-6"><div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface">{% trans "Urban Minds" %}</span><span class="font-label-sm text-label-sm text-outline">{% trans "Participant Cohort" %}</span></div></td>
+              <td class="py-4 px-6 text-on-surface">{% trans "Smart City Hack" %}</td>
+              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">{% trans "Participation Certificate" %}</span></td>
+              <td class="py-4 px-6 font-code-inline text-code-inline text-outline">{% trans "Oct 12, 2026" %}</td>
+              <td class="py-4 px-6"><span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">{% trans "Issued" %}</span></td>
+              <td class="py-4 px-6 text-end">
                 <div class="flex items-center justify-end gap-2">
-                  <button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-primary font-semibold transition-colors" onclick="previewCertificate('Urban Minds', 'Smart City Hack', 'Certified Participant', 'Oct 12, 2026')" type="button">Preview</button>
-                  <button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-primary border border-surface-container font-label-sm text-label-sm font-semibold hover:bg-surface-container transition-colors shadow-sm" onclick="window.print()" type="button">Download PDF</button>
+                  <button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high font-label-sm text-label-sm text-primary font-semibold transition-colors" onclick="previewCertificate('Urban Minds', 'Smart City Hack', 'Certified Participant', 'Oct 12, 2026')" type="button">{% trans "Preview" %}</button>
+                  <button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-primary border border-surface-container font-label-sm text-label-sm font-semibold hover:bg-surface-container transition-colors shadow-sm" onclick="window.print()" type="button">{% trans "Download PDF" %}</button>
                 </div>
               </td>
             </tr>
@@ -677,7 +677,7 @@
     <div class="px-space-lg py-space-md bg-surface-container-low flex items-center justify-between">
       <div class="flex items-center gap-2">
         <span class="material-symbols-outlined text-primary text-xl">emoji_events</span>
-        <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Add New Prize Award</h3>
+        <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">{% trans "Add New Prize Award" %}</h3>
       </div>
       <button class="p-1 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-colors" onclick="closeAddPrizeModal()" type="button">
         <span class="material-symbols-outlined text-lg">close</span>
@@ -686,28 +686,28 @@
     <form class="p-space-lg flex flex-col gap-4 font-body-sm text-body-sm" id="formPrize" onsubmit="handlePrizeSubmit(event)">
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div class="flex flex-col gap-1">
-          <label class="font-label-sm text-label-sm font-semibold text-on-surface">Prize Name</label>
-          <input class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface focus:outline-none" placeholder="e.g. Grand Champion Award" required type="text"/>
+          <label class="font-label-sm text-label-sm font-semibold text-on-surface">{% trans "Prize Name" %}</label>
+          <input class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface focus:outline-none" placeholder"{% trans "e.g. Grand Champion Award" %}" required type="text"/>
         </div>
         <div class="flex flex-col gap-1">
-          <label class="font-label-sm text-label-sm font-semibold text-on-surface">Prize Category / Tier</label>
+          <label class="font-label-sm text-label-sm font-semibold text-on-surface">{% trans "Prize Category / Tier" %}</label>
           <select class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface focus:outline-none cursor-pointer">
-            <option>1st Place (Grand Champion)</option>
-            <option>2nd Place (Runner-up)</option>
-            <option>3rd Place (Third)</option>
-            <option>Special Track Award</option>
-            <option>Community Choice</option>
+            <option>{% trans "1st Place (Grand Champion)" %}</option>
+            <option>{% trans "2nd Place (Runner-up)" %}</option>
+            <option>{% trans "3rd Place (Third)" %}</option>
+            <option>{% trans "Special Track Award" %}</option>
+            <option>{% trans "Community Choice" %}</option>
           </select>
         </div>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div class="flex flex-col gap-1">
-          <label class="font-label-sm text-label-sm font-semibold text-on-surface">Associated Hackathon</label>
+          <label class="font-label-sm text-label-sm font-semibold text-on-surface">{% trans "Associated Hackathon" %}</label>
           <select class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface focus:outline-none cursor-pointer">
-            <option>AI Innovation Challenge</option>
-            <option>GreenTech Hackathon</option>
-            <option>FinTech Future</option>
-            <option>CyberSecure Sprint</option>
+            <option>{% trans "AI Innovation Challenge" %}</option>
+            <option>{% trans "GreenTech Hackathon" %}</option>
+            <option>{% trans "FinTech Future" %}</option>
+            <option>{% trans "CyberSecure Sprint" %}</option>
           </select>
         </div>
         <div class="flex flex-col gap-1">
@@ -717,25 +717,25 @@
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div class="flex flex-col gap-1">
-          <label class="font-label-sm text-label-sm font-semibold text-on-surface">Sponsor Organization</label>
-          <input class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface focus:outline-none" placeholder="e.g. Google Cloud, AWS, Stripe" type="text"/>
+          <label class="font-label-sm text-label-sm font-semibold text-on-surface">{% trans "Sponsor Organization" %}</label>
+          <input class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface focus:outline-none" placeholder"{% trans "e.g. Google Cloud, AWS, Stripe" %}" type="text"/>
         </div>
         <div class="flex flex-col gap-1">
-          <label class="font-label-sm text-label-sm font-semibold text-on-surface">Number of Winners (Slots)</label>
+          <label class="font-label-sm text-label-sm font-semibold text-on-surface">{% trans "Number of Winners (Slots)" %}</label>
           <input class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface focus:outline-none" max="5" min="1" type="number" value="1"/>
         </div>
       </div>
       <div class="flex flex-col gap-1">
-        <label class="font-label-sm text-label-sm font-semibold text-on-surface">Non-Cash Perks (Optional)</label>
-        <input class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface focus:outline-none" placeholder="e.g. $10,000 Cloud Credits + Direct Fast-Track VC Interview" type="text"/>
+        <label class="font-label-sm text-label-sm font-semibold text-on-surface">{% trans "Non-Cash Perks (Optional)" %}</label>
+        <input class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface focus:outline-none" placeholder"{% trans "e.g. $10,000 Cloud Credits + Direct Fast-Track VC Interview" %}" type="text"/>
       </div>
       <div class="flex flex-col gap-1">
-        <label class="font-label-sm text-label-sm font-semibold text-on-surface">Eligibility Criteria</label>
-        <textarea class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface focus:outline-none resize-none" placeholder="Describe requirements, eligible categories or minimum evaluation cutoffs..." rows="2"></textarea>
+        <label class="font-label-sm text-label-sm font-semibold text-on-surface">{% trans "Eligibility Criteria" %}</label>
+        <textarea class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface focus:outline-none resize-none" placeholder"{% trans "Describe requirements, eligible categories or minimum evaluation cutoffs..." %}" rows="2"></textarea>
       </div>
       <div class="flex items-center justify-end gap-3 pt-2">
-        <button class="px-4 py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-colors" onclick="closeAddPrizeModal()" type="button">Cancel</button>
-        <button class="px-5 py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold hover:opacity-90 shadow-sm transition-opacity" type="submit">Save Prize</button>
+        <button class="px-4 py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-colors" onclick="closeAddPrizeModal()" type="button">{% trans "Cancel" %}</button>
+        <button class="px-5 py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold hover:opacity-90 shadow-sm transition-opacity" type="submit">{% trans "Save Prize" %}</button>
       </div>
     </form>
   </div>
@@ -747,12 +747,12 @@
     <div class="px-space-lg py-space-sm bg-surface-container-low flex items-center justify-between">
       <div class="flex items-center gap-2">
         <span class="material-symbols-outlined text-primary text-xl">workspace_premium</span>
-        <span class="font-label-md text-label-md font-bold text-on-surface">Certificate Preview &amp; Credential Verification</span>
+        <span class="font-label-md text-label-md font-bold text-on-surface">{% trans "Certificate Preview &amp; Credential Verification" %}</span>
       </div>
       <div class="flex items-center gap-2">
         <button class="px-3 py-1.5 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-sm" onclick="window.print()" type="button">
           <span class="material-symbols-outlined text-sm leading-none">print</span>
-          <span>Print / Download PDF</span>
+          <span>{% trans "Print / Download PDF" %}</span>
         </button>
         <button class="p-1 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-colors" onclick="closeCertPreview()" type="button">
           <span class="material-symbols-outlined text-lg">close</span>
@@ -763,43 +763,43 @@
     <div class="p-8 sm:p-12 bg-surface-container-lowest flex items-center justify-center">
       <div class="w-full p-8 rounded-xl bg-surface-bright shadow-sm relative flex flex-col items-center text-center overflow-hidden">
         <div class="w-full flex justify-between items-center pb-4">
-          <div class="flex items-center gap-2 text-left">
-            <span class="font-headline-sm font-bold text-primary">CodeStorm</span>
-            <span class="font-label-sm text-label-sm text-outline">Certified</span>
+          <div class="flex items-center gap-2 text-start">
+            <span class="font-headline-sm font-bold text-primary">{% trans "CodeStorm" %}</span>
+            <span class="font-label-sm text-label-sm text-outline">{% trans "Certified" %}</span>
           </div>
-          <div class="px-3 py-1 rounded-full bg-surface-container text-primary font-code-inline text-xs font-bold">ID: HF-2026-X8849</div>
+          <div class="px-3 py-1 rounded-full bg-surface-container text-primary font-code-inline text-xs font-bold">{% trans "ID: HF-2026-X8849" %}</div>
         </div>
         <div class="my-6 flex flex-col items-center">
-          <span class="font-label-md text-label-md text-outline uppercase tracking-widest font-semibold">Certificate of Achievement</span>
-          <span class="font-body-sm text-body-sm text-on-surface-variant mt-1">This official document is proudly conferred upon</span>
-          <h2 class="font-headline-lg text-headline-lg font-bold text-primary mt-3" id="certTeamName">Pixel Pioneers</h2>
+          <span class="font-label-md text-label-md text-outline uppercase tracking-widest font-semibold">{% trans "Certificate of Achievement" %}</span>
+          <span class="font-body-sm text-body-sm text-on-surface-variant mt-1">{% trans "This official document is proudly conferred upon" %}</span>
+          <h2 class="font-headline-lg text-headline-lg font-bold text-primary mt-3" id="certTeamName">{% trans "Pixel Pioneers" %}</h2>
           <div class="w-24 h-0.5 bg-primary/20 my-2"></div>
-          <p class="font-body-md text-body-md text-on-surface max-w-lg mt-1">for outstanding technical distinction and first-place leadership in</p>
-          <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface mt-1" id="certHackathonName">AI Innovation Challenge 2025</h3>
+          <p class="font-body-md text-body-md text-on-surface max-w-lg mt-1">{% trans "for outstanding technical distinction and first-place leadership in" %}</p>
+          <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface mt-1" id="certHackathonName">{% trans "AI Innovation Challenge 2025" %}</h3>
           <span class="inline-block mt-3 px-4 py-1.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md font-bold" id="certAwardName">First Place Grand Champion ($5,000)</span>
         </div>
         <div class="w-full pt-8 flex items-end justify-between font-body-sm text-body-sm">
           <div class="flex flex-col items-center text-center">
             <div class="w-32 h-8 flex items-center justify-center">
-              <span class="font-serif italic font-bold text-primary text-lg">Elena Vance</span>
+              <span class="font-serif italic font-bold text-primary text-lg">{% trans "Elena Vance" %}</span>
             </div>
             <div class="w-36 h-0.5 bg-outline-variant mb-1"></div>
-            <span class="font-label-sm text-label-sm font-semibold text-on-surface">Elena Vance</span>
-            <span class="font-label-sm text-label-sm text-outline">Lead Organizer &amp; Director</span>
+            <span class="font-label-sm text-label-sm font-semibold text-on-surface">{% trans "Elena Vance" %}</span>
+            <span class="font-label-sm text-label-sm text-outline">{% trans "Lead Organizer &amp; Director" %}</span>
           </div>
           <div class="flex flex-col items-center">
             <div class="w-16 h-16 rounded-full bg-surface-container-high text-primary flex items-center justify-center shadow-md">
               <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">verified</span>
             </div>
-            <span class="font-label-sm text-label-sm text-outline mt-1 font-code-inline" id="certIssueDate">Oct 12, 2026</span>
+            <span class="font-label-sm text-label-sm text-outline mt-1 font-code-inline" id="certIssueDate">{% trans "Oct 12, 2026" %}</span>
           </div>
           <div class="flex flex-col items-center text-center">
             <div class="w-32 h-8 flex items-center justify-center">
-              <span class="font-serif italic font-bold text-secondary text-lg">Marcus Sterling</span>
+              <span class="font-serif italic font-bold text-secondary text-lg">{% trans "Marcus Sterling" %}</span>
             </div>
             <div class="w-36 h-0.5 bg-outline-variant mb-1"></div>
-            <span class="font-label-sm text-label-sm font-semibold text-on-surface">Marcus Sterling</span>
-            <span class="font-label-sm text-label-sm text-outline">Jury Board President</span>
+            <span class="font-label-sm text-label-sm font-semibold text-on-surface">{% trans "Marcus Sterling" %}</span>
+            <span class="font-label-sm text-label-sm text-outline">{% trans "Jury Board President" %}</span>
           </div>
         </div>
       </div>
@@ -885,7 +885,7 @@
   function handlePrizeSubmit(event) {
     event.preventDefault();
     closeAddPrizeModal();
-    alert('Prize tier saved successfully and assigned to hackathon rubric!');
+    alert("{% trans "Prize tier saved successfully and assigned to hackathon rubric!" %}");
   }
 
   // ---------- Leaderboard search ----------
@@ -903,12 +903,12 @@
   const btnExportResults = document.getElementById('btnExportResults');
   btnExportResults.addEventListener('click', () => {
     const csvData = [
-      ["Rank", "Team Name", "Project Name", "Overall Score", "Innovation", "Technical", "Prize / Achievement", "Status"],
-      ["1", "Pixel Pioneers", "CampusConnect", "96.5", "9.5", "9.8", "First Place ($5,000)", "Finalist"],
-      ["2", "Code Warriors", "SmartHealth AI", "93.2", "9.4", "9.1", "Second Place ($3,000)", "Finalist"],
-      ["3", "Green Innovators", "EcoTrack", "90.8", "9.0", "9.2", "Third Place ($1,500)", "Finalist"],
-      ["4", "FinVision", "FinWise", "87.4", "8.7", "8.9", "Best FinTech Idea ($1,500)", "Finalist"],
-      ["5", "Byte Builders", "SecureVault", "85.9", "8.5", "8.8", "Best Security Solution ($2,000)", "Evaluated"]
+      ["{% trans "Rank" %}", "{% trans "Team Name" %}", "{% trans "Project Name" %}", "{% trans "Overall Score" %}", "{% trans "Innovation" %}", "{% trans "Technical" %}", "{% trans "Prize / Achievement" %}", "{% trans "Status" %}"],
+      ["1", "Pixel Pioneers", "CampusConnect", "96.5", "9.5", "9.8", "{% trans "First Place" %} ($5,000)", "{% trans "Finalist" %}"],
+      ["2", "Code Warriors", "SmartHealth AI", "93.2", "9.4", "9.1", "{% trans "Second Place" %} ($3,000)", "{% trans "Finalist" %}"],
+      ["3", "Green Innovators", "EcoTrack", "90.8", "9.0", "9.2", "{% trans "Third Place" %} ($1,500)", "{% trans "Finalist" %}"],
+      ["4", "FinVision", "FinWise", "87.4", "8.7", "8.9", "{% trans "Best FinTech Idea" %} ($1,500)", "{% trans "Finalist" %}"],
+      ["5", "Byte Builders", "SecureVault", "85.9", "8.5", "8.8", "{% trans "Best Security Solution" %} ($2,000)", "{% trans "Evaluated" %}"]
     ];
 
     const csvContent = "data:text/csv;charset=utf-8," + csvData.map(e => e.map(item => `"${item}"`).join(",")).join("\n");

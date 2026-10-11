@@ -1,10 +1,10 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}Resources · CodeStorm{% endblock %}
+{% block title %}{% trans "Resources · CodeStorm" %}{% endblock %}
 {% block page_name %}resources{% endblock %}
-{% block breadcrumb_section %}Support{% endblock %}
-{% block breadcrumb_page %}Resources{% endblock %}
+{% block breadcrumb_section %}{% trans "Support" %}{% endblock %}
+{% block breadcrumb_page %}{% trans "Resources" %}{% endblock %}
 
 {% block content %}
 <div class="p-space-lg lg:p-space-xl flex flex-col gap-space-xl max-w-7xl mx-auto w-full">
@@ -12,20 +12,20 @@
   <!-- ============ PAGE HEADER ============ -->
   <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
     <div class="flex flex-col gap-1 min-w-0">
-      <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Resources</h1>
+      <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">{% trans "Resources" %}</h1>
       <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
-        Discover useful guides, tools, tutorials, and documents to help your team succeed.
+        {% trans "Discover useful guides, tools, tutorials, and documents to help your team succeed." %}
       </p>
     </div>
     <div class="flex items-center gap-space-sm shrink-0">
       <button class="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-surface-container-lowest shadow-sm hover:bg-surface-container transition-all text-on-surface font-label-md text-label-md cursor-pointer group" id="toggleBookmarksBtn" type="button">
         <span class="material-symbols-outlined text-[18px] text-outline group-hover:text-primary transition-colors">bookmark</span>
-        <span>My Bookmarks</span>
+        <span>{% trans "My Bookmarks" %}</span>
         <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold" id="bookmarkCounterPill">0</span>
       </button>
       <button class="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md shadow-sm hover:opacity-95 hover:shadow-md transition-all cursor-pointer" id="openAddModalBtn" type="button">
         <span class="material-symbols-outlined text-[18px]">add</span>
-        <span>Add Resource</span>
+        <span>{% trans "Add Resource" %}</span>
       </button>
     </div>
   </div>
@@ -34,35 +34,35 @@
   <div class="grid grid-cols-2 lg:grid-cols-4 gap-space-md">
     <div class="p-5 rounded-2xl bg-surface-container-lowest shadow-sm">
       <div class="flex items-center justify-between mb-3">
-        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Total Resources</span>
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Total Resources" %}</span>
         <div class="w-9 h-9 rounded-xl bg-surface-container flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[20px]">library_books</span></div>
       </div>
       <div class="font-headline-md text-headline-md text-on-surface font-bold" id="kpiTotalCount">0</div>
-      <div class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Across 6 specialized tracks</div>
+      <div class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">{% trans "Across 6 specialized tracks" %}</div>
     </div>
     <div class="p-5 rounded-2xl bg-surface-container-lowest shadow-sm">
       <div class="flex items-center justify-between mb-3">
-        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Documentation</span>
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Documentation" %}</span>
         <div class="w-9 h-9 rounded-xl bg-primary-fixed/50 flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[20px]">menu_book</span></div>
       </div>
       <div class="font-headline-md text-headline-md text-on-surface font-bold" id="kpiDocCount">0</div>
-      <div class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Technical specs &amp; guides</div>
+      <div class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">{% trans "Technical specs &amp; guides" %}</div>
     </div>
     <div class="p-5 rounded-2xl bg-surface-container-lowest shadow-sm">
       <div class="flex items-center justify-between mb-3">
-        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Tutorials</span>
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Tutorials" %}</span>
         <div class="w-9 h-9 rounded-xl bg-secondary-fixed/40 flex items-center justify-center text-secondary"><span class="material-symbols-outlined text-[20px]">smart_display</span></div>
       </div>
       <div class="font-headline-md text-headline-md text-on-surface font-bold" id="kpiTutoCount">0</div>
-      <div class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Interactive &amp; video lessons</div>
+      <div class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">{% trans "Interactive &amp; video lessons" %}</div>
     </div>
     <div class="p-5 rounded-2xl bg-surface-container-lowest shadow-sm">
       <div class="flex items-center justify-between mb-3">
-        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Bookmarked</span>
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Bookmarked" %}</span>
         <div class="w-9 h-9 rounded-xl bg-surface-container-high flex items-center justify-center text-on-primary-fixed-variant"><span class="material-symbols-outlined text-[20px]">bookmark</span></div>
       </div>
       <div class="font-headline-md text-headline-md text-on-surface font-bold" id="kpiBookmarkedCount">00</div>
-      <div class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Saved in your library</div>
+      <div class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">{% trans "Saved in your library" %}</div>
     </div>
   </div>
 
@@ -71,9 +71,9 @@
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-2">
         <span class="material-symbols-outlined text-primary text-[22px]">stars</span>
-        <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Featured Resources</h2>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">{% trans "Featured Resources" %}</h2>
       </div>
-      <span class="font-label-sm text-label-sm text-outline">Curated for high sprint velocity</span>
+      <span class="font-label-sm text-label-sm text-outline">{% trans "Curated for high sprint velocity" %}</span>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-space-md" id="featuredGrid"></div>
   </div>
@@ -82,66 +82,66 @@
   <div class="p-4 rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-3">
     <div class="flex flex-col lg:flex-row items-stretch lg:items-center gap-3">
       <div class="relative flex-1">
-        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
-        <input class="w-full bg-surface-container-low rounded-xl pl-10 pr-10 py-2.5 font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20" id="searchInput" placeholder="Search resources, tools, or topics..." type="text"/>
-        <button class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface text-[18px] material-symbols-outlined" id="clearSearchBtn" type="button">close</button>
+        <span class="material-symbols-outlined absolute start-3.5 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+        <input class="w-full bg-surface-container-low rounded-xl ps-10 pe-10 py-2.5 font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20" id="searchInput" placeholder"{% trans "Search resources, tools, or topics..." %}" type="text"/>
+        <button class="hidden absolute end-3 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface text-[18px] material-symbols-outlined" id="clearSearchBtn" type="button">close</button>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-2 shrink-0">
         <div class="relative">
-          <select class="w-full appearance-none bg-surface-container-low rounded-xl px-3.5 py-2.5 pr-8 font-label-md text-label-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer" id="typeFilter">
-            <option value="">All Types</option>
-            <option value="Documentation">Documentation</option>
-            <option value="Tutorial">Tutorial</option>
-            <option value="Tool">Tool</option>
-            <option value="Template">Template</option>
-            <option value="Video">Video</option>
+          <select class="w-full appearance-none bg-surface-container-low rounded-xl px-3.5 py-2.5 pe-8 font-label-md text-label-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer" id="typeFilter">
+            <option value="">{% trans "All Types" %}</option>
+            <option value="Documentation">{% trans "Documentation" %}</option>
+            <option value="Tutorial">{% trans "Tutorial" %}</option>
+            <option value="Tool">{% trans "Tool" %}</option>
+            <option value="Template">{% trans "Template" %}</option>
+            <option value="Video">{% trans "Video" %}</option>
           </select>
-          <span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">expand_more</span>
+          <span class="material-symbols-outlined absolute end-2.5 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">expand_more</span>
         </div>
         <div class="relative">
-          <select class="w-full appearance-none bg-surface-container-low rounded-xl px-3.5 py-2.5 pr-8 font-label-md text-label-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer" id="categoryFilter">
-            <option value="">All Categories</option>
-            <option value="AI &amp; Machine Learning">AI &amp; ML</option>
-            <option value="Web Development">Web Dev</option>
-            <option value="Design">Design</option>
-            <option value="Business">Business</option>
-            <option value="Cybersecurity">Cybersecurity</option>
-            <option value="General">General</option>
+          <select class="w-full appearance-none bg-surface-container-low rounded-xl px-3.5 py-2.5 pe-8 font-label-md text-label-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer" id="categoryFilter">
+            <option value="">{% trans "All Categories" %}</option>
+            <option value="AI &amp; Machine Learning">{% trans "AI &amp; ML" %}</option>
+            <option value="Web Development">{% trans "Web Dev" %}</option>
+            <option value="Design">{% trans "Design" %}</option>
+            <option value="Business">{% trans "Business" %}</option>
+            <option value="Cybersecurity">{% trans "Cybersecurity" %}</option>
+            <option value="General">{% trans "General" %}</option>
           </select>
-          <span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">expand_more</span>
+          <span class="material-symbols-outlined absolute end-2.5 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">expand_more</span>
         </div>
         <div class="relative col-span-2 md:col-span-1">
-          <select class="w-full appearance-none bg-surface-container-low rounded-xl px-3.5 py-2.5 pr-8 font-label-md text-label-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer" id="hackathonFilter">
-            <option value="">All Hackathons</option>
-            <option value="Global AI Sprint 2025">Global AI Sprint 2025</option>
-            <option value="AI Innovation Challenge">AI Innovation Challenge</option>
-            <option value="GreenTech Hackathon">GreenTech Hackathon</option>
-            <option value="FinTech Future">FinTech Future</option>
-            <option value="CyberSecure Sprint">CyberSecure Sprint</option>
-            <option value="Web Creators Weekend">Web Creators Weekend</option>
-            <option value="Smart City Hack">Smart City Hack</option>
+          <select class="w-full appearance-none bg-surface-container-low rounded-xl px-3.5 py-2.5 pe-8 font-label-md text-label-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer" id="hackathonFilter">
+            <option value="">{% trans "All Hackathons" %}</option>
+            <option value="Global AI Sprint 2025">{% trans "Global AI Sprint 2025" %}</option>
+            <option value="AI Innovation Challenge">{% trans "AI Innovation Challenge" %}</option>
+            <option value="GreenTech Hackathon">{% trans "GreenTech Hackathon" %}</option>
+            <option value="FinTech Future">{% trans "FinTech Future" %}</option>
+            <option value="CyberSecure Sprint">{% trans "CyberSecure Sprint" %}</option>
+            <option value="Web Creators Weekend">{% trans "Web Creators Weekend" %}</option>
+            <option value="Smart City Hack">{% trans "Smart City Hack" %}</option>
           </select>
-          <span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">expand_more</span>
+          <span class="material-symbols-outlined absolute end-2.5 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">expand_more</span>
         </div>
       </div>
       <div class="relative shrink-0">
-        <select class="w-full appearance-none bg-surface-container-low rounded-xl px-3.5 py-2.5 pr-8 font-label-md text-label-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer" id="sortSelect">
-          <option value="recent">Most Recent</option>
-          <option value="popular">Most Popular</option>
-          <option value="alpha">A – Z</option>
+        <select class="w-full appearance-none bg-surface-container-low rounded-xl px-3.5 py-2.5 pe-8 font-label-md text-label-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer" id="sortSelect">
+          <option value="recent">{% trans "Most Recent" %}</option>
+          <option value="popular">{% trans "Most Popular" %}</option>
+          <option value="alpha">{% trans "A – Z" %}</option>
         </select>
-        <span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">sort</span>
+        <span class="material-symbols-outlined absolute end-2.5 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">sort</span>
       </div>
     </div>
     <div class="flex items-center justify-between pt-1 font-body-sm text-body-sm">
       <div class="flex items-center gap-2">
-        <span class="text-on-surface-variant">Showing <span class="font-semibold text-on-surface" id="filteredCount">0</span> of <span id="totalCountText">0</span> resources</span>
+        <span class="text-on-surface-variant">{% trans "Showing" %} <span class="font-semibold text-on-surface" id="filteredCount">0</span> of <span id="totalCountText">0</span> resources</span>
         <span class="hidden px-2 py-0.5 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm font-semibold items-center gap-1" id="activeBookmarkNotice">
-          <span class="material-symbols-outlined text-[14px]">bookmark</span> Bookmarked Only
+          <span class="material-symbols-outlined text-[14px]">bookmark</span> {% trans "Bookmarked Only" %}
         </span>
       </div>
       <button class="flex items-center gap-1 text-outline hover:text-primary transition-colors cursor-pointer font-label-sm text-label-sm" id="resetFiltersBtn" type="button">
-        <span class="material-symbols-outlined text-[16px]">restart_alt</span> Clear Filters
+        <span class="material-symbols-outlined text-[16px]">restart_alt</span> {% trans "Clear Filters" %}
       </button>
     </div>
   </div>
@@ -154,9 +154,9 @@
     <div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center text-outline mb-4">
       <span class="material-symbols-outlined text-[32px]">manage_search</span>
     </div>
-    <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">No resources match your filter</h3>
-    <p class="font-body-md text-body-md text-on-surface-variant max-w-md mt-1 mb-6">Try clearing selected criteria, checking your search spelling, or browsing our full resource collection.</p>
-    <button class="px-5 py-2.5 rounded-lg bg-surface-container font-label-md text-label-md text-on-surface hover:bg-surface-container-high transition-colors cursor-pointer" id="emptyResetBtn" type="button">Reset All Filters</button>
+    <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">{% trans "No resources match your filter" %}</h3>
+    <p class="font-body-md text-body-md text-on-surface-variant max-w-md mt-1 mb-6">{% trans "Try clearing selected criteria, checking your search spelling, or browsing our full resource collection." %}</p>
+    <button class="px-5 py-2.5 rounded-lg bg-surface-container font-label-md text-label-md text-on-surface hover:bg-surface-container-high transition-colors cursor-pointer" id="emptyResetBtn" type="button">{% trans "Reset All Filters" %}</button>
   </div>
 </div>
 
@@ -164,12 +164,12 @@
 <div class="fixed inset-0 z-50 hidden bg-inverse-surface/40 backdrop-blur-sm items-center justify-center p-4" id="detailsModal">
   <div class="bg-surface-container-lowest rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl flex flex-col">
     <div class="p-6 border-b border-surface-container flex items-start justify-between">
-      <div class="flex flex-col gap-1 pr-4">
+      <div class="flex flex-col gap-1 pe-4">
         <div class="flex items-center gap-2">
-          <span class="px-2.5 py-0.5 rounded-full font-label-sm text-label-sm font-semibold" id="modalTypeBadge">Type</span>
-          <span class="font-label-sm text-label-sm text-secondary font-semibold uppercase tracking-wider" id="modalCategory">Category</span>
+          <span class="px-2.5 py-0.5 rounded-full font-label-sm text-label-sm font-semibold" id="modalTypeBadge">{% trans "Type" %}</span>
+          <span class="font-label-sm text-label-sm text-secondary font-semibold uppercase tracking-wider" id="modalCategory">{% trans "Category" %}</span>
         </div>
-        <h2 class="font-headline-md text-headline-md text-on-surface mt-1" id="modalTitle">Resource Title</h2>
+        <h2 class="font-headline-md text-headline-md text-on-surface mt-1" id="modalTitle">{% trans "Resource Title" %}</h2>
       </div>
       <button class="p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" data-close="details" type="button">
         <span class="material-symbols-outlined text-[20px]">close</span>
@@ -177,39 +177,39 @@
     </div>
     <div class="p-6 flex flex-col gap-6">
       <div>
-        <h4 class="font-label-sm text-label-sm text-outline uppercase tracking-wider mb-2">Summary &amp; Guidelines</h4>
+        <h4 class="font-label-sm text-label-sm text-outline uppercase tracking-wider mb-2">{% trans "Summary &amp; Guidelines" %}</h4>
         <p class="font-body-md text-body-md text-on-surface leading-relaxed" id="modalDescription"></p>
       </div>
       <div class="grid grid-cols-3 gap-3 p-4 rounded-xl bg-surface-container-low text-center">
-        <div><div class="font-label-sm text-label-sm text-outline">Author</div><div class="font-label-md text-label-md text-on-surface font-semibold mt-0.5" id="modalAuthor"></div></div>
-        <div><div class="font-label-sm text-label-sm text-outline">Date Added</div><div class="font-label-md text-label-md text-on-surface font-semibold mt-0.5" id="modalDate"></div></div>
-        <div><div class="font-label-sm text-label-sm text-outline">Estimated Time</div><div class="font-label-md text-label-md text-on-surface font-semibold mt-0.5" id="modalDuration"></div></div>
+        <div><div class="font-label-sm text-label-sm text-outline">{% trans "Author" %}</div><div class="font-label-md text-label-md text-on-surface font-semibold mt-0.5" id="modalAuthor"></div></div>
+        <div><div class="font-label-sm text-label-sm text-outline">{% trans "Date Added" %}</div><div class="font-label-md text-label-md text-on-surface font-semibold mt-0.5" id="modalDate"></div></div>
+        <div><div class="font-label-sm text-label-sm text-outline">{% trans "Estimated Time" %}</div><div class="font-label-md text-label-md text-on-surface font-semibold mt-0.5" id="modalDuration"></div></div>
       </div>
       <div>
-        <h4 class="font-label-sm text-label-sm text-outline uppercase tracking-wider mb-2">Subject Tags</h4>
+        <h4 class="font-label-sm text-label-sm text-outline uppercase tracking-wider mb-2">{% trans "Subject Tags" %}</h4>
         <div class="flex flex-wrap gap-2" id="modalTags"></div>
       </div>
       <div class="p-4 rounded-xl bg-surface-container-low/60 flex items-center justify-between">
         <div class="flex items-center gap-3">
           <span class="material-symbols-outlined text-primary text-[24px]">recommend</span>
           <div>
-            <div class="font-label-md text-label-md text-on-surface font-semibold">Need more help on this?</div>
-            <div class="font-body-sm text-body-sm text-on-surface-variant">Check our Discord mentoring lounge for real-time guidance.</div>
+            <div class="font-label-md text-label-md text-on-surface font-semibold">{% trans "Need more help on this?" %}</div>
+            <div class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Check our Discord mentoring lounge for real-time guidance." %}</div>
           </div>
         </div>
-        <button class="font-label-sm text-label-sm text-primary font-semibold hover:underline shrink-0" id="joinLoungeBtn" type="button">Join Lounge</button>
+        <button class="font-label-sm text-label-sm text-primary font-semibold hover:underline shrink-0" id="joinLoungeBtn" type="button">{% trans "Join Lounge" %}</button>
       </div>
     </div>
     <div class="p-6 border-t border-surface-container bg-surface-container-low/30 flex items-center justify-between rounded-b-2xl">
       <button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container transition-colors cursor-pointer" id="modalBookmarkAction" type="button">
         <span class="material-symbols-outlined text-[18px]" id="modalBookmarkIcon">bookmark_border</span>
-        <span id="modalBookmarkLabel">Save Resource</span>
+        <span id="modalBookmarkLabel">{% trans "Save Resource" %}</span>
       </button>
       <div class="flex items-center gap-2">
-        <button class="px-4 py-2 rounded-lg text-on-surface font-label-md text-label-md hover:bg-surface-container transition-colors cursor-pointer" data-close="details" type="button">Close</button>
+        <button class="px-4 py-2 rounded-lg text-on-surface font-label-md text-label-md hover:bg-surface-container transition-colors cursor-pointer" data-close="details" type="button">{% trans "Close" %}</button>
         <button class="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md shadow-sm hover:opacity-95 transition-all cursor-pointer" id="modalPrimaryActionBtn" type="button">
           <span class="material-symbols-outlined text-[18px]">open_in_new</span>
-          <span id="modalActionLabel">Open Resource</span>
+          <span id="modalActionLabel">{% trans "Open Resource" %}</span>
         </button>
       </div>
     </div>
@@ -222,7 +222,7 @@
     <div class="p-6 border-b border-surface-container flex items-center justify-between">
       <div class="flex items-center gap-2.5">
         <div class="w-8 h-8 rounded-lg bg-primary-fixed flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[20px]">add_circle</span></div>
-        <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Add Hackathon Resource</h2>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">{% trans "Add Hackathon Resource" %}</h2>
       </div>
       <button class="p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-colors cursor-pointer" data-close="add" type="button">
         <span class="material-symbols-outlined text-[20px]">close</span>
@@ -231,68 +231,68 @@
     {# Pour envoyer au backend plus tard : method="post" action="{% url 'resource_create' %}" + {% csrf_token %} #}
     <form class="p-6 flex flex-col gap-4" id="addResourceForm">
       <div>
-        <label class="block font-label-md text-label-md text-on-surface mb-1" for="newTitle">Resource Title *</label>
-        <input class="w-full bg-surface-container-low rounded-lg px-3.5 py-2.5 font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20" id="newTitle" name="title" placeholder="e.g. Supabase Edge Functions Guide" required type="text"/>
+        <label class="block font-label-md text-label-md text-on-surface mb-1" for="newTitle">{% trans "Resource Title *" %}</label>
+        <input class="w-full bg-surface-container-low rounded-lg px-3.5 py-2.5 font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20" id="newTitle" name="title" placeholder"{% trans "e.g. Supabase Edge Functions Guide" %}" required type="text"/>
       </div>
       <div class="grid grid-cols-2 gap-3">
         <div>
-          <label class="block font-label-md text-label-md text-on-surface mb-1" for="newType">Type *</label>
+          <label class="block font-label-md text-label-md text-on-surface mb-1" for="newType">{% trans "Type *" %}</label>
           <select class="w-full bg-surface-container-low rounded-lg px-3.5 py-2.5 font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer" id="newType" name="type" required>
-            <option value="Documentation">Documentation</option>
-            <option value="Tutorial">Tutorial</option>
-            <option value="Tool">Tool</option>
-            <option value="Template">Template</option>
-            <option value="Video">Video</option>
+            <option value="Documentation">{% trans "Documentation" %}</option>
+            <option value="Tutorial">{% trans "Tutorial" %}</option>
+            <option value="Tool">{% trans "Tool" %}</option>
+            <option value="Template">{% trans "Template" %}</option>
+            <option value="Video">{% trans "Video" %}</option>
           </select>
         </div>
         <div>
-          <label class="block font-label-md text-label-md text-on-surface mb-1" for="newCategory">Category *</label>
+          <label class="block font-label-md text-label-md text-on-surface mb-1" for="newCategory">{% trans "Category *" %}</label>
           <select class="w-full bg-surface-container-low rounded-lg px-3.5 py-2.5 font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer" id="newCategory" name="category" required>
-            <option value="AI &amp; Machine Learning">AI &amp; Machine Learning</option>
-            <option value="Web Development">Web Development</option>
-            <option value="Design">Design</option>
-            <option value="Business">Business</option>
-            <option value="Cybersecurity">Cybersecurity</option>
-            <option value="General">General</option>
+            <option value="AI &amp; Machine Learning">{% trans "AI &amp; Machine Learning" %}</option>
+            <option value="Web Development">{% trans "Web Development" %}</option>
+            <option value="Design">{% trans "Design" %}</option>
+            <option value="Business">{% trans "Business" %}</option>
+            <option value="Cybersecurity">{% trans "Cybersecurity" %}</option>
+            <option value="General">{% trans "General" %}</option>
           </select>
         </div>
       </div>
       <div class="grid grid-cols-2 gap-3">
         <div>
-          <label class="block font-label-md text-label-md text-on-surface mb-1" for="newHackathon">Linked Hackathon</label>
+          <label class="block font-label-md text-label-md text-on-surface mb-1" for="newHackathon">{% trans "Linked Hackathon" %}</label>
           <select class="w-full bg-surface-container-low rounded-lg px-3.5 py-2.5 font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer" id="newHackathon" name="hackathon">
-            <option value="Global AI Sprint 2025">Global AI Sprint 2025</option>
-            <option value="AI Innovation Challenge">AI Innovation Challenge</option>
-            <option value="GreenTech Hackathon">GreenTech Hackathon</option>
-            <option value="FinTech Future">FinTech Future</option>
-            <option value="CyberSecure Sprint">CyberSecure Sprint</option>
-            <option value="Web Creators Weekend">Web Creators Weekend</option>
-            <option value="Smart City Hack">Smart City Hack</option>
+            <option value="Global AI Sprint 2025">{% trans "Global AI Sprint 2025" %}</option>
+            <option value="AI Innovation Challenge">{% trans "AI Innovation Challenge" %}</option>
+            <option value="GreenTech Hackathon">{% trans "GreenTech Hackathon" %}</option>
+            <option value="FinTech Future">{% trans "FinTech Future" %}</option>
+            <option value="CyberSecure Sprint">{% trans "CyberSecure Sprint" %}</option>
+            <option value="Web Creators Weekend">{% trans "Web Creators Weekend" %}</option>
+            <option value="Smart City Hack">{% trans "Smart City Hack" %}</option>
           </select>
         </div>
         <div>
-          <label class="block font-label-md text-label-md text-on-surface mb-1" for="newDuration">Read/Watch Time</label>
-          <input class="w-full bg-surface-container-low rounded-lg px-3.5 py-2.5 font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20" id="newDuration" name="duration" placeholder="e.g. 10 min" type="text" value="8 min"/>
+          <label class="block font-label-md text-label-md text-on-surface mb-1" for="newDuration">{% trans "Read/Watch Time" %}</label>
+          <input class="w-full bg-surface-container-low rounded-lg px-3.5 py-2.5 font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20" id="newDuration" name="duration" placeholder"{% trans "e.g. 10 min" %}" type="text" value="8 min"/>
         </div>
       </div>
       <div>
-        <label class="block font-label-md text-label-md text-on-surface mb-1" for="newDesc">Summary Description *</label>
-        <textarea class="w-full bg-surface-container-low rounded-lg p-3 font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none" id="newDesc" name="description" placeholder="Provide a concise overview of what hackers will gain..." required rows="3"></textarea>
+        <label class="block font-label-md text-label-md text-on-surface mb-1" for="newDesc">{% trans "Summary Description *" %}</label>
+        <textarea class="w-full bg-surface-container-low rounded-lg p-3 font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none" id="newDesc" name="description" placeholder"{% trans "Provide a concise overview of what hackers will gain..." %}" required rows="3"></textarea>
       </div>
       <div>
-        <label class="block font-label-md text-label-md text-on-surface mb-1" for="newTags">Tags (comma separated)</label>
-        <input class="w-full bg-surface-container-low rounded-lg px-3.5 py-2.5 font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20" id="newTags" name="tags" placeholder="e.g. Python, API, Backend" type="text"/>
+        <label class="block font-label-md text-label-md text-on-surface mb-1" for="newTags">{% trans "Tags (comma separated)" %}</label>
+        <input class="w-full bg-surface-container-low rounded-lg px-3.5 py-2.5 font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20" id="newTags" name="tags" placeholder"{% trans "e.g. Python, API, Backend" %}" type="text"/>
       </div>
       <div class="p-4 border-t border-surface-container -mx-6 -mb-6 mt-2 flex items-center justify-end gap-2 bg-surface-container-low/30 rounded-b-2xl">
-        <button class="px-4 py-2 rounded-lg text-on-surface font-label-md text-label-md hover:bg-surface-container transition-colors cursor-pointer" data-close="add" type="button">Cancel</button>
-        <button class="px-5 py-2.5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md shadow-sm hover:opacity-95 transition-all cursor-pointer" type="submit">Publish Resource</button>
+        <button class="px-4 py-2 rounded-lg text-on-surface font-label-md text-label-md hover:bg-surface-container transition-colors cursor-pointer" data-close="add" type="button">{% trans "Cancel" %}</button>
+        <button class="px-5 py-2.5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md shadow-sm hover:opacity-95 transition-all cursor-pointer" type="submit">{% trans "Publish Resource" %}</button>
       </div>
     </form>
   </div>
 </div>
 
 <!-- ============ TOAST ============ -->
-<div class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 ease-out flex items-center gap-3 px-4 py-3 rounded-xl bg-inverse-surface text-inverse-on-surface shadow-xl" id="toastNotification">
+<div class="fixed bottom-6 end-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 ease-out flex items-center gap-3 px-4 py-3 rounded-xl bg-inverse-surface text-inverse-on-surface shadow-xl" id="toastNotification">
   <span class="material-symbols-outlined text-[20px] text-tertiary-fixed">check_circle</span>
   <span class="font-label-md text-label-md" id="toastMessage"></span>
 </div>
@@ -300,29 +300,33 @@
 
 
 {% block extra_js %}
-{# verbatim : évite que Django interprète d'éventuels {{ }} ou {% %} dans le JS #}
-{% verbatim %}
+{# Les chaines JS sont traduites ; les clés de filtrage (type/category/hackathon) restent en anglais #}
 <script>
 (function () {
   // ---------- DONNÉES ----------
   // Dates en ISO (YYYY-MM-DD) pour pouvoir trier correctement.
   const featured = [
-    { id: "feat-1", featured: true, title: "Hackathon Starter Guide", type: "Documentation", category: "General", description: "A practical guide to planning your hackathon project, organizing tasks, and delivering a strong final submission.", author: "HackFlow Team", date: "2026-10-08", duration: "8 min", tags: ["Planning", "Beginner", "Management"], actionLabel: "Read Guide", bookmarked: true, popularity: 95, hackathon: "Global AI Sprint 2025" },
-    { id: "feat-2", featured: true, title: "AI Project Toolkit", type: "Tool", category: "AI & Machine Learning", description: "Explore useful tools, APIs, and datasets for building AI-powered hackathon projects with instant boilerplate configs.", author: "HackFlow Team", date: "2026-10-07", duration: "12 min", tags: ["AI", "Python", "APIs"], actionLabel: "Explore Toolkit", bookmarked: true, popularity: 90, hackathon: "AI Innovation Challenge" },
-    { id: "feat-3", featured: true, title: "UI/UX Design Fundamentals", type: "Tutorial", category: "Design", description: "Learn the fundamentals of user-centered design, wireframes, prototypes, and accessible interfaces for judges.", author: "Design Mentors", date: "2026-10-05", duration: "15 min", tags: ["UI/UX", "Figma", "Accessibility"], actionLabel: "Start Tutorial", bookmarked: true, popularity: 85, hackathon: "Web Creators Weekend" }
+    { id: "feat-1", featured: true, title: "{% trans "Hackathon Starter Guide" %}", type: "Documentation", category: "General", description: "{% trans "A practical guide to planning your hackathon project, organizing tasks, and delivering a strong final submission." %}", author: "{% trans "HackFlow Team" %}", date: "2026-10-08", duration: "{% trans "8 min" %}", tags: ["{% trans "Planning" %}", "{% trans "Beginner" %}", "{% trans "Management" %}"], actionLabel: "{% trans "Read Guide" %}", bookmarked: true, popularity: 95, hackathon: "Global AI Sprint 2025" },
+    { id: "feat-2", featured: true, title: "{% trans "AI Project Toolkit" %}", type: "Tool", category: "AI & Machine Learning", description: "{% trans "Explore useful tools, APIs, and datasets for building AI-powered hackathon projects with instant boilerplate configs." %}", author: "{% trans "HackFlow Team" %}", date: "2026-10-07", duration: "{% trans "12 min" %}", tags: ["AI", "Python", "{% trans "APIs" %}"], actionLabel: "{% trans "Explore Toolkit" %}", bookmarked: true, popularity: 90, hackathon: "AI Innovation Challenge" },
+    { id: "feat-3", featured: true, title: "{% trans "UI/UX Design Fundamentals" %}", type: "Tutorial", category: "Design", description: "{% trans "Learn the fundamentals of user-centered design, wireframes, prototypes, and accessible interfaces for judges." %}", author: "{% trans "Design Mentors" %}", date: "2026-10-05", duration: "{% trans "15 min" %}", tags: ["UI/UX", "Figma", "{% trans "Accessibility" %}"], actionLabel: "{% trans "Start Tutorial" %}", bookmarked: true, popularity: 85, hackathon: "Web Creators Weekend" }
   ];
 
   const resources = [
-    { id: "res-1", title: "Django for Beginners", type: "Documentation", category: "Web Development", description: "Learn the basics of Django project structure, URLs, views, templates, and models to jumpstart your hackathon backend.", author: "HackFlow Team", date: "2026-10-04", duration: "10 min", tags: ["Django", "Python"], actionLabel: "View Resource", bookmarked: true, popularity: 80, hackathon: "Web Creators Weekend" },
-    { id: "res-2", title: "Git & GitHub Collaboration", type: "Tutorial", category: "Web Development", description: "Understand branches, pull requests, commits, and team collaboration workflows under tight hackathon sprint deadlines.", author: "Developer Community", date: "2026-10-05", duration: "18 min", tags: ["Git", "GitHub"], actionLabel: "View Resource", bookmarked: false, popularity: 70, hackathon: "AI Innovation Challenge" },
-    { id: "res-3", title: "Figma UI Kit", type: "Template", category: "Design", description: "A reusable UI kit to speed up dashboard and web application prototyping with pre-built design tokens and components.", author: "Design Mentors", date: "2026-10-02", duration: "Downloadable template", tags: ["Figma", "UI/UX"], actionLabel: "Download Template", bookmarked: true, popularity: 88, hackathon: "AI Innovation Challenge" },
-    { id: "res-4", title: "AI APIs Directory", type: "Tool", category: "AI & Machine Learning", description: "Discover APIs for text generation, image processing, speech-to-text, and intelligent multimodal agents.", author: "HackFlow Team", date: "2026-10-07", duration: "12 min", tags: ["AI", "APIs"], actionLabel: "View Tool", bookmarked: true, popularity: 92, hackathon: "AI Innovation Challenge" },
-    { id: "res-5", title: "Cybersecurity Checklist", type: "Documentation", category: "Cybersecurity", description: "A practical checklist for authentication, authorization, input validation, and secure application design before demoing to judges.", author: "Security Mentors", date: "2026-10-01", duration: "9 min", tags: ["Security", "OWASP"], actionLabel: "View Resource", bookmarked: false, popularity: 60, hackathon: "CyberSecure Sprint" },
-    { id: "res-6", title: "Pitching Your Project", type: "Video", category: "Business", description: "Learn how to present your problem statement, solution architecture, measured impact, and live prototype clearly in 3 minutes.", author: "Startup Mentors", date: "2026-09-28", duration: "14 min", tags: ["Pitch", "Presentation"], actionLabel: "Watch Video", bookmarked: true, popularity: 75, hackathon: "FinTech Future" },
-    { id: "res-7", title: "Responsive Design Guide", type: "Tutorial", category: "Design", description: "Build responsive interfaces that work smoothly on mobile, tablet, and widescreen projection displays used during jury pitching.", author: "Design Mentors", date: "2026-10-03", duration: "16 min", tags: ["CSS", "Responsive"], actionLabel: "View Resource", bookmarked: false, popularity: 65, hackathon: "Web Creators Weekend" },
-    { id: "res-8", title: "Open Data Sources", type: "Tool", category: "AI & Machine Learning", description: "Find verified public datasets suitable for data analysis, machine learning models, and climate and civic technology applications.", author: "Data Community", date: "2026-09-30", duration: "11 min", tags: ["Data Science", "Open Data"], actionLabel: "View Tool", bookmarked: false, popularity: 55, hackathon: "GreenTech Hackathon" },
-    { id: "res-9", title: "Project Planning Template", type: "Template", category: "General", description: "Organize tasks, milestones, deliverables, roles, and countdown deadlines smoothly for your entire hackathon crew.", author: "HackFlow Team", date: "2026-10-06", duration: "Downloadable template", tags: ["Planning", "Teamwork"], actionLabel: "Download Template", bookmarked: true, popularity: 78, hackathon: "Smart City Hack" }
+    { id: "res-1", title: "{% trans "Django for Beginners" %}", type: "Documentation", category: "Web Development", description: "{% trans "Learn the basics of Django project structure, URLs, views, templates, and models to jumpstart your hackathon backend." %}", author: "{% trans "HackFlow Team" %}", date: "2026-10-04", duration: "{% trans "10 min" %}", tags: ["Django", "Python"], actionLabel: "{% trans "View Resource" %}", bookmarked: true, popularity: 80, hackathon: "Web Creators Weekend" },
+    { id: "res-2", title: "{% trans "Git & GitHub Collaboration" %}", type: "Tutorial", category: "Web Development", description: "{% trans "Understand branches, pull requests, commits, and team collaboration workflows under tight hackathon sprint deadlines." %}", author: "{% trans "Developer Community" %}", date: "2026-10-05", duration: "{% trans "18 min" %}", tags: ["Git", "GitHub"], actionLabel: "{% trans "View Resource" %}", bookmarked: false, popularity: 70, hackathon: "AI Innovation Challenge" },
+    { id: "res-3", title: "{% trans "Figma UI Kit" %}", type: "Template", category: "Design", description: "{% trans "A reusable UI kit to speed up dashboard and web application prototyping with pre-built design tokens and components." %}", author: "{% trans "Design Mentors" %}", date: "2026-10-02", duration: "{% trans "Downloadable template" %}", tags: ["Figma", "UI/UX"], actionLabel: "{% trans "Download Template" %}", bookmarked: true, popularity: 88, hackathon: "AI Innovation Challenge" },
+    { id: "res-4", title: "{% trans "AI APIs Directory" %}", type: "Tool", category: "AI & Machine Learning", description: "{% trans "Discover APIs for text generation, image processing, speech-to-text, and intelligent multimodal agents." %}", author: "{% trans "HackFlow Team" %}", date: "2026-10-07", duration: "{% trans "12 min" %}", tags: ["AI", "{% trans "APIs" %}"], actionLabel: "{% trans "View Tool" %}", bookmarked: true, popularity: 92, hackathon: "AI Innovation Challenge" },
+    { id: "res-5", title: "{% trans "Cybersecurity Checklist" %}", type: "Documentation", category: "Cybersecurity", description: "{% trans "A practical checklist for authentication, authorization, input validation, and secure application design before demoing to judges." %}", author: "{% trans "Security Mentors" %}", date: "2026-10-01", duration: "{% trans "9 min" %}", tags: ["{% trans "Security" %}", "OWASP"], actionLabel: "{% trans "View Resource" %}", bookmarked: false, popularity: 60, hackathon: "CyberSecure Sprint" },
+    { id: "res-6", title: "{% trans "Pitching Your Project" %}", type: "Video", category: "Business", description: "{% trans "Learn how to present your problem statement, solution architecture, measured impact, and live prototype clearly in 3 minutes." %}", author: "{% trans "Startup Mentors" %}", date: "2026-09-28", duration: "{% trans "14 min" %}", tags: ["{% trans "Pitch" %}", "{% trans "Presentation" %}"], actionLabel: "{% trans "Watch Video" %}", bookmarked: true, popularity: 75, hackathon: "FinTech Future" },
+    { id: "res-7", title: "{% trans "Responsive Design Guide" %}", type: "Tutorial", category: "Design", description: "{% trans "Build responsive interfaces that work smoothly on mobile, tablet, and widescreen projection displays used during jury pitching." %}", author: "{% trans "Design Mentors" %}", date: "2026-10-03", duration: "{% trans "16 min" %}", tags: ["CSS", "{% trans "Responsive" %}"], actionLabel: "{% trans "View Resource" %}", bookmarked: false, popularity: 65, hackathon: "Web Creators Weekend" },
+    { id: "res-8", title: "{% trans "Open Data Sources" %}", type: "Tool", category: "AI & Machine Learning", description: "{% trans "Find verified public datasets suitable for data analysis, machine learning models, and climate and civic technology applications." %}", author: "{% trans "Data Community" %}", date: "2026-09-30", duration: "{% trans "11 min" %}", tags: ["{% trans "Data Science" %}", "{% trans "Open Data" %}"], actionLabel: "{% trans "View Tool" %}", bookmarked: false, popularity: 55, hackathon: "GreenTech Hackathon" },
+    { id: "res-9", title: "{% trans "Project Planning Template" %}", type: "Template", category: "General", description: "{% trans "Organize tasks, milestones, deliverables, roles, and countdown deadlines smoothly for your entire hackathon crew." %}", author: "{% trans "HackFlow Team" %}", date: "2026-10-06", duration: "{% trans "Downloadable template" %}", tags: ["{% trans "Planning" %}", "{% trans "Teamwork" %}"], actionLabel: "{% trans "Download Template" %}", bookmarked: true, popularity: 78, hackathon: "Smart City Hack" }
   ];
+
+  const TYPE_LABEL = { "Documentation": "{% trans "Documentation" %}", "Tutorial": "{% trans "Tutorial" %}", "Tool": "{% trans "Tool" %}", "Template": "{% trans "Template" %}", "Video": "{% trans "Video" %}" };
+  const CAT_LABEL = { "AI & Machine Learning": "{% trans "AI & Machine Learning" %}", "Web Development": "{% trans "Web Development" %}", "Design": "{% trans "Design" %}", "Business": "{% trans "Business" %}", "Cybersecurity": "{% trans "Cybersecurity" %}", "General": "{% trans "General" %}" };
+  const typeLabel = (t) => TYPE_LABEL[t] || t;
+  const catLabel = (c) => CAT_LABEL[c] || c;
 
   const typeStyles = {
     "Documentation": { bg: "bg-primary-fixed", text: "text-on-primary-fixed-variant", icon: "description" },
@@ -386,11 +390,11 @@
         <div>
           <div class="flex items-center justify-between mb-4">
             <span class="px-2.5 py-1 rounded-full ${cfg.bg} ${cfg.text} font-label-sm text-label-sm font-semibold flex items-center gap-1.5">
-              <span class="material-symbols-outlined text-[15px]">${cfg.icon}</span>${esc(item.type)}
+              <span class="material-symbols-outlined text-[15px]">${cfg.icon}</span>${esc(typeLabel(item.type))}
             </span>
-            <button data-bookmark="${item.id}" class="p-1.5 rounded-lg text-outline hover:text-primary hover:bg-surface-container transition-colors cursor-pointer" title="Toggle Bookmark" type="button">${bookmarkIcon(item.bookmarked)}</button>
+            <button data-bookmark="${item.id}" class="p-1.5 rounded-lg text-outline hover:text-primary hover:bg-surface-container transition-colors cursor-pointer" title="{% trans "Toggle Bookmark" %}" type="button">${bookmarkIcon(item.bookmarked)}</button>
           </div>
-          <div class="font-label-sm text-label-sm text-secondary font-semibold uppercase tracking-wider mb-1">${esc(item.category)}</div>
+          <div class="font-label-sm text-label-sm text-secondary font-semibold uppercase tracking-wider mb-1">${esc(catLabel(item.category))}</div>
           <h3 data-details="${item.id}" class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors cursor-pointer">${esc(item.title)}</h3>
           <p class="font-body-sm text-body-sm text-on-surface-variant mt-2 line-clamp-3">${esc(item.description)}</p>
         </div>
@@ -443,11 +447,11 @@
           <div>
             <div class="flex items-center justify-between mb-3.5">
               <span class="px-2.5 py-1 rounded-full ${cfg.bg} ${cfg.text} font-label-sm text-label-sm font-semibold flex items-center gap-1.5">
-                <span class="material-symbols-outlined text-[15px]">${cfg.icon}</span>${esc(item.type)}
+                <span class="material-symbols-outlined text-[15px]">${cfg.icon}</span>${esc(typeLabel(item.type))}
               </span>
-              <button data-bookmark="${item.id}" class="p-1.5 rounded-lg text-outline hover:text-primary hover:bg-surface-container transition-colors cursor-pointer" title="Save Resource" type="button">${bookmarkIcon(item.bookmarked)}</button>
+              <button data-bookmark="${item.id}" class="p-1.5 rounded-lg text-outline hover:text-primary hover:bg-surface-container transition-colors cursor-pointer" title="{% trans "Save Resource" %}" type="button">${bookmarkIcon(item.bookmarked)}</button>
             </div>
-            <div class="font-label-sm text-label-sm text-secondary font-semibold uppercase tracking-wider mb-1">${esc(item.category)}</div>
+            <div class="font-label-sm text-label-sm text-secondary font-semibold uppercase tracking-wider mb-1">${esc(catLabel(item.category))}</div>
             <h3 data-details="${item.id}" class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors cursor-pointer font-bold">${esc(item.title)}</h3>
             <p class="font-body-sm text-body-sm text-on-surface-variant mt-2 line-clamp-2 leading-relaxed">${esc(item.description)}</p>
           </div>
@@ -474,7 +478,7 @@
     const item = findItem(id);
     if (!item) return;
     item.bookmarked = !item.bookmarked;
-    toast(item.bookmarked ? `Saved "${item.title}" to library` : `Removed "${item.title}" from bookmarks`);
+    toast(item.bookmarked ? `{% trans "Saved" %} "${item.title}" {% trans "to your library" %}` : `{% trans "Removed" %} "${item.title}" {% trans "from your bookmarks" %}`);
     refreshAll();
     if (activeDetailId === id) updateModalBookmark(item.bookmarked);
   }
@@ -493,11 +497,11 @@
     $("modalAuthor").textContent = item.author;
     $("modalDate").textContent = fmtDate(item.date);
     $("modalDuration").textContent = item.duration;
-    $("modalCategory").textContent = item.category;
-    $("modalActionLabel").textContent = item.actionLabel || "Open Resource";
+    $("modalCategory").textContent = catLabel(item.category);
+    $("modalActionLabel").textContent = item.actionLabel || "{% trans "Open Resource" %}";
     const badge = $("modalTypeBadge");
     badge.className = `px-2.5 py-0.5 rounded-full font-label-sm text-label-sm font-semibold ${cfg.bg} ${cfg.text}`;
-    badge.textContent = item.type;
+    badge.textContent = typeLabel(item.type);
     $("modalTags").innerHTML = item.tags.map((t) => `<span class="px-2.5 py-1 rounded-md bg-surface-container font-code-inline text-code-inline text-on-surface-variant">${esc(t)}</span>`).join("");
     updateModalBookmark(item.bookmarked);
     openModal($("detailsModal"));
@@ -511,7 +515,7 @@
     icon.textContent = b ? "bookmark" : "bookmark_border";
     icon.style.fontVariationSettings = b ? "'FILL' 1" : "'FILL' 0";
     icon.classList.toggle("text-primary", b);
-    $("modalBookmarkLabel").textContent = b ? "Saved" : "Save Resource";
+    $("modalBookmarkLabel").textContent = b ? "{% trans "Saved" %}" : "{% trans "Save Resource" %}";
   }
 
   // ---------- FILTRES ----------
@@ -559,8 +563,8 @@
 
   $("openAddModalBtn").addEventListener("click", () => openModal($("addModal")));
   $("modalBookmarkAction").addEventListener("click", () => activeDetailId && toggleBookmark(activeDetailId));
-  $("modalPrimaryActionBtn").addEventListener("click", () => { closeDetails(); toast("Resource opened in workspace reader"); });
-  $("joinLoungeBtn").addEventListener("click", () => toast("Opening Mentorship Channel..."));
+  $("modalPrimaryActionBtn").addEventListener("click", () => { closeDetails(); toast("{% trans "Resource opened in workspace reader" %}"); });
+  $("joinLoungeBtn").addEventListener("click", () => toast("{% trans "Opening Mentorship Channel..." %}"));
 
   $("detailsModal").addEventListener("click", (e) => { if (e.target === $("detailsModal")) closeDetails(); });
   $("addModal").addEventListener("click", (e) => { if (e.target === $("addModal")) closeAdd(); });
@@ -569,7 +573,7 @@
   $("addResourceForm").addEventListener("submit", (e) => {
     e.preventDefault();
     const type = $("newType").value;
-    const labels = { Tool: "View Tool", Template: "Download Template", Video: "Watch Video" };
+    const labels = { Tool: "{% trans "View Tool" %}", Template: "{% trans "Download Template" %}", Video: "{% trans "Watch Video" %}" };
     const tagsRaw = $("newTags").value;
     const title = $("newTitle").value.trim();
     resources.unshift({
@@ -580,21 +584,20 @@
       description: $("newDesc").value.trim(),
       author: "Elena Vance",
       date: new Date().toISOString().slice(0, 10),
-      duration: $("newDuration").value.trim() || "10 min",
-      tags: tagsRaw ? tagsRaw.split(",").map((t) => t.trim()).filter(Boolean) : ["General"],
-      actionLabel: labels[type] || "View Resource",
+      duration: $("newDuration").value.trim() || "{% trans "10 min" %}",
+      tags: tagsRaw ? tagsRaw.split(",").map((t) => t.trim()).filter(Boolean) : ["{% trans "General" %}"],
+      actionLabel: labels[type] || "{% trans "View Resource" %}",
       bookmarked: false,
       popularity: 0,
       hackathon: $("newHackathon").value
     });
     closeAdd();
     renderResources();
-    toast(`"${title}" published successfully!`);
+    toast(`${title} {% trans "published successfully!" %}`);
   });
 
   // ---------- INIT ----------
   refreshAll();
 })();
 </script>
-{% endverbatim %}
 {% endblock %}

@@ -1,17 +1,18 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Notifications | CodeStorm{% endblock %}
+{% block title %}{% trans "Notifications | CodeStorm" %}{% endblock %}
 {% block page_name %}notifications{% endblock %}
-{% block breadcrumb_section %}Dashboard{% endblock %}
-{% block breadcrumb_page %}Notifications{% endblock %}
+{% block breadcrumb_section %}{% trans "Dashboard" %}{% endblock %}
+{% block breadcrumb_page %}{% trans "Notifications" %}{% endblock %}
 
 {% block content %}
 <div class="flex flex-col w-full">
 
 <!-- Toast -->
-<div class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-space-sm px-space-md py-3 rounded-xl bg-inverse-surface text-inverse-on-surface shadow-xl" id="toastNotification">
+<div class="fixed bottom-6 end-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-space-sm px-space-md py-3 rounded-xl bg-inverse-surface text-inverse-on-surface shadow-xl" id="toastNotification">
   <span class="material-symbols-outlined text-[20px] text-tertiary-fixed" id="toastIcon">check_circle</span>
-  <span class="font-label-md text-label-md" id="toastMessage">All notifications marked as read</span>
+  <span class="font-label-md text-label-md" id="toastMessage">{% trans "All notifications marked as read" %}</span>
 </div>
 
 <div class="px-space-lg py-space-lg flex flex-col gap-space-lg max-w-[1440px] mx-auto w-full">
@@ -20,24 +21,24 @@
   <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
     <div class="flex flex-col gap-1">
       <div class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant">
-        <span class="hover:text-primary transition-colors cursor-pointer">Dashboard</span>
-        <span class="material-symbols-outlined text-[14px] text-outline-variant">chevron_right</span>
-        <span class="text-on-surface font-semibold">Notifications</span>
+        <span class="hover:text-primary transition-colors cursor-pointer">{% trans "Dashboard" %}</span>
+        <span class="material-symbols-outlined rtl:rotate-180 text-[14px] text-outline-variant">chevron_right</span>
+        <span class="text-on-surface font-semibold">{% trans "Notifications" %}</span>
       </div>
       <div class="flex items-center gap-space-sm mt-1">
-        <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Notifications</h1>
-        <span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold transition-all" id="unreadHeaderBadge">5 Unread</span>
+        <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">{% trans "Notifications" %}</h1>
+        <span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold transition-all" id="unreadHeaderBadge">{% trans "5 Unread" %}</span>
       </div>
-      <p class="font-body-md text-body-md text-on-surface-variant">Stay up to date with your teams, hackathons, projects, and results.</p>
+      <p class="font-body-md text-body-md text-on-surface-variant">{% trans "Stay up to date with your teams, hackathons, projects, and results." %}</p>
     </div>
     <div class="flex items-center gap-space-sm flex-wrap">
       <button class="flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container hover:text-primary transition-all shadow-sm font-label-md text-label-md" id="btnMarkAllRead" type="button">
         <span class="material-symbols-outlined text-[18px]">done_all</span>
-        <span>Mark All as Read</span>
+        <span>{% trans "Mark All as Read" %}</span>
       </button>
       <button class="flex items-center gap-space-xs px-space-md py-2.5 rounded-lg bg-primary-container text-on-primary-container hover:bg-primary transition-all shadow-sm font-label-md text-label-md" id="btnOpenPreferences" type="button">
         <span class="material-symbols-outlined text-[18px]">tune</span>
-        <span>Notification Preferences</span>
+        <span>{% trans "Notification Preferences" %}</span>
       </button>
     </div>
   </div>
@@ -46,36 +47,36 @@
   <div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
     <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex items-start justify-between relative overflow-hidden group">
       <div class="flex flex-col gap-1 z-10">
-        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Inbox</span>
+        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">{% trans "Total Inbox" %}</span>
         <span class="font-headline-xl text-headline-xl text-on-surface font-bold tracking-tight" id="kpiTotal">18</span>
-        <span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Across all sprints &amp; teams</span>
+        <span class="font-body-sm text-body-sm text-on-surface-variant mt-1">{% trans "Across all sprints &amp; teams" %}</span>
       </div>
       <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[24px]">inbox</span></div>
-      <div class="absolute -right-4 -bottom-4 w-24 h-24 rounded-full bg-primary/5 pointer-events-none group-hover:scale-125 transition-transform duration-500"></div>
+      <div class="absolute -end-4 -bottom-4 w-24 h-24 rounded-full bg-primary/5 pointer-events-none group-hover:scale-125 transition-transform duration-500"></div>
     </div>
     <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex items-start justify-between relative overflow-hidden group">
       <div class="flex flex-col gap-1 z-10">
         <div class="flex items-center gap-space-xs">
-          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Unread</span>
-          <span class="px-2 py-0.2 rounded-full bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm">Requires attention</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">{% trans "Unread" %}</span>
+          <span class="px-2 py-0.2 rounded-full bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm">{% trans "Requires attention" %}</span>
         </div>
         <span class="font-headline-xl text-headline-xl text-primary font-bold tracking-tight" id="kpiUnread">05</span>
-        <span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Action required or unreviewed</span>
+        <span class="font-body-sm text-body-sm text-on-surface-variant mt-1">{% trans "Action required or unreviewed" %}</span>
       </div>
       <div class="w-12 h-12 rounded-xl bg-primary-fixed flex items-center justify-center text-on-primary-fixed"><span class="material-symbols-outlined text-[24px]">mark_email_unread</span></div>
-      <div class="absolute -right-4 -bottom-4 w-24 h-24 rounded-full bg-secondary/5 pointer-events-none group-hover:scale-125 transition-transform duration-500"></div>
+      <div class="absolute -end-4 -bottom-4 w-24 h-24 rounded-full bg-secondary/5 pointer-events-none group-hover:scale-125 transition-transform duration-500"></div>
     </div>
     <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex items-start justify-between relative overflow-hidden group">
       <div class="flex flex-col gap-1 z-10">
         <div class="flex items-center gap-space-xs">
-          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Important</span>
-          <span class="px-2 py-0.2 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm">High priority</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">{% trans "Important" %}</span>
+          <span class="px-2 py-0.2 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm">{% trans "High priority" %}</span>
         </div>
         <span class="font-headline-xl text-headline-xl text-on-surface font-bold tracking-tight" id="kpiImportant">03</span>
-        <span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Deadlines, invites &amp; alerts</span>
+        <span class="font-body-sm text-body-sm text-on-surface-variant mt-1">{% trans "Deadlines, invites &amp; alerts" %}</span>
       </div>
       <div class="w-12 h-12 rounded-xl bg-error-container/60 flex items-center justify-center text-error"><span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">star</span></div>
-      <div class="absolute -right-4 -bottom-4 w-24 h-24 rounded-full bg-error/5 pointer-events-none group-hover:scale-125 transition-transform duration-500"></div>
+      <div class="absolute -end-4 -bottom-4 w-24 h-24 rounded-full bg-error/5 pointer-events-none group-hover:scale-125 transition-transform duration-500"></div>
     </div>
   </div>
 
@@ -83,44 +84,44 @@
   <div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-md">
     <div class="flex items-center gap-1.5 overflow-x-auto p-1 bg-surface-container-low rounded-lg scrollbar-none" id="statusFilters">
       <button class="filter-tab active-tab px-3.5 py-1.5 rounded-md bg-surface-container-lowest text-on-surface font-label-md text-label-md font-semibold shadow-sm flex items-center gap-1.5 transition-all" data-status-filter="all" type="button">
-        <span>All</span>
+        <span>{% trans "All" %}</span>
         <span class="px-1.5 py-0.2 rounded-full bg-surface-container-high text-on-surface-variant text-[11px] font-code-inline" id="badgeFilterAll">18</span>
       </button>
       <button class="filter-tab px-3.5 py-1.5 rounded-md text-on-surface-variant hover:text-on-surface font-label-md text-label-md flex items-center gap-1.5 transition-all" data-status-filter="unread" type="button">
-        <span>Unread</span>
+        <span>{% trans "Unread" %}</span>
         <span class="px-1.5 py-0.2 rounded-full bg-primary-fixed text-on-primary-fixed-variant text-[11px] font-code-inline" id="badgeFilterUnread">05</span>
       </button>
       <button class="filter-tab px-3.5 py-1.5 rounded-md text-on-surface-variant hover:text-on-surface font-label-md text-label-md flex items-center gap-1.5 transition-all" data-status-filter="read" type="button">
-        <span>Read</span>
+        <span>{% trans "Read" %}</span>
         <span class="px-1.5 py-0.2 rounded-full bg-surface-container-high text-on-surface-variant text-[11px] font-code-inline" id="badgeFilterRead">13</span>
       </button>
       <button class="filter-tab px-3.5 py-1.5 rounded-md text-on-surface-variant hover:text-on-surface font-label-md text-label-md flex items-center gap-1.5 transition-all" data-status-filter="important" type="button">
-        <span>Important</span>
+        <span>{% trans "Important" %}</span>
         <span class="px-1.5 py-0.2 rounded-full bg-error-container text-on-error-container text-[11px] font-code-inline" id="badgeFilterImportant">03</span>
       </button>
     </div>
 
     <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-sm flex-1 lg:max-w-xl justify-end">
       <div class="relative min-w-[150px]">
-        <select class="w-full appearance-none bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg pl-3 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer" id="categoryFilter">
-          <option value="all">All Categories</option>
-          <option value="hackathons">Hackathons</option>
-          <option value="teams">Teams</option>
-          <option value="projects">Projects</option>
-          <option value="evaluations">Evaluations</option>
-          <option value="prizes">Prizes</option>
-          <option value="system">System</option>
+        <select class="w-full appearance-none bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg ps-3 pe-8 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer" id="categoryFilter">
+          <option value="all">{% trans "All Categories" %}</option>
+          <option value="hackathons">{% trans "Hackathons" %}</option>
+          <option value="teams">{% trans "Teams" %}</option>
+          <option value="projects">{% trans "Projects" %}</option>
+          <option value="evaluations">{% trans "Evaluations" %}</option>
+          <option value="prizes">{% trans "Prizes" %}</option>
+          <option value="system">{% trans "System" %}</option>
         </select>
-        <span class="material-symbols-outlined absolute right-2.5 top-2.5 pointer-events-none text-outline text-[18px]">expand_more</span>
+        <span class="material-symbols-outlined absolute end-2.5 top-2.5 pointer-events-none text-outline text-[18px]">expand_more</span>
       </div>
       <div class="relative flex-1">
-        <span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[18px]">search</span>
-        <input class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg pl-9 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline" id="searchInput" placeholder="Search notifications..." type="text"/>
-        <button class="hidden absolute right-2.5 top-2.5 text-outline hover:text-on-surface" id="clearSearchBtn" type="button"><span class="material-symbols-outlined text-[16px]">cancel</span></button>
+        <span class="material-symbols-outlined absolute start-3 top-2.5 text-outline text-[18px]">search</span>
+        <input class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg ps-9 pe-8 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline" id="searchInput" placeholder"{% trans "Search notifications..." %}" type="text"/>
+        <button class="hidden absolute end-2.5 top-2.5 text-outline hover:text-on-surface" id="clearSearchBtn" type="button"><span class="material-symbols-outlined text-[16px]">cancel</span></button>
       </div>
       <button class="px-3 py-2 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm flex items-center justify-center gap-1 transition-all" id="resetFiltersBtn" type="button">
         <span class="material-symbols-outlined text-[16px]">restart_alt</span>
-        <span>Clear</span>
+        <span>{% trans "Clear" %}</span>
       </button>
     </div>
   </div>
@@ -132,90 +133,90 @@
     <section class="notification-group flex flex-col gap-space-sm" data-group="today">
       <div class="flex items-center justify-between px-space-xs">
         <div class="flex items-center gap-space-xs">
-          <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Today</span>
+          <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">{% trans "Today" %}</span>
           <span class="h-1 w-1 rounded-full bg-outline-variant"></span>
-          <span class="font-code-inline text-code-inline text-on-surface-variant group-counter">3 Updates</span>
+          <span class="font-code-inline text-code-inline text-on-surface-variant group-counter">{% trans "3 Updates" %}</span>
         </div>
       </div>
       <div class="flex flex-col gap-space-sm group-items">
 
         <article class="notification-card unread group p-space-md rounded-xl bg-surface-container-lowest hover:bg-surface-container-low/40 transition-all shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md cursor-pointer relative overflow-hidden" data-category="teams" data-id="item-1" data-important="true" data-read="false">
-          <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary-container"></div>
-          <div class="flex items-start gap-space-md flex-1 min-w-0 pl-1">
+          <div class="absolute start-0 top-0 bottom-0 w-1.5 bg-primary-container"></div>
+          <div class="flex items-start gap-space-md flex-1 min-w-0 ps-1">
             <div class="w-10 h-10 rounded-xl bg-secondary-fixed/40 text-on-secondary-fixed flex items-center justify-center shrink-0 mt-0.5"><span class="material-symbols-outlined text-[20px]">groups</span></div>
             <div class="flex flex-col gap-1 min-w-0 flex-1">
               <div class="flex items-center gap-space-xs flex-wrap">
-                <span class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors truncate">Team Invitation Received</span>
-                <span class="px-2 py-0.5 rounded-full bg-secondary-fixed/50 text-on-secondary-fixed font-label-sm text-label-sm">Teams</span>
-                <span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm flex items-center gap-1 font-semibold"><span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">star</span> Important</span>
+                <span class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors truncate">{% trans "Team Invitation Received" %}</span>
+                <span class="px-2 py-0.5 rounded-full bg-secondary-fixed/50 text-on-secondary-fixed font-label-sm text-label-sm">{% trans "Teams" %}</span>
+                <span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm flex items-center gap-1 font-semibold"><span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">star</span> {% trans "Important" %}</span>
                 <span class="w-2 h-2 rounded-full bg-primary unread-dot animate-pulse"></span>
               </div>
-              <p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">Amine K. invited you to join Neural Sparks for AI Innovation Challenge.</p>
+              <p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">{% trans "Amine K. invited you to join Neural Sparks for AI Innovation Challenge." %}</p>
               <div class="flex items-center gap-space-sm text-outline font-label-sm text-label-sm flex-wrap mt-0.5">
-                <span class="flex items-center gap-1" title="Oct 12, 2026 • 14:20 UTC"><span class="material-symbols-outlined text-[14px]">schedule</span> 10 minutes ago</span>
+                <span class="flex items-center gap-1" title="Oct 12, 2026 • 14:20 UTC"><span class="material-symbols-outlined text-[14px]">schedule</span> {% trans "10 minutes ago" %}</span>
                 <span>•</span>
-                <span>Team: <strong class="text-on-surface font-semibold">Neural Sparks</strong></span>
+                <span>{% trans "Team:" %} <strong class="text-on-surface font-semibold">{% trans "Neural Sparks" %}</strong></span>
                 <span>•</span>
-                <span>Hackathon: <strong class="text-on-surface font-semibold">AI Innovation Challenge</strong></span>
+                <span>{% trans "Hackathon:" %} <strong class="text-on-surface font-semibold">{% trans "AI Innovation Challenge" %}</strong></span>
               </div>
             </div>
           </div>
           <div class="flex items-center gap-space-xs shrink-0 self-end md:self-center">
-            <button class="btn-quick-action px-3 py-1.5 rounded-lg bg-primary-container text-on-primary-container font-label-sm text-label-sm font-semibold hover:bg-primary transition-all" type="button">View Invitation</button>
-            <button class="btn-toggle-read p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-all" title="Mark as read" type="button"><span class="material-symbols-outlined text-[18px]">done</span></button>
-            <button class="btn-delete p-2 rounded-lg text-outline hover:text-error hover:bg-error-container/40 transition-all" title="Delete notification" type="button"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+            <button class="btn-quick-action px-3 py-1.5 rounded-lg bg-primary-container text-on-primary-container font-label-sm text-label-sm font-semibold hover:bg-primary transition-all" type="button">{% trans "View Invitation" %}</button>
+            <button class="btn-toggle-read p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-all" title="{% trans "Mark as read" %}" type="button"><span class="material-symbols-outlined text-[18px]">done</span></button>
+            <button class="btn-delete p-2 rounded-lg text-outline hover:text-error hover:bg-error-container/40 transition-all" title="{% trans "Delete notification" %}" type="button"><span class="material-symbols-outlined text-[18px]">delete</span></button>
           </div>
         </article>
 
         <article class="notification-card unread group p-space-md rounded-xl bg-surface-container-lowest hover:bg-surface-container-low/40 transition-all shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md cursor-pointer relative overflow-hidden" data-category="hackathons" data-id="item-2" data-important="true" data-read="false">
-          <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary-container"></div>
-          <div class="flex items-start gap-space-md flex-1 min-w-0 pl-1">
+          <div class="absolute start-0 top-0 bottom-0 w-1.5 bg-primary-container"></div>
+          <div class="flex items-start gap-space-md flex-1 min-w-0 ps-1">
             <div class="w-10 h-10 rounded-xl bg-primary-fixed text-on-primary-fixed flex items-center justify-center shrink-0 mt-0.5"><span class="material-symbols-outlined text-[20px]">emoji_events</span></div>
             <div class="flex flex-col gap-1 min-w-0 flex-1">
               <div class="flex items-center gap-space-xs flex-wrap">
-                <span class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors truncate">Hackathon Starting Soon</span>
-                <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm">Hackathons</span>
-                <span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm flex items-center gap-1 font-semibold"><span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">star</span> Important</span>
+                <span class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors truncate">{% trans "Hackathon Starting Soon" %}</span>
+                <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm">{% trans "Hackathons" %}</span>
+                <span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm flex items-center gap-1 font-semibold"><span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">star</span> {% trans "Important" %}</span>
                 <span class="w-2 h-2 rounded-full bg-primary unread-dot animate-pulse"></span>
               </div>
-              <p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">AI Innovation Challenge starts on October 20, 2026. Make sure your team is ready.</p>
+              <p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">{% trans "AI Innovation Challenge starts on October 20, 2026. Make sure your team is ready." %}</p>
               <div class="flex items-center gap-space-sm text-outline font-label-sm text-label-sm flex-wrap mt-0.5">
-                <span class="flex items-center gap-1" title="Oct 12, 2026 • 13:30 UTC"><span class="material-symbols-outlined text-[14px]">schedule</span> 1 hour ago</span>
+                <span class="flex items-center gap-1" title="Oct 12, 2026 • 13:30 UTC"><span class="material-symbols-outlined text-[14px]">schedule</span> {% trans "1 hour ago" %}</span>
                 <span>•</span>
-                <span>Hackathon: <strong class="text-on-surface font-semibold">AI Innovation Challenge</strong></span>
+                <span>{% trans "Hackathon:" %} <strong class="text-on-surface font-semibold">{% trans "AI Innovation Challenge" %}</strong></span>
               </div>
             </div>
           </div>
           <div class="flex items-center gap-space-xs shrink-0 self-end md:self-center">
-            <button class="btn-quick-action px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-all" type="button">View Hackathon</button>
-            <button class="btn-toggle-read p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-all" title="Mark as read" type="button"><span class="material-symbols-outlined text-[18px]">done</span></button>
-            <button class="btn-delete p-2 rounded-lg text-outline hover:text-error hover:bg-error-container/40 transition-all" title="Delete notification" type="button"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+            <button class="btn-quick-action px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-all" type="button">{% trans "View Hackathon" %}</button>
+            <button class="btn-toggle-read p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-all" title="{% trans "Mark as read" %}" type="button"><span class="material-symbols-outlined text-[18px]">done</span></button>
+            <button class="btn-delete p-2 rounded-lg text-outline hover:text-error hover:bg-error-container/40 transition-all" title="{% trans "Delete notification" %}" type="button"><span class="material-symbols-outlined text-[18px]">delete</span></button>
           </div>
         </article>
 
         <article class="notification-card unread group p-space-md rounded-xl bg-surface-container-lowest hover:bg-surface-container-low/40 transition-all shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md cursor-pointer relative overflow-hidden" data-category="projects" data-id="item-3" data-important="true" data-read="false">
-          <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary-container"></div>
-          <div class="flex items-start gap-space-md flex-1 min-w-0 pl-1">
+          <div class="absolute start-0 top-0 bottom-0 w-1.5 bg-primary-container"></div>
+          <div class="flex items-start gap-space-md flex-1 min-w-0 ps-1">
             <div class="w-10 h-10 rounded-xl bg-surface-variant text-on-surface-variant flex items-center justify-center shrink-0 mt-0.5"><span class="material-symbols-outlined text-[20px]">code</span></div>
             <div class="flex flex-col gap-1 min-w-0 flex-1">
               <div class="flex items-center gap-space-xs flex-wrap">
-                <span class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors truncate">Project Submission Reminder</span>
-                <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Projects</span>
-                <span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm flex items-center gap-1 font-semibold"><span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">star</span> Important</span>
+                <span class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors truncate">{% trans "Project Submission Reminder" %}</span>
+                <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">{% trans "Projects" %}</span>
+                <span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm flex items-center gap-1 font-semibold"><span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">star</span> {% trans "Important" %}</span>
                 <span class="w-2 h-2 rounded-full bg-primary unread-dot animate-pulse"></span>
               </div>
-              <p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">The final submission deadline for GreenTech Hackathon is approaching.</p>
+              <p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">{% trans "The final submission deadline for GreenTech Hackathon is approaching." %}</p>
               <div class="flex items-center gap-space-sm text-outline font-label-sm text-label-sm flex-wrap mt-0.5">
-                <span class="flex items-center gap-1" title="Oct 12, 2026 • 11:30 UTC"><span class="material-symbols-outlined text-[14px]">schedule</span> 3 hours ago</span>
+                <span class="flex items-center gap-1" title="Oct 12, 2026 • 11:30 UTC"><span class="material-symbols-outlined text-[14px]">schedule</span> {% trans "3 hours ago" %}</span>
                 <span>•</span>
-                <span>Hackathon: <strong class="text-on-surface font-semibold">GreenTech Hackathon</strong></span>
+                <span>{% trans "Hackathon:" %} <strong class="text-on-surface font-semibold">{% trans "GreenTech Hackathon" %}</strong></span>
               </div>
             </div>
           </div>
           <div class="flex items-center gap-space-xs shrink-0 self-end md:self-center">
-            <button class="btn-quick-action px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-all" type="button">View Project</button>
-            <button class="btn-toggle-read p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-all" title="Mark as read" type="button"><span class="material-symbols-outlined text-[18px]">done</span></button>
-            <button class="btn-delete p-2 rounded-lg text-outline hover:text-error hover:bg-error-container/40 transition-all" title="Delete notification" type="button"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+            <button class="btn-quick-action px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-all" type="button">{% trans "View Project" %}</button>
+            <button class="btn-toggle-read p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-all" title="{% trans "Mark as read" %}" type="button"><span class="material-symbols-outlined text-[18px]">done</span></button>
+            <button class="btn-delete p-2 rounded-lg text-outline hover:text-error hover:bg-error-container/40 transition-all" title="{% trans "Delete notification" %}" type="button"><span class="material-symbols-outlined text-[18px]">delete</span></button>
           </div>
         </article>
       </div>
@@ -225,62 +226,62 @@
     <section class="notification-group flex flex-col gap-space-sm" data-group="yesterday">
       <div class="flex items-center justify-between px-space-xs">
         <div class="flex items-center gap-space-xs">
-          <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Yesterday</span>
+          <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">{% trans "Yesterday" %}</span>
           <span class="h-1 w-1 rounded-full bg-outline-variant"></span>
-          <span class="font-code-inline text-code-inline text-on-surface-variant group-counter">2 Updates</span>
+          <span class="font-code-inline text-code-inline text-on-surface-variant group-counter">{% trans "2 Updates" %}</span>
         </div>
       </div>
       <div class="flex flex-col gap-space-sm group-items">
 
         <article class="notification-card unread group p-space-md rounded-xl bg-surface-container-lowest hover:bg-surface-container-low/40 transition-all shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md cursor-pointer relative overflow-hidden" data-category="evaluations" data-id="item-4" data-important="false" data-read="false">
-          <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary-container"></div>
-          <div class="flex items-start gap-space-md flex-1 min-w-0 pl-1">
+          <div class="absolute start-0 top-0 bottom-0 w-1.5 bg-primary-container"></div>
+          <div class="flex items-start gap-space-md flex-1 min-w-0 ps-1">
             <div class="w-10 h-10 rounded-xl bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center shrink-0 mt-0.5"><span class="material-symbols-outlined text-[20px]">check_circle</span></div>
             <div class="flex flex-col gap-1 min-w-0 flex-1">
               <div class="flex items-center gap-space-xs flex-wrap">
-                <span class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors truncate">Evaluation Completed</span>
-                <span class="px-2 py-0.5 rounded-full bg-tertiary-fixed/60 text-on-tertiary-fixed font-label-sm text-label-sm">Evaluations</span>
+                <span class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors truncate">{% trans "Evaluation Completed" %}</span>
+                <span class="px-2 py-0.5 rounded-full bg-tertiary-fixed/60 text-on-tertiary-fixed font-label-sm text-label-sm">{% trans "Evaluations" %}</span>
                 <span class="w-2 h-2 rounded-full bg-primary unread-dot animate-pulse"></span>
               </div>
-              <p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">Your project SmartHealth AI has received an evaluation score of 91/100.</p>
+              <p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">{% trans "Your project SmartHealth AI has received an evaluation score of 91/100." %}</p>
               <div class="flex items-center gap-space-sm text-outline font-label-sm text-label-sm flex-wrap mt-0.5">
-                <span class="flex items-center gap-1" title="Oct 11, 2026 • 18:45 UTC"><span class="material-symbols-outlined text-[14px]">schedule</span> Yesterday</span>
+                <span class="flex items-center gap-1" title="Oct 11, 2026 • 18:45 UTC"><span class="material-symbols-outlined text-[14px]">schedule</span> {% trans "Yesterday" %}</span>
                 <span>•</span>
-                <span>Project: <strong class="text-on-surface font-semibold">SmartHealth AI</strong></span>
+                <span>{% trans "Project:" %} <strong class="text-on-surface font-semibold">{% trans "SmartHealth AI" %}</strong></span>
                 <span>•</span>
-                <span class="text-tertiary font-semibold">Score: 91/100</span>
+                <span class="text-tertiary font-semibold">{% trans "Score: 91/100" %}</span>
               </div>
             </div>
           </div>
           <div class="flex items-center gap-space-xs shrink-0 self-end md:self-center">
-            <button class="btn-quick-action px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-all" type="button">View Scorecard</button>
-            <button class="btn-toggle-read p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-all" title="Mark as read" type="button"><span class="material-symbols-outlined text-[18px]">done</span></button>
-            <button class="btn-delete p-2 rounded-lg text-outline hover:text-error hover:bg-error-container/40 transition-all" title="Delete notification" type="button"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+            <button class="btn-quick-action px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-all" type="button">{% trans "View Scorecard" %}</button>
+            <button class="btn-toggle-read p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-all" title="{% trans "Mark as read" %}" type="button"><span class="material-symbols-outlined text-[18px]">done</span></button>
+            <button class="btn-delete p-2 rounded-lg text-outline hover:text-error hover:bg-error-container/40 transition-all" title="{% trans "Delete notification" %}" type="button"><span class="material-symbols-outlined text-[18px]">delete</span></button>
           </div>
         </article>
 
         <article class="notification-card unread group p-space-md rounded-xl bg-surface-container-lowest hover:bg-surface-container-low/40 transition-all shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md cursor-pointer relative overflow-hidden" data-category="teams" data-id="item-5" data-important="false" data-read="false">
-          <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary-container"></div>
-          <div class="flex items-start gap-space-md flex-1 min-w-0 pl-1">
+          <div class="absolute start-0 top-0 bottom-0 w-1.5 bg-primary-container"></div>
+          <div class="flex items-start gap-space-md flex-1 min-w-0 ps-1">
             <div class="w-10 h-10 rounded-xl bg-secondary-fixed/40 text-on-secondary-fixed flex items-center justify-center shrink-0 mt-0.5"><span class="material-symbols-outlined text-[20px]">person_add</span></div>
             <div class="flex flex-col gap-1 min-w-0 flex-1">
               <div class="flex items-center gap-space-xs flex-wrap">
-                <span class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors truncate">New Team Member</span>
-                <span class="px-2 py-0.5 rounded-full bg-secondary-fixed/50 text-on-secondary-fixed font-label-sm text-label-sm">Teams</span>
+                <span class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors truncate">{% trans "New Team Member" %}</span>
+                <span class="px-2 py-0.5 rounded-full bg-secondary-fixed/50 text-on-secondary-fixed font-label-sm text-label-sm">{% trans "Teams" %}</span>
                 <span class="w-2 h-2 rounded-full bg-primary unread-dot animate-pulse"></span>
               </div>
-              <p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">Sara M. has joined your team Code Warriors.</p>
+              <p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">{% trans "Sara M. has joined your team Code Warriors." %}</p>
               <div class="flex items-center gap-space-sm text-outline font-label-sm text-label-sm flex-wrap mt-0.5">
-                <span class="flex items-center gap-1" title="Oct 11, 2026 • 15:10 UTC"><span class="material-symbols-outlined text-[14px]">schedule</span> Yesterday</span>
+                <span class="flex items-center gap-1" title="Oct 11, 2026 • 15:10 UTC"><span class="material-symbols-outlined text-[14px]">schedule</span> {% trans "Yesterday" %}</span>
                 <span>•</span>
-                <span>Team: <strong class="text-on-surface font-semibold">Code Warriors</strong></span>
+                <span>{% trans "Team:" %} <strong class="text-on-surface font-semibold">{% trans "Code Warriors" %}</strong></span>
               </div>
             </div>
           </div>
           <div class="flex items-center gap-space-xs shrink-0 self-end md:self-center">
-            <button class="btn-quick-action px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-all" type="button">View Team</button>
-            <button class="btn-toggle-read p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-all" title="Mark as read" type="button"><span class="material-symbols-outlined text-[18px]">done</span></button>
-            <button class="btn-delete p-2 rounded-lg text-outline hover:text-error hover:bg-error-container/40 transition-all" title="Delete notification" type="button"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+            <button class="btn-quick-action px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-all" type="button">{% trans "View Team" %}</button>
+            <button class="btn-toggle-read p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-all" title="{% trans "Mark as read" %}" type="button"><span class="material-symbols-outlined text-[18px]">done</span></button>
+            <button class="btn-delete p-2 rounded-lg text-outline hover:text-error hover:bg-error-container/40 transition-all" title="{% trans "Delete notification" %}" type="button"><span class="material-symbols-outlined text-[18px]">delete</span></button>
           </div>
         </article>
       </div>
@@ -290,84 +291,84 @@
     <section class="notification-group flex flex-col gap-space-sm" data-group="earlier">
       <div class="flex items-center justify-between px-space-xs">
         <div class="flex items-center gap-space-xs">
-          <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Earlier</span>
+          <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">{% trans "Earlier" %}</span>
           <span class="h-1 w-1 rounded-full bg-outline-variant"></span>
-          <span class="font-code-inline text-code-inline text-on-surface-variant group-counter">3 Updates</span>
+          <span class="font-code-inline text-code-inline text-on-surface-variant group-counter">{% trans "3 Updates" %}</span>
         </div>
       </div>
       <div class="flex flex-col gap-space-sm group-items">
 
         <article class="notification-card read group p-space-md rounded-xl bg-surface-container-lowest/70 hover:bg-surface-container-lowest transition-all shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md cursor-pointer relative overflow-hidden opacity-90 hover:opacity-100" data-category="prizes" data-id="item-6" data-important="false" data-read="true">
-          <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-transparent"></div>
-          <div class="flex items-start gap-space-md flex-1 min-w-0 pl-1">
+          <div class="absolute start-0 top-0 bottom-0 w-1.5 bg-transparent"></div>
+          <div class="flex items-start gap-space-md flex-1 min-w-0 ps-1">
             <div class="w-10 h-10 rounded-xl bg-surface-container-high text-on-surface flex items-center justify-center shrink-0 mt-0.5"><span class="material-symbols-outlined text-[20px] text-tertiary">workspace_premium</span></div>
             <div class="flex flex-col gap-1 min-w-0 flex-1">
               <div class="flex items-center gap-space-xs flex-wrap">
-                <span class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors truncate">Prize Awarded</span>
-                <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Prizes</span>
+                <span class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors truncate">{% trans "Prize Awarded" %}</span>
+                <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">{% trans "Prizes" %}</span>
               </div>
-              <p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">Your team received the Best Innovation Award in GreenTech Hackathon.</p>
+              <p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">{% trans "Your team received the Best Innovation Award in GreenTech Hackathon." %}</p>
               <div class="flex items-center gap-space-sm text-outline font-label-sm text-label-sm flex-wrap mt-0.5">
-                <span class="flex items-center gap-1" title="Oct 10, 2026 • 16:00 UTC"><span class="material-symbols-outlined text-[14px]">schedule</span> 2 days ago</span>
+                <span class="flex items-center gap-1" title="Oct 10, 2026 • 16:00 UTC"><span class="material-symbols-outlined text-[14px]">schedule</span> {% trans "2 days ago" %}</span>
                 <span>•</span>
-                <span>Team: <strong class="text-on-surface font-semibold">Green Innovators</strong></span>
+                <span>{% trans "Team:" %} <strong class="text-on-surface font-semibold">{% trans "Green Innovators" %}</strong></span>
                 <span>•</span>
-                <span>Prize: <strong class="text-on-surface font-semibold">$2,000</strong></span>
+                <span>{% trans "Prize:" %} <strong class="text-on-surface font-semibold">$2,000</strong></span>
               </div>
             </div>
           </div>
           <div class="flex items-center gap-space-xs shrink-0 self-end md:self-center">
-            <button class="btn-quick-action px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-all" type="button">View Certificate</button>
-            <button class="btn-toggle-read p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-all" title="Mark as unread" type="button"><span class="material-symbols-outlined text-[18px]">mark_email_unread</span></button>
-            <button class="btn-delete p-2 rounded-lg text-outline hover:text-error hover:bg-error-container/40 transition-all" title="Delete notification" type="button"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+            <button class="btn-quick-action px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-all" type="button">{% trans "View Certificate" %}</button>
+            <button class="btn-toggle-read p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-all" title="{% trans "Mark as unread" %}" type="button"><span class="material-symbols-outlined text-[18px]">mark_email_unread</span></button>
+            <button class="btn-delete p-2 rounded-lg text-outline hover:text-error hover:bg-error-container/40 transition-all" title="{% trans "Delete notification" %}" type="button"><span class="material-symbols-outlined text-[18px]">delete</span></button>
           </div>
         </article>
 
         <article class="notification-card read group p-space-md rounded-xl bg-surface-container-lowest/70 hover:bg-surface-container-lowest transition-all shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md cursor-pointer relative overflow-hidden opacity-90 hover:opacity-100" data-category="system" data-id="item-7" data-important="false" data-read="true">
-          <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-transparent"></div>
-          <div class="flex items-start gap-space-md flex-1 min-w-0 pl-1">
+          <div class="absolute start-0 top-0 bottom-0 w-1.5 bg-transparent"></div>
+          <div class="flex items-start gap-space-md flex-1 min-w-0 ps-1">
             <div class="w-10 h-10 rounded-xl bg-surface-container-high text-on-surface flex items-center justify-center shrink-0 mt-0.5"><span class="material-symbols-outlined text-[20px]">menu_book</span></div>
             <div class="flex flex-col gap-1 min-w-0 flex-1">
               <div class="flex items-center gap-space-xs flex-wrap">
-                <span class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors truncate">Resource Published</span>
-                <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">System</span>
+                <span class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors truncate">{% trans "Resource Published" %}</span>
+                <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">{% trans "System" %}</span>
               </div>
-              <p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">A new guide about Django and project architecture is now available.</p>
+              <p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">{% trans "A new guide about Django and project architecture is now available." %}</p>
               <div class="flex items-center gap-space-sm text-outline font-label-sm text-label-sm flex-wrap mt-0.5">
-                <span class="flex items-center gap-1" title="Oct 9, 2026 • 10:15 UTC"><span class="material-symbols-outlined text-[14px]">schedule</span> 3 days ago</span>
+                <span class="flex items-center gap-1" title="Oct 9, 2026 • 10:15 UTC"><span class="material-symbols-outlined text-[14px]">schedule</span> {% trans "3 days ago" %}</span>
                 <span>•</span>
-                <span>Resource: <strong class="text-on-surface font-semibold">Django for Beginners</strong></span>
+                <span>{% trans "Resource:" %} <strong class="text-on-surface font-semibold">{% trans "Django for Beginners" %}</strong></span>
               </div>
             </div>
           </div>
           <div class="flex items-center gap-space-xs shrink-0 self-end md:self-center">
-            <button class="btn-quick-action px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-all" type="button">Read Guide</button>
-            <button class="btn-toggle-read p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-all" title="Mark as unread" type="button"><span class="material-symbols-outlined text-[18px]">mark_email_unread</span></button>
-            <button class="btn-delete p-2 rounded-lg text-outline hover:text-error hover:bg-error-container/40 transition-all" title="Delete notification" type="button"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+            <button class="btn-quick-action px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-all" type="button">{% trans "Read Guide" %}</button>
+            <button class="btn-toggle-read p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-all" title="{% trans "Mark as unread" %}" type="button"><span class="material-symbols-outlined text-[18px]">mark_email_unread</span></button>
+            <button class="btn-delete p-2 rounded-lg text-outline hover:text-error hover:bg-error-container/40 transition-all" title="{% trans "Delete notification" %}" type="button"><span class="material-symbols-outlined text-[18px]">delete</span></button>
           </div>
         </article>
 
         <article class="notification-card read group p-space-md rounded-xl bg-surface-container-lowest/70 hover:bg-surface-container-lowest transition-all shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md cursor-pointer relative overflow-hidden opacity-90 hover:opacity-100" data-category="system" data-id="item-8" data-important="false" data-read="true">
-          <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-transparent"></div>
-          <div class="flex items-start gap-space-md flex-1 min-w-0 pl-1">
+          <div class="absolute start-0 top-0 bottom-0 w-1.5 bg-transparent"></div>
+          <div class="flex items-start gap-space-md flex-1 min-w-0 ps-1">
             <div class="w-10 h-10 rounded-xl bg-surface-container-high text-on-surface flex items-center justify-center shrink-0 mt-0.5"><span class="material-symbols-outlined text-[20px]">manage_accounts</span></div>
             <div class="flex flex-col gap-1 min-w-0 flex-1">
               <div class="flex items-center gap-space-xs flex-wrap">
-                <span class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors truncate">Profile Updated</span>
-                <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">System</span>
+                <span class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors truncate">{% trans "Profile Updated" %}</span>
+                <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">{% trans "System" %}</span>
               </div>
-              <p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">Your profile information was successfully updated.</p>
+              <p class="font-body-md text-body-md text-on-surface-variant line-clamp-1">{% trans "Your profile information was successfully updated." %}</p>
               <div class="flex items-center gap-space-sm text-outline font-label-sm text-label-sm flex-wrap mt-0.5">
-                <span class="flex items-center gap-1" title="Oct 7, 2026 • 09:20 UTC"><span class="material-symbols-outlined text-[14px]">schedule</span> 5 days ago</span>
+                <span class="flex items-center gap-1" title="Oct 7, 2026 • 09:20 UTC"><span class="material-symbols-outlined text-[14px]">schedule</span> {% trans "5 days ago" %}</span>
                 <span>•</span>
-                <span>Account: <strong class="text-on-surface font-semibold">Elena Vance</strong></span>
+                <span>{% trans "Account:" %} <strong class="text-on-surface font-semibold">{% trans "Elena Vance" %}</strong></span>
               </div>
             </div>
           </div>
           <div class="flex items-center gap-space-xs shrink-0 self-end md:self-center">
-            <button class="btn-quick-action px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-all" type="button">Account Settings</button>
-            <button class="btn-toggle-read p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-all" title="Mark as unread" type="button"><span class="material-symbols-outlined text-[18px]">mark_email_unread</span></button>
-            <button class="btn-delete p-2 rounded-lg text-outline hover:text-error hover:bg-error-container/40 transition-all" title="Delete notification" type="button"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+            <button class="btn-quick-action px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-all" type="button">{% trans "Account Settings" %}</button>
+            <button class="btn-toggle-read p-2 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-all" title="{% trans "Mark as unread" %}" type="button"><span class="material-symbols-outlined text-[18px]">mark_email_unread</span></button>
+            <button class="btn-delete p-2 rounded-lg text-outline hover:text-error hover:bg-error-container/40 transition-all" title="{% trans "Delete notification" %}" type="button"><span class="material-symbols-outlined text-[18px]">delete</span></button>
           </div>
         </article>
       </div>
@@ -377,9 +378,9 @@
   <!-- Empty State -->
   <div class="hidden flex-col items-center justify-center p-space-xl bg-surface-container-lowest rounded-xl shadow-sm text-center" id="emptyState">
     <div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center text-outline mb-space-md"><span class="material-symbols-outlined text-[32px]">notifications_off</span></div>
-    <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold mb-1">No notifications found</h3>
-    <p class="font-body-md text-body-md text-on-surface-variant max-w-md mb-space-md">There are no notifications matching your active filter criteria or search query. Try broadening your parameters.</p>
-    <button class="px-space-md py-2.5 rounded-lg bg-primary-container text-on-primary-container hover:bg-primary font-label-md text-label-md transition-all shadow-sm" id="btnEmptyReset" type="button">Reset All Filters</button>
+    <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold mb-1">{% trans "No notifications found" %}</h3>
+    <p class="font-body-md text-body-md text-on-surface-variant max-w-md mb-space-md">{% trans "There are no notifications matching your active filter criteria or search query. Try broadening your parameters." %}</p>
+    <button class="px-space-md py-2.5 rounded-lg bg-primary-container text-on-primary-container hover:bg-primary font-label-md text-label-md transition-all shadow-sm" id="btnEmptyReset" type="button">{% trans "Reset All Filters" %}</button>
   </div>
 </div>
 
@@ -388,34 +389,34 @@
   <div class="bg-surface-container-lowest rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden flex flex-col transform scale-95 transition-all duration-200" id="detailModalCard">
     <div class="p-space-lg flex items-center justify-between bg-surface-container-low">
       <div class="flex items-center gap-space-xs" id="detailBadges">
-        <span class="px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold" id="detailCategoryBadge">Teams</span>
-        <span class="px-2.5 py-1 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold flex items-center gap-1" id="detailImportantBadge"><span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">star</span> Important</span>
-        <span class="px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold" id="detailStatusBadge">Unread</span>
+        <span class="px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold" id="detailCategoryBadge">{% trans "Teams" %}</span>
+        <span class="px-2.5 py-1 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold flex items-center gap-1" id="detailImportantBadge"><span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">star</span> {% trans "Important" %}</span>
+        <span class="px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold" id="detailStatusBadge">{% trans "Unread" %}</span>
       </div>
       <button class="p-1.5 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-all" id="closeDetailModal" type="button"><span class="material-symbols-outlined text-[20px]">close</span></button>
     </div>
     <div class="p-space-lg flex flex-col gap-space-md">
       <div>
-        <h2 class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight" id="detailTitle">Team Invitation Received</h2>
+        <h2 class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight" id="detailTitle">{% trans "Team Invitation Received" %}</h2>
         <div class="flex items-center gap-1 text-outline font-label-sm text-label-sm mt-1">
           <span class="material-symbols-outlined text-[15px]">schedule</span>
-          <span id="detailTimestamp">Oct 12, 2026 • 14:20 UTC</span>
+          <span id="detailTimestamp">{% trans "Oct 12, 2026 • 14:20 UTC" %}</span>
         </div>
       </div>
-      <div class="p-space-md rounded-xl bg-surface-container-low/60 text-on-surface font-body-md text-body-md leading-relaxed" id="detailBodyMessage">Amine K. invited you to join Neural Sparks for AI Innovation Challenge.</div>
+      <div class="p-space-md rounded-xl bg-surface-container-low/60 text-on-surface font-body-md text-body-md leading-relaxed" id="detailBodyMessage">{% trans "Amine K. invited you to join Neural Sparks for AI Innovation Challenge." %}</div>
       <div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-2">
-        <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Associated Context</span>
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">{% trans "Associated Context" %}</span>
         <div class="flex flex-col gap-1.5 text-body-sm font-body-sm text-on-surface-variant" id="detailLinkedEntities"></div>
       </div>
     </div>
     <div class="p-space-lg bg-surface-container-low/40 flex items-center justify-between gap-space-sm">
       <button class="px-space-md py-2 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-all font-label-md text-label-md flex items-center gap-1.5" id="btnDetailToggleRead" type="button">
         <span class="material-symbols-outlined text-[18px]">done</span>
-        <span id="detailToggleReadText">Mark as Read</span>
+        <span id="detailToggleReadText">{% trans "Mark as Read" %}</span>
       </button>
       <button class="px-space-md py-2 rounded-lg bg-primary-container text-on-primary-container hover:bg-primary transition-all font-label-md text-label-md flex items-center gap-1.5 shadow-sm" id="btnDetailAction" type="button">
-        <span id="detailActionText">View Context</span>
-        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+        <span id="detailActionText">{% trans "View Context" %}</span>
+        <span class="material-symbols-outlined rtl:rotate-180 text-[18px]">arrow_forward</span>
       </button>
     </div>
   </div>
@@ -428,8 +429,8 @@
       <div class="flex items-center gap-space-sm">
         <div class="w-10 h-10 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">tune</span></div>
         <div>
-          <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Notification Preferences</h2>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Configure channels, categories, and automated reminders.</p>
+          <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">{% trans "Notification Preferences" %}</h2>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Configure channels, categories, and automated reminders." %}</p>
         </div>
       </div>
       <button class="p-1.5 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-all" id="closePreferencesModal" type="button"><span class="material-symbols-outlined text-[20px]">close</span></button>
@@ -437,14 +438,14 @@
 
     <div class="p-space-lg overflow-y-auto flex flex-col gap-space-lg">
       <div class="flex flex-col gap-space-sm">
-        <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Delivery Channels</span>
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">{% trans "Delivery Channels" %}</span>
         <div class="flex flex-col gap-space-xs">
           <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer">
             <div class="flex items-center gap-space-sm">
               <span class="material-symbols-outlined text-[20px] text-primary">notifications_active</span>
               <div class="flex flex-col">
-                <span class="font-label-md text-label-md text-on-surface font-semibold">In-app notifications</span>
-                <span class="font-body-sm text-body-sm text-on-surface-variant">Real-time alerts inside the dashboard &amp; sprints</span>
+                <span class="font-label-md text-label-md text-on-surface font-semibold">{% trans "In-app notifications" %}</span>
+                <span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Real-time alerts inside the dashboard &amp; sprints" %}</span>
               </div>
             </div>
             <input checked class="w-4 h-4 rounded text-primary focus:ring-primary accent-primary cursor-pointer" type="checkbox"/>
@@ -453,8 +454,8 @@
             <div class="flex items-center gap-space-sm">
               <span class="material-symbols-outlined text-[20px] text-primary">mail</span>
               <div class="flex flex-col">
-                <span class="font-label-md text-label-md text-on-surface font-semibold">Email notifications</span>
-                <span class="font-body-sm text-body-sm text-on-surface-variant">Daily digests and critical instant announcements</span>
+                <span class="font-label-md text-label-md text-on-surface font-semibold">{% trans "Email notifications" %}</span>
+                <span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Daily digests and critical instant announcements" %}</span>
               </div>
             </div>
             <input checked class="w-4 h-4 rounded text-primary focus:ring-primary accent-primary cursor-pointer" type="checkbox"/>
@@ -463,38 +464,38 @@
       </div>
 
       <div class="flex flex-col gap-space-sm">
-        <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Category Subscriptions</span>
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">{% trans "Category Subscriptions" %}</span>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-xs">
-          <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer"><span class="font-label-md text-label-md text-on-surface">Hackathons</span><input checked class="w-4 h-4 rounded accent-primary cursor-pointer" type="checkbox"/></label>
-          <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer"><span class="font-label-md text-label-md text-on-surface">Teams &amp; invites</span><input checked class="w-4 h-4 rounded accent-primary cursor-pointer" type="checkbox"/></label>
-          <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer"><span class="font-label-md text-label-md text-on-surface">Projects &amp; submissions</span><input checked class="w-4 h-4 rounded accent-primary cursor-pointer" type="checkbox"/></label>
-          <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer"><span class="font-label-md text-label-md text-on-surface">Evaluations &amp; results</span><input checked class="w-4 h-4 rounded accent-primary cursor-pointer" type="checkbox"/></label>
-          <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer"><span class="font-label-md text-label-md text-on-surface">Prizes &amp; certificates</span><input checked class="w-4 h-4 rounded accent-primary cursor-pointer" type="checkbox"/></label>
-          <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer"><span class="font-label-md text-label-md text-on-surface">System updates</span><input checked class="w-4 h-4 rounded accent-primary cursor-pointer" type="checkbox"/></label>
+          <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer"><span class="font-label-md text-label-md text-on-surface">{% trans "Hackathons" %}</span><input checked class="w-4 h-4 rounded accent-primary cursor-pointer" type="checkbox"/></label>
+          <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer"><span class="font-label-md text-label-md text-on-surface">{% trans "Teams &amp; invites" %}</span><input checked class="w-4 h-4 rounded accent-primary cursor-pointer" type="checkbox"/></label>
+          <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer"><span class="font-label-md text-label-md text-on-surface">{% trans "Projects &amp; submissions" %}</span><input checked class="w-4 h-4 rounded accent-primary cursor-pointer" type="checkbox"/></label>
+          <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer"><span class="font-label-md text-label-md text-on-surface">{% trans "Evaluations &amp; results" %}</span><input checked class="w-4 h-4 rounded accent-primary cursor-pointer" type="checkbox"/></label>
+          <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer"><span class="font-label-md text-label-md text-on-surface">{% trans "Prizes &amp; certificates" %}</span><input checked class="w-4 h-4 rounded accent-primary cursor-pointer" type="checkbox"/></label>
+          <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer"><span class="font-label-md text-label-md text-on-surface">{% trans "System updates" %}</span><input checked class="w-4 h-4 rounded accent-primary cursor-pointer" type="checkbox"/></label>
         </div>
       </div>
 
       <div class="flex flex-col gap-space-sm">
-        <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Automated Reminders</span>
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">{% trans "Automated Reminders" %}</span>
         <div class="flex flex-col gap-space-xs">
           <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer">
             <div class="flex flex-col">
-              <span class="font-label-md text-label-md text-on-surface font-semibold">Hackathon kickoff countdown (24h before)</span>
-              <span class="font-body-sm text-body-sm text-on-surface-variant">Notifies team members when event starts</span>
+              <span class="font-label-md text-label-md text-on-surface font-semibold">{% trans "Hackathon kickoff countdown (24h before)" %}</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Notifies team members when event starts" %}</span>
             </div>
             <input checked class="w-4 h-4 rounded accent-primary cursor-pointer" type="checkbox"/>
           </label>
           <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer">
             <div class="flex flex-col">
-              <span class="font-label-md text-label-md text-on-surface font-semibold">Project deadline warning (6h &amp; 1h before)</span>
-              <span class="font-body-sm text-body-sm text-on-surface-variant">Prevent missing submission closure</span>
+              <span class="font-label-md text-label-md text-on-surface font-semibold">{% trans "Project deadline warning (6h &amp; 1h before)" %}</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Prevent missing submission closure" %}</span>
             </div>
             <input checked class="w-4 h-4 rounded accent-primary cursor-pointer" type="checkbox"/>
           </label>
           <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer">
             <div class="flex flex-col">
-              <span class="font-label-md text-label-md text-on-surface font-semibold">Jury evaluation submission warnings</span>
-              <span class="font-body-sm text-body-sm text-on-surface-variant">Ensure all scorecards are submitted on schedule</span>
+              <span class="font-label-md text-label-md text-on-surface font-semibold">{% trans "Jury evaluation submission warnings" %}</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Ensure all scorecards are submitted on schedule" %}</span>
             </div>
             <input checked class="w-4 h-4 rounded accent-primary cursor-pointer" type="checkbox"/>
           </label>
@@ -503,8 +504,8 @@
     </div>
 
     <div class="p-space-lg bg-surface-container-low flex items-center justify-end gap-space-sm">
-      <button class="px-space-md py-2.5 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-all font-label-md text-label-md" id="cancelPreferences" type="button">Cancel</button>
-      <button class="px-space-md py-2.5 rounded-lg bg-primary-container text-on-primary-container hover:bg-primary transition-all font-label-md text-label-md shadow-sm" id="savePreferencesBtn" type="button">Save Preferences</button>
+      <button class="px-space-md py-2.5 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-all font-label-md text-label-md" id="cancelPreferences" type="button">{% trans "Cancel" %}</button>
+      <button class="px-space-md py-2.5 rounded-lg bg-primary-container text-on-primary-container hover:bg-primary transition-all font-label-md text-label-md shadow-sm" id="savePreferencesBtn" type="button">{% trans "Save Preferences" %}</button>
     </div>
   </div>
 </div>
@@ -515,22 +516,22 @@
 <script>
 (function() {
   const notifications = [
-    { id: 'item-1', title: 'Team Invitation Received', message: 'Amine K. invited you to join Neural Sparks for AI Innovation Challenge.', category: 'teams', categoryLabel: 'Teams', timeDisplay: '10 minutes ago', timestamp: 'Oct 12, 2026 • 14:20 UTC', read: false, important: true, actionText: 'View Invitation',
-      entities: [{ label: 'Invited by', value: 'Amine K.' }, { label: 'Team', value: 'Neural Sparks' }, { label: 'Hackathon', value: 'AI Innovation Challenge' }] },
-    { id: 'item-2', title: 'Hackathon Starting Soon', message: 'AI Innovation Challenge starts on October 20, 2026. Make sure your team is ready.', category: 'hackathons', categoryLabel: 'Hackathons', timeDisplay: '1 hour ago', timestamp: 'Oct 12, 2026 • 13:30 UTC', read: false, important: true, actionText: 'View Hackathon',
-      entities: [{ label: 'Event', value: 'AI Innovation Challenge' }, { label: 'Start Date', value: 'October 20, 2026' }, { label: 'Format', value: 'Hybrid (Virtual + Onsite)' }] },
-    { id: 'item-3', title: 'Project Submission Reminder', message: 'The final submission deadline for GreenTech Hackathon is approaching.', category: 'projects', categoryLabel: 'Projects', timeDisplay: '3 hours ago', timestamp: 'Oct 12, 2026 • 11:30 UTC', read: false, important: true, actionText: 'View Project',
-      entities: [{ label: 'Project', value: 'GreenTech Engine' }, { label: 'Event', value: 'GreenTech Hackathon' }, { label: 'Deadline Remaining', value: '6 Hours' }] },
-    { id: 'item-4', title: 'Evaluation Completed', message: 'Your project SmartHealth AI has received an evaluation score of 91/100.', category: 'evaluations', categoryLabel: 'Evaluations', timeDisplay: 'Yesterday', timestamp: 'Oct 11, 2026 • 18:45 UTC', read: false, important: false, actionText: 'View Scorecard',
-      entities: [{ label: 'Project', value: 'SmartHealth AI' }, { label: 'Consensus Score', value: '91 / 100' }, { label: 'Jury Status', value: 'Approved (3/3 evaluations)' }] },
-    { id: 'item-5', title: 'New Team Member', message: 'Sara M. has joined your team Code Warriors.', category: 'teams', categoryLabel: 'Teams', timeDisplay: 'Yesterday', timestamp: 'Oct 11, 2026 • 15:10 UTC', read: false, important: false, actionText: 'View Team',
-      entities: [{ label: 'Member', value: 'Sara M. (Full Stack)' }, { label: 'Team', value: 'Code Warriors' }, { label: 'Role', value: 'Frontend Developer' }] },
-    { id: 'item-6', title: 'Prize Awarded', message: 'Your team received the Best Innovation Award in GreenTech Hackathon.', category: 'prizes', categoryLabel: 'Prizes', timeDisplay: '2 days ago', timestamp: 'Oct 10, 2026 • 16:00 UTC', read: true, important: false, actionText: 'View Certificate',
-      entities: [{ label: 'Award', value: 'Best Innovation Award' }, { label: 'Prize Pool Share', value: '$2,000 USD' }, { label: 'Team', value: 'Green Innovators' }] },
-    { id: 'item-7', title: 'Resource Published', message: 'A new guide about Django and project architecture is now available.', category: 'system', categoryLabel: 'System', timeDisplay: '3 days ago', timestamp: 'Oct 9, 2026 • 10:15 UTC', read: true, important: false, actionText: 'Read Guide',
-      entities: [{ label: 'Resource', value: 'Django 5.0 Best Architecture' }, { label: 'Author', value: 'CodeStorm Staff' }, { label: 'Format', value: 'PDF & Interactive Sandbox' }] },
-    { id: 'item-8', title: 'Profile Updated', message: 'Your profile information was successfully updated.', category: 'system', categoryLabel: 'System', timeDisplay: '5 days ago', timestamp: 'Oct 7, 2026 • 09:20 UTC', read: true, important: false, actionText: 'Account Settings',
-      entities: [{ label: 'User', value: 'Elena Vance' }, { label: 'Role', value: 'Lead Organizer' }, { label: 'Verification', value: 'GitHub & Auth0 Synchronized' }] }
+    { id: 'item-1', title: "{% trans "Team Invitation Received" %}", message: "{% trans "Amine K. invited you to join Neural Sparks for AI Innovation Challenge." %}", category: 'teams', categoryLabel: "{% trans "Teams" %}", timeDisplay: "{% trans "10 minutes ago" %}", timestamp: 'Oct 12, 2026 • 14:20 UTC', read: false, important: true, actionText: "{% trans "View Invitation" %}",
+      entities: [{ label: "{% trans "Invited by" %}", value: 'Amine K.' }, { label: "{% trans "Team" %}", value: 'Neural Sparks' }, { label: "{% trans "Hackathon" %}", value: 'AI Innovation Challenge' }] },
+    { id: 'item-2', title: "{% trans "Hackathon Starting Soon" %}", message: "{% trans "AI Innovation Challenge starts on October 20, 2026. Make sure your team is ready." %}", category: 'hackathons', categoryLabel: "{% trans "Hackathons" %}", timeDisplay: "{% trans "1 hour ago" %}", timestamp: 'Oct 12, 2026 • 13:30 UTC', read: false, important: true, actionText: "{% trans "View Hackathon" %}",
+      entities: [{ label: "{% trans "Event" %}", value: 'AI Innovation Challenge' }, { label: "{% trans "Start Date" %}", value: 'October 20, 2026' }, { label: "{% trans "Format" %}", value: "{% trans "Hybrid (Virtual + Onsite)" %}" }] },
+    { id: 'item-3', title: "{% trans "Project Submission Reminder" %}", message: "{% trans "The final submission deadline for GreenTech Hackathon is approaching." %}", category: 'projects', categoryLabel: "{% trans "Projects" %}", timeDisplay: "{% trans "3 hours ago" %}", timestamp: 'Oct 12, 2026 • 11:30 UTC', read: false, important: true, actionText: "{% trans "View Project" %}",
+      entities: [{ label: "{% trans "Project" %}", value: 'GreenTech Engine' }, { label: "{% trans "Event" %}", value: 'GreenTech Hackathon' }, { label: "{% trans "Deadline Remaining" %}", value: "{% trans "6 Hours" %}" }] },
+    { id: 'item-4', title: "{% trans "Evaluation Completed" %}", message: "{% trans "Your project SmartHealth AI has received an evaluation score of 91/100." %}", category: 'evaluations', categoryLabel: "{% trans "Evaluations" %}", timeDisplay: "{% trans "Yesterday" %}", timestamp: 'Oct 11, 2026 • 18:45 UTC', read: false, important: false, actionText: "{% trans "View Scorecard" %}",
+      entities: [{ label: "{% trans "Project" %}", value: 'SmartHealth AI' }, { label: "{% trans "Consensus Score" %}", value: '91 / 100' }, { label: "{% trans "Jury Status" %}", value: "{% trans "Approved (3/3 evaluations)" %}" }] },
+    { id: 'item-5', title: "{% trans "New Team Member" %}", message: "{% trans "Sara M. has joined your team Code Warriors." %}", category: 'teams', categoryLabel: "{% trans "Teams" %}", timeDisplay: "{% trans "Yesterday" %}", timestamp: 'Oct 11, 2026 • 15:10 UTC', read: false, important: false, actionText: "{% trans "View Team" %}",
+      entities: [{ label: "{% trans "Member" %}", value: 'Sara M. (Full Stack)' }, { label: "{% trans "Team" %}", value: 'Code Warriors' }, { label: "{% trans "Role" %}", value: "{% trans "Frontend Developer" %}" }] },
+    { id: 'item-6', title: "{% trans "Prize Awarded" %}", message: "{% trans "Your team received the Best Innovation Award in GreenTech Hackathon." %}", category: 'prizes', categoryLabel: "{% trans "Prizes" %}", timeDisplay: "{% trans "2 days ago" %}", timestamp: 'Oct 10, 2026 • 16:00 UTC', read: true, important: false, actionText: "{% trans "View Certificate" %}",
+      entities: [{ label: "{% trans "Award" %}", value: "{% trans "Best Innovation Award" %}" }, { label: "{% trans "Prize Pool Share" %}", value: '$2,000 USD' }, { label: "{% trans "Team" %}", value: 'Green Innovators' }] },
+    { id: 'item-7', title: "{% trans "Resource Published" %}", message: "{% trans "A new guide about Django and project architecture is now available." %}", category: 'system', categoryLabel: "{% trans "System" %}", timeDisplay: "{% trans "3 days ago" %}", timestamp: 'Oct 9, 2026 • 10:15 UTC', read: true, important: false, actionText: "{% trans "Read Guide" %}",
+      entities: [{ label: "{% trans "Resource" %}", value: 'Django 5.0 Best Architecture' }, { label: "{% trans "Author" %}", value: 'CodeStorm Staff' }, { label: "{% trans "Format" %}", value: "{% trans "PDF & Interactive Sandbox" %}" }] },
+    { id: 'item-8', title: "{% trans "Profile Updated" %}", message: "{% trans "Your profile information was successfully updated." %}", category: 'system', categoryLabel: "{% trans "System" %}", timeDisplay: "{% trans "5 days ago" %}", timestamp: 'Oct 7, 2026 • 09:20 UTC', read: true, important: false, actionText: "{% trans "Account Settings" %}",
+      entities: [{ label: "{% trans "User" %}", value: 'Elena Vance' }, { label: "{% trans "Role" %}", value: "{% trans "Lead Organizer" %}" }, { label: "{% trans "Verification" %}", value: "{% trans "GitHub & Auth0 Synchronized" %}" }] }
   ];
 
   let activeStatusFilter = 'all';
@@ -562,7 +563,7 @@
     document.getElementById('kpiImportant').textContent = pad(important);
 
     const headerBadge = document.getElementById('unreadHeaderBadge');
-    headerBadge.textContent = `${unread} Unread`;
+    headerBadge.textContent = `${unread} {% trans "Unread" %}`;
     if (unread === 0) {
       headerBadge.classList.remove('bg-primary-fixed', 'text-on-primary-fixed');
       headerBadge.classList.add('bg-surface-container-high', 'text-on-surface-variant');
@@ -618,7 +619,7 @@
       });
 
       const counterEl = group.querySelector('.group-counter');
-      if (counterEl) counterEl.textContent = `${groupVisibleCount} Update${groupVisibleCount === 1 ? '' : 's'}`;
+      if (counterEl) counterEl.textContent = `${groupVisibleCount} ${groupVisibleCount === 1 ? "{% trans "Update" %}" : "{% trans "Updates" %}"}`;
       group.classList.toggle('hidden', groupVisibleCount === 0);
     });
 
@@ -645,14 +646,14 @@
       if (accentBar) accentBar.classList.replace('bg-primary-container', 'bg-transparent');
       if (unreadDot) unreadDot.classList.add('hidden');
       readBtnIcon.textContent = 'mark_email_unread';
-      readBtn.setAttribute('title', 'Mark as unread');
+      readBtn.setAttribute('title', "{% trans "Mark as unread" %}");
     } else {
       cardEl.classList.add('unread');
       cardEl.classList.remove('read', 'opacity-90');
       if (accentBar) accentBar.classList.replace('bg-transparent', 'bg-primary-container');
       if (unreadDot) unreadDot.classList.remove('hidden');
       readBtnIcon.textContent = 'done';
-      readBtn.setAttribute('title', 'Mark as read');
+      readBtn.setAttribute('title', "{% trans "Mark as read" %}");
     }
   }
 
@@ -665,13 +666,13 @@
     document.getElementById('detailImportantBadge').classList.toggle('hidden', !item.important);
 
     const statusBadge = document.getElementById('detailStatusBadge');
-    statusBadge.textContent = item.read ? 'Read' : 'Unread';
+    statusBadge.textContent = item.read ? "{% trans "Read" %}" : "{% trans "Unread" %}";
     statusBadge.classList.toggle('bg-surface-container-high', item.read);
     statusBadge.classList.toggle('text-on-surface-variant', item.read);
     statusBadge.classList.toggle('bg-secondary-fixed', !item.read);
     statusBadge.classList.toggle('text-on-secondary-fixed', !item.read);
 
-    document.getElementById('detailToggleReadText').textContent = item.read ? 'Mark as Unread' : 'Mark as Read';
+    document.getElementById('detailToggleReadText').textContent = item.read ? "{% trans "Mark as Unread" %}" : "{% trans "Mark as Read" %}";
     document.getElementById('detailActionText').textContent = item.actionText;
 
     const entitiesContainer = document.getElementById('detailLinkedEntities');
@@ -712,7 +713,7 @@
       syncCardVisuals(card, item);
       updateMetrics();
       applyFilters();
-      showToast(item.read ? 'Notification marked as read' : 'Notification marked as unread');
+      showToast(item.read ? "{% trans "Notification marked as read" %}" : "{% trans "Notification marked as unread" %}");
       return;
     }
 
@@ -724,7 +725,7 @@
           card.remove();
           updateMetrics();
           applyFilters();
-          showToast('Notification deleted', 'delete');
+          showToast("{% trans "Notification deleted" %}", 'delete');
         }
       }
       return;
@@ -734,7 +735,7 @@
       item.read = true;
       syncCardVisuals(card, item);
       updateMetrics();
-      showToast(`Navigating to ${item.actionText}...`, 'open_in_new');
+      showToast(`{% trans "Navigating to" %} ${item.actionText}...`, 'open_in_new');
       return;
     }
 
@@ -792,7 +793,7 @@
       t.classList.toggle('text-on-surface-variant', !on);
     });
     applyFilters();
-    showToast('Filters cleared', 'filter_alt_off');
+    showToast("{% trans "Filters cleared" %}", 'filter_alt_off');
   }
   document.getElementById('resetFiltersBtn').addEventListener('click', resetFilters);
   document.getElementById('btnEmptyReset').addEventListener('click', resetFilters);
@@ -806,7 +807,7 @@
     });
     updateMetrics();
     applyFilters();
-    showToast('All notifications marked as read', 'done_all');
+    showToast("{% trans "All notifications marked as read" %}", 'done_all');
   });
 
   // Detail modal
@@ -823,7 +824,7 @@
     updateMetrics();
     applyFilters();
     openDetailModal(item);
-    showToast(item.read ? 'Marked as read' : 'Marked as unread');
+    showToast(item.read ? "{% trans "Marked as read" %}" : "{% trans "Marked as unread" %}");
   });
 
   document.getElementById('btnDetailAction').addEventListener('click', () => {
@@ -835,7 +836,7 @@
     if (cardEl) syncCardVisuals(cardEl, item);
     updateMetrics();
     closeDetailModal();
-    showToast(`Opening destination for ${item.title}...`, 'open_in_new');
+    showToast(`{% trans "Opening destination for" %} ${item.title}...`, 'open_in_new');
   });
 
   // Preferences modal
@@ -850,7 +851,7 @@
   prefModal.addEventListener('click', function(e) { if (e.target === this) closePreferences(); });
   document.getElementById('savePreferencesBtn').addEventListener('click', () => {
     closePreferences();
-    showToast('Notification preferences successfully saved!', 'tune');
+    showToast("{% trans "Notification preferences successfully saved!" %}", 'tune');
   });
 
   updateMetrics();

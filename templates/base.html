@@ -1,10 +1,10 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
-<html lang="en"{% if user.is_authenticated %} data-theme="{{ user.theme }}" data-accent="{{ user.accent }}" data-density="{{ user.density }}"{% endif %}>
+<html lang="{{ LANGUAGE_CODE|default:'en' }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}"{% if user.is_authenticated %} data-theme="{{ user.theme }}" data-accent="{{ user.accent }}" data-density="{{ user.density }}"{% endif %}>
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>{% block title %}CodeStorm{% endblock %}</title>
+  <title>{% block title %}{% trans "CodeStorm" %}{% endblock %}</title>
 
   <link href="https://fonts.googleapis.com" rel="preconnect"/>
   <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -90,12 +90,12 @@
 
   {% if not request.GET.embed %}
   <!-- ============ SIDEBAR ============ -->
-  <aside class="fixed left-0 top-0 h-screen w-72 bg-surface-container-lowest z-40 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+  <aside class="fixed start-0 top-0 h-screen w-72 bg-surface-container-lowest z-40 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
     <div class="flex flex-col flex-1 overflow-y-auto px-space-md py-space-md">
       <div class="flex items-center justify-between pb-space-md mb-space-sm">
         <a class="flex items-center gap-space-sm" href="{% url 'dashboard' %}">
           <img alt="CodeStorm Logo" class="h-12 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrYdH-vRBh7jYx7DLH1vImN3ZSFIOgu9MFc_nQw9JZs9c40cBCKfuFWB0swqqCGvN4440hlrho5nsxjCO3nP6rX7o1R0sxoPF4prW64BstD5x0FKbnPgIKHXOug3XwWZqJuytHBoY6bRHHsnlfGc3TeUTE1jzLg0xebIh4BWDzB9t8Hs9wkhbQxcwPVbXAdOSV3is3zx9yWH4o1-9RSd0Ggs3cnTUx6rjDf_pKsNmyClyAuWKO0ABfdw"/>
-          <span class="font-headline-md text-headline-md text-on-surface">CodeStorm</span>
+          <span class="font-headline-md text-headline-md text-on-surface">{% trans "CodeStorm" %}</span>
         </a>
        
       </div>
@@ -105,21 +105,21 @@
       <nav class="flex-1 flex flex-col gap-space-md">
         <div class="flex flex-col gap-1">
          
-          <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="dashboard" href="{% url 'dashboard' %}"><span class="material-symbols-outlined text-[20px]">grid_view</span><span>Dashboard</span></a>
-          <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="hackathons" href="{% url 'hackathons:home' %}"><span class="material-symbols-outlined text-[20px]">emoji_events</span><span>Hackathons</span></a>
-          <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="teams" href="{% url 'teams:home' %}"><span class="material-symbols-outlined text-[20px]">groups</span><span>Teams</span></a>
-          <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="projects" href="{% url 'projects:home' %}"><span class="material-symbols-outlined text-[20px]">deployed_code</span><span>Projects</span></a>
+          <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="dashboard" href="{% url 'dashboard' %}"><span class="material-symbols-outlined text-[20px]">grid_view</span><span>{% trans "Dashboard" %}</span></a>
+          <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="hackathons" href="{% url 'hackathons:home' %}"><span class="material-symbols-outlined text-[20px]">emoji_events</span><span>{% trans "Hackathons" %}</span></a>
+          <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="teams" href="{% url 'teams:home' %}"><span class="material-symbols-outlined text-[20px]">groups</span><span>{% trans "Teams" %}</span></a>
+          <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="projects" href="{% url 'projects:home' %}"><span class="material-symbols-outlined text-[20px]">deployed_code</span><span>{% trans "Projects" %}</span></a>
         </div>
 
         <div class="flex flex-col gap-1">
-          <span class="px-space-sm font-label-sm text-label-sm text-outline tracking-wider uppercase">Review &amp; Scoring</span>
-          <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="evaluations" href="{% url 'evaluations:home' %}"><span class="material-symbols-outlined text-[20px]">rate_review</span><span>Evaluations</span></a>
-          <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="prizes-leaderboard" href="{% url 'prizes:home' %}"><span class="material-symbols-outlined text-[20px]">leaderboard</span><span>Prizes &amp; Leaderboard</span></a>
+          <span class="px-space-sm font-label-sm text-label-sm text-outline tracking-wider uppercase">{% trans "Review &amp; Scoring" %}</span>
+          <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="evaluations" href="{% url 'evaluations:home' %}"><span class="material-symbols-outlined text-[20px]">rate_review</span><span>{% trans "Evaluations" %}</span></a>
+          <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="prizes-leaderboard" href="{% url 'prizes:home' %}"><span class="material-symbols-outlined text-[20px]">leaderboard</span><span>{% trans "Prizes &amp; Leaderboard" %}</span></a>
         </div>
 
         <div class="flex flex-col gap-1">
-          <span class="px-space-sm font-label-sm text-label-sm text-outline tracking-wider uppercase">Support</span>
-          <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="resources" href="{% url 'resources:home' %}"><span class="material-symbols-outlined text-[20px]">menu_book</span><span>Resources</span></a>
+          <span class="px-space-sm font-label-sm text-label-sm text-outline tracking-wider uppercase">{% trans "Support" %}</span>
+          <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="resources" href="{% url 'resources:home' %}"><span class="material-symbols-outlined text-[20px]">menu_book</span><span>{% trans "Resources" %}</span></a>
          
         </div>
 
@@ -132,25 +132,25 @@
         {% csrf_token %}
         <button type="submit" class="w-full flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-error-container hover:text-error transition-all">
           <span class="material-symbols-outlined text-[20px]">logout</span>
-          <span>Log out</span>
+          <span>{% trans "Log out" %}</span>
         </button>
       </form>
     </div>
   </aside>
   {% endif %}
 
-  <div class="{% if not request.GET.embed %}pl-72{% endif %} flex flex-col min-h-screen">
+  <div class="{% if not request.GET.embed %}ps-72{% endif %} flex flex-col min-h-screen">
 
     {% if not request.GET.embed %}
     <!-- ============ TOPBAR ============ -->
-    <header class="fixed top-0 left-72 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-30 flex items-center justify-between px-space-lg">
+    <header class="fixed top-0 start-72 end-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-30 flex items-center justify-between px-space-lg">
       <div class="flex items-center gap-space-md">
         <div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant">
-          <span class="hover:text-on-surface transition-colors cursor-pointer">Platform</span>
-          <span class="material-symbols-outlined text-[16px] text-outline-variant">chevron_right</span>
-          <span class="hover:text-on-surface transition-colors cursor-pointer">{% block breadcrumb_section %}Dashboard{% endblock %}</span>
-          <span class="material-symbols-outlined text-[16px] text-outline-variant">chevron_right</span>
-          <span class="text-on-surface font-semibold">{% block breadcrumb_page %}Overview{% endblock %}</span>
+          <span class="hover:text-on-surface transition-colors cursor-pointer">{% trans "Platform" %}</span>
+          <span class="material-symbols-outlined rtl:rotate-180 text-[16px] text-outline-variant">chevron_right</span>
+          <span class="hover:text-on-surface transition-colors cursor-pointer">{% block breadcrumb_section %}{% trans "Dashboard" %}{% endblock %}</span>
+          <span class="material-symbols-outlined rtl:rotate-180 text-[16px] text-outline-variant">chevron_right</span>
+          <span class="text-on-surface font-semibold">{% block breadcrumb_page %}{% trans "Overview" %}{% endblock %}</span>
         </div>
       </div>
 
@@ -162,15 +162,15 @@
           <button id="notificationButton" type="button"
         class="relative p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant">
     <span class="material-symbols-outlined">notifications</span>
-    <span class="absolute top-1 right-1 h-2 w-2 rounded-full bg-error"></span>
+    <span class="absolute top-1 end-1 h-2 w-2 rounded-full bg-error"></span>
 </button>
 
 <div id="notificationPanel"
-     class="hidden absolute right-4 top-16 z-50 w-96 max-w-[calc(100vw-2rem)]
+     class="hidden absolute end-4 top-16 z-50 w-96 max-w-[calc(100vw-2rem)]
             rounded-xl border border-outline-variant bg-surface-container-lowest shadow-xl">
 
     <div class="flex items-center justify-between border-b border-outline-variant p-4">
-        <h3 class="font-headline-sm text-headline-sm text-on-surface">Notifications</h3>
+        <h3 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Notifications" %}</h3>
         <button id="closeNotifications" type="button"
                 class="text-outline hover:text-on-surface">
             <span class="material-symbols-outlined">close</span>
@@ -182,11 +182,11 @@
         <div class="flex gap-3 border-b border-outline-variant py-3">
             <span class="material-symbols-outlined text-primary">groups</span>
             <div>
-                <p class="font-label-md text-label-md font-semibold text-on-surface">New team invitation</p>
+                <p class="font-label-md text-label-md font-semibold text-on-surface">{% trans "New team invitation" %}</p>
                 <p class="font-body-sm text-body-sm text-on-surface-variant">
-                    You received an invitation to join a team.
+                    {% trans "You received an invitation to join a team." %}
                 </p>
-                <p class="mt-1 font-body-sm text-body-sm text-outline">2 minutes ago</p>
+                <p class="mt-1 font-body-sm text-body-sm text-outline">{% trans "2 minutes ago" %}</p>
             </div>
         </div>
         {% endif %}
@@ -195,35 +195,35 @@
         <div class="flex gap-3 border-b border-outline-variant py-3">
             <span class="material-symbols-outlined text-secondary">event</span>
             <div>
-                <p class="font-label-md text-label-md font-semibold text-on-surface">New hackathon available</p>
+                <p class="font-label-md text-label-md font-semibold text-on-surface">{% trans "New hackathon available" %}</p>
                 <p class="font-body-sm text-body-sm text-on-surface-variant">
-                    Registration is now open.
+                    {% trans "Registration is now open." %}
                 </p>
-                <p class="mt-1 font-body-sm text-body-sm text-outline">15 minutes ago</p>
+                <p class="mt-1 font-body-sm text-body-sm text-outline">{% trans "15 minutes ago" %}</p>
             </div>
         </div>
         {% endif %}
 
         {% if not user.notif_team and not user.notif_hackathon %}
-        <p class="py-6 text-center font-body-sm text-body-sm text-outline">You have no notifications.</p>
+        <p class="py-6 text-center font-body-sm text-body-sm text-outline">{% trans "You have no notifications." %}</p>
         {% endif %}
     </div>
 
     <a href="{% url 'notifications' %}"
        class="block border-t border-outline-variant p-3 text-center font-semibold text-primary hover:bg-surface-container-low">
-        View all notifications
+        {% trans "View all notifications" %}
     </a>
 </div>
           {% endif %}
         </div>
         <div class="h-4 w-[1px] bg-outline-variant"></div>
-        <button id="profileDrawerButton" type="button" class="flex items-center gap-space-sm pl-1 group cursor-pointer">
+        <button id="profileDrawerButton" type="button" class="flex items-center gap-space-sm ps-1 group cursor-pointer">
           {% if user.avatar %}
           <img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-primary/20" src="{{ user.avatar.url }}"/>
           {% else %}
           <span class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary-container text-on-primary flex items-center justify-center font-label-md text-label-md ring-1 ring-primary/20">{{ user.initials }}</span>
           {% endif %}
-          <div class="hidden lg:flex flex-col text-left">
+          <div class="hidden lg:flex flex-col text-start">
             <div class="flex items-center gap-1">
               <span class="font-label-md text-label-md text-on-surface font-semibold group-hover:text-primary transition-colors">{% firstof user.get_full_name user.username %}</span>
               <span class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:text-on-surface transition-colors">expand_more</span>
@@ -244,17 +244,17 @@
   {% if not request.GET.embed %}
   <!-- ============ PROFILE DRAWER ============ -->
   <div id="profileDrawerOverlay" class="hidden fixed inset-0 bg-inverse-surface/40 backdrop-blur-sm z-40 transition-opacity duration-300"></div>
-  <aside id="profileDrawer" aria-hidden="true" class="fixed top-0 right-0 h-screen w-full max-w-2xl bg-surface-container-lowest z-50 shadow-2xl translate-x-full transition-transform duration-300 ease-out flex flex-col">
+  <aside id="profileDrawer" aria-hidden="true" class="fixed top-0 end-0 h-screen w-full max-w-2xl bg-surface-container-lowest z-50 shadow-2xl translate-x-full transition-transform duration-300 ease-out flex flex-col">
     <div class="flex items-center justify-between px-5 h-16 border-b border-outline-variant shrink-0">
       <div class="flex items-center gap-2 font-label-md text-label-md text-on-surface font-semibold">
         <span class="material-symbols-outlined text-[20px] text-primary">settings</span>
-        <span>Profile &amp; Settings</span>
+        <span>{% trans "Profile &amp; Settings" %}</span>
       </div>
-      <button id="profileDrawerClose" type="button" class="p-2 rounded-full hover:bg-surface-container transition-colors" aria-label="Close">
+      <button id="profileDrawerClose" type="button" class="p-2 rounded-full hover:bg-surface-container transition-colors" aria-label"{% trans "Close" %}">
         <span class="material-symbols-outlined text-[20px]">close</span>
       </button>
     </div>
-    <iframe id="profileDrawerFrame" title="Profile & Settings" data-src="{% url 'profile_settings' %}?embed=1" class="flex-1 w-full border-0 bg-surface"></iframe>
+    <iframe id="profileDrawerFrame" title="{% trans "Profile & Settings" %}" data-src="{% url 'profile_settings' %}?embed=1" class="flex-1 w-full border-0 bg-surface"></iframe>
   </aside>
   {% endif %}
 

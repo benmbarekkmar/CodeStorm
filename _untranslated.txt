@@ -1,0 +1,308 @@
+TOTAL 307
+CodeStorm
+victory.exe
+AI Innovation Challenge
+October 18–20, 2026
+128 Participants
+GreenTech Hackathon
+October 24–26, 2026
+86 Participants
+FinTech Future 2026
+November 5–7, 2026
+64 Participants
+Code Warriors
+AK
+SM
+YB
+Oct 8, 2026 • Verified
+October 15, 2026
+October 19, 2026
+October 20, 2026
+Pixel Pioneers
+Byte Builders
+You joined the
+team.
+v2.5 Django
+Core
+⌘K
+Elena Vance
+Django 5.2 • BS 5.3 Tokens
+Where ideas become innovation — Centralized component architecture, tokens, and operational guidelines for organizer, jury, and hacker interfaces.
+Switching view updates live state preview permissions and API mock hooks
+.btn-* tokens
+Syncing...
+.badge-pill
+Django Form rendering specs with reactive client-side focus rings
+django.forms.widgets
+Tabular listing pattern with batch selections, score indicators, and action triggers
+NP
+NeuroPulse AI
+github.com/neuropulse/core
+Agentic LLMs
+DR
+ZC
+ZeroCarbon Logistics
+github.com/ecotrace/router
+CleanTech
+LS
+MT
+VC
+VeriChain Identity
+github.com/verichain/id-zkp
+Web3 &amp; ZK
+JK
+EW
+TY
+68 Cohorts
+Accelerating production agent architectures, synthetic evaluation systems, and autonomous verification tools on modern cloud runtimes.
+Global Hybrid / SF Demo Day
+This revokes repository write access and Jury evaluation association immediately.
+COHORT REVIEW • DJANGO APP :: EVALUATIONS &amp; JURY SCORING
+Review project submissions, score innovations, and provide structured qualitative feedback across active jury tracks.
++3.2 pts
+Jury Cluster: Alpha-9
+FinTech Future
+Web Creators Weekend
+FinTech &amp; Web3 Track
+Dev Tools Track
+Breakdown across 12 finalized project rubrics
+85 – 100 (Exceptional)
+70 – 84 (Proficient)
+50 – 69 (Needs Work)
+0 – 49 (Unsatisfactory)
+Standard deviation is low (4.8 pts), indicating high scoring consistency among evaluators.
+12 of 24 submissions fully scored. Estimated 1.5 days to final prize lock.
+36h Rem.
+Oct 12, 2026 • 23:59 UTC
+View All 12 Log Entries
+SmartHealth AI
+Scored by Sarah M. • AI Track
+AB
+EcoTrack
+Scored by Ahmed B. • Sustainability Track
+LK
+FinWise
+Scored by Lina K. • FinTech Future
+MR
+SecureVault
+Scored by Marcus R. • Security Track
+SH
+Sarah M.
+Oct 9, 2026
+ET
+Green Innovators
+Ahmed B.
+Oct 8, 2026
+FW
+FinVision
+Lina K.
+Oct 7, 2026
+CC
+CampusConnect
+KS
+Karim S.
+Oct 6, 2026
+Team: Code Warriors
+“Superb architecture and robust LLM fine-tuning workflow.”
+Evaluated Oct 10, 2026
+Team: Green Innovators
+“Clean UI and pragmatic IoT telemetry pipeline.”
+Evaluated Oct 9, 2026
+Team: FinVision
+“Solid cryptographic verification, needs better onboarding UX.”
+Evaluated Oct 8, 2026
+Team: Byte Builders
+“Excellent RBAC controls and comprehensive zero-knowledge audit trails.”
+Marcus R.
+Evaluated Oct 7, 2026
+OCT 12 CUTOFF
+Team Code Warriors
+OCT 11 CUTOFF
+Team Green Innovators
+OCT 13 CUTOFF
+Team FinVision
+OCT 14 CUTOFF
+Team Pixel Pioneers
+Interface polish, intuitive task flow, accessibility, and visual feedback.
+Mention key technical strengths, clever code practices, or novel implementations...
+Clean multi-modal pipeline integration with great local inference latency.
+Provide actionable advice for iteration before demo day...
+Fallback error boundaries when external health API rate limits trigger.
+Private notes visible only to the organizing committee and co-jurors...
+Strong contender for Top 3 AI Track finish.
+Team Code Warriors • AI Innovation Challenge
+Discover exciting hackathons, join challenges, and turn your ideas into reality.
+Build innovative AI solutions and next-generation neural agents to solve real-world industry bottlenecks.
+Oct 20–22, 2026
+Tunis, Tunisia
+Create technology that contributes to a more sustainable future through energy efficiency and carbon monitoring.
+Oct 8–10, 2026
+Rethink digital finance with secure, scalable, and inclusive blockchain and automated payment solutions.
+Nov 5–7, 2026
+CyberSecure Sprint
+Design practical security mechanisms to counter modern zero-day vulnerabilities and cloud penetration vectors.
+Sep 12–14, 2026
+Build creative, hyper-fast, and accessible web experiences in 48 hours using the latest web standards.
+Nov 15–16, 2026
+Smart City Hack
+Develop smart data solutions, IoT sensors, and autonomous city routing to improve everyday urban vitality.
+Oct 9–11, 2026
+Try tweaking your search keywords or loosening the category and status filters.
+Provide a compelling mission statement and criteria for the challenge...
+e.g. Tunis Science Hall, Tunisia
+Amine K. invited you to join Neural Sparks for AI Innovation Challenge.
+Neural Sparks
+AI Innovation Challenge starts on October 20, 2026. Make sure your team is ready.
+Django for Beginners
+There are no notifications matching your active filter criteria or search query. Try broadening your parameters.
+Oct 12, 2026 • 14:20 UTC
+FINAL ROUND :: PRIZE ALLOCATION &amp; AWARDS
+Celebrate innovation, recognize outstanding teams, and track hackathon rankings across cohorts.
+05 Teams
+06 Prizes
+04 Issued
+AI Innovation Challenge (Global 2025)
+FinTech Future Sprint
+CyberSecure 2025
+CW
+Project: SmartHealth AI
+93.2 pts
+PP
+Project: CampusConnect
+GI
+Project: EcoTrack
+90.8 pts
+Scored across rubric parameters: Technical Execution, Impact, Design &amp; Pitch
+Jacem &amp; Oussama
+96.5 pts
+Kmar, Abir, Zeineb
+Jacem, Kmar, Zeineb
+FV
+Sara M. &amp; Amine K.
+87.4 pts
+BB
+Tarek D., Nour H.
+85.9 pts
+Direct sponsor allocations, eligibility criteria, and distribution states.
+Top-ranking team with highest combined technical and innovation evaluation scores.
+TechFuture Global
+Outstanding project execution with notable community adoption potential.
+Innovate Labs
+Impressive technical architecture and robust user testing during prototype phase.
+Digital Hub
+Exceptional novelty and sustainable ecological impact in the climate track.
+EcoVision Ventures
+Revolutionary decentralized or algorithmic asset allocation architecture.
+FinLabs Capital
+Zero-trust network defense model and encrypted identity protection solution.
+SecureTech Systems
+Generate, preview, and issue cryptographically verifiable credentials for participants and winners.
+Oct 12, 2026
+Abir, Kmar, Jacem, Zeineb
+Sara M., Amine K.
+Urban Minds
+e.g. Google Cloud, AWS, Stripe
+e.g. $10,000 Cloud Credits + Direct Fast-Track VC Interview
+Describe requirements, eligible categories or minimum evaluation cutoffs...
+ID: HF-2026-X8849
+Marcus Sterling
+DJANGO APP :: PROJECTS
+Python
+Angular
+Django
+Node.js
+PostgreSQL
+React
+An AI-powered platform that helps users understand health data and access personalized insights.
+AI
+Updated Oct 9, 2026
+A sustainability platform that helps individuals monitor and reduce their environmental footprint.
+MongoDB
+KM
+JC
+ZB
+Updated Oct 8, 2026
+A smart personal finance solution for tracking expenses and improving financial decisions.
+AM
+SR
+Updated Oct 7, 2026
+A digital platform that connects students with campus events, communities, and opportunities.
+TypeScript
+Bootstrap
+OS
+Updated Oct 6, 2026
+A secure document management solution with modern access control and audit features.
+AL
+RV
+TM
+Updated Oct 5, 2026
+CityPulse
+A smart-city dashboard for monitoring urban mobility and public service indicators.
+Chart.js
+ML
+DS
+Updated Oct 4, 2026
+Python, AI, Django
+Angular, Node.js, MongoDB
+Python, React, PostgreSQL
+Angular, TypeScript, Bootstrap
+Django, PostgreSQL, Security
+Oct 5, 2026
+Python, Data Science, Chart.js
+Oct 4, 2026
+Try modifying your keyword search, selecting different hackathon tracks, or clearing all active filters.
+https://github.com/example/repo
+Pitch_Deck_v2.pdf
+4.2 MB
+Product_Demo.mp4
+3m 14s (1080p)
+200 OK
+Describe the problem, solution architecture, target impact, and current constraints...
+https://github.com/org/repo
+https://demo.codestorm.app
+Once submitted, repository webhooks freeze commit snapshots. Any further modifications require lead organizer unlock clearance.
+v1.0.0-jury-eval
+Discover useful guides, tools, tutorials, and documents to help your team succeed.
+A – Z
+Try clearing selected criteria, checking your search spelling, or browsing our full resource collection.
+e.g. Supabase Edge Functions Guide
+Create your team, discover other teams, and collaborate to build something amazing.
+Building intelligent solutions for real-world challenges with generative edge agents and responsive UI telemetry.
+KW
+AA
+Creating modern, accessible, and beautiful web experiences with reactive state and lightweight architecture.
+JB
+OM
+Developing technology for a greener, sustainable future with solar optimization calculations and edge battery monitoring.
+Amine K.
+Developing real-time neural edge processing tools for edge inference on low-power devices.
+EcoTech Crew
+Sami B.
+IoT telemetry pipeline for urban carbon tracking and neighborhood eco-credit incentives.
+Sara M.
+Decentralized micro-lending verification platform incorporating cryptographic proofs.
+NS
+• October 9, 2026
+• October 8, 2026
+DD
+Data Dreamers
+Global AI Sprint
+• October 7, 2026
+Youssef B.
+CyberSentinels
+Malek K.
+Quantum Leap
+Nadia T.
+LM
+Leila Mansour
+KT
+Karim Trabelsi
+PyTorch
+FastAPI
+github.com/codewarriors/sprint-core
+Kmar Weslati (You)
+Abir Ayari
+Zeineb Ben Ali
+Docker / Kubernetes
+UI/UX Prototype
+colleague@domain.com or @handle
