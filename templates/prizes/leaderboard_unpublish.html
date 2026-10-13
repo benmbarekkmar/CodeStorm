@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% trans "Unpublish results" %} | {{ hackathon.name }}{% endblock %}
+{% block page_name %}prizes-leaderboard{% endblock %}
+{% block breadcrumb_section %}{% trans "Prizes & Leaderboard" %}{% endblock %}
+{% block breadcrumb_page %}{% trans "Unpublish results" %}{% endblock %}
+{% block content %}
+<div class="mx-auto w-full max-w-xl px-space-md py-space-lg"><section class="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm"><h1 class="font-headline-sm text-headline-sm font-bold">{% trans "Unpublish official results?" %}</h1><p class="mt-3 font-body-md text-body-md">{% blocktrans with name=hackathon.name %}Participants will no longer see the ranking for {{ name }}. Prize assignments will return to draft status.{% endblocktrans %}</p><p class="mt-2 font-body-sm text-body-sm text-on-surface-variant">{% trans "This action is unavailable after certificates have been issued, so existing credentials remain valid." %}</p><form method="post" class="mt-5 flex justify-end gap-2">{% csrf_token %}<input type="hidden" name="confirm" value="yes"><a class="rounded-lg bg-surface-container px-4 py-2" href="{% url 'prizes:home' %}?hackathon={{ hackathon.pk }}">{% trans "Cancel" %}</a><button class="rounded-lg bg-error px-4 py-2 font-semibold text-on-error" type="submit">{% trans "Unpublish" %}</button></form></section></div>
+{% endblock %}

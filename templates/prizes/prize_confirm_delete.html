@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans "Delete Prize" %} – CodeStorm{% endblock %}
+{% block page_name %}prizes-leaderboard{% endblock %}
+{% block breadcrumb_section %}{% trans "Prizes & Leaderboard" %}{% endblock %}
+{% block breadcrumb_page %}{% trans "Delete Prize" %}{% endblock %}
+
+{% block content %}
+<div class="flex flex-col w-full">
+<div class="px-space-lg py-space-lg flex flex-col gap-space-lg max-w-xl mx-auto w-full">
+  <div class="bg-surface-container-lowest rounded-2xl shadow-sm p-space-lg flex flex-col gap-5">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-full bg-error-container flex items-center justify-center flex-shrink-0">
+        <span class="material-symbols-outlined text-error text-2xl">delete_forever</span>
+      </div>
+      <div>
+        <h1 class="font-headline-sm text-headline-sm font-bold text-on-surface">{% trans "Delete Prize" %}</h1>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "This action cannot be undone." %}</p>
+      </div>
+    </div>
+
+    <div class="py-3 px-4 rounded-xl bg-error-container/30">
+      <p class="font-body-md text-body-md text-on-surface">
+        {% trans "Are you sure you want to delete the prize" %}
+        <strong>« {{ prize.name }} »</strong>
+        {% trans "from" %} <strong>{{ prize.hackathon.name }}</strong> ?
+      </p>
+      {% if prize.winning_project %}
+      <p class="mt-2 font-body-sm text-body-sm text-error">
+        ⚠ {% trans "This prize has already been awarded to a project. Deleting it may affect reports." %}
+      </p>
+      {% endif %}
+    </div>
+
+    <div class="flex items-center justify-end gap-3">
+      <a href="{% url 'prizes:home' %}" class="px-4 py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-colors">
+        {% trans "Cancel" %}
+      </a>
+      <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="px-5 py-2 rounded-lg bg-error text-on-error font-label-md text-label-md font-semibold hover:opacity-90 transition-opacity shadow-sm">
+          {% trans "Yes, Delete Prize" %}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

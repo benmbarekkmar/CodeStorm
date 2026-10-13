@@ -114,7 +114,9 @@
         <div class="flex flex-col gap-1">
           <span class="px-space-sm font-label-sm text-label-sm text-outline tracking-wider uppercase">{% trans "Review &amp; Scoring" %}</span>
           <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="evaluations" href="{% url 'evaluations:home' %}"><span class="material-symbols-outlined text-[20px]">rate_review</span><span>{% trans "Evaluations" %}</span></a>
+          {% if user.role == 'organizer' or user.role == 'jury' or user.role == 'participant' %}
           <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="prizes-leaderboard" href="{% url 'prizes:home' %}"><span class="material-symbols-outlined text-[20px]">leaderboard</span><span>{% trans "Prizes &amp; Leaderboard" %}</span></a>
+          {% endif %}
         </div>
 
         <div class="flex flex-col gap-1">
@@ -237,6 +239,13 @@
 
     <!-- ============ CONTENT ============ -->
     <main class="w-full {% if not request.GET.embed %}pt-16{% endif %} flex-1 bg-surface">
+      {% if messages %}
+      <div class="mx-auto flex w-full max-w-[1440px] flex-col gap-2 px-space-md pt-space-md md:px-space-lg" role="status" aria-live="polite">
+        {% for message in messages %}
+        <div class="rounded-lg px-4 py-3 font-body-sm text-body-sm {% if message.tags == 'success' %}bg-tertiary-fixed text-on-tertiary-fixed{% elif message.tags == 'error' %}bg-error-container text-on-error-container{% elif message.tags == 'warning' %}bg-secondary-fixed text-on-secondary-fixed{% else %}bg-surface-container text-on-surface{% endif %}">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
       {% block content %}{% endblock %}
     </main>
   </div>

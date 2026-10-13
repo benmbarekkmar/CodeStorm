@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% trans "Publish results" %} | {{ hackathon.name }}{% endblock %}
+{% block page_name %}prizes-leaderboard{% endblock %}
+{% block breadcrumb_section %}{% trans "Prizes & Leaderboard" %}{% endblock %}
+{% block breadcrumb_page %}{% trans "Publish results" %}{% endblock %}
+{% block content %}
+<div class="mx-auto flex w-full max-w-4xl flex-col gap-space-md px-space-md py-space-lg"><section class="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm"><h1 class="font-headline-lg text-headline-lg font-bold">{% trans "Review before publishing" %}</h1><p class="font-body-md text-body-md text-on-surface-variant">{{ hackathon.name }} — {% trans "Publishing makes this ranking and its prize assignments official." %}</p>
+  {% if readiness_error %}<p class="mt-4 rounded-lg bg-error-container p-4 text-on-error-container" role="alert">{{ readiness_error }}</p>{% endif %}
+  {% if entries %}<div class="mt-4 overflow-x-auto"><table class="w-full text-start font-body-sm text-body-sm"><thead><tr class="border-b border-outline-variant"><th class="p-3">{% trans "Rank" %}</th><th class="p-3">{% trans "Team / project" %}</th><th class="p-3">{% trans "Score" %}</th><th class="p-3">{% trans "Prizes" %}</th></tr></thead><tbody>{% for entry in entries %}<tr class="border-b border-outline-variant/50"><td class="p-3">{{ entry.rank }}</td><td class="p-3">{{ entry.project.team.name }} — {{ entry.project.title }}</td><td class="p-3">{{ entry.final_score }}</td><td class="p-3">{% for award in entry.project.prize_awards.all %}{{ award.prize.name }}{% if not forloop.last %}, {% endif %}{% empty %}—{% endfor %}</td></tr>{% endfor %}</tbody></table></div>{% endif %}
+  <p class="mt-4 rounded-lg bg-surface-container-low p-3 font-body-sm text-body-sm">{% trans "Only the published aggregate scores are visible. Jury comments and private notes are excluded." %}</p>
+  <form method="post" class="mt-5 flex justify-end gap-2">{% csrf_token %}<input type="hidden" name="confirm" value="yes"><a class="rounded-lg bg-surface-container px-4 py-2" href="{% url 'prizes:leaderboard_prepare' hackathon.pk %}">{% trans "Back" %}</a><button class="rounded-lg bg-primary-container px-4 py-2 font-semibold text-on-primary" type="submit" {% if readiness_error %}disabled{% endif %} onclick="return confirm('{% trans "Publish the official results for this hackathon?" %}');">{% trans "Publish results" %}</button></form>
+</section></div>
+{% endblock %}
