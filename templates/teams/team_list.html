@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Teams · CodeStorm" %}{% endblock %}
+{% block page_name %}teams{% endblock %}
+{% block breadcrumb_section %}{% trans "Core" %}{% endblock %}
+{% block breadcrumb_page %}{% trans "Teams" %}{% endblock %}
+
+{% block content %}
+{% include "teams/_messages.html" %}
+
+<!-- ============ HEADER ============ -->
+<div class="w-full px-margin py-space-lg flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+  <div class="flex flex-col gap-1">
+    <h1 class="font-headline-lg text-headline-lg text-on-surface">{% trans "Teams" %}</h1>
+    <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+      {% if is_organizer %}{% trans "Review and supervise the teams registered for the hackathons you manage." %}
+      {% elif is_jury %}{% trans "Browse teams and their members. Access is read-only for jury accounts." %}
+      {% else %}{% trans "Create your team, discover available teams, and collaborate to build something amazing." %}{% endif %}
+    </p>
+  </div>
+  <div class="flex items-center gap-space-sm self-start md:self-auto">
+    {% if is_participant %}
+    <a class="px-space-md py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container-low transition-all flex items-center gap-2" href="{% url 'teams:invitations' %}">
+      <span class="material-symbols-outlined text-[18px] text-secondary">forward_to_inbox</span>
+      <span>{% trans "Invitations" %}</span>
+      {% if pending_invites %}<span class="px-1.5 rounded-full bg-secondary-container text-on-secondary-container font-code-inline text-[11px] font-bold">{{ pending_invites }}</span>{% endif %}
+    </a>
+    <a class="px-space-md py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md shadow-sm hover:bg-surface-tint active:scale-[0.98] transition-all flex items-center gap-2" href="{% url 'teams:create' %}">
+      <span class="material-symbols-outlined text-[18px]">add</span><span>{% trans "Create Team" %}</span>
+    </a>
+    {% endif %}
+  </div>
+</div>
+
+<div class="w-full px-margin pb-space-xl flex flex-col gap-space-lg">
+
+  {% if is_organizer %}
+  <!-- ============ KPIs ============ -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-gutter">
+    <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between">
+      <div class="flex flex-col gap-1">
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Total Teams" %}</span>
+        <div class="font-headline-md text-headline-md font-bold text-on-surface">{{ stats.total }}</div>
+      </div>
+      <div class="w-12 h-12 rounded-xl bg-primary-fixed flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[24px]">groups</span></div>
+    </div>
+    <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between">
+      <div class="flex flex-col gap-1">
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Full Teams" %}</span>
+        <div class="font-headline-md text-headline-md font-bold text-on-surface">{{ stats.full }}</div>
+      </div>
+      <div class="w-12 h-12 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary"><span class="material-symbols-outlined text-[24px]">group_work</span></div>
+    </div>
+    <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between">
+      <div class="flex flex-col gap-1">
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Incomplete" %}</span>
+        <div class="font-headline-md text-headline-md font-bold text-on-surface">{{ stats.incomplete }}</div>
+      </div>
+      <div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-on-surface-variant"><span class="material-symbols-outlined text-[24px]">person_add</span></div>
+    </div>
+    <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-between">
+      <div class="flex flex-col gap-1">
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Total Members" %}</span>
+        <div class="font-headline-md text-headline-md font-bold text-on-surface">{{ stats.members }}</div>
+      </div>
+      <div class="w-12 h-12 rounded-xl bg-secondary-fixed/40 flex items-center justify-center text-secondary"><span class="material-symbols-outlined text-[24px]">diversity_3</span></div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- ============ FILTERS ============ -->
+  <form method="get" class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col lg:flex-row items-stretch lg:items-center gap-space-sm">
+    <div class="relative w-full lg:w-80 flex items-center">
+      <span class="material-symbols-outlined absolute start-3 text-outline text-[18px]">search</span>
+      <input class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg ps-9 pe-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline"
+             type="search" name="q" value="{{ q }}" placeholder="{% trans 'Search teams by name or description' %}"/>
+    </div>
+    <select name="hackathon" class="bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20">
+      <option value="all">{% trans "All hackathons" %}</option>
+      {% for h in hackathons %}<option value="{{ h.pk }}" {% if sel_hackathon == h.pk|stringformat:'s' %}selected{% endif %}>{{ h.name }}</option>{% endfor %}
+    </select>
+    <select name="availability" class="bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20">
+      <option value="all">{% trans "Any availability" %}</option>
+      <option value="recruiting" {% if sel_availability == 'recruiting' %}selected{% endif %}>{% trans "Recruiting" %}</option>
+      <option value="full" {% if sel_availability == 'full' %}selected{% endif %}>{% trans "Full" %}</option>
+    </select>
+    <button class="px-space-md py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-surface-tint transition-all" type="submit">
+      <span class="material-symbols-outlined text-[18px] align-middle">filter_list</span>
+      <span>{% trans "Apply" %}</span>
+    </button>
+  </form>
+
+  {% if is_participant %}
+  <!-- ============ MY TEAMS ============ -->
+  <section class="flex flex-col gap-space-md">
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-primary">domain</span>
+      <h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">{% trans "My Teams" %}</h2>
+      <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-code-inline text-[11px] font-bold">{{ my_teams|length }}</span>
+    </div>
+    {% if my_teams %}
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+      {% for team in my_teams %}{% include "teams/_team_card.html" %}{% endfor %}
+    </div>
+    {% else %}
+    <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm text-center text-on-surface-variant font-body-md">
+      {% trans "You are not part of any team yet." %}
+      <a class="text-primary font-semibold hover:underline" href="{% url 'teams:create' %}">{% trans "Create one" %}</a>
+    </div>
+    {% endif %}
+  </section>
+
+  <!-- ============ DISCOVER ============ -->
+  <section class="flex flex-col gap-space-md">
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-secondary">travel_explore</span>
+      <h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">{% trans "Discover Teams" %}</h2>
+      <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-code-inline text-[11px]">{{ discover|length }}</span>
+    </div>
+    {% if discover %}
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+      {% for team in discover %}{% include "teams/_team_card.html" %}{% endfor %}
+    </div>
+    {% else %}
+    <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm text-center text-on-surface-variant font-body-md">
+      {% trans "No available teams match your filters." %}
+    </div>
+    {% endif %}
+  </section>
+  {% else %}
+  <!-- ============ ALL TEAMS (organizer / jury) ============ -->
+  <section class="flex flex-col gap-space-md">
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-primary">{% if is_organizer %}manage_accounts{% else %}visibility{% endif %}</span>
+      <h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">{% trans "Supervised teams" %}</h2>
+      <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-code-inline text-[11px]">{{ browse|length }}</span>
+    </div>
+    {% if browse %}
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+      {% for team in browse %}{% include "teams/_team_card.html" %}{% endfor %}
+    </div>
+    {% else %}
+    <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm text-center text-on-surface-variant font-body-md">
+      {% trans "No teams to display yet." %}
+    </div>
+    {% endif %}
+  </section>
+  {% endif %}
+
+</div>
+{% endblock %}

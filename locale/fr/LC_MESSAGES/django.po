@@ -6035,3 +6035,309 @@ msgstr "membres"
 #: .\templates\teams.html:842
 msgid "Team successfully created! You are designated as Leader."
 msgstr "Équipe créée avec succès ! Vous êtes désigné comme leader."
+
+msgid "Create your team, discover available teams, and collaborate to build something amazing."
+msgstr "Créez votre équipe, découvrez d'autres équipes et collaborez pour construire quelque chose d'incroyable."
+
+msgid "Review and supervise the teams registered for the hackathons you manage."
+msgstr "Consultez et supervisez les équipes inscrites aux hackathons que vous gérez."
+
+msgid "Browse teams and their members. Access is read-only for jury accounts."
+msgstr "Parcourez les équipes et leurs membres. Accès en lecture seule pour les comptes jury."
+
+msgid "Total Teams"
+msgstr "Total des équipes"
+
+msgid "Incomplete"
+msgstr "Incomplètes"
+
+msgid "Search teams by name or description"
+msgstr "Rechercher une équipe par nom ou description"
+
+msgid "All hackathons"
+msgstr "Tous les hackathons"
+
+msgid "Any availability"
+msgstr "Toute disponibilité"
+
+msgid "Apply"
+msgstr "Appliquer"
+
+msgid "You are not part of any team yet."
+msgstr "Vous ne faites pas encore partie d'une équipe."
+
+msgid "Create one"
+msgstr "En créer une"
+
+msgid "No available teams match your filters."
+msgstr "Aucune équipe disponible ne correspond à vos filtres."
+
+msgid "Supervised teams"
+msgstr "Équipes supervisées"
+
+msgid "No teams to display yet."
+msgstr "Aucune équipe à afficher pour le moment."
+
+msgid "No hackathon"
+msgstr "Aucun hackathon"
+
+msgid "No description provided."
+msgstr "Aucune description fournie."
+
+msgid "No captain"
+msgstr "Aucun capitaine"
+
+msgid "Join"
+msgstr "Rejoindre"
+
+msgid "Back to teams"
+msgstr "Retour aux équipes"
+
+msgid "Back"
+msgstr "Retour"
+
+msgid "Leave team"
+msgstr "Quitter l'équipe"
+
+msgid "Join team"
+msgstr "Rejoindre l'équipe"
+
+msgid "Request to join"
+msgstr "Demander à rejoindre"
+
+msgid "Members"
+msgstr "Membres"
+
+msgid "total"
+msgstr "au total"
+
+msgid "Open slots"
+msgstr "Places disponibles"
+
+msgid "Captain"
+msgstr "Capitaine"
+
+msgid "Make captain"
+msgstr "Nommer capitaine"
+
+msgid "No members yet."
+msgstr "Aucun membre pour le moment."
+
+msgid "Invite a participant"
+msgstr "Inviter un participant"
+
+msgid "Message"
+msgstr "Message"
+
+msgid "Send invitation"
+msgstr "Envoyer l'invitation"
+
+msgid "Danger zone"
+msgstr "Zone sensible"
+
+msgid "Disbanding permanently removes the team and all memberships."
+msgstr "La dissolution supprime définitivement l'équipe et toutes les affiliations."
+
+msgid "Disband team"
+msgstr "Dissoudre l'équipe"
+
+msgid "Pending requests"
+msgstr "Demandes en attente"
+
+msgid "Reject"
+msgstr "Refuser"
+
+msgid "Outstanding invitations"
+msgstr "Invitations en cours"
+
+msgid "Create a new team"
+msgstr "Créer une nouvelle équipe"
+
+msgid "You will become the captain of this team."
+msgstr "Vous deviendrez le capitaine de cette équipe."
+
+msgid "Choose a unique team name"
+msgstr "Choisissez un nom d'équipe unique"
+
+msgid "Describe what your team aims to build."
+msgstr "Décrivez ce que votre équipe souhaite construire."
+
+msgid "Max members"
+msgstr "Membres maximum"
+
+msgid "Visibility"
+msgstr "Visibilité"
+
+msgid "Allow join requests"
+msgstr "Autoriser les demandes de rejoindre"
+
+msgid "Save changes"
+msgstr "Enregistrer les modifications"
+
+msgid "Create team"
+msgstr "Créer l'équipe"
+
+msgid "Edit team"
+msgstr "Modifier l'équipe"
+
+msgid "Team invitations"
+msgstr "Invitations d'équipe"
+
+msgid "Received"
+msgstr "Reçues"
+
+msgid "From"
+msgstr "De"
+
+msgid "No invitations received."
+msgstr "Aucune invitation reçue."
+
+msgid "Sent"
+msgstr "Envoyées"
+
+msgid "to"
+msgstr "à"
+
+msgid "No invitations sent."
+msgstr "Aucune invitation envoyée."
+
+msgid "Confirm"
+msgstr "Confirmer"
+
+msgid "Disband this team?"
+msgstr "Dissoudre cette équipe ?"
+
+msgid "This will permanently delete <strong>%(name)s</strong> and all of its memberships, invitations and requests. This action cannot be undone."
+msgstr "Cette action supprime définitivement <strong>%(name)s</strong> ainsi que toutes ses affiliations, invitations et demandes. Elle est irréversible."
+
+msgid "Yes, disband"
+msgstr "Oui, dissoudre"
+
+msgid "Team created. You are now its captain."
+msgstr "Équipe créée. Vous en êtes maintenant le capitaine."
+
+msgid "Team updated."
+msgstr "Équipe mise à jour."
+
+msgid "You joined \"%(team)s\"."
+msgstr "Vous avez rejoint « %(team)s »."
+
+msgid "You left \"%(team)s\"."
+msgstr "Vous avez quitté « %(team)s »."
+
+msgid "You are not a member of this team."
+msgstr "Vous n'êtes pas membre de cette équipe."
+
+msgid "Transfer the captaincy before leaving the team."
+msgstr "Transférez le capitanat avant de quitter l'équipe."
+
+msgid "You are the last member; disband the team instead."
+msgstr "Vous êtes le dernier membre ; dissolvez plutôt l'équipe."
+
+msgid "The captain cannot be removed. Transfer leadership first."
+msgstr "Le capitaine ne peut pas être retiré. Transférez d'abord la direction."
+
+msgid "Member removed."
+msgstr "Membre retiré."
+
+msgid "Captaincy transferred."
+msgstr "Capitanat transféré."
+
+msgid "Select a current member as the new captain."
+msgstr "Sélectionnez un membre actuel comme nouveau capitaine."
+
+msgid "Team disbanded."
+msgstr "Équipe dissoute."
+
+msgid "Invitation sent."
+msgstr "Invitation envoyée."
+
+msgid "An invitation is already pending for this user."
+msgstr "Une invitation est déjà en cours pour cet utilisateur."
+
+msgid "You cannot respond to an invitation addressed to another user."
+msgstr "Vous ne pouvez pas répondre à une invitation destinée à un autre utilisateur."
+
+msgid "This invitation is no longer valid."
+msgstr "Cette invitation n'est plus valide."
+
+msgid "This team is already full."
+msgstr "Cette équipe est déjà complète."
+
+msgid "Invitation cancelled."
+msgstr "Invitation annulée."
+
+msgid "Your join request was submitted."
+msgstr "Votre demande de rejoindre a été envoyée."
+
+msgid "You already requested to join this team."
+msgstr "Vous avez déjà demandé à rejoindre cette équipe."
+
+msgid "This team does not accept join requests."
+msgstr "Cette équipe n'accepte pas les demandes de rejoindre."
+
+msgid "You are already a member of this team."
+msgstr "Vous êtes déjà membre de cette équipe."
+
+msgid "This team is full."
+msgstr "Cette équipe est complète."
+
+msgid "Request accepted."
+msgstr "Demande acceptée."
+
+msgid "Request rejected."
+msgstr "Demande refusée."
+
+msgid "Request cancelled."
+msgstr "Demande annulée."
+
+msgid "You can only cancel your own requests."
+msgstr "Vous ne pouvez annuler que vos propres demandes."
+
+msgid "You do not have permission to manage this team."
+msgstr "Vous n'avez pas l'autorisation de gérer cette équipe."
+
+msgid "You do not have permission to perform this action."
+msgstr "Vous n'avez pas l'autorisation d'effectuer cette action."
+
+msgid "This team is private."
+msgstr "Cette équipe est privée."
+
+msgid "This team is not open for joining."
+msgstr "Cette équipe n'est pas ouverte à l'adhésion."
+
+msgid "This team is private; an invitation is required."
+msgstr "Cette équipe est privée ; une invitation est requise."
+
+msgid "The hackathon is no longer accepting participants."
+msgstr "Le hackathon n'accepte plus de participants."
+
+msgid "You already have a team in this hackathon."
+msgstr "Vous avez déjà une équipe dans ce hackathon."
+
+msgid "This request has already been processed."
+msgstr "Cette demande a déjà été traitée."
+
+msgid "Only the captain can review requests."
+msgstr "Seul le capitaine peut examiner les demandes."
+
+msgid "This user is already a member."
+msgstr "Cet utilisateur est déjà membre."
+
+msgid "This user already has a team in this hackathon."
+msgstr "Cet utilisateur a déjà une équipe dans ce hackathon."
+
+msgid "This user is already a member of the team."
+msgstr "Cet utilisateur est déjà membre de l'équipe."
+
+msgid "A team with this name already exists."
+msgstr "Une équipe portant ce nom existe déjà."
+
+msgid "Max members cannot be lower than the current number of members (%(count)s)."
+msgstr "Le nombre maximum de membres ne peut pas être inférieur au nombre actuel de membres (%(count)s)."
+
+msgid "Select a participant"
+msgstr "Sélectionner un participant"
+
+msgid "Optional message to the invitee."
+msgstr "Message facultatif destiné à l'invité."

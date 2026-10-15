@@ -1,0 +1,49 @@
+{% load i18n %}
+<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
+  <div class="flex flex-col gap-space-sm">
+    <div class="flex items-center justify-between">
+      <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold truncate max-w-[60%]">
+        {% firstof team.hackathon.name _("No hackathon") %}
+      </span>
+      {% if team.is_full %}
+        <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">{% trans "Full" %}</span>
+      {% else %}
+        <div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm">
+          <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span><span>{% trans "Recruiting" %}</span>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <div class="flex items-center justify-between gap-2">
+        <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold truncate">{{ team.name }}</h3>
+        {% if team.visibility == 'private' %}<span class="material-symbols-outlined text-[18px] text-outline" title="{% trans 'Private' %}">lock</span>{% endif %}
+      </div>
+    </div>
+
+    <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">{{ team.description|default:_("No description provided.") }}</p>
+
+    <div class="pt-2 flex items-center justify-between">
+      <div class="flex items-center gap-2 text-on-surface-variant">
+        <span class="material-symbols-outlined text-[18px] text-outline">person</span>
+        <span class="font-body-sm text-body-sm truncate max-w-[12rem]">{% firstof team.captain.get_full_name team.captain.username _("No captain") %}</span>
+      </div>
+      <span class="font-code-inline text-code-inline text-on-surface-variant font-medium whitespace-nowrap">{{ team.member_count }}/{{ team.max_members }}</span>
+    </div>
+    <div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+      <div class="h-full bg-primary rounded-full" style="width: {% widthratio team.member_count team.max_members 100 %}%"></div>
+    </div>
+  </div>
+
+  <div class="pt-space-md mt-space-md flex items-center gap-space-sm">
+    <a class="flex-1 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all text-center" href="{% url 'teams:detail' team.pk %}">{% trans "View Team" %}</a>
+    {% if is_participant %}
+      {% if team.visibility == 'public' %}
+      <form method="post" action="{% url 'teams:join' team.pk %}" class="flex-1">
+        {% csrf_token %}
+        <button class="w-full py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all" type="submit">{% trans "Join" %}</button>
+      </form>
+      {% endif %}
+    {% endif %}
+  </div>
+</article>
