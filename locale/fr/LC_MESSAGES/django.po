@@ -6341,3 +6341,27 @@ msgstr "Sélectionner un participant"
 
 msgid "Optional message to the invitee."
 msgstr "Message facultatif destiné à l'invité."
+
+msgid "All teams"
+msgstr "Toutes les équipes"
+
+msgid "I'm a member"
+msgstr "Je suis membre"
+
+msgid "Teams I created"
+msgstr "Équipes que j'ai créées"
+
+msgid "Teams I'm a member of"
+msgstr "Équipes dont je suis membre"
+
+msgid "Request pending"
+msgstr "Demande en attente"
+
+msgid "Cancel request"
+msgstr "Annuler la demande"
+
+msgid "Pending join requests"
+msgstr "Demandes de rejoindre en attente"
+
+msgid "pending join request(s) to review."
+msgstr "demande(s) de rejoindre à examiner."

@@ -5,7 +5,9 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError, transaction
 from django.db.models import Count, F, Q
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -155,10 +157,20 @@ def team_list(request):
     teams_qs = _visible_teams(user)
     teams_qs = _apply_filters(teams_qs, request)
 
+    membership = request.GET.get('membership', 'all') if user.role == PARTICIPANT else 'all'
+
     if user.role == PARTICIPANT:
-        my_teams = list(teams_qs.filter(memberships__user=user).distinct())
-        my_ids = {t.pk for t in my_teams}
-        discover = [t for t in teams_qs if t.pk not in my_ids and t.visibility == Team.Visibility.PUBLIC]
+        member_teams = list(teams_qs.filter(memberships__user=user).distinct())
+        if membership == 'created':
+            my_teams = [t for t in member_teams if t.created_by_id == user.pk]
+            discover = []
+        elif membership == 'member':
+            my_teams = member_teams
+            discover = []
+        else:
+            my_teams = member_teams
+            my_ids = {t.pk for t in my_teams}
+            discover = [t for t in teams_qs if t.pk not in my_ids and t.visibility == Team.Visibility.PUBLIC]
         browse = []
     else:
         # Organizer and jury browse a read-only list of the teams they may view.
@@ -179,19 +191,44 @@ def team_list(request):
     invitations = TeamInvitation.objects.filter(invitee=user, status=TeamInvitation.Status.PENDING)
     pending_invites = invitations.count()
 
+    # Join-request state: per-team pending counts (for captains) and the
+    # current user's own pending/member flags, used by the team cards.
+    captain_pending = dict(
+        JoinRequest.objects.filter(
+            status=JoinRequest.Status.PENDING, team__captain=user,
+        ).values_list('team_id').annotate(c=Count('id'))
+    )
+    my_pending_ids = set(
+        JoinRequest.objects.filter(
+            status=JoinRequest.Status.PENDING, user=user,
+        ).values_list('team_id', flat=True)
+    )
+    member_team_ids = set(
+        TeamMembership.objects.filter(user=user).values_list('team_id', flat=True)
+    )
+    for group in (my_teams, discover, browse):
+        for t in group:
+            t.pending_requests = captain_pending.get(t.pk, 0)
+            t.my_pending = t.pk in my_pending_ids
+            t.user_is_member = t.pk in member_team_ids
+    pending_join_requests = sum(captain_pending.values())
+
     context = {
         'my_teams': my_teams,
         'discover': discover,
         'browse': browse,
         'stats': stats,
         'pending_invites': pending_invites,
+        'pending_join_requests': pending_join_requests,
         'hackathons': Hackathon.objects.all(),
+        'create_form': TeamForm() if user.role == PARTICIPANT else None,
         'is_organizer': user.role == ORGANIZER,
         'is_participant': user.role == PARTICIPANT,
         'is_jury': user.role == JURY,
         'q': request.GET.get('q', ''),
         'sel_hackathon': request.GET.get('hackathon', 'all'),
         'sel_availability': request.GET.get('availability', 'all'),
+        'sel_membership': membership,
     }
     return render(request, 'teams/team_list.html', context)
 
@@ -199,6 +236,7 @@ def team_list(request):
 @login_required
 @participant_required
 def team_create(request):
+    is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
     form = TeamForm(request.POST or None)
     if request.method == 'POST' and form.is_valid():
         with transaction.atomic():
@@ -210,7 +248,11 @@ def team_create(request):
             team.save()
             team.add_member(request.user, role=TeamMembership.Role.CAPTAIN)
         messages.success(request, _('Team created. You are now its captain.'))
+        if is_ajax:
+            return JsonResponse({'redirect': reverse('teams:detail', args=[team.pk])})
         return redirect('teams:detail', pk=team.pk)
+    if is_ajax:
+        return render(request, 'teams/_create_form.html', {'form': form})
     return render(request, 'teams/team_form.html', {'form': form, 'mode': 'create'})
 
 
@@ -231,7 +273,13 @@ def team_detail(request, pk):
         return redirect('teams:home')
 
     invite_form = InviteMemberForm(team=team) if team.is_captain(user) else None
+    edit_form = TeamForm(instance=team) if team.is_captain(user) else None
     joinable, join_reason = team.is_joinable(user)
+    pending_request = None
+    if user.role == PARTICIPANT and not team.is_captain(user):
+        pending_request = team.join_requests.filter(
+            user=user, status=JoinRequest.Status.PENDING,
+        ).first()
 
     context = {
         'team': team,
@@ -239,11 +287,13 @@ def team_detail(request, pk):
         'join_requests': join_requests,
         'pending_invites': incoming_invites,
         'invite_form': invite_form,
+        'edit_form': edit_form,
         'is_captain': team.is_captain(user),
         'is_member': team.has_member(user),
         'is_participant': user.role == PARTICIPANT,
         'can_join': joinable and user.role == PARTICIPANT,
         'join_reason': join_reason,
+        'pending_request': pending_request,
         'can_edit': team.is_captain(user),
         'remaining': team.remaining_slots(),
     }
@@ -255,11 +305,16 @@ def team_edit(request, pk):
     team = _team_or_404(pk)
     if not team.is_captain(request.user):
         return _forbidden(request, team)
+    is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
     form = TeamForm(request.POST or None, instance=team)
     if request.method == 'POST' and form.is_valid():
         form.save()
         messages.success(request, _('Team updated.'))
+        if is_ajax:
+            return JsonResponse({'redirect': reverse('teams:detail', args=[team.pk])})
         return redirect('teams:detail', pk=team.pk)
+    if is_ajax:
+        return render(request, 'teams/_edit_form.html', {'form': form, 'team': team})
     return render(request, 'teams/team_form.html', {'form': form, 'mode': 'edit', 'team': team})
 
 

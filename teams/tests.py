@@ -291,6 +291,90 @@ class JoinRequestTests(TeamsBase):
         self.client.post(reverse('teams:join_request_respond', args=[jr.pk]), {'action': 'reject'})
         jr.refresh_from_db()
         self.assertEqual(jr.status, JoinRequest.Status.REJECTED)
+        self.assertFalse(self.team.has_member(self.outsider))
+
+    def test_join_button_creates_request_not_membership(self):
+        # The list/detail "Join" action routes to request_join: a participant
+        # clicking it must NOT be added directly, only create a pending request.
+        self.login(self.outsider)
+        resp = self.client.post(reverse('teams:request_join', args=[self.team.pk]))
+        self.assertEqual(resp.status_code, 302)
+        self.assertFalse(self.team.has_member(self.outsider))
+        self.assertEqual(
+            JoinRequest.objects.filter(team=self.team, user=self.outsider,
+                                       status=JoinRequest.Status.PENDING).count(), 1,
+        )
+
+    def test_duplicate_requests_blocked(self):
+        self.login(self.outsider)
+        self.client.post(reverse('teams:request_join', args=[self.team.pk]))
+        self.client.post(reverse('teams:request_join', args=[self.team.pk]))
+        self.assertEqual(
+            JoinRequest.objects.filter(team=self.team, user=self.outsider,
+                                       status=JoinRequest.Status.PENDING).count(), 1,
+        )
+
+    def test_member_cannot_request(self):
+        self.login(self.member)
+        self.client.post(reverse('teams:request_join', args=[self.team.pk]))
+        self.assertFalse(JoinRequest.objects.filter(user=self.member).exists())
+
+    def test_accept_blocked_when_full(self):
+        self.login(self.outsider)
+        self.client.post(reverse('teams:request_join', args=[self.team.pk]))
+        jr = JoinRequest.objects.get(team=self.team, user=self.outsider)
+        # Fill to capacity (max_members=3; captain + member already there).
+        self.team.add_member(make_user('filler2', P))
+        self.assertTrue(self.team.is_full())
+        self.login(self.captain)
+        resp = self.client.post(reverse('teams:join_request_respond', args=[jr.pk]), {'action': 'accept'})
+        self.assertEqual(resp.status_code, 302)
+        jr.refresh_from_db()
+        self.assertEqual(jr.status, JoinRequest.Status.PENDING)  # left pending
+        self.assertFalse(self.team.has_member(self.outsider))
+
+    def test_accept_blocked_when_user_in_other_team_same_hackathon(self):
+        # allow_multiple_teams=False on self.hack.
+        other = Team.objects.create(name='Rivals', hackathon=self.hack, created_by=self.member,
+                                    captain=self.member, max_members=5)
+        other.add_member(self.member, role=TeamMembership.Role.CAPTAIN)
+        # outsider joins 'other' first (same hackathon), then requests self.team.
+        self.login(self.outsider)
+        other.add_member(self.outsider)
+        self.client.post(reverse('teams:request_join', args=[self.team.pk]))
+        jr = JoinRequest.objects.get(team=self.team, user=self.outsider)
+        self.login(self.captain)
+        self.client.post(reverse('teams:join_request_respond', args=[jr.pk]), {'action': 'accept'})
+        jr.refresh_from_db()
+        self.assertEqual(jr.status, JoinRequest.Status.PENDING)
+        self.assertFalse(self.team.has_member(self.outsider))
+
+    def test_only_captain_can_respond(self):
+        self.login(self.outsider)
+        self.client.post(reverse('teams:request_join', args=[self.team.pk]))
+        jr = JoinRequest.objects.get(team=self.team, user=self.outsider)
+        self.login(self.member)  # member, not captain
+        resp = self.client.post(reverse('teams:join_request_respond', args=[jr.pk]), {'action': 'accept'})
+        self.assertEqual(resp.status_code, 302)
+        jr.refresh_from_db()
+        self.assertEqual(jr.status, JoinRequest.Status.PENDING)
+        self.assertFalse(self.team.has_member(self.outsider))
+
+    def test_requester_can_cancel(self):
+        self.login(self.outsider)
+        self.client.post(reverse('teams:request_join', args=[self.team.pk]))
+        jr = JoinRequest.objects.get(team=self.team, user=self.outsider)
+        self.client.post(reverse('teams:join_request_cancel', args=[jr.pk]))
+        jr.refresh_from_db()
+        self.assertEqual(jr.status, JoinRequest.Status.CANCELLED)
+
+    def test_captain_list_shows_pending_count(self):
+        self.login(self.outsider)
+        self.client.post(reverse('teams:request_join', args=[self.team.pk]))
+        self.login(self.captain)
+        resp = self.client.get(reverse('teams:home'))
+        self.assertEqual(resp.context['pending_join_requests'], 1)
+
 
 
 class RoleScopingTests(TeamsBase):

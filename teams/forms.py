@@ -93,6 +93,16 @@ class InviteMemberForm(forms.ModelForm):
             field.help_text = None
         self.fields['invitee'].widget.attrs['class'] = INPUT
         self.fields['message'].widget.attrs['class'] = INPUT
+        if self.team is not None:
+            invited = self.team.invitations.filter(
+                status=TeamInvitation.Status.PENDING,
+            ).values_list('invitee_id', flat=True)
+            self.fields['invitee'].queryset = (
+                User.objects.filter(role=User.Role.PARTICIPANT, is_active=True)
+                .exclude(memberships__team=self.team)
+                .exclude(pk__in=list(invited))
+                .order_by('username')
+            )
 
     def clean_invitee(self):
         user = self.cleaned_data['invitee']

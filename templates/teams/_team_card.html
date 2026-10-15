@@ -1,5 +1,7 @@
 {% load i18n %}
-<article class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
+<article class="team-card group relative bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex flex-col justify-between overflow-hidden" style="--i: {{ forloop.counter0|default:0 }};">
+  <span class="team-card__accent absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-primary via-primary-container to-secondary" aria-hidden="true"></span>
+
   <div class="flex flex-col gap-space-sm">
     <div class="flex items-center justify-between">
       <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold truncate max-w-[60%]">
@@ -9,7 +11,11 @@
         <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">{% trans "Full" %}</span>
       {% else %}
         <div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm">
-          <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span><span>{% trans "Recruiting" %}</span>
+          <span class="relative flex w-1.5 h-1.5">
+            <span class="absolute inline-flex w-full h-full rounded-full bg-tertiary opacity-60 animate-ping"></span>
+            <span class="relative inline-flex w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+          </span>
+          <span>{% trans "Recruiting" %}</span>
         </div>
       {% endif %}
     </div>
@@ -17,7 +23,14 @@
     <div class="flex flex-col gap-1">
       <div class="flex items-center justify-between gap-2">
         <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold truncate">{{ team.name }}</h3>
-        {% if team.visibility == 'private' %}<span class="material-symbols-outlined text-[18px] text-outline" title="{% trans 'Private' %}">lock</span>{% endif %}
+        <div class="flex items-center gap-1 shrink-0">
+          {% if team.pending_requests %}
+          <a href="{% url 'teams:detail' team.pk %}" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm" title="{% trans 'Pending join requests' %}">
+            <span class="material-symbols-outlined text-[14px]">pending_actions</span>{{ team.pending_requests }}
+          </a>
+          {% endif %}
+          {% if team.visibility == 'private' %}<span class="material-symbols-outlined text-[18px] text-outline" title="{% trans 'Private' %}">lock</span>{% endif %}
+        </div>
       </div>
     </div>
 
@@ -31,18 +44,20 @@
       <span class="font-code-inline text-code-inline text-on-surface-variant font-medium whitespace-nowrap">{{ team.member_count }}/{{ team.max_members }}</span>
     </div>
     <div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
-      <div class="h-full bg-primary rounded-full" style="width: {% widthratio team.member_count team.max_members 100 %}%"></div>
+      <div class="team-card__bar h-full bg-gradient-to-r from-primary to-primary-container rounded-full" style="width: {% widthratio team.member_count team.max_members 100 %}%"></div>
     </div>
   </div>
 
   <div class="pt-space-md mt-space-md flex items-center gap-space-sm">
-    <a class="flex-1 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all text-center" href="{% url 'teams:detail' team.pk %}">{% trans "View Team" %}</a>
-    {% if is_participant %}
-      {% if team.visibility == 'public' %}
-      <form method="post" action="{% url 'teams:join' team.pk %}" class="flex-1">
-        {% csrf_token %}
-        <button class="w-full py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all" type="submit">{% trans "Join" %}</button>
-      </form>
+    <a class="flex-1 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all duration-200 active:scale-[0.97] text-center" href="{% url 'teams:detail' team.pk %}">{% trans "View Team" %}</a>
+    {% if is_participant and team.visibility == 'public' and not team.user_is_member %}
+      {% if team.my_pending %}
+        <span class="flex-1 py-2 rounded-lg bg-surface-container text-on-surface-variant font-label-md text-label-md text-center">{% trans "Request pending" %}</span>
+      {% elif team.allow_join_requests and not team.is_full %}
+        <form method="post" action="{% url 'teams:request_join' team.pk %}" class="flex-1">
+          {% csrf_token %}
+          <button class="w-full py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all duration-200 active:scale-[0.97]" type="submit">{% trans "Join" %}</button>
+        </form>
       {% endif %}
     {% endif %}
   </div>
