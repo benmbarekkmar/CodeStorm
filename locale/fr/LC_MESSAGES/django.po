@@ -6489,3 +6489,275 @@ msgstr "ressources"
 msgid "This will permanently delete <strong>%(name)s</strong>. This action cannot be undone."
 msgstr "Cette action supprimera définitivement <strong>%(name)s</strong>. Cette action est irréversible."
 
+
+# --- analyses module ---
+msgid "AI Analyses"
+msgstr "Analyses IA"
+
+msgid "Generate decision-support reports from public GitHub repositories. Scores are indicative; the final grade always belongs to the jury."
+msgstr "Générez des rapports d'aide à la décision à partir de dépôts GitHub publics. Les scores sont indicatifs ; la note finale relève toujours du jury."
+
+msgid "New analysis"
+msgstr "Nouvelle analyse"
+
+msgid "reports"
+msgstr "rapports"
+
+msgid "No analyses yet"
+msgstr "Aucune analyse pour le moment"
+
+msgid "Submit a public GitHub repository to generate your first AI report."
+msgstr "Soumettez un dépôt GitHub public pour générer votre premier rapport IA."
+
+msgid "Analyzing…"
+msgstr "Analyse en cours…"
+
+msgid "Back to analyses"
+msgstr "Retour aux analyses"
+
+msgid "GitHub repository URL"
+msgstr "URL du dépôt GitHub"
+
+msgid "Only public GitHub repositories (https://github.com/owner/repo) are analyzed. This may take a moment."
+msgstr "Seuls les dépôts GitHub publics (https://github.com/owner/repo) sont analysés. Cette opération peut prendre un instant."
+
+msgid "Run analysis"
+msgstr "Lancer l'analyse"
+
+msgid "A repository URL is required."
+msgstr "L'URL du dépôt est requise."
+
+msgid "Only https GitHub links are allowed."
+msgstr "Seuls les liens GitHub https sont autorisés."
+
+msgid "Credentials embedded in the URL are not allowed."
+msgstr "Les identifiants intégrés dans l'URL ne sont pas autorisés."
+
+msgid "URLs with a custom port are not allowed."
+msgstr "Les URL avec un port personnalisé ne sont pas autorisées."
+
+msgid "Only public github.com repositories can be analyzed."
+msgstr "Seuls les dépôts publics github.com peuvent être analysés."
+
+msgid "GitHub URLs with query strings or fragments are not allowed."
+msgstr "Les URL GitHub avec paramètres ou ancres ne sont pas autorisées."
+
+msgid "The URL must point to a github.com repository (https://github.com/owner/repo)."
+msgstr "L'URL doit désigner un dépôt github.com (https://github.com/owner/repo)."
+
+msgid "The repository path is not allowed."
+msgstr "Le chemin du dépôt n'est pas autorisé."
+
+msgid "That does not look like a valid URL."
+msgstr "Cela ne semble pas être une URL valide."
+
+msgid "Failed"
+msgstr "Échec"
+
+msgid "Running"
+msgstr "En cours"
+
+msgid "files"
+msgstr "fichiers"
+
+msgid "No summary available."
+msgstr "Aucun résumé disponible."
+
+msgid "View report"
+msgstr "Voir le rapport"
+
+msgid "This report is decision support. Scores are indicative and the final grade belongs to the jury."
+msgstr "Ce rapport est une aide à la décision. Les scores sont indicatifs et la note finale relève du jury."
+
+msgid "This analysis is still running."
+msgstr "Cette analyse est toujours en cours."
+
+msgid "Please refresh this page in a moment to see the result."
+msgstr "Rechargez cette page dans un instant pour voir le résultat."
+
+msgid "The analysis could not be completed."
+msgstr "L'analyse n'a pas pu être menée à terme."
+
+msgid "No further details are available."
+msgstr "Aucun détail supplémentaire n'est disponible."
+
+msgid "Summary"
+msgstr "Résumé"
+
+msgid "Indicative scores"
+msgstr "Scores indicatifs"
+
+msgid "Mean"
+msgstr "Moyenne"
+
+msgid "None noted."
+msgstr "Aucun élément noté."
+
+msgid "Potential concerns"
+msgstr "Points de vigilance potentiels"
+
+msgid "Analysis limitations"
+msgstr "Limites de l'analyse"
+
+msgid "Results depend only on the files that could be analyzed."
+msgstr "Les résultats dépendent uniquement des fichiers ayant pu être analysés."
+
+msgid "AI model"
+msgstr "Modèle d'IA"
+
+msgid "Files analyzed"
+msgstr "Fichiers analysés"
+
+msgid "Created by"
+msgstr "Créé par"
+
+msgid "Delete this report?"
+msgstr "Supprimer ce rapport ?"
+
+msgid "This will permanently delete the analysis report for <strong>%(url)s</strong>. This action cannot be undone."
+msgstr "Cette action supprimera définitivement le rapport d'analyse de <strong>%(url)s</strong>. Cette action est irréversible."
+
+msgid "You do not have permission to access analyses."
+msgstr "Vous n'avez pas l'autorisation d'accéder aux analyses."
+
+msgid "Analysis completed."
+msgstr "Analyse terminée."
+
+msgid "Report deleted."
+msgstr "Rapport supprimé."
+
+msgid "The AI service is not configured. Set the OPENROUTER_API_KEY environment variable before launching an analysis."
+msgstr "Le service d'IA n'est pas configuré. Définissez la variable d'environnement OPENROUTER_API_KEY avant de lancer une analyse."
+
+msgid "AI report"
+msgstr "Rapport IA"
+
+msgid "AI reports"
+msgstr "Rapports IA"
+
+msgid "Repository URL"
+msgstr "URL du dépôt"
+
+msgid "Commit reference"
+msgstr "Référence du commit"
+
+msgid "Report"
+msgstr "Rapport"
+
+msgid "Analyzed bytes"
+msgstr "Octets analysés"
+
+msgid "Error message"
+msgstr "Message d'erreur"
+
+msgid "Created at"
+msgstr "Créé le"
+
+msgid "Updated at"
+msgstr "Mis à jour le"
+
+msgid "The GitHub repository could not be read."
+msgstr "Le dépôt GitHub n'a pas pu être lu."
+
+msgid "The repository was not found. Make sure it is public."
+msgstr "Le dépôt est introuvable. Vérifiez qu'il est public."
+
+msgid "This repository is private. Only public repositories can be analyzed."
+msgstr "Ce dépôt est privé. Seuls les dépôts publics peuvent être analysés."
+
+msgid "GitHub rate limit reached. Please try again in a moment."
+msgstr "Limite de requêtes GitHub atteinte. Réessayez dans un instant."
+
+msgid "This repository is too large to analyze."
+msgstr "Ce dépôt est trop volumineux pour être analysé."
+
+msgid "A network error occurred while analyzing the repository."
+msgstr "Une erreur réseau est survenue lors de l'analyse du dépôt."
+
+msgid "The request timed out. Please try again."
+msgstr "La requête a expiré. Veuillez réessayer."
+
+msgid "The AI service could not be reached."
+msgstr "Le service d'IA est injoignable."
+
+msgid "The AI service is not configured. Ask an administrator to set the OPENROUTER_API_KEY environment variable."
+msgstr "Le service d'IA n'est pas configuré. Demandez à un administrateur de définir la variable d'environnement OPENROUTER_API_KEY."
+
+msgid "The AI free-tier quota has been reached. Please try again later."
+msgstr "Le quota gratuit de l'IA est atteint. Réessayez plus tard."
+
+msgid "The AI service rejected the request. Please try again."
+msgstr "Le service d'IA a rejeté la requête. Veuillez réessayer."
+
+msgid "The AI returned an unexpected result. Please try again."
+msgstr "L'IA a renvoyé un résultat inattendu. Veuillez réessayer."
+
+msgid "The AI service refused the API key."
+msgstr "Le service d'IA a refusé la clé API."
+
+msgid "The AI service is temporarily unavailable."
+msgstr "Le service d'IA est temporairement indisponible."
+
+msgid "The AI service returned an error."
+msgstr "Le service d'IA a renvoyé une erreur."
+
+msgid "The AI service returned an unreadable response."
+msgstr "Le service d'IA a renvoyé une réponse illisible."
+
+msgid "The AI service returned an error response."
+msgstr "Le service d'IA a renvoyé une réponse d'erreur."
+
+msgid "The AI response was empty or malformed."
+msgstr "La réponse de l'IA est vide ou malformée."
+
+msgid "The AI response was not valid JSON."
+msgstr "La réponse de l'IA n'est pas un JSON valide."
+
+msgid "The AI response was not a JSON object."
+msgstr "La réponse de l'IA n'est pas un objet JSON."
+
+msgid "The AI response is invalid: the response is not a JSON object."
+msgstr "La réponse de l'IA est invalide : il ne s'agit pas d'un objet JSON."
+
+msgid "GitHub returned an unexpected response."
+msgstr "GitHub a renvoyé une réponse inattendue."
+
+msgid "Relevance and fit to the brief"
+msgstr "Pertinence et conformité au sujet"
+
+msgid "Technical quality and architecture"
+msgstr "Qualité technique et architecture"
+
+msgid "Functionality and prototype completeness"
+msgstr "Fonctionnalité et complétude du prototype"
+
+msgid "Innovation and originality"
+msgstr "Innovation et originalité"
+
+msgid "Documentation and repository structure"
+msgstr "Documentation et structure du dépôt"
+
+# --- analyses module (Gemini) ---
+msgid "The AI service is not configured. Ask an administrator to set the GEMINI_API_KEY and GEMINI_MODEL environment variables."
+msgstr "Le service d'IA n'est pas configuré. Demandez à un administrateur de définir les variables d'environnement GEMINI_API_KEY et GEMINI_MODEL."
+
+msgid "The AI service is not configured. Set the GEMINI_API_KEY and GEMINI_MODEL environment variables before launching an analysis."
+msgstr "Le service d'IA n'est pas configuré. Définissez les variables d'environnement GEMINI_API_KEY et GEMINI_MODEL avant de lancer une analyse."
+
+msgid "No Gemini model is configured. Set GEMINI_MODEL to a model available on your project Free Tier."
+msgstr "Aucun modèle Gemini n'est configuré. Définissez GEMINI_MODEL sur un modèle disponible dans le Free Tier de votre projet."
+
+msgid "The configured Gemini model id is not valid."
+msgstr "L'identifiant du modèle Gemini configuré n'est pas valide."
+
+msgid "The request was blocked by the safety filters."
+msgstr "La requête a été bloquée par les filtres de sécurité."
+
+msgid "The response was filtered by the safety settings."
+msgstr "La réponse a été filtrée par les paramètres de sécurité."
+
+msgid "The AI service rejected the request."
+msgstr "Le service d'IA a rejeté la requête."
+
+msgid "The configured Gemini model is not available for this API key. Set GEMINI_MODEL to a model your key can access on the Free Tier."
+msgstr "Le modèle Gemini configuré n'est pas disponible pour cette clé API. Définissez GEMINI_MODEL sur un modèle accessible par votre clé dans le Free Tier."

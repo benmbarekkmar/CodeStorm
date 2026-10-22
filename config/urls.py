@@ -46,6 +46,7 @@ urlpatterns = [
     path('prizes/', include('prizes.urls')),
     path('evaluations/', include('evaluations.urls')),
     path('resources/', include('resources.urls')),
+    path('analyses/', include('analyses.urls')),
 ]
 
 if settings.DEBUG:

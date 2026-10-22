@@ -1,0 +1,42 @@
+{% load i18n %}
+<form method="post" action="{{ action_url }}" data-analysis-form novalidate
+      class="flex flex-col gap-space-md">
+  {% csrf_token %}
+
+  <div class="flex items-center justify-between gap-space-md">
+    <h2 class="font-headline-md text-headline-md text-on-surface">{% trans "New analysis" %}</h2>
+    <button type="button" data-close-form aria-label="{% trans 'Close' %}"
+            class="p-1.5 -me-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all">
+      <span class="material-symbols-outlined text-[20px]">close</span>
+    </button>
+  </div>
+
+  <p class="font-body-sm text-body-sm text-on-surface-variant">
+    {% trans "Only public GitHub repositories (https://github.com/owner/repo) are analyzed. This may take a moment." %}
+  </p>
+
+  {% if form.non_field_errors %}
+  <div class="rounded-lg bg-error-container text-on-error-container px-4 py-3 font-body-sm flex flex-col gap-1">
+    {% for err in form.non_field_errors %}<span>{{ err }}</span>{% endfor %}
+  </div>
+  {% endif %}
+
+  {% for field in form %}
+  <div class="flex flex-col gap-1.5">
+    <label class="font-label-md text-label-md text-on-surface" for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {{ field }}
+    {% if field.errors %}<p class="text-error font-body-sm">{{ field.errors.0 }}</p>{% endif %}
+  </div>
+  {% endfor %}
+
+  <div class="flex items-center justify-end gap-space-sm pt-2">
+    <button type="button" data-close-form
+            class="px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high font-label-md text-label-md transition-all">{% trans "Cancel" %}</button>
+    <button class="px-space-md py-2.5 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all disabled:opacity-60 disabled:cursor-not-allowed" type="submit">
+      <span class="inline-flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-[18px]">rocket_launch</span>
+        <span data-submit-label data-working="{% trans 'Analyzing…' %}">{% trans "Run analysis" %}</span>
+      </span>
+    </button>
+  </div>
+</form>

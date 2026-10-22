@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "AI Analyses" %} · CodeStorm{% endblock %}
+{% block page_name %}analyses{% endblock %}
+{% block breadcrumb_section %}{% trans "Review &amp; Scoring" %}{% endblock %}
+{% block breadcrumb_page %}{% trans "AI Analyses" %}{% endblock %}
+
+{% block content %}
+{% include "teams/_messages.html" %}
+
+<style>
+  @keyframes anFadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  .an-card {
+    transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease;
+    animation: anFadeUp .5s cubic-bezier(.2,.8,.2,1) both;
+    animation-delay: calc(var(--i, 0) * 60ms);
+  }
+  .an-card:hover { transform: translateY(-4px); box-shadow: 0 14px 34px -14px rgb(var(--c-primary) / .38); }
+  .an-accent { transition: transform .35s cubic-bezier(.2,.8,.2,1); }
+  .an-card:hover .an-accent { transform: scaleX(1); }
+  html[dir="rtl"] .an-accent { transform-origin: right; }
+  .section-enter { animation: anFadeUp .5s cubic-bezier(.2,.8,.2,1) both; }
+  @media (prefers-reduced-motion: reduce) {
+    .an-card, .section-enter { animation: none; }
+    .an-card, .an-accent { transition: none; }
+    .an-card:hover { transform: none; }
+  }
+</style>
+
+<!-- ============ HEADER ============ -->
+<div class="section-enter w-full px-margin py-space-lg flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+  <div class="flex flex-col gap-1">
+    <h1 class="font-headline-lg text-headline-lg text-on-surface">{% trans "AI Analyses" %}</h1>
+    <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+      {% trans "Generate decision-support reports from public GitHub repositories. Scores are indicative; the final grade always belongs to the jury." %}
+    </p>
+  </div>
+  <div class="flex items-center gap-space-sm self-start md:self-auto">
+    <button type="button" data-open-create class="group/create px-space-md py-2.5 rounded-lg bg-gradient-to-r from-primary to-primary-container text-on-primary font-label-md text-label-md shadow-sm hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] transition-all duration-200 flex items-center gap-2">
+      <span class="material-symbols-outlined text-[18px] transition-transform duration-300 group-hover/create:rotate-90">add</span>
+      <span>{% trans "New analysis" %}</span>
+    </button>
+  </div>
+</div>
+
+<div class="w-full px-margin pb-space-xl flex flex-col gap-space-lg">
+  <section class="section-enter flex flex-col gap-space-md">
+    <div class="flex items-center justify-between">
+      <span class="font-body-sm text-body-sm text-on-surface-variant">
+        {{ reports|length }} {% trans "reports" %}
+      </span>
+    </div>
+
+    {% if reports %}
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+      {% for report in reports %}{% include "analyses/_report_card.html" %}{% endfor %}
+    </div>
+    {% else %}
+    <div class="p-space-xl rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col items-center gap-3 text-center">
+      <span class="material-symbols-outlined text-[40px] text-outline">hub</span>
+      <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">{% trans "No analyses yet" %}</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant max-w-md">{% trans "Submit a public GitHub repository to generate your first AI report." %}</p>
+      <button type="button" data-open-create class="mt-1 px-5 py-2.5 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all">{% trans "New analysis" %}</button>
+    </div>
+    {% endif %}
+  </section>
+</div>
+
+<!-- ============ CREATE MODAL ============ -->
+<dialog id="createAnalysisDialog"
+        class="w-[min(92vw,42rem)] rounded-2xl bg-surface-container-lowest text-on-surface p-0 shadow-xl border border-outline-variant backdrop:bg-on-background/50">
+  <div class="p-space-lg max-h-[85vh] overflow-y-auto">
+    <div id="createAnalysisForm">{% include "analyses/_analysis_form.html" with form=form mode='create' action_url=action_create %}</div>
+  </div>
+</dialog>
+
+<script>
+  (function () {
+    const dlg = document.getElementById('createAnalysisDialog');
+    if (!dlg) return;
+    document.querySelectorAll('[data-open-create]').forEach((btn) =>
+      btn.addEventListener('click', (e) => { e.preventDefault(); dlg.showModal(); }));
+    dlg.addEventListener('click', (e) => {
+      if (e.target === dlg || e.target.closest('[data-close-form]')) dlg.close();
+    });
+    dlg.addEventListener('submit', async (e) => {
+      const form = e.target.closest('[data-analysis-form]');
+      if (!form) return;
+      e.preventDefault();
+      const submit = form.querySelector('button[type="submit"]');
+      const label = submit ? submit.querySelector('[data-submit-label]') : null;
+      const original = label ? label.textContent : '';
+      if (submit) submit.disabled = true;
+      if (label) label.textContent = label.dataset.working || '{% trans "Analyzing…" %}';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'X-Requested-With': 'XMLHttpRequest' },
+          credentials: 'same-origin',
+        });
+        const type = res.headers.get('content-type') || '';
+        if (type.includes('application/json')) {
+          window.location.href = (await res.json()).redirect;
+          return;
+        }
+        document.getElementById('createAnalysisForm').innerHTML = await res.text();
+        if (submit) submit.disabled = false;
+        if (label) label.textContent = original;
+      } catch (err) {
+        if (submit) submit.disabled = false;
+        if (label) label.textContent = original;
+      }
+    });
+  })();
+</script>
+{% endblock %}
