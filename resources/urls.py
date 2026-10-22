@@ -1,9 +1,13 @@
-# resources/urls.py
 from django.urls import path
-from django.views.generic import TemplateView
+
+from resources import views
 
 app_name = 'resources'
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='resources.html'), name='home'),
+    path('', views.resource_list, name='home'),
+    path('create/', views.resource_create, name='create'),
+    path('<int:pk>/', views.resource_detail, name='detail'),
+    path('<int:pk>/edit/', views.resource_edit, name='edit'),
+    path('<int:pk>/delete/', views.resource_delete, name='delete'),
 ]

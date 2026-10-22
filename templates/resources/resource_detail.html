@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ resource.title }} · {% trans "Resources" %}{% endblock %}
+{% block page_name %}resources{% endblock %}
+{% block breadcrumb_section %}{% trans "Support" %}{% endblock %}
+{% block breadcrumb_page %}{{ resource.title|truncatechars:40 }}{% endblock %}
+
+{% block content %}
+{% include "teams/_messages.html" %}
+
+<style>
+  @keyframes rdFade { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  .rd-fade { animation: rdFade .5s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(var(--i, 0) * 70ms); }
+  .rd-card { position: relative; overflow: hidden; transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease; }
+  .rd-card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px -14px rgb(var(--c-primary) / .34); }
+  .rd-accent { position: absolute; inset-inline: 0; top: 0; height: 3px; transform: scaleX(0); transform-origin: left; transition: transform .4s cubic-bezier(.2,.8,.2,1); }
+  .rd-card:hover .rd-accent { transform: scaleX(1); }
+  html[dir="rtl"] .rd-accent { transform-origin: right; }
+  @media (prefers-reduced-motion: reduce) {
+    .rd-fade { animation: none; }
+    .rd-card, .rd-accent { transition: none; }
+    .rd-card:hover { transform: none; }
+  }
+</style>
+
+<div class="w-full max-w-3xl mx-auto px-margin py-space-lg flex flex-col gap-space-lg">
+  <a class="group inline-flex items-center gap-1 text-on-surface-variant hover:text-on-surface font-label-md text-label-md w-fit transition-colors" href="{% url 'resources:home' %}">
+    <span class="material-symbols-outlined text-[18px] transition-transform duration-200 group-hover:-translate-x-1 rtl:rotate-180 rtl:group-hover:translate-x-1">arrow_back</span>{% trans "Back to resources" %}
+  </a>
+
+  <!-- ============ HEADER ============ -->
+  <div class="rd-card rd-fade p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-md">
+    <span class="rd-accent bg-gradient-to-r from-primary via-primary-container to-secondary" aria-hidden="true"></span>
+    <div class="flex flex-wrap items-start justify-between gap-space-md">
+      <div class="flex items-center gap-4 min-w-0">
+        {% if resource.image %}
+        <img src="{{ resource.image.url }}" alt="" class="w-16 h-16 rounded-xl object-cover shrink-0 ring-1 ring-outline-variant"/>
+        {% else %}
+        <span class="w-16 h-16 rounded-xl bg-surface-container-high flex items-center justify-center text-primary shrink-0"><span class="material-symbols-outlined text-[30px]">{{ resource.icon }}</span></span>
+        {% endif %}
+        <div class="flex flex-col gap-2 min-w-0">
+          <div class="flex items-center gap-2 flex-wrap">
+            <h1 class="font-headline-lg text-headline-lg text-on-surface break-words">{{ resource.title }}</h1>
+          </div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">{{ resource.get_category_display }}</span>
+            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm"><span class="material-symbols-outlined text-[15px]">{{ resource.icon }}</span>{{ resource.get_type_display }}</span>
+          </div>
+        </div>
+      </div>
+      {% if is_organizer %}
+      <div class="flex items-center gap-space-sm">
+        <button type="button" data-open-edit class="px-space-md py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high active:scale-[0.97] text-on-surface font-label-md text-label-md transition-all duration-200 flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[18px]">edit</span>{% trans "Edit" %}
+        </button>
+        <a class="px-space-md py-2 rounded-lg bg-surface-container-low hover:bg-error-container hover:text-error active:scale-[0.97] text-on-surface-variant font-label-md text-label-md transition-all duration-200 flex items-center gap-1.5" href="{% url 'resources:delete' resource.pk %}">
+          <span class="material-symbols-outlined text-[18px]">delete</span>{% trans "Delete" %}
+        </a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- ============ BODY ============ -->
+  <div class="rd-card rd-fade p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-md" style="--i: 1;">
+    <span class="rd-accent bg-gradient-to-r from-secondary to-primary" aria-hidden="true"></span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">{% trans "About this resource" %}</h2>
+    <p class="font-body-md text-body-md text-on-surface-variant whitespace-pre-line leading-relaxed">{{ resource.description|default:_("No description provided.") }}</p>
+  </div>
+
+  <!-- ============ OPEN / META ============ -->
+  <div class="rd-card rd-fade p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-md" style="--i: 2;">
+    <span class="rd-accent bg-gradient-to-r from-primary to-secondary" aria-hidden="true"></span>
+
+    {% if resource.url %}
+    <a href="{{ resource.url }}" target="_blank" rel="noopener noreferrer nofollow"
+       class="w-full py-2.5 rounded-lg bg-gradient-to-r from-primary to-primary-container text-on-primary hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] font-label-md text-label-md transition-all duration-200 flex items-center justify-center gap-2">
+      <span class="material-symbols-outlined text-[18px]">open_in_new</span>{{ resource.action_label }}
+    </a>
+    {% endif %}
+    {% if resource.file %}
+    <a href="{{ resource.file.url }}"
+       class="w-full py-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all duration-200 flex items-center justify-center gap-2">
+      <span class="material-symbols-outlined text-[18px]">download</span>{% trans "Download file" %}
+    </a>
+    {% endif %}
+    {% if not resource.has_asset %}
+    <div class="flex items-center gap-2 text-on-surface-variant font-body-sm bg-surface-container-low rounded-lg px-3 py-2">
+      <span class="material-symbols-outlined text-[18px]">info</span>{% trans "This resource has no link or file yet." %}
+    </div>
+    {% endif %}
+
+    <dl class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+      <div class="p-4 rounded-xl bg-surface-container-low">
+        <dt class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Author" %}</dt>
+        <dd class="font-body-md text-body-md text-on-surface font-semibold truncate">{{ resource.author_display }}</dd>
+      </div>
+      <div class="p-4 rounded-xl bg-surface-container-low">
+        <dt class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Published" %}</dt>
+        <dd class="font-body-md text-body-md text-on-surface">{{ resource.created_at|date:"Y-m-d" }}</dd>
+      </div>
+      <div class="p-4 rounded-xl bg-surface-container-low">
+        <dt class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Updated" %}</dt>
+        <dd class="font-body-md text-body-md text-on-surface">{{ resource.updated_at|date:"Y-m-d" }}</dd>
+      </div>
+    </dl>
+  </div>
+</div>
+
+{% if is_organizer %}
+<!-- ============ EDIT MODAL ============ -->
+<dialog id="editResourceDialog"
+        class="w-[min(92vw,42rem)] rounded-2xl bg-surface-container-lowest text-on-surface p-0 shadow-xl border border-outline-variant backdrop:bg-on-background/50">
+  <div class="p-space-lg max-h-[85vh] overflow-y-auto">
+    <div id="editResourceForm"></div>
+  </div>
+</dialog>
+
+<script>
+  (function () {
+    const dlg = document.getElementById('editResourceDialog');
+    if (!dlg) return;
+    const holder = document.getElementById('editResourceForm');
+    const editUrl = "{% url 'resources:edit' resource.pk %}";
+
+    document.querySelectorAll('[data-open-edit]').forEach((btn) =>
+      btn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        holder.innerHTML = '';
+        dlg.showModal();
+        const res = await fetch(editUrl, {
+          headers: { 'X-Requested-With': 'XMLHttpRequest' },
+          credentials: 'same-origin',
+        });
+        holder.innerHTML = await res.text();
+      }));
+
+    dlg.addEventListener('click', (e) => {
+      if (e.target === dlg || e.target.closest('[data-close-form]')) dlg.close();
+    });
+
+    dlg.addEventListener('submit', async (e) => {
+      const form = e.target.closest('[data-resource-form]');
+      if (!form) return;
+      e.preventDefault();
+      const submit = form.querySelector('button[type="submit"]');
+      if (submit) submit.disabled = true;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'X-Requested-With': 'XMLHttpRequest' },
+          credentials: 'same-origin',
+        });
+        const type = res.headers.get('content-type') || '';
+        if (type.includes('application/json')) {
+          window.location.reload();
+          return;
+        }
+        holder.innerHTML = await res.text();
+      } finally {
+        if (submit) submit.disabled = false;
+      }
+    });
+  })();
+</script>
+{% endif %}
+{% endblock %}

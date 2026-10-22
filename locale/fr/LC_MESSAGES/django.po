@@ -6365,3 +6365,127 @@ msgstr "Demandes de rejoindre en attente"
 
 msgid "pending join request(s) to review."
 msgstr "demande(s) de rejoindre à examiner."
+
+msgid "Useful Hackathon Links"
+msgstr "Liens utiles pour les hackathons"
+
+msgid "Download"
+msgstr "Télécharger"
+
+msgid "Watch video"
+msgstr "Voir la vidéo"
+
+msgid "Open tool"
+msgstr "Ouvrir l’outil"
+
+msgid "Get template"
+msgstr "Obtenir le modèle"
+
+msgid "Read tutorial"
+msgstr "Lire le tutoriel"
+
+msgid "Open resource"
+msgstr "Ouvrir la ressource"
+
+msgid "You do not have permission to manage resources."
+msgstr "Vous n’avez pas l’autorisation de gérer les ressources."
+
+msgid "Resource created."
+msgstr "Ressource créée."
+
+msgid "Resource updated."
+msgstr "Ressource mise à jour."
+
+msgid "Resource deleted."
+msgstr "Ressource supprimée."
+
+msgid "Describe what this resource offers."
+msgstr "Décrivez ce que propose cette ressource."
+
+msgid "Only http or https links are allowed."
+msgstr "Seuls les liens http ou https sont autorisés."
+
+msgid "Provide a link or upload a file."
+msgstr "Fournissez un lien ou téléversez un fichier."
+
+msgid "View resource"
+msgstr "Voir la ressource"
+
+msgid "Newest first"
+msgstr "Plus récentes"
+
+msgid "Oldest first"
+msgstr "Plus anciennes"
+
+msgid "Title A–Z"
+msgstr "Titre A–Z"
+
+msgid "Title Z–A"
+msgstr "Titre Z–A"
+
+msgid "Reset filters"
+msgstr "Réinitialiser les filtres"
+
+msgid "No resources yet"
+msgstr "Aucune ressource pour le moment"
+
+msgid "Add a resource"
+msgstr "Ajouter une ressource"
+
+msgid "Create resource"
+msgstr "Créer la ressource"
+
+msgid "Edit resource"
+msgstr "Modifier la ressource"
+
+msgid "Back to resources"
+msgstr "Retour aux ressources"
+
+msgid "About this resource"
+msgstr "À propos de cette ressource"
+
+msgid "Download file"
+msgstr "Télécharger le fichier"
+
+msgid "Delete this resource?"
+msgstr "Supprimer cette ressource ?"
+
+msgid "Yes, delete"
+msgstr "Oui, supprimer"
+
+msgid "Search resources by title or description"
+msgstr "Rechercher une ressource par titre ou description"
+
+msgid "Try clearing selected criteria or checking your spelling."
+msgstr "Essayez d’effacer les critères sélectionnés ou de vérifier votre orthographe."
+
+msgid "Curate the tutorials, documentation and tools your participants rely on during the hackathon."
+msgstr "Gérez les tutoriels, documentations et outils sur lesquels vos participants s’appuient pendant le hackathon."
+
+msgid "Browse tutorials, documentation, tools and templates to power up your hackathon project."
+msgstr "Parcourez tutoriels, documentations, outils et modèles pour booster votre projet de hackathon."
+
+msgid "The library is empty. Add your first resource to get participants started."
+msgstr "La bibliothèque est vide. Ajoutez votre première ressource pour aider vos participants."
+
+msgid "Resources will appear here once organizers publish them."
+msgstr "Les ressources apparaîtront ici dès que les organisateurs les publieront."
+
+msgid "This resource has no link or file yet."
+msgstr "Cette ressource n’a pas encore de lien ni de fichier."
+
+msgid "Unsupported file type. Allowed: %(types)s."
+msgstr "Type de fichier non pris en charge. Autorisés : %(types)s."
+
+msgid "The file is too large (max %(size)s MB)."
+msgstr "Le fichier est trop volumineux (max %(size)s Mo)."
+
+msgid "Add"
+msgstr "Ajouter"
+
+msgid "resources"
+msgstr "ressources"
+
+msgid "This will permanently delete <strong>%(name)s</strong>. This action cannot be undone."
+msgstr "Cette action supprimera définitivement <strong>%(name)s</strong>. Cette action est irréversible."
+
