@@ -11,7 +11,6 @@ urlpatterns = [
 
     path('<int:pk>/', views.team_detail, name='detail'),
     path('<int:pk>/edit/', views.team_edit, name='edit'),
-    path('<int:pk>/join/', views.team_join, name='join'),
     path('<int:pk>/leave/', views.team_leave, name='leave'),
     path('<int:pk>/request-join/', views.team_request_join, name='request_join'),
     path('<int:pk>/invite/', views.team_send_invitation, name='send_invitation'),

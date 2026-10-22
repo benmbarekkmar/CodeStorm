@@ -142,17 +142,25 @@ class CapacityAndMembershipTests(TeamsBase):
     def test_cannot_join_two_teams_same_hackathon(self):
         team2 = Team.objects.create(name='Second', hackathon=self.hack, created_by=self.captain,
                                     captain=self.captain, max_members=5)
-        self.login(self.member)
-        resp = self.client.post(reverse('teams:join', args=[team2.pk]))
+        self.login(self.member)  # member is already in self.team (same hackathon)
+        resp = self.client.post(reverse('teams:request_join', args=[team2.pk]))
         self.assertEqual(resp.status_code, 302)
         self.assertFalse(team2.has_member(self.member))
+        self.assertFalse(JoinRequest.objects.filter(team=team2, user=self.member).exists())
 
     def test_join_public_team_via_view(self):
         team2 = Team.objects.create(name='Open', hackathon=self.hack, created_by=self.captain,
                                     captain=self.captain, max_members=5)
         self.login(self.outsider)
-        resp = self.client.post(reverse('teams:join', args=[team2.pk]))
+        resp = self.client.post(reverse('teams:request_join', args=[team2.pk]))
         self.assertEqual(resp.status_code, 302)
+        # No direct membership: only a pending request is created.
+        self.assertFalse(team2.has_member(self.outsider))
+        jr = JoinRequest.objects.get(team=team2, user=self.outsider)
+        self.assertEqual(jr.status, JoinRequest.Status.PENDING)
+        # Captain approves to complete the join.
+        self.login(self.captain)
+        self.client.post(reverse('teams:join_request_respond', args=[jr.pk]), {'action': 'accept'})
         self.assertTrue(team2.has_member(self.outsider))
 
     def test_leave_removes_member(self):
@@ -334,15 +342,13 @@ class JoinRequestTests(TeamsBase):
         self.assertFalse(self.team.has_member(self.outsider))
 
     def test_accept_blocked_when_user_in_other_team_same_hackathon(self):
-        # allow_multiple_teams=False on self.hack.
+        # A pending request already exists, then the requester joins another
+        # team in the same hackathon; approval must re-check and refuse.
+        jr = JoinRequest.objects.create(team=self.team, user=self.outsider)
         other = Team.objects.create(name='Rivals', hackathon=self.hack, created_by=self.member,
                                     captain=self.member, max_members=5)
         other.add_member(self.member, role=TeamMembership.Role.CAPTAIN)
-        # outsider joins 'other' first (same hackathon), then requests self.team.
-        self.login(self.outsider)
         other.add_member(self.outsider)
-        self.client.post(reverse('teams:request_join', args=[self.team.pk]))
-        jr = JoinRequest.objects.get(team=self.team, user=self.outsider)
         self.login(self.captain)
         self.client.post(reverse('teams:join_request_respond', args=[jr.pk]), {'action': 'accept'})
         jr.refresh_from_db()
@@ -375,6 +381,78 @@ class JoinRequestTests(TeamsBase):
         resp = self.client.get(reverse('teams:home'))
         self.assertEqual(resp.context['pending_join_requests'], 1)
 
+    # --- Priority fixes: hardened eligibility on every join path ----------
+    def test_direct_join_route_removed(self):
+        from django.urls import NoReverseMatch
+        with self.assertRaises(NoReverseMatch):
+            reverse('teams:join', args=[self.team.pk])
+
+    def test_request_blocked_on_private_team(self):
+        private = Team.objects.create(name='Secret', hackathon=self.hack, created_by=self.captain,
+                                      captain=self.captain, max_members=5, visibility='private')
+        self.login(self.outsider)
+        self.client.post(reverse('teams:request_join', args=[private.pk]))
+        self.assertFalse(JoinRequest.objects.filter(team=private).exists())
+
+    def test_request_blocked_when_join_requests_disabled(self):
+        no_req = Team.objects.create(name='NoRequests', hackathon=self.hack, created_by=self.captain,
+                                     captain=self.captain, max_members=5, allow_join_requests=False)
+        self.login(self.outsider)
+        self.client.post(reverse('teams:request_join', args=[no_req.pk]))
+        self.assertFalse(JoinRequest.objects.filter(team=no_req).exists())
+
+    def test_request_blocked_on_archived_team(self):
+        archived = Team.objects.create(name='Archived', hackathon=self.hack, created_by=self.captain,
+                                       captain=self.captain, max_members=5, status=Team.Status.ARCHIVED)
+        self.login(self.outsider)
+        self.client.post(reverse('teams:request_join', args=[archived.pk]))
+        self.assertFalse(JoinRequest.objects.filter(team=archived).exists())
+
+    def test_request_blocked_on_closed_hackathon(self):
+        self.hack.status = Hackathon.Status.CLOSED
+        self.hack.save(update_fields=['status'])
+        self.login(self.outsider)
+        self.client.post(reverse('teams:request_join', args=[self.team.pk]))
+        self.assertFalse(JoinRequest.objects.filter(team=self.team).exists())
+
+    def test_approve_revalidates_closed_hackathon(self):
+        # Request created while open, then the hackathon closes before approval.
+        self.login(self.outsider)
+        self.client.post(reverse('teams:request_join', args=[self.team.pk]))
+        jr = JoinRequest.objects.get(team=self.team, user=self.outsider)
+        self.hack.status = Hackathon.Status.CLOSED
+        self.hack.save(update_fields=['status'])
+        self.login(self.captain)
+        self.client.post(reverse('teams:join_request_respond', args=[jr.pk]), {'action': 'accept'})
+        jr.refresh_from_db()
+        self.assertEqual(jr.status, JoinRequest.Status.PENDING)
+        self.assertFalse(self.team.has_member(self.outsider))
+
+    def test_approve_revalidates_team_made_private(self):
+        self.login(self.outsider)
+        self.client.post(reverse('teams:request_join', args=[self.team.pk]))
+        jr = JoinRequest.objects.get(team=self.team, user=self.outsider)
+        self.team.visibility = Team.Visibility.PRIVATE
+        self.team.save(update_fields=['visibility'])
+        self.login(self.captain)
+        self.client.post(reverse('teams:join_request_respond', args=[jr.pk]), {'action': 'accept'})
+        jr.refresh_from_db()
+        self.assertEqual(jr.status, JoinRequest.Status.PENDING)
+        self.assertFalse(self.team.has_member(self.outsider))
+
+    def test_approve_revalidates_join_requests_disabled(self):
+        self.login(self.outsider)
+        self.client.post(reverse('teams:request_join', args=[self.team.pk]))
+        jr = JoinRequest.objects.get(team=self.team, user=self.outsider)
+        self.team.allow_join_requests = False
+        self.team.save(update_fields=['allow_join_requests'])
+        self.login(self.captain)
+        self.client.post(reverse('teams:join_request_respond', args=[jr.pk]), {'action': 'accept'})
+        jr.refresh_from_db()
+        self.assertEqual(jr.status, JoinRequest.Status.PENDING)
+        self.assertFalse(self.team.has_member(self.outsider))
+
+
 
 
 class RoleScopingTests(TeamsBase):
@@ -393,8 +471,9 @@ class RoleScopingTests(TeamsBase):
         team2 = Team.objects.create(name='JuryTarget', hackathon=self.hack, created_by=self.captain,
                                     captain=self.captain, max_members=5, visibility='public')
         self.login(self.jury)
-        self.client.post(reverse('teams:join', args=[team2.pk]))
+        self.client.post(reverse('teams:request_join', args=[team2.pk]))
         self.assertFalse(team2.has_member(self.jury))
+        self.assertFalse(JoinRequest.objects.filter(user=self.jury).exists())
         self.client.post(reverse('teams:send_invitation', args=[self.team.pk]), {'invitee': self.outsider.pk})
         self.assertFalse(TeamInvitation.objects.filter(inviter=self.jury).exists())
 

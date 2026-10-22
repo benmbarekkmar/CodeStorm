@@ -97,11 +97,17 @@ class Team(models.Model):
         return self.is_captain(user)
 
     def is_joinable(self, user):
-        """Server-side eligibility for a participant joining this team directly."""
+        """Server-side eligibility for a participant joining this team.
+
+        This is the single source of truth reused by the request-join view and
+        the captain's approval, so every join path enforces the same rules.
+        """
         if self.status != self.Status.ACTIVE:
             return False, _('This team is not open for joining.')
         if self.visibility != self.Visibility.PUBLIC:
             return False, _('This team is private; an invitation is required.')
+        if not self.allow_join_requests:
+            return False, _('This team does not accept join requests.')
         if self.hackathon and not self.hackathon.accepts_participants:
             return False, _('The hackathon is no longer accepting participants.')
         if self.is_full():

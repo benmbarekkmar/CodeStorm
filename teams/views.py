@@ -54,16 +54,6 @@ def _forbidden(request, team):
 # Business operations (server-side validated, transactional)
 # --------------------------------------------------------------------------
 @transaction.atomic
-def _join_team(team, user):
-    locked = Team.objects.select_for_update().get(pk=team.pk)
-    ok, reason = locked.is_joinable(user)
-    if not ok:
-        return False, reason
-    locked.add_member(user)
-    return True, ''
-
-
-@transaction.atomic
 def _accept_invitation(invitation, user):
     invitation = TeamInvitation.objects.select_for_update().get(pk=invitation.pk)
     if invitation.invitee_id != user.pk:
@@ -100,17 +90,16 @@ def _approve_join_request(request_obj, captain):
     team = Team.objects.select_for_update().get(pk=request_obj.team_id)
     if not team.is_captain(captain):
         return False, _('Only the captain can review requests.')
-    if team.is_full():
-        return False, _('This team is full.')
     user = request_obj.user
-    if team.has_member(user):
-        request_obj.status = JoinRequest.Status.ACCEPTED
-        request_obj.responded_at = timezone.now()
-        request_obj.save(update_fields=['status', 'responded_at'])
-        return False, _('This user is already a member.')
-    if team.hackathon and not team.hackathon.allow_multiple_teams:
-        if Team.objects.filter(hackathon=team.hackathon, memberships__user=user).exists():
-            return False, _('This user already has a team in this hackathon.')
+    # Re-validate every eligibility rule at approval time (status, visibility,
+    # allow_join_requests, hackathon window, capacity, duplicate team).
+    ok, reason = team.is_joinable(user)
+    if not ok:
+        if team.has_member(user):
+            request_obj.status = JoinRequest.Status.ACCEPTED
+            request_obj.responded_at = timezone.now()
+            request_obj.save(update_fields=['status', 'responded_at'])
+        return False, reason
     team.add_member(user)
     request_obj.status = JoinRequest.Status.ACCEPTED
     request_obj.responded_at = timezone.now()
@@ -320,21 +309,6 @@ def team_edit(request, pk):
 
 @login_required
 @participant_required
-@transaction.atomic
-def team_join(request, pk):
-    if request.method != 'POST':
-        return redirect('teams:detail', pk=pk)
-    team = _team_or_404(pk)
-    ok, reason = _join_team(team, request.user)
-    if ok:
-        messages.success(request, _('You joined "%(team)s".') % {'team': team.name})
-    else:
-        messages.error(request, reason)
-    return redirect('teams:detail', pk=team.pk)
-
-
-@login_required
-@participant_required
 def team_leave(request, pk):
     if request.method != 'POST':
         return redirect('teams:detail', pk=pk)
@@ -510,18 +484,17 @@ def team_request_join(request, pk):
     if request.method != 'POST':
         return redirect('teams:detail', pk=pk)
     team = _team_or_404(pk)
-    if not team.allow_join_requests:
-        messages.error(request, _('This team does not accept join requests.'))
+    ok, reason = team.is_joinable(request.user)
+    if not ok:
+        messages.error(request, reason)
         return redirect('teams:detail', pk=team.pk)
-    if team.has_member(request.user):
-        messages.error(request, _('You are already a member of this team.'))
-        return redirect('teams:detail', pk=team.pk)
-    if team.is_full():
-        messages.error(request, _('This team is full.'))
-        return redirect('teams:detail', pk=team.pk)
-    _instance, created = JoinRequest.objects.get_or_create(
-        team=team, user=request.user, status=JoinRequest.Status.PENDING,
-    )
+    try:
+        with transaction.atomic():
+            _instance, created = JoinRequest.objects.get_or_create(
+                team=team, user=request.user, status=JoinRequest.Status.PENDING,
+            )
+    except IntegrityError:
+        created = False
     messages.success(request, _('Your join request was submitted.') if created
                      else _('You already requested to join this team.'))
     return redirect('teams:detail', pk=team.pk)
