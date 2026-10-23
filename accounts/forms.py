@@ -15,7 +15,10 @@ INPUT_CLASSES = (
 class RegisterForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'role')
+        # ``role`` is intentionally NOT a public field: self-service signup can
+        # never mint an organizer/jury account. New users always get the model
+        # default (participant); admin assigns roles afterwards.
+        fields = ('username', 'first_name', 'last_name', 'email')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -27,8 +30,6 @@ class RegisterForm(UserCreationForm):
         self.fields['last_name'].widget.attrs.update({'placeholder': 'Ben Mbarek'})
         self.fields['email'].label = _('Email')
         self.fields['email'].widget.attrs.update({'placeholder': 'kmar@example.com', 'autocomplete': 'email'})
-        self.fields['role'].label = _('I am a')
-        self.fields['role'].empty_label = None
         self.fields['password1'].label = _('Password')
         self.fields['password2'].label = _('Confirm password')
         self.fields['password1'].widget.attrs.update({'placeholder': '••••••••', 'autocomplete': 'new-password'})
@@ -51,6 +52,10 @@ LANGUAGE_CHOICES = [
     ('en', 'English'),
     ('fr', 'Français'),
 ]
+
+# Avatar upload bounds. ImageField already rejects non-image content via Pillow;
+# these guards cap the size and confirm an image MIME type.
+MAX_AVATAR_BYTES = 2 * 1024 * 1024  # 2 MB
 
 
 class PersonalInfoForm(forms.ModelForm):
@@ -91,6 +96,17 @@ class PersonalInfoForm(forms.ModelForm):
             widget.attrs['class'] = f'{existing} {base}'.strip()
         self.fields['institution'].label = _('University / Institution')
         self.fields['field_of_study'].label = _('Field of study / Specialization')
+
+    def clean_avatar(self):
+        avatar = self.cleaned_data.get('avatar')
+        if avatar is None or not hasattr(avatar, 'size'):
+            return avatar
+        if avatar.size > MAX_AVATAR_BYTES:
+            raise forms.ValidationError(_('The avatar image is too large (max 2 MB).'))
+        content_type = getattr(avatar, 'content_type', '') or ''
+        if content_type and not content_type.startswith('image/'):
+            raise forms.ValidationError(_('The avatar must be an image file.'))
+        return avatar
 
 
 class ChangePasswordForm(PasswordChangeForm):
