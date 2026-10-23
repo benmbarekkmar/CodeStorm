@@ -27,10 +27,15 @@ class TeamForm(forms.ModelForm):
 
     class Meta:
         model = Team
-        fields = ('name', 'description', 'hackathon', 'max_members', 'visibility', 'allow_join_requests')
+        fields = (
+            'name', 'description', 'required_skills', 'interests', 'hackathon',
+            'max_members', 'visibility', 'allow_join_requests',
+        )
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': _('Choose a unique team name')}),
             'description': forms.Textarea(attrs={'rows': 3, 'placeholder': _('Describe what your team aims to build.')}),
+            'required_skills': forms.TextInput(attrs={'placeholder': _('Skills the team is looking for, separated by commas')}),
+            'interests': forms.TextInput(attrs={'placeholder': _('Topics or domains the team focuses on, separated by commas')}),
             'max_members': forms.NumberInput(attrs={'min_value': 2, 'max_value': 50}),
         }
 

@@ -6761,3 +6761,84 @@ msgstr "Le service d'IA a rejeté la requête."
 
 msgid "The configured Gemini model is not available for this API key. Set GEMINI_MODEL to a model your key can access on the Free Tier."
 msgstr "Le modèle Gemini configuré n'est pas disponible pour cette clé API. Définissez GEMINI_MODEL sur un modèle accessible par votre clé dans le Free Tier."
+
+msgid "Skills"
+msgstr "Compétences"
+
+msgid "Interests"
+msgstr "Intérêts"
+
+msgid "List your skills, separated by commas"
+msgstr "Indiquez vos compétences, séparées par des virgules"
+
+msgid "List your interests, separated by commas"
+msgstr "Indiquez vos intérêts, séparés par des virgules"
+
+msgid "Required skills"
+msgstr "Compétences recherchées"
+
+msgid "Team interests"
+msgstr "Intérêts de l'équipe"
+
+msgid "Skills the team is looking for, separated by commas"
+msgstr "Compétences recherchées par l'équipe, séparées par des virgules"
+
+msgid "Topics or domains the team focuses on, separated by commas"
+msgstr "Thèmes ou domaines couverts par l'équipe, séparés par des virgules"
+
+msgid "Recommended teams · CodeStorm"
+msgstr "Équipes recommandées · CodeStorm"
+
+msgid "Recommended teams"
+msgstr "Équipes recommandées"
+
+msgid "Recommended"
+msgstr "Recommandées"
+
+msgid "Teams ranked by how well they match your profile skills and interests for a hackathon. This is an explainable suggestion, not a prediction of success."
+msgstr "Équipes classées selon la compatibilité de vos compétences et intérêts avec un hackathon. Il s'agit d'une suggestion explicable, pas d'une prédiction de réussite."
+
+msgid "Choose a hackathon"
+msgstr "Choisir un hackathon"
+
+msgid "No hackathon is currently open for participants."
+msgstr "Aucun hackathon n'est actuellement ouvert aux participants."
+
+msgid "Select a hackathon to see your best-matching teams."
+msgstr "Sélectionnez un hackathon pour voir les équipes qui vous correspondent le mieux."
+
+msgid "Your profile has no skills or interests yet."
+msgstr "Votre profil n'indique encore ni compétences ni intérêts."
+
+msgid "Add them to your profile to get meaningful recommendations."
+msgstr "Ajoutez-en à votre profil pour obtenir des recommandations pertinentes."
+
+msgid "Complete my profile"
+msgstr "Compléter mon profil"
+
+msgid "No public team is recruiting in this hackathon yet."
+msgstr "Aucune équipe publique ne recrute encore dans ce hackathon."
+
+msgid "You already belong to every team available in this hackathon."
+msgstr "Vous appartenez déjà à toutes les équipes disponibles dans ce hackathon."
+
+msgid "No teams match your profile for this hackathon."
+msgstr "Aucune équipe ne correspond à votre profil pour ce hackathon."
+
+msgid "This team has not described what it is looking for yet, so the score is not reliable."
+msgstr "Cette équipe n'a pas encore décrit ce qu'elle recherche, le score n'est donc pas fiable."
+
+msgid "Complementarity"
+msgstr "Complémentarité"
+
+msgid "Shared skills"
+msgstr "Compétences communes"
+
+msgid "Skills you could add"
+msgstr "Compétences que vous pourriez ajouter"
+
+msgid "Still missing in the team"
+msgstr "Encore manquants dans l'équipe"
+
+msgid "Invitation received"
+msgstr "Invitation reçue"

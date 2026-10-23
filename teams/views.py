@@ -12,6 +12,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from hackathons.models import Hackathon
+from teams import matching
 from teams.forms import InviteMemberForm, TeamForm
 from teams.models import JoinRequest, Team, TeamInvitation, TeamMembership
 
@@ -538,3 +539,92 @@ def join_request_cancel(request, request_id):
         join_request.save(update_fields=['status', 'responded_at'])
         messages.info(request, _('Request cancelled.'))
     return redirect('teams:home')
+
+
+# --- Smart recommendations ------------------------------------------------
+@login_required
+@participant_required
+def team_recommendations(request):
+    """Recommend the teams in a chosen hackathon that best fit the participant.
+
+    Candidate set mirrors the existing "discover" visibility rule for
+    participants: only *public*, *active* teams of the selected hackathon are
+    considered, so no private team data is ever surfaced. Teams the participant
+    already belongs to are excluded. Scoring is delegated to
+    :mod:`teams.matching` (``rank_teams`` loads all memberships in a single
+    query); eligibility to actually join is delegated to the authoritative
+    ``Team.is_joinable(user)`` — this view creates no membership and never
+    bypasses any permission.
+
+    The hackathon is selected through the ``?hackathon=<id>`` query param, the
+    same convention used by the team list filter, limited to hackathons that are
+    currently open for participants.
+    """
+    user = request.user
+    selectable_hackathons = Hackathon.objects.filter(
+        status__in=[Hackathon.Status.REGISTRATION_OPEN, Hackathon.Status.ONGOING],
+    ).order_by('name')
+
+    hackathon_id = request.GET.get('hackathon', '')
+    selected = None
+    if hackathon_id.isdigit():
+        selected = selectable_hackathons.filter(pk=int(hackathon_id)).first()
+
+    profile_has_data = bool(user.skills.strip() or user.interests.strip())
+
+    results = []
+    no_teams = False
+    all_joined = False
+    if selected is not None:
+        member_team_ids = set(
+            TeamMembership.objects.filter(user=user).values_list('team_id', flat=True)
+        )
+        base = Team.objects.filter(
+            hackathon=selected,
+            status=Team.Status.ACTIVE,
+            visibility=Team.Visibility.PUBLIC,
+        )
+        teams_list = list(
+            base.exclude(pk__in=member_team_ids)
+            .select_related('hackathon', 'captain')
+        )
+        total_public = base.count()
+
+        if not teams_list:
+            no_teams = total_public == 0
+            all_joined = total_public > 0
+        else:
+            team_by_id = {t.pk: t for t in teams_list}
+            for res in matching.rank_teams(user, teams_list):
+                team = team_by_id[res.team_id]
+                joinable, join_reason = team.is_joinable(user)
+                has_pending_request = team.join_requests.filter(
+                    user=user, status=JoinRequest.Status.PENDING,
+                ).exists()
+                has_invitation = team.invitations.filter(
+                    invitee=user, status=TeamInvitation.Status.PENDING,
+                ).exists()
+                results.append({
+                    'team': team,
+                    'match': res.to_context(),
+                    'joinable': joinable,
+                    'join_reason': join_reason,
+                    'has_pending_request': has_pending_request,
+                    'has_invitation': has_invitation,
+                })
+
+    context = {
+        'hackathons': selectable_hackathons,
+        'selected_hackathon': selected,
+        'sel_hackathon': hackathon_id,
+        'results': results,
+        'profile_has_data': profile_has_data,
+        'no_teams': no_teams,
+        'all_joined': all_joined,
+        'weights': {
+            'skills': int(matching.SKILLS_WEIGHT * 100),
+            'interests': int(matching.INTERESTS_WEIGHT * 100),
+            'complementarity': int(matching.COMPLEMENTARITY_WEIGHT * 100),
+        },
+    }
+    return render(request, 'teams/team_recommendations.html', context)

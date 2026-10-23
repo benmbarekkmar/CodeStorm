@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Recommended teams · CodeStorm" %}{% endblock %}
+{% block page_name %}teams{% endblock %}
+{% block breadcrumb_section %}{% trans "Core" %}{% endblock %}
+{% block breadcrumb_page %}{% trans "Recommended teams" %}{% endblock %}
+
+{% block content %}
+{% include "teams/_messages.html" %}
+
+<div class="w-full px-margin py-space-lg flex flex-col gap-space-lg">
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+    <div class="flex flex-col gap-1">
+      <h1 class="font-headline-lg text-headline-lg text-on-surface flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary text-[28px]">auto_awesome</span>
+        {% trans "Recommended teams" %}
+      </h1>
+      <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+        {% trans "Teams ranked by how well they match your profile skills and interests for a hackathon. This is an explainable suggestion, not a prediction of success." %}
+      </p>
+    </div>
+    <a class="self-start md:self-auto inline-flex items-center gap-2 px-space-md py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container-low transition-all" href="{% url 'teams:home' %}">
+      <span class="material-symbols-outlined text-[18px]">groups</span>{% trans "All teams" %}
+    </a>
+  </div>
+
+  <!-- Hackathon selector -->
+  <form method="get" id="recFilters" class="p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col sm:flex-row sm:items-center gap-space-sm">
+    <label class="font-label-md text-label-md text-on-surface" for="rec-hackathon">{% trans "Hackathon" %}</label>
+    <select id="rec-hackathon" name="hackathon" class="flex-1 bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20">
+      <option value="">{% trans "Choose a hackathon" %}</option>
+      {% for h in hackathons %}
+        <option value="{{ h.pk }}" {% if sel_hackathon == h.pk|stringformat:'s' %}selected{% endif %}>{{ h.name }}</option>
+      {% endfor %}
+    </select>
+    <noscript><button type="submit" class="px-space-md py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md">{% trans "Apply" %}</button></noscript>
+  </form>
+  <script>
+    (function () {
+      var s = document.getElementById('rec-hackathon');
+      if (s) s.addEventListener('change', function () { s.form.submit(); });
+    })();
+  </script>
+
+  {% if not hackathons %}
+    <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm text-center text-on-surface-variant font-body-md">
+      {% trans "No hackathon is currently open for participants." %}
+    </div>
+  {% elif selected_hackathon is None %}
+    <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm text-center text-on-surface-variant font-body-md">
+      {% trans "Select a hackathon to see your best-matching teams." %}
+    </div>
+  {% else %}
+
+    {% if not profile_has_data %}
+    <div class="flex items-start gap-3 p-space-md rounded-2xl bg-secondary-container/40 text-on-secondary-container shadow-sm">
+      <span class="material-symbols-outlined text-[20px]">tips_and_updates</span>
+      <div class="flex flex-col gap-1">
+        <span class="font-body-md text-body-md font-medium">{% trans "Your profile has no skills or interests yet." %}</span>
+        <span class="font-body-sm text-body-sm">
+          {% trans "Add them to your profile to get meaningful recommendations." %}
+          <a class="underline font-semibold" href="{% url 'profile_settings' %}?section=personal">{% trans "Complete my profile" %}</a>
+        </span>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if no_teams %}
+      <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm text-center text-on-surface-variant font-body-md">
+        {% trans "No public team is recruiting in this hackathon yet." %}
+      </div>
+    {% elif all_joined %}
+      <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm text-center text-on-surface-variant font-body-md">
+        {% trans "You already belong to every team available in this hackathon." %}
+      </div>
+    {% elif not results %}
+      <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm text-center text-on-surface-variant font-body-md">
+        {% trans "No teams match your profile for this hackathon." %}
+      </div>
+    {% else %}
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+      {% for item in results %}
+      <article class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex flex-col gap-space-sm">
+        <div class="flex items-start justify-between gap-2">
+          <div class="flex flex-col gap-1 min-w-0">
+            <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold truncate max-w-[100%]">
+              {% firstof item.team.hackathon.name _("No hackathon") %}
+            </span>
+            <a href="{% url 'teams:detail' item.team.pk %}" class="font-headline-sm text-headline-sm text-on-surface font-bold truncate hover:text-primary">{{ item.team.name }}</a>
+          </div>
+          <div class="shrink-0 flex flex-col items-center rounded-xl bg-primary-fixed/50 px-3 py-1.5">
+            <span class="font-headline-md text-headline-md font-bold text-primary leading-none">{{ item.match.score }}</span>
+            <span class="font-label-sm text-label-sm text-on-primary-variant">{% trans "match" %}</span>
+          </div>
+        </div>
+
+        <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">{{ item.team.description|default:_("No description provided.") }}</p>
+
+        <div class="flex items-center justify-between text-on-surface-variant">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px] text-outline">person</span>
+            <span class="font-body-sm text-body-sm truncate max-w-[12rem]">{% firstof item.team.captain.get_full_name item.team.captain.username _("No captain") %}</span>
+          </div>
+          <span class="font-code-inline text-code-inline whitespace-nowrap">{{ item.team.member_count }}/{{ item.team.max_members }}</span>
+        </div>
+
+        {% if not item.match.sufficient_data %}
+        <div class="flex items-center gap-2 text-on-surface-variant font-body-sm">
+          <span class="material-symbols-outlined text-[16px] text-outline">info</span>
+          <span>{% trans "This team has not described what it is looking for yet, so the score is not reliable." %}</span>
+        </div>
+        {% endif %}
+
+        <!-- Component scores -->
+        <div class="flex flex-col gap-2 pt-1">
+          <div class="flex items-center gap-2">
+            <span class="w-28 shrink-0 font-label-sm text-label-sm text-on-surface-variant">{% trans "Skills" %} · {{ weights.skills }}%</span>
+            <div class="flex-1 h-2 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-primary rounded-full" style="width: {{ item.match.skills_score }}%"></div></div>
+            <span class="w-8 text-end font-code-inline text-code-inline text-on-surface-variant">{{ item.match.skills_score }}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-28 shrink-0 font-label-sm text-label-sm text-on-surface-variant">{% trans "Interests" %} · {{ weights.interests }}%</span>
+            <div class="flex-1 h-2 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-secondary rounded-full" style="width: {{ item.match.interests_score }}%"></div></div>
+            <span class="w-8 text-end font-code-inline text-code-inline text-on-surface-variant">{{ item.match.interests_score }}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-28 shrink-0 font-label-sm text-label-sm text-on-surface-variant">{% trans "Complementarity" %} · {{ weights.complementarity }}%</span>
+            <div class="flex-1 h-2 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-tertiary rounded-full" style="width: {{ item.match.complementarity_score }}%"></div></div>
+            <span class="w-8 text-end font-code-inline text-code-inline text-on-surface-variant">{{ item.match.complementarity_score }}</span>
+          </div>
+        </div>
+
+        <!-- Skill breakdown -->
+        <div class="flex flex-col gap-2 pt-1">
+          {% if item.match.matched_skills %}
+          <div class="flex flex-wrap items-center gap-1.5">
+            <span class="font-label-sm text-label-sm text-on-surface-variant">{% trans "Shared skills" %}</span>
+            {% for s in item.match.matched_skills %}<span class="px-2 py-0.5 rounded-md bg-tertiary-fixed text-on-tertiary-fixed font-code-inline text-[11px]">{{ s }}</span>{% endfor %}
+          </div>
+          {% endif %}
+          {% if item.match.missing_skills %}
+          <div class="flex flex-wrap items-center gap-1.5">
+            <span class="font-label-sm text-label-sm text-on-surface-variant">{% trans "Skills you could add" %}</span>
+            {% for s in item.match.missing_skills %}<span class="px-2 py-0.5 rounded-md bg-surface-container-high text-on-surface-variant font-code-inline text-[11px]">{{ s }}</span>{% endfor %}
+          </div>
+          {% endif %}
+          {% if item.match.uncovered_team_skills %}
+          <div class="flex flex-wrap items-center gap-1.5">
+            <span class="font-label-sm text-label-sm text-on-surface-variant">{% trans "Still missing in the team" %}</span>
+            {% for s in item.match.uncovered_team_skills %}<span class="px-2 py-0.5 rounded-md bg-secondary-fixed text-on-secondary-fixed font-code-inline text-[11px]">{{ s }}</span>{% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- Availability + existing action -->
+        <div class="pt-2 mt-auto flex flex-col gap-2">
+          {% if item.has_pending_request %}
+            <span class="w-full py-2 rounded-lg bg-surface-container text-on-surface-variant font-label-md text-label-md text-center">{% trans "Request pending" %}</span>
+          {% elif item.has_invitation %}
+            <a href="{% url 'teams:invitations' %}" class="w-full py-2 rounded-lg bg-secondary-container text-on-secondary-container font-label-md text-label-md text-center hover:opacity-95 transition-all">{% trans "Invitation received" %}</a>
+          {% elif item.joinable %}
+            <form method="post" action="{% url 'teams:request_join' item.team.pk %}">
+              {% csrf_token %}
+              <button class="w-full py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all duration-200 active:scale-[0.97]" type="submit">{% trans "Request to join" %}</button>
+            </form>
+          {% else %}
+            <span class="flex items-center gap-2 font-body-sm text-body-sm text-on-surface-variant">
+              <span class="material-symbols-outlined text-[16px] text-outline">block</span>
+              <span>{{ item.join_reason }}</span>
+            </span>
+            <a class="w-full py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all text-center" href="{% url 'teams:detail' item.team.pk %}">{% trans "View Team" %}</a>
+          {% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock %}

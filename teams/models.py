@@ -17,6 +17,8 @@ class Team(models.Model):
     name = models.CharField(_('Name'), max_length=120)
     slug = models.SlugField(_('Slug'), max_length=140, unique=True, blank=True)
     description = models.TextField(_('Description'), blank=True)
+    required_skills = models.TextField(_('Required skills'), blank=True, default='')
+    interests = models.TextField(_('Team interests'), blank=True, default='')
     hackathon = models.ForeignKey(
         'hackathons.Hackathon',
         verbose_name=_('Hackathon'),

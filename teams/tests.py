@@ -1,11 +1,15 @@
 from datetime import timedelta
 
 from django.contrib.auth import get_user_model
-from django.test import TestCase, TransactionTestCase
+from django.db import connection
+from django.test import SimpleTestCase, TestCase, TransactionTestCase
+from django.test.utils import CaptureQueriesContext
 from django.urls import reverse
 from django.utils import timezone
 
 from hackathons.models import Hackathon
+from teams import matching
+from teams.forms import TeamForm
 from teams.models import JoinRequest, Team, TeamInvitation, TeamMembership
 
 User = get_user_model()
@@ -543,3 +547,427 @@ class SelectForUpdateAutocommitTests(TransactionTestCase):
         )
         self.assertEqual(resp.status_code, 302)
         self.assertTrue(self.team.has_member(self.requester))
+
+
+class TeamSkillsFieldsTests(TeamsBase):
+    def test_new_team_fields_default_empty(self):
+        team = Team.objects.create(name='Blank', hackathon=self.hack,
+                                   created_by=self.captain, captain=self.captain)
+        self.assertEqual(team.required_skills, '')
+        self.assertEqual(team.interests, '')
+
+    def test_create_view_persists_skills_and_interests(self):
+        self.login(self.outsider)
+        resp = self.client.post(reverse('teams:create'), {
+            'name': 'Skill Squad', 'hackathon': self.hack.pk, 'max_members': 4,
+            'visibility': 'public', 'allow_join_requests': 'on',
+            'required_skills': 'Backend, DevOps', 'interests': 'Fintech',
+        })
+        self.assertEqual(resp.status_code, 302)
+        team = Team.objects.get(name='Skill Squad')
+        self.assertEqual(team.required_skills, 'Backend, DevOps')
+        self.assertEqual(team.interests, 'Fintech')
+
+    def test_create_view_accepts_empty_skills_and_interests(self):
+        self.login(self.outsider)
+        resp = self.client.post(reverse('teams:create'), {
+            'name': 'NoSkills', 'hackathon': self.hack.pk, 'max_members': 4,
+            'visibility': 'public', 'allow_join_requests': 'on',
+            'required_skills': '', 'interests': '',
+        })
+        self.assertEqual(resp.status_code, 302)
+        team = Team.objects.get(name='NoSkills')
+        self.assertEqual(team.required_skills, '')
+        self.assertEqual(team.interests, '')
+
+    def test_edit_view_updates_and_replaces(self):
+        self.login(self.captain)
+        resp = self.client.post(reverse('teams:edit', args=[self.team.pk]), {
+            'name': 'Code Warriors', 'hackathon': self.hack.pk, 'max_members': 3,
+            'visibility': 'public', 'allow_join_requests': 'on',
+            'required_skills': 'ML, Python', 'interests': 'Health',
+        })
+        self.assertEqual(resp.status_code, 302)
+        self.team.refresh_from_db()
+        self.assertEqual(self.team.required_skills, 'ML, Python')
+        self.assertEqual(self.team.interests, 'Health')
+
+    def test_edit_form_renders_current_values(self):
+        self.team.required_skills = 'Design, UX'
+        self.team.interests = 'Gaming'
+        self.team.save()
+        self.login(self.captain)
+        resp = self.client.get(reverse('teams:edit', args=[self.team.pk]))
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, 'Design, UX')
+        self.assertContains(resp, 'Gaming')
+
+    def test_team_form_allows_blank_new_fields(self):
+        form = TeamForm(data={
+            'name': 'BlankForm', 'hackathon': self.hack.pk, 'max_members': 5,
+            'visibility': 'public', 'required_skills': '', 'interests': '',
+        })
+        self.assertTrue(form.is_valid(), form.errors)
+
+
+# --------------------------------------------------------------------------
+# Smart matching engine (teams/matching.py)
+# --------------------------------------------------------------------------
+class NormalizeTests(SimpleTestCase):
+    """Pure text normalisation — no database access."""
+
+    def test_case_insensitive_and_trims_spaces(self):
+        self.assertEqual(matching.normalize('  PYTHON , Django '), ['python', 'django'])
+
+    def test_splits_on_commas_drops_empties(self):
+        self.assertEqual(matching.normalize('a, ,b,'), ['a', 'b'])
+
+    def test_deduplicates_preserving_order(self):
+        self.assertEqual(matching.normalize('b, a, B, b'), ['b', 'a'])
+
+    def test_empty_and_none(self):
+        self.assertEqual(matching.normalize(''), [])
+        self.assertEqual(matching.normalize(None), [])
+
+    def test_does_not_collapse_synonyms(self):
+        self.assertEqual(matching.normalize('JS, JavaScript'), ['js', 'javascript'])
+
+
+class MatchingScoringTests(SimpleTestCase):
+    """Component maths and explainability on in-memory instances (no DB)."""
+
+    @staticmethod
+    def _user(skills='', interests='', pk=1):
+        return User(pk=pk, username='u', skills=skills, interests=interests)
+
+    @staticmethod
+    def _team(required='', interests='', name='T'):
+        return Team(name=name, required_skills=required, interests=interests)
+
+    def test_exact_match_full_score(self):
+        result = matching.score_team(
+            self._user('PYTHON,django', 'ai, WEB'),
+            self._team('python , Django', 'web,ai'),
+            member_skills=set(),
+        )
+        self.assertEqual(result.score, 100)
+        self.assertEqual(result.skills_score, 100.0)
+        self.assertEqual(result.interests_score, 100.0)
+        self.assertEqual(result.complementarity_score, 100.0)
+        self.assertEqual(result.matched_skills, ['python', 'django'])
+
+    def test_no_overlap_scores_zero(self):
+        result = matching.score_team(
+            self._user('Go', 'Music'), self._team('Python', 'AI'), member_skills=set(),
+        )
+        self.assertEqual(result.score, 0)
+        self.assertEqual(result.missing_skills, ['python'])
+
+    def test_case_and_spacing_are_normalized(self):
+        result = matching.score_team(
+            self._user('  python ,Django '), self._team('Python, Django'), member_skills=set(),
+        )
+        self.assertEqual(result.skills_score, 100.0)
+        self.assertEqual(result.matched_skills, ['python', 'django'])
+
+    def test_duplicates_and_blanks_handled(self):
+        result = matching.score_team(
+            self._user('Python,, PYTHON , python '), self._team('python, python, , '),
+            member_skills=set(),
+        )
+        self.assertEqual(result.matched_skills, ['python'])
+        self.assertEqual(result.skills_score, 100.0)
+
+    def test_team_without_required_skills(self):
+        result = matching.score_team(
+            self._user('Python', 'ai'), self._team('', 'ai'), member_skills=set(),
+        )
+        self.assertEqual(result.skills_score, 0.0)
+        self.assertEqual(result.score, 30)  # only interests (30%) contribute
+        self.assertIn(matching._SKILLS_MISSING, result.explanations)
+
+    def test_team_without_interests(self):
+        result = matching.score_team(
+            self._user('python', 'x'), self._team('python', ''), member_skills=set(),
+        )
+        self.assertEqual(result.interests_score, 0.0)
+        self.assertEqual(result.score, 70)  # skills 50 + complementarity 20
+        self.assertIn(matching._INTERESTS_MISSING, result.explanations)
+
+    def test_complementarity_when_partially_covered(self):
+        result = matching.score_team(
+            self._user('B'), self._team('A, B'), member_skills={'a'},
+        )
+        self.assertEqual(result.skills_score, 50.0)
+        self.assertEqual(result.uncovered_team_skills, ['b'])
+        self.assertEqual(result.complementarity_score, 100.0)
+        self.assertEqual(result.score, 45)  # 0.5*50 + 0.2*100
+
+    def test_complementarity_zero_when_all_covered(self):
+        result = matching.score_team(
+            self._user('C'), self._team('A, B'), member_skills={'a', 'b'},
+        )
+        self.assertEqual(result.uncovered_team_skills, [])
+        self.assertEqual(result.complementarity_score, 0.0)
+        self.assertIn(matching._ALL_SKILLS_COVERED, result.explanations)
+
+    def test_weights_are_named_constants_summing_to_one(self):
+        self.assertAlmostEqual(
+            matching.SKILLS_WEIGHT + matching.INTERESTS_WEIGHT + matching.COMPLEMENTARITY_WEIGHT,
+            1.0,
+        )
+
+    def test_contributions_are_weighted_not_normalized(self):
+        result = matching.score_team(self._user('python'), self._team('python'), member_skills=set())
+        # skills normalised 0..100 is 100, but its weighted contribution is 50.
+        self.assertEqual(result.skills_score, 100.0)
+        self.assertAlmostEqual(result.contributions['skills'], 50.0)
+
+    def test_score_never_exceeds_bounds(self):
+        result = matching.score_team(
+            self._user('a'), self._team('a,b,c', 'x'), member_skills=set(),
+        )
+        self.assertEqual(result.score, 23)
+        self.assertTrue(0 <= result.score <= 100)
+
+    def test_insufficient_data_flag(self):
+        result = matching.score_team(
+            self._user('a', 'b'), self._team('', ''), member_skills=set(),
+        )
+        self.assertFalse(result.sufficient_data)
+        self.assertEqual(result.score, 0)
+        self.assertIn(matching._INSUFFICIENT_TEAM_DATA, result.explanations)
+
+
+class MatchingDbSafetyTests(TeamsBase):
+    """Engine must read only and never mutate stored rows."""
+
+    def _participant(self, username, skills='', interests=''):
+        return make_user(username, skills=skills, interests=interests)
+
+    def _bare_team(self, name, **kw):
+        return Team.objects.create(
+            name=name, hackathon=self.hack, created_by=self.org,
+            max_members=5, visibility='public', **kw,
+        )
+
+    def test_participant_skills_not_counted_as_current_coverage(self):
+        team = self._bare_team('SelfRef', required_skills='b')
+        p = self._participant('selfref_p', skills='b')
+        team.add_member(p)  # participant is already a member
+        self.assertTrue(team.has_member(p))
+        result = matching.score_team(p, team)  # loads members from DB
+        # The participant's own skill 'b' must NOT mark the requirement covered.
+        self.assertIn('b', result.uncovered_team_skills)
+        self.assertEqual(result.complementarity_score, 100.0)
+
+    def test_rank_teams_orders_by_score_desc(self):
+        weak = self._bare_team('Weak', required_skills='z', interests='q')
+        strong = self._bare_team('Strong', required_skills='python, django', interests='ai')
+        p = self._participant('rank_p', skills='Python, Django', interests='AI')
+        ranked = matching.rank_teams(p, [weak, strong])
+        self.assertEqual([r.team_id for r in ranked][0], strong.pk)
+        self.assertGreaterEqual(ranked[0].score, ranked[-1].score)
+
+    def test_rank_teams_loads_members_in_single_query(self):
+        t1 = self._bare_team('RQ1', required_skills='python')
+        t2 = self._bare_team('RQ2', required_skills='django')
+        t3 = self._bare_team('RQ3', required_skills='go')
+        p = self._participant('rq_p', skills='python')
+        with CaptureQueriesContext(connection) as ctx:
+            matching.rank_teams(p, [t1, t2, t3])
+        membership_queries = [
+            q for q in ctx.captured_queries
+            if 'teams_teammembership' in q['sql'].lower()
+        ]
+        self.assertEqual(len(membership_queries), 1)
+
+    def test_matching_does_not_modify_database(self):
+        team = self._bare_team(
+            'Immutable', required_skills='python, ml', interests='ai, web',
+        )
+        member = self._participant('im_member', skills='python')
+        team.add_member(member)
+        p = self._participant('im_p', skills='ml', interests='ai')
+
+        team_snapshot = Team.objects.filter(pk=team.pk).values()
+        counts_before = (
+            Team.objects.count(), TeamMembership.objects.count(),
+            JoinRequest.objects.count(), TeamInvitation.objects.count(),
+        )
+
+        matching.score_team(p, team)
+        matching.rank_teams(p, [team])
+
+        self.assertEqual(
+            (Team.objects.count(), TeamMembership.objects.count(),
+             JoinRequest.objects.count(), TeamInvitation.objects.count()),
+            counts_before,
+        )
+        self.assertEqual(list(Team.objects.filter(pk=team.pk).values()), list(team_snapshot))
+        team.refresh_from_db()
+        self.assertEqual(team.required_skills, 'python, ml')
+        self.assertEqual(team.interests, 'ai, web')
+        member.refresh_from_db()
+        self.assertEqual(member.skills, 'python')
+
+
+class RecommendationsViewTests(TeamsBase):
+    """Integrates the matching engine into the participant recommendations page."""
+
+    def url(self, hackathon):
+        return reverse('teams:recommendations') + f'?hackathon={hackathon.pk}'
+
+    def _participant(self, name, skills='', interests=''):
+        return make_user(name, skills=skills, interests=interests)
+
+    def _team(self, name, **kw):
+        defaults = dict(hackathon=self.hack, created_by=self.captain,
+                        captain=self.captain, max_members=5,
+                        visibility='public', status='active',
+                        required_skills='', interests='')
+        defaults.update(kw)
+        return Team.objects.create(name=name, **defaults)
+
+    def _item(self, results, team):
+        return next(r for r in results if r['team'].pk == team.pk)
+
+    # 1. Access
+    def test_participant_can_access(self):
+        self.login(self.outsider)
+        resp = self.client.get(self.url(self.hack))
+        self.assertEqual(resp.status_code, 200)
+
+    def test_jury_redirected(self):
+        self.login(self.jury)
+        resp = self.client.get(self.url(self.hack))
+        self.assertEqual(resp.status_code, 302)
+        self.assertIn('/teams', resp['Location'])
+
+    def test_organizer_redirected(self):
+        self.login(self.org)
+        resp = self.client.get(self.url(self.hack))
+        self.assertEqual(resp.status_code, 302)
+
+    def test_anonymous_redirected_to_login(self):
+        resp = self.client.get(self.url(self.hack))
+        self.assertEqual(resp.status_code, 302)
+        self.assertIn('/login', resp['Location'])
+
+    # 3. Hackathon filtering
+    def test_only_relevant_hackathon_teams(self):
+        self._team('OtherEvent', hackathon=self.other_hack, required_skills='python')
+        self.login(self._participant('f1', skills='python'))
+        resp = self.client.get(self.url(self.hack))
+        self.assertNotContains(resp, 'OtherEvent')
+
+    # 4. Exclude teams already joined
+    def test_excludes_teams_user_is_member_of(self):
+        self.login(self.member)  # member of self.team 'Code Warriors'
+        resp = self.client.get(self.url(self.hack))
+        self.assertNotContains(resp, 'Code Warriors')
+
+    # 5. Ordering by score desc
+    def test_results_ordered_by_score_desc(self):
+        strong = self._team('Strong', required_skills='python, django', interests='ai, web')
+        weak = self._team('Weak', required_skills='rust', interests='iot')
+        self.login(self._participant('o2', skills='python, django', interests='ai, web'))
+        results = self.client.get(self.url(self.hack)).context['results']
+        names = [r['team'].name for r in results]
+        self.assertEqual(names[0], 'Strong')
+        scores = [r['match']['score'] for r in results]
+        self.assertEqual(scores, sorted(scores, reverse=True))
+        self.assertGreater(self._item(results, strong)['match']['score'],
+                           self._item(results, weak)['match']['score'])
+
+    # 6. Compatibility vs joinability
+    def test_full_team_is_compatible_but_not_joinable(self):
+        full = self._team('FullRoom', required_skills='python', max_members=1)
+        full.add_member(self.captain)
+        self.login(self._participant('o3', skills='python'))
+        results = self.client.get(self.url(self.hack)).context['results']
+        item = self._item(results, full)
+        self.assertEqual(item['match']['skills_score'], 100.0)  # compatible
+        self.assertFalse(item['joinable'])                       # but cannot join
+        self.assertTrue(item['join_reason'])
+
+    # 7. Respect archived / private / closed
+    def test_archived_and_private_teams_excluded(self):
+        self._team('ArchivedTeam', required_skills='python', status='archived')
+        self._team('SecretTeam', required_skills='python', visibility='private')
+        self.login(self._participant('o4', skills='python'))
+        resp = self.client.get(self.url(self.hack))
+        self.assertNotContains(resp, 'ArchivedTeam')
+        self.assertNotContains(resp, 'SecretTeam')
+
+    def test_closed_hackathon_is_not_selectable(self):
+        self.hack.status = Hackathon.Status.CLOSED
+        self.hack.save(update_fields=['status'])
+        self.login(self._participant('o5', skills='python'))
+        resp = self.client.get(self.url(self.hack))
+        self.assertEqual(resp.status_code, 200)
+        self.assertIsNone(resp.context['selected_hackathon'])
+        self.assertEqual(resp.context['results'], [])
+
+    # 8. Existing pending request / invitation
+    def test_pending_request_surfaces_instead_of_join_action(self):
+        team = self._team('PendingTeam', required_skills='python')
+        p = self._participant('o6', skills='python')
+        JoinRequest.objects.create(team=team, user=p)
+        self.login(p)
+        resp = self.client.get(self.url(self.hack))
+        item = self._item(resp.context['results'], team)
+        self.assertTrue(item['has_pending_request'])
+        self.assertContains(resp, 'Request pending')
+
+    def test_pending_invitation_surfaces(self):
+        team = self._team('InviteTeam', required_skills='python')
+        p = self._participant('o7', skills='python')
+        TeamInvitation.objects.create(team=team, inviter=self.captain, invitee=p,
+                                      expires_at=timezone.now() + timedelta(days=7))
+        self.login(p)
+        results = self.client.get(self.url(self.hack)).context['results']
+        self.assertTrue(self._item(results, team)['has_invitation'])
+
+    # 9. Empty profile
+    def test_empty_profile_flag_and_no_crash(self):
+        self.login(self._participant('blankprofile'))
+        resp = self.client.get(self.url(self.hack))
+        self.assertEqual(resp.status_code, 200)
+        self.assertFalse(resp.context['profile_has_data'])
+
+    # 10. Hackathon without recommended teams
+    def test_hackathon_without_teams(self):
+        empty = Hackathon.objects.create(name='EmptyHack', status=Hackathon.Status.REGISTRATION_OPEN,
+                                         created_by=self.org)
+        self.login(self._participant('o8', skills='python'))
+        resp = self.client.get(self.url(empty))
+        self.assertEqual(resp.context['results'], [])
+        self.assertTrue(resp.context['no_teams'])
+
+    # 11. No private data leak
+    def test_does_not_leak_private_team_or_member_skills(self):
+        priv = self._team('HiddenTeam', visibility='private', required_skills='python',
+                          description='SECRETDESC')
+        leak = self._team('LeakCheck', required_skills='python')
+        other = self._participant('memx', skills='secretskill')
+        leak.add_member(other)
+        self.login(self._participant('o9', skills='python'))
+        resp = self.client.get(self.url(self.hack))
+        self.assertNotContains(resp, 'HiddenTeam')
+        self.assertNotContains(resp, 'SECRETDESC')
+        self.assertNotContains(resp, 'secretskill')
+
+    # 12. Engine components used verbatim
+    def test_components_and_breakdown_exposed(self):
+        team = self._team('Alpha', required_skills='python', interests='ai')
+        p = self._participant('o10', skills='python', interests='ai')
+        self.login(p)
+        results = self.client.get(self.url(self.hack)).context['results']
+        match = self._item(results, team)['match']
+        self.assertEqual(match['skills_score'], 100)
+        self.assertEqual(match['interests_score'], 100)
+        self.assertEqual(match['matched_skills'], ['python'])
+        self.assertEqual(match['uncovered_team_skills'], ['python'])
+        self.assertTrue(match['sufficient_data'])
+        self.assertEqual(match['score'], 100)
