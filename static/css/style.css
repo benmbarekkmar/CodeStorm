@@ -190,3 +190,8 @@ body {
     }
 }
 
+
+:focus-visible {
+    outline: 3px solid #5b21b6;
+    outline-offset: 2px;
+}
