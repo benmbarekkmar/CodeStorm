@@ -11,6 +11,7 @@ from accounts.forms import (
     PersonalInfoForm,
     RegisterForm,
 )
+from accounts.models import User
 
 
 def register(request):
@@ -19,7 +20,12 @@ def register(request):
 
     form = RegisterForm(request.POST or None)
     if request.method == 'POST' and form.is_valid():
-        user = form.save()
+        # ``role`` is not a form field, so a manipulated POST cannot set it.
+        # Pin it explicitly anyway as defense-in-depth: self-service signup
+        # always yields a participant; admins promote roles afterwards.
+        user = form.save(commit=False)
+        user.role = User.Role.PARTICIPANT
+        user.save()
         login(request, user)
         return redirect('dashboard')
 
