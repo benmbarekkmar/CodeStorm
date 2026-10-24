@@ -44,6 +44,12 @@ class Hackathon(models.Model):
     max_team_size = models.PositiveSmallIntegerField(_('Max team size'), default=5)
 
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.DRAFT)
+    # Set only by the prizes module when an organizer publishes official results.
+    results_published = models.BooleanField(
+        _('Results published'),
+        default=False,
+        help_text=_('When True, participants can view the leaderboard and their prizes.'),
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

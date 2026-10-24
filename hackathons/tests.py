@@ -294,7 +294,7 @@ class HackathonCreationTests(TestCase):
             "id", "organizer", "title", "description", "category", "event_format",
             "location", "banner", "start_date", "end_date", "registration_deadline",
             "submission_deadline", "max_participants", "min_team_size",
-            "max_team_size", "status", "created_at", "updated_at",
+            "max_team_size", "status", "results_published", "created_at", "updated_at",
         })
         self.assertFalse({"name", "slug", "allow_multiple_teams"} & mapped)
 

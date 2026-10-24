@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% trans "Issue certificates" %} | {{ hackathon.title }}{% endblock %}
+{% block page_name %}prizes-leaderboard{% endblock %}
+{% block breadcrumb_section %}{% trans "Prizes & Leaderboard" %}{% endblock %}
+{% block breadcrumb_page %}{% trans "Certificates" %}{% endblock %}
+{% block content %}
+{% include "prizes/_messages.html" %}
+<div class="mx-auto flex w-full max-w-4xl flex-col gap-space-md px-space-md py-space-lg"><section class="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm"><h1 class="font-headline-lg text-headline-lg font-bold">{% trans "Issue certificates" %}</h1><p class="font-body-md text-body-md text-on-surface-variant">{{ hackathon.title }} — {% trans "Each team member receives one rank certificate; each winning project receives a separate certificate for each prize." %}</p>
+  {% if entries %}<ul class="mt-4 flex flex-col divide-y divide-outline-variant">{% for entry in entries %}<li class="py-3">{% trans "Rank" %} {{ entry.rank }} — {{ entry.project.title }} ({{ entry.project.team.name }})</li>{% endfor %}</ul><form method="post" class="mt-5 flex justify-end gap-2">{% csrf_token %}<input type="hidden" name="confirm" value="yes"><a class="rounded-lg bg-surface-container px-4 py-2" href="{% url 'prizes:home' %}?hackathon={{ hackathon.pk }}">{% trans "Cancel" %}</a><button class="rounded-lg bg-primary-container px-4 py-2 font-semibold text-on-primary" type="submit" onclick="return confirm('{% trans "Issue certificates for the published results?" %}');">{% trans "Issue certificates" %}</button></form>{% else %}<p class="mt-4 rounded-lg bg-secondary-fixed p-4">{% trans "There are no published ranking entries to certify." %}</p>{% endif %}
+</section></div>
+{% endblock %}

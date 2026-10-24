@@ -6842,3 +6842,786 @@ msgstr "Encore manquants dans l'équipe"
 
 msgid "Invitation received"
 msgstr "Invitation reçue"
+
+msgid "Delete category"
+msgstr "Supprimer la catégorie"
+
+msgid "Delete category?"
+msgstr "Supprimer la catégorie ?"
+
+msgid "Delete “{{ name }}”? Existing prizes will be kept and will no longer have this category."
+msgstr "Supprimer « {{ name }} » ? Les récompenses existantes seront conservées et n'auront plus cette catégorie."
+
+msgid "Save category"
+msgstr "Enregistrer la catégorie"
+
+msgid "Prize categories"
+msgstr "Catégories de récompenses"
+
+msgid "Categories"
+msgstr "Catégories"
+
+msgid "Categories are shared labels. Changes are blocked while another organizer uses the category."
+msgstr "Les catégories sont des libellés partagés. Les modifications sont bloquées tant qu'un autre organisateur les utilise."
+
+msgid "No description"
+msgstr "Aucune description"
+
+msgid "No categories yet."
+msgstr "Aucune catégorie pour le moment."
+
+msgid "Back to Prizes & Leaderboard"
+msgstr "Retour aux récompenses et au classement"
+
+msgid "Add category"
+msgstr "Ajouter une catégorie"
+
+msgid "Create category"
+msgstr "Créer une catégorie"
+
+msgid "Issue certificates"
+msgstr "Délivrer les diplômes"
+
+msgid "Each team member receives one rank certificate; each winning project receives a separate certificate for each prize."
+msgstr "Chaque membre de l'équipe reçoit un diplôme de rang ; chaque projet lauréat reçoit un diplôme distinct pour chaque récompense."
+
+msgid "Issue certificates for the published results?"
+msgstr "Délivrer les diplômes pour les résultats publiés ?"
+
+msgid "There are no published ranking entries to certify."
+msgstr "Aucun projet publié au classement ne peut être certifié."
+
+msgid "Issued certificates"
+msgstr "Diplômes délivrés"
+
+msgid "No certificates have been issued yet."
+msgstr "Aucun diplôme n'a encore été délivré."
+
+msgid "Certificate preview"
+msgstr "Aperçu du diplôme"
+
+msgid "HackFlow certificate"
+msgstr "Diplôme HackFlow"
+
+msgid "is recognized for"
+msgstr "est reconnu pour"
+
+msgid "Certificate ID"
+msgstr "Identifiant du diplôme"
+
+msgid "Prepare leaderboard"
+msgstr "Préparer le classement"
+
+msgid "Results are published. Unpublish them before changing the draft ranking."
+msgstr "Les résultats sont publiés. Dépubliez-les avant de modifier le classement provisoire."
+
+msgid "Calculated result"
+msgstr "Résultat calculé"
+
+msgid "For each jury evaluation, the existing weighted criterion score is used; project scores are then averaged across complete evaluations. Equal scores share a rank (1, 1, 3). Jury comments are not shown."
+msgstr "Pour chaque évaluation du jury, la note pondérée du critère est réutilisée ; les notes des projets sont ensuite moyennées sur les évaluations complètes. Les notes égales partagent un rang (1, 1, 3). Les commentaires du jury ne sont pas affichés."
+
+msgid "Project / team"
+msgstr "Projet / équipe"
+
+msgid "Save draft ranking"
+msgstr "Enregistrer le classement provisoire"
+
+msgid "There is no reliable ranking to show yet."
+msgstr "Aucun classement fiable à afficher pour le moment."
+
+msgid "Saved draft"
+msgstr "Provisoire enregistré"
+
+msgid "Review for publication"
+msgstr "Vérifier avant publication"
+
+msgid "No saved draft ranking yet."
+msgstr "Aucun classement provisoire enregistré pour le moment."
+
+msgid "Publish results"
+msgstr "Publier les résultats"
+
+msgid "Review before publishing"
+msgstr "Vérification avant publication"
+
+msgid "Publishing makes this ranking and its prize assignments official."
+msgstr "La publication rend ce classement et ses attributions de récompenses officiels."
+
+msgid "Team / project"
+msgstr "Équipe / projet"
+
+msgid "Only the published aggregate scores are visible. Jury comments and private notes are excluded."
+msgstr "Seules les notes agrégées publiées sont visibles. Les commentaires du jury et les notes privées en sont exclus."
+
+msgid "Publish the official results for this hackathon?"
+msgstr "Publier les résultats officiels de ce hackathon ?"
+
+msgid "Unpublish results"
+msgstr "Dépublier les résultats"
+
+msgid "Unpublish official results?"
+msgstr "Dépublier les résultats officiels ?"
+
+msgid "This action is unavailable after certificates have been issued, so existing credentials remain valid."
+msgstr "Cette action est indisponible après la délivrance des diplômes, afin que les attestations existantes restent valides."
+
+msgid "Unpublish"
+msgstr "Dépublier"
+
+msgid "Participants will no longer see the ranking for {{ name }}. Prize assignments will return to draft status."
+msgstr "Les participants ne verront plus le classement de {{ name }}. Les attributions de récompenses reviendront à l'état provisoire."
+
+msgid "Assign winners"
+msgstr "Attribuer les lauréats"
+
+msgid "Assign winning projects"
+msgstr "Attribuer les projets lauréats"
+
+msgid "Save a complete leaderboard before assigning a winner."
+msgstr "Enregistrez un classement complet avant d'attribuer un lauréat."
+
+msgid "No eligible ranked projects."
+msgstr "Aucun projet classé éligible."
+
+msgid "Save assignment"
+msgstr "Enregistrer l'attribution"
+
+msgid "Select up to {{ slots }} project(s) from the saved, evaluated ranking. An empty selection leaves the prize available."
+msgstr "Sélectionnez jusqu'à {{ slots }} projet(s) parmi le classement évalué enregistré. Une sélection vide laisse la récompense disponible."
+
+msgid "Delete Prize"
+msgstr "Supprimer la récompense"
+
+msgid "This action cannot be undone."
+msgstr "Cette action est irréversible."
+
+msgid "Are you sure you want to delete the prize"
+msgstr "Voulez-vous vraiment supprimer la récompense"
+
+msgid "from"
+msgstr "de"
+
+msgid "This prize has already been awarded to a project. Deleting it may affect reports."
+msgstr "Cette récompense a déjà été attribuée à un projet. Sa suppression peut affecter les rapports."
+
+msgid "Yes, Delete Prize"
+msgstr "Oui, supprimer la récompense"
+
+msgid "Prize"
+msgstr "Récompense"
+
+msgid "Prize details"
+msgstr "Détails de la récompense"
+
+msgid "Back to prizes"
+msgstr "Retour aux récompenses"
+
+msgid "No additional description."
+msgstr "Aucune description supplémentaire."
+
+msgid "Reward"
+msgstr "Gratification"
+
+msgid "Not specified"
+msgstr "Non précisé"
+
+msgid "Cash amount"
+msgstr "Montant en argent"
+
+msgid "Sponsor"
+msgstr "Sponsor"
+
+msgid "Winner slots"
+msgstr "Places de lauréats"
+
+msgid "Eligibility"
+msgstr "Éligibilité"
+
+msgid "Assigned winning projects"
+msgstr "Projets lauréats attribués"
+
+msgid "No winner has been assigned."
+msgstr "Aucun lauréat n'a été attribué."
+
+msgid "Edit prize"
+msgstr "Modifier la récompense"
+
+msgid "Assign winner"
+msgstr "Attribuer un lauréat"
+
+msgid "Edit Prize"
+msgstr "Modifier la récompense"
+
+msgid "Create Prize"
+msgstr "Créer une récompense"
+
+msgid "New Prize"
+msgstr "Nouvelle récompense"
+
+msgid "Fill in the details for this prize."
+msgstr "Renseignez les détails de cette récompense."
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Cash Amount (USD)"
+msgstr "Montant en argent (USD)"
+
+msgid "Winner Slots"
+msgstr "Places de lauréats"
+
+msgid "Non-Cash Reward"
+msgstr "Gratification non monétaire"
+
+msgid "e.g. Cloud credits, internship offer, mentoring sessions..."
+msgstr "Ex. : crédits cloud, offre de stage, séances de mentorat..."
+
+msgid "Prizes & Leaderboard | HackFlow"
+msgstr "Récompenses et classement | HackFlow"
+
+msgid "Manage prize categories, awards, official rankings and certificates."
+msgstr "Gérez les catégories de récompenses, les prix, les classements officiels et les diplômes."
+
+msgid "Sponsors"
+msgstr "Sponsors"
+
+msgid "Add prize"
+msgstr "Ajouter une récompense"
+
+msgid "Prize statistics"
+msgstr "Statistiques des récompenses"
+
+msgid "Cash prize pool (USD)"
+msgstr "Enveloppe monétaire (USD)"
+
+msgid "Each prize, project ranking and certificate is scoped to its hackathon."
+msgstr "Chaque récompense, classement de projet et diplôme est rattaché à son hackathon."
+
+msgid "prize(s)"
+msgstr "récompense(s)"
+
+msgid "configured prize(s)"
+msgstr "récompense(s) configurée(s)"
+
+msgid "Prepare ranking"
+msgstr "Préparer le classement"
+
+msgid "Review & publish"
+msgstr "Vérifier et publier"
+
+msgid "Jury assigned through evaluations"
+msgstr "Jury attribué par les évaluations"
+
+msgid "No jury evaluations are assigned to projects in this hackathon yet."
+msgstr "Aucune évaluation du jury n'est encore attribuée aux projets de ce hackathon."
+
+msgid "Jury assignments are managed by the existing evaluation workflow."
+msgstr "Les attributions du jury sont gérées par le flux d'évaluation existant."
+
+msgid "winner slot(s)"
+msgstr "place(s) de lauréat"
+
+msgid "Assigned projects"
+msgstr "Projets attribués"
+
+msgid "No prizes configured for this hackathon."
+msgstr "Aucune récompense configurée pour ce hackathon."
+
+msgid "Create the first prize"
+msgstr "Créer la première récompense"
+
+msgid "Leaderboard draft"
+msgstr "Classement provisoire"
+
+msgid "Jury notes and comments are never displayed here."
+msgstr "Les notes et commentaires du jury ne sont jamais affichés ici."
+
+msgid "Open ranking"
+msgstr "Ouvrir le classement"
+
+msgid "Team / Project"
+msgstr "Équipe / Projet"
+
+msgid "No ranking has been saved yet. Prepare one after all submitted projects have complete evaluations."
+msgstr "Aucun classement n'a encore été enregistré. Préparez-le une fois que tous les projets soumis ont des évaluations complètes."
+
+msgid "Official results are published."
+msgstr "Les résultats officiels sont publiés."
+
+msgid "Draft results are visible only to this hackathon’s organizer."
+msgstr "Les résultats provisoires ne sont visibles que par l'organisateur de ce hackathon."
+
+msgid "You do not manage any hackathons yet."
+msgstr "Vous ne gérez encore aucun hackathon."
+
+msgid "Create or get assigned to a hackathon before adding prizes."
+msgstr "Créez un hackathon ou soyez rattaché à l'un d'eux avant d'ajouter des récompenses."
+
+msgid "Recently issued certificates"
+msgstr "Diplômes récemment délivrés"
+
+msgid "Prizes & Results | HackFlow"
+msgstr "Récompenses et résultats | HackFlow"
+
+msgid "Published prizes and rankings for hackathons where you have evaluated projects."
+msgstr "Récompenses et classements publiés pour les hackathons où vous avez évalué des projets."
+
+msgid "Prizes for your hackathons and official rankings after publication."
+msgstr "Récompenses de vos hackathons et classements officiels après publication."
+
+msgid "Published results"
+msgstr "Résultats publiés"
+
+msgid "Results not published"
+msgstr "Résultats non publiés"
+
+msgid "Cash amount:"
+msgstr "Montant en argent :"
+
+msgid "Awarded to"
+msgstr "Attribuée à"
+
+msgid "No prizes have been configured yet."
+msgstr "Aucune récompense n'a encore été configurée."
+
+msgid "Official leaderboard"
+msgstr "Classement officiel"
+
+msgid "Team and project"
+msgstr "Équipe et projet"
+
+msgid "No ranking entries have been published."
+msgstr "Aucun élément du classement n'a été publié."
+
+msgid "The organizer has not published results yet. Jury scores and comments remain private."
+msgstr "L'organisateur n'a pas encore publié les résultats. Les notes et commentaires du jury restent privés."
+
+msgid "No published results are available for your assigned evaluations."
+msgstr "Aucun résultat publié n'est disponible pour les évaluations qui vous sont assignées."
+
+msgid "You are not a member of a hackathon team yet."
+msgstr "Vous n'êtes encore membre d'aucune équipe de hackathon."
+
+msgid "My certificates"
+msgstr "Mes diplômes"
+
+msgid "No certificates have been issued to your account yet."
+msgstr "Aucun diplôme n'a encore été délivré à votre compte."
+
+msgid "Save sponsor"
+msgstr "Enregistrer le sponsor"
+
+msgid "Sponsor records are reusable. Only their creator can edit public details."
+msgstr "Les fiches de sponsor sont réutilisables. Seul leur créateur peut modifier les informations publiques."
+
+msgid "Add sponsor"
+msgstr "Ajouter un sponsor"
+
+msgid "No sponsors have been added yet."
+msgstr "Aucun sponsor n'a encore été ajouté."
+
+msgid "Sponsor name"
+msgstr "Nom du sponsor"
+
+msgid "Website"
+msgstr "Site web"
+
+msgid "Logo"
+msgstr "Logo"
+
+msgid "Contact email"
+msgstr "E-mail de contact"
+
+msgid "Category name"
+msgstr "Nom de la catégorie"
+
+msgid "Material icon name"
+msgstr "Nom de l'icône Material"
+
+msgid "Google Material Symbols icon name, e.g. \"emoji_events\""
+msgstr "Nom d'icône Google Material Symbols, par ex. « emoji_events »"
+
+msgid "Display order"
+msgstr "Ordre d'affichage"
+
+msgid "Prize Category"
+msgstr "Catégorie de récompense"
+
+msgid "Prize Categories"
+msgstr "Catégories de récompenses"
+
+msgid "Assigned — awaiting confirmation"
+msgstr "Attribuée — en attente de confirmation"
+
+msgid "Awarded — officially confirmed"
+msgstr "Décernée — officiellement confirmée"
+
+msgid "Prize name"
+msgstr "Nom de la récompense"
+
+msgid "Reward description"
+msgstr "Description de la gratification"
+
+msgid "Brief text describing the reward (e.g. Cloud credits, internship...)"
+msgstr "Texte bref décrivant la gratification (ex. crédits cloud, stage...)"
+
+msgid "Cash amount (USD)"
+msgstr "Montant en argent (USD)"
+
+msgid "Winning project"
+msgstr "Projet lauréat"
+
+msgid "Number of winner slots"
+msgstr "Nombre de places de lauréats"
+
+msgid "Eligibility criteria"
+msgstr "Critères d'éligibilité"
+
+msgid "Describes who can receive this prize."
+msgstr "Décrit qui peut recevoir cette récompense."
+
+msgid "The winning project must belong to this hackathon."
+msgstr "Le projet lauréat doit appartenir à ce hackathon."
+
+msgid "1 = First place."
+msgstr "1 = première place."
+
+msgid "Final score"
+msgstr "Note finale"
+
+msgid "Score breakdown"
+msgstr "Détail des notes"
+
+msgid "JSON dict: {criterion_name: averaged_score}"
+msgstr "Dictionnaire JSON : {nom_du_critère: note_moyenne}"
+
+msgid "Organizer notes"
+msgstr "Notes de l'organisateur"
+
+msgid "Private notes visible only to organizers."
+msgstr "Notes privées visibles uniquement par les organisateurs."
+
+msgid "Leaderboard Entry"
+msgstr "Entrée de classement"
+
+msgid "Leaderboard Entries"
+msgstr "Entrées de classement"
+
+msgid "Rank must be at least 1."
+msgstr "Le rang doit être au moins 1."
+
+msgid "Final score must be between 0 and 10."
+msgstr "La note finale doit être comprise entre 0 et 10."
+
+msgid "The project must belong to this hackathon."
+msgstr "Le projet doit appartenir à ce hackathon."
+
+msgid "Winner Certificate"
+msgstr "Diplôme de lauréat"
+
+msgid "Finalist Certificate"
+msgstr "Diplôme de finaliste"
+
+msgid "Special Award Certificate"
+msgstr "Diplôme de prix spécial"
+
+msgid "Certificate UID"
+msgstr "Identifiant unique du diplôme"
+
+msgid "Certificate type"
+msgstr "Type de diplôme"
+
+msgid "Recipient"
+msgstr "Bénéficiaire"
+
+msgid "Associated prize"
+msgstr "Récompense associée"
+
+msgid "Issue date"
+msgstr "Date de délivrance"
+
+msgid "PDF file"
+msgstr "Fichier PDF"
+
+msgid "Certificate rank must be at least 1."
+msgstr "Le rang du diplôme doit être au moins 1."
+
+msgid "Certificates can only be issued to participants."
+msgstr "Les diplômes ne peuvent être délivrés qu'à des participants."
+
+msgid "Certificates can only be issued after results are published."
+msgstr "Les diplômes ne peuvent être délivrés qu'après la publication des résultats."
+
+msgid "A special award certificate must reference its prize."
+msgstr "Un diplôme de prix spécial doit référencer sa récompense."
+
+msgid "The prize must belong to this hackathon."
+msgstr "La récompense doit appartenir à ce hackathon."
+
+msgid "A prize certificate requires an officially awarded prize."
+msgstr "Un diplôme de récompense exige une récompense officiellement décernée."
+
+msgid "Winner slot"
+msgstr "Place de lauréat"
+
+msgid "Slot number within the prize, from 1 to the configured winner slots."
+msgstr "Numéro de place dans la récompense, de 1 au nombre de places configuré."
+
+msgid "Prize award"
+msgstr "Attribution de récompense"
+
+msgid "Prize awards"
+msgstr "Attributions de récompenses"
+
+msgid "The winning project must belong to the prize hackathon."
+msgstr "Le projet lauréat doit appartenir au hackathon de la récompense."
+
+msgid "The winning project must be present in the saved ranking."
+msgstr "Le projet lauréat doit figurer dans le classement enregistré."
+
+msgid "This prize has fewer winner slots than the selected position."
+msgstr "Cette récompense a moins de places de lauréats que la position sélectionnée."
+
+msgid "Prize “%(name)s” created."
+msgstr "Récompense « %(name)s » créée."
+
+msgid "Create prize"
+msgstr "Créer la récompense"
+
+msgid "Save prize"
+msgstr "Enregistrer la récompense"
+
+msgid "Unpublish results before changing this prize."
+msgstr "Dépubliez les résultats avant de modifier cette récompense."
+
+msgid "Prize “%(name)s” updated."
+msgstr "Récompense « %(name)s » mise à jour."
+
+msgid "Update prize"
+msgstr "Mettre à jour la récompense"
+
+msgid "Remove the draft winner assignments before deleting this prize."
+msgstr "Retirez les attributions provisoires de lauréats avant de supprimer cette récompense."
+
+msgid "Prize “%(name)s” deleted."
+msgstr "Récompense « %(name)s » supprimée."
+
+msgid "Unpublish results before changing prize assignments."
+msgstr "Dépubliez les résultats avant de modifier les attributions de récompenses."
+
+msgid "The selected winners exceed this prize’s configured slots."
+msgstr "Les lauréats sélectionnés dépassent les places configurées de cette récompense."
+
+msgid "Every winner must be part of the saved ranking."
+msgstr "Chaque lauréat doit figurer dans le classement enregistré."
+
+msgid "Winner assignments for “%(name)s” saved."
+msgstr "Attributions de lauréats pour « %(name)s » enregistrées."
+
+msgid "Sponsor “%(name)s” created."
+msgstr "Sponsor « %(name)s » créé."
+
+msgid "Sponsor updated."
+msgstr "Sponsor mis à jour."
+
+msgid "Edit sponsor"
+msgstr "Modifier le sponsor"
+
+msgid "Category “%(name)s” created."
+msgstr "Catégorie « %(name)s » créée."
+
+msgid "Category updated."
+msgstr "Catégorie mise à jour."
+
+msgid "Edit category"
+msgstr "Modifier la catégorie"
+
+msgid "Category deleted; existing prizes were preserved."
+msgstr "Catégorie supprimée ; les récompenses existantes ont été conservées."
+
+msgid "Draft ranking saved for review."
+msgstr "Classement provisoire enregistré pour vérification."
+
+msgid "Results are already published."
+msgstr "Les résultats sont déjà publiés."
+
+msgid "Prepare and save a ranking before publishing results."
+msgstr "Préparez et enregistrez un classement avant de publier les résultats."
+
+msgid "Official results have been published."
+msgstr "Les résultats officiels ont été publiés."
+
+msgid "Results are not currently published."
+msgstr "Les résultats ne sont pas publiés actuellement."
+
+msgid "Results cannot be unpublished after certificates have been issued."
+msgstr "Les résultats ne peuvent plus être dépubliés après la délivrance des diplômes."
+
+msgid "Publication removed; prize assignments remain drafts."
+msgstr "Publication retirée ; les attributions de récompenses restent provisoires."
+
+msgid "Publish official results before issuing certificates."
+msgstr "Publiez les résultats officiels avant de délivrer les diplômes."
+
+msgid "%(count)d new certificate(s) issued. They can now be downloaded by their recipients."
+msgstr "%(count)d nouveau(x) diplôme(s) délivré(s). Ils peuvent désormais être téléchargés par leurs bénéficiaires."
+
+msgid "PDF generation is unavailable on this server."
+msgstr "La génération de PDF est indisponible sur ce serveur."
+
+msgid "e.g. Grand Prize, Best Innovation..."
+msgstr "Ex. : Grand prix, Meilleure innovation..."
+
+msgid "A category with this name already exists."
+msgstr "Une catégorie portant ce nom existe déjà."
+
+msgid "Sponsor organization name"
+msgstr "Nom de l'organisation sponsor"
+
+msgid "e.g. Cloud credits, internship, mentoring..."
+msgstr "Ex. : crédits cloud, stage, mentorat..."
+
+msgid "Who can receive this prize?"
+msgstr "Qui peut recevoir cette récompense ?"
+
+msgid "Prize amount cannot be negative."
+msgstr "Le montant de la récompense ne peut pas être négatif."
+
+msgid "A prize with this name already exists for this hackathon."
+msgstr "Une récompense portant ce nom existe déjà pour ce hackathon."
+
+msgid "Winner slots cannot be fewer than the current winner assignments."
+msgstr "Le nombre de places de lauréats ne peut être inférieur aux attributions actuelles."
+
+msgid "Winning projects"
+msgstr "Projets lauréats"
+
+msgid "Select no more projects than this prize has winner slots."
+msgstr "Sélectionnez pas plus de projets que de places de lauréats pour cette récompense."
+
+msgid "Select at most %(count)d winning project(s)."
+msgstr "Sélectionnez au plus %(count)d projet(s) lauréat(s)."
+
+msgid "Private organizer notes..."
+msgstr "Notes privées de l'organisateur..."
+
+msgid "Add evaluation criteria before preparing results."
+msgstr "Ajoutez des critères d'évaluation avant de préparer les résultats."
+
+msgid "The evaluation rubric contains an invalid weight."
+msgstr "Le barème d'évaluation contient une pondération invalide."
+
+msgid "The evaluation rubric contains duplicate criterion names."
+msgstr "Le barème d'évaluation contient des noms de critères en double."
+
+msgid "There are no submitted projects to rank."
+msgstr "Aucun projet soumis à classer."
+
+msgid "Project “%(project)s” has not been marked as evaluated."
+msgstr "Le projet « %(project)s » n'a pas été marqué comme évalué."
+
+msgid "Project “%(project)s” has no jury evaluations."
+msgstr "Le projet « %(project)s » n'a aucune évaluation du jury."
+
+msgid "At least one evaluation for “%(project)s” is still incomplete."
+msgstr "Au moins une évaluation de « %(project)s » est encore incomplète."
+
+msgid "An evaluation for “%(project)s” does not cover this hackathon’s full rubric."
+msgstr "Une évaluation de « %(project)s » ne couvre pas tout le barème de ce hackathon."
+
+msgid "An evaluation for “%(project)s” has no usable weighted score."
+msgstr "Une évaluation de « %(project)s » n'a aucune note pondérée utilisable."
+
+msgid "Unpublish the results before changing the draft ranking."
+msgstr "Dépubliez les résultats avant de modifier le classement provisoire."
+
+msgid "A project in this ranking belongs to another hackathon."
+msgstr "Un projet de ce classement appartient à un autre hackathon."
+
+msgid "The saved ranking is out of date. Prepare it again before publishing."
+msgstr "Le classement enregistré est obsolète. Préparez-le de nouveau avant de publier."
+
+msgid "Prize “%(prize)s” is marked assigned but has no winning project."
+msgstr "La récompense « %(prize)s » est marquée attribuée mais n'a aucun projet lauréat."
+
+msgid "Prize “%(prize)s” has winning projects but is still marked available."
+msgstr "La récompense « %(prize)s » a des projets lauréats mais est encore marquée disponible."
+
+msgid "Prize “%(prize)s” has more winners than its configured slots."
+msgstr "La récompense « %(prize)s » a plus de lauréats que ses places configurées."
+
+msgid "Prize “%(prize)s” has a winner outside its configured slots."
+msgstr "La récompense « %(prize)s » a un lauréat hors de ses places configurées."
+
+msgid "Prize “%(prize)s” is assigned to a project outside the saved ranking."
+msgstr "La récompense « %(prize)s » est attribuée à un projet hors du classement enregistré."
+
+msgid "Prize “%(prize)s” has gaps in its winner slots."
+msgstr "La récompense « %(prize)s » a des trous dans ses places de lauréats."
+
+msgid "Prize “%(prize)s” has inconsistent primary winner data."
+msgstr "La récompense « %(prize)s » a des données de lauréat principal incohérentes."
+
+msgid "Prize “%(prize)s” has a legacy winner without an award assignment."
+msgstr "La récompense « %(prize)s » a un lauréat hérité sans attribution enregistrée."
+
+msgid "Prize “%(prize)s” is marked awarded before results are published."
+msgstr "La récompense « %(prize)s » est marquée décernée avant la publication des résultats."
+
+msgid "Basic Information"
+msgstr "Informations de base"
+
+msgid "Associations"
+msgstr "Associations"
+
+msgid "Timestamps"
+msgstr "Horodatages"
+
+msgid "Title"
+msgstr "Titre"
+
+msgid "Demo URL"
+msgstr "URL de démo"
+
+msgid "Submitted at"
+msgstr "Soumis le"
+
+msgid "Criterion name"
+msgstr "Nom du critère"
+
+msgid "Weight (%)"
+msgstr "Pondération (%)"
+
+msgid "Percentage weight of this criterion in the final score."
+msgstr "Pourcentage de pondération de ce critère dans la note finale."
+
+msgid "Evaluation Criterion"
+msgstr "Critère d'évaluation"
+
+msgid "Evaluation Criteria"
+msgstr "Critères d'évaluation"
+
+msgid "Jury member"
+msgstr "Membre du jury"
+
+msgid "General comment"
+msgstr "Commentaire général"
+
+msgid "Evaluation complete"
+msgstr "Évaluation complète"
+
+msgid "Mark as complete when all scores have been assigned."
+msgstr "Marquez comme complète lorsque toutes les notes ont été attribuées."
+
+msgid "Evaluation"
+msgstr "Évaluation"
+
+msgid "Criterion"
+msgstr "Critère"
+
+msgid "Evaluation Score"
+msgstr "Note d'évaluation"
+
+msgid "Evaluation Scores"
+msgstr "Notes d'évaluation"

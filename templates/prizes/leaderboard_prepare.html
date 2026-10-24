@@ -1,0 +1,23 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% trans "Prepare leaderboard" %} | {{ hackathon.title }}{% endblock %}
+{% block page_name %}prizes-leaderboard{% endblock %}
+{% block breadcrumb_section %}{% trans "Prizes & Leaderboard" %}{% endblock %}
+{% block breadcrumb_page %}{% trans "Prepare leaderboard" %}{% endblock %}
+{% block content %}
+{% include "prizes/_messages.html" %}
+<div class="mx-auto flex w-full max-w-5xl flex-col gap-space-md px-space-md py-space-lg">
+  <header><h1 class="font-headline-lg text-headline-lg font-bold">{% trans "Prepare leaderboard" %}</h1><p class="font-body-md text-body-md text-on-surface-variant">{{ hackathon.title }}</p></header>
+  {% if hackathon.results_published %}<p class="rounded-lg bg-secondary-fixed p-4 text-on-secondary-fixed">{% trans "Results are published. Unpublish them before changing the draft ranking." %}</p>{% endif %}
+  {% if readiness_error %}<div class="rounded-lg bg-secondary-fixed p-4 text-on-secondary-fixed" role="status">{{ readiness_error }}</div>{% endif %}
+  <section class="rounded-xl bg-surface-container-lowest p-space-md shadow-sm">
+    <h2 class="font-headline-sm text-headline-sm font-bold">{% trans "Calculated result" %}</h2>
+    <p class="mt-1 font-body-sm text-body-sm text-on-surface-variant">{% trans "For each jury evaluation, the existing weighted criterion score is used; project scores are then averaged across complete evaluations. Equal scores share a rank (1, 1, 3). Jury comments are not shown." %}</p>
+    {% if ranked %}<div class="mt-4 overflow-x-auto"><table class="w-full text-start font-body-sm text-body-sm"><thead><tr class="border-b border-outline-variant text-outline"><th scope="col" class="p-3">{% trans "Rank" %}</th><th scope="col" class="p-3">{% trans "Project / team" %}</th><th scope="col" class="p-3">{% trans "Score" %}</th></tr></thead><tbody>{% for item in ranked %}<tr class="border-b border-outline-variant/50"><td class="p-3 font-semibold">{{ item.rank }}</td><td class="p-3">{{ item.project.title }} — {{ item.project.team.name }}</td><td class="p-3">{{ item.score }}</td></tr>{% endfor %}</tbody></table></div>
+    <form method="post" class="mt-4 flex flex-wrap justify-end gap-2">{% csrf_token %}<input type="hidden" name="action" value="save_leaderboard"><button class="rounded-lg bg-primary-container px-4 py-2 font-label-md text-label-md font-semibold text-on-primary" type="submit" {% if hackathon.results_published %}disabled{% endif %}>{% trans "Save draft ranking" %}</button></form>
+    {% else %}<p class="mt-4 rounded-lg bg-surface-container-low p-4 font-body-sm text-body-sm text-on-surface-variant">{% trans "There is no reliable ranking to show yet." %}</p>{% endif %}
+  </section>
+  <section class="rounded-xl bg-surface-container-lowest p-space-md shadow-sm"><div class="flex flex-wrap items-center justify-between gap-2"><h2 class="font-headline-sm text-headline-sm font-bold">{% trans "Saved draft" %}</h2>{% if saved_entries and not hackathon.results_published %}<a class="rounded-lg bg-primary-container px-4 py-2 font-label-sm text-label-sm font-semibold text-on-primary" href="{% url 'prizes:leaderboard_publish' hackathon.pk %}">{% trans "Review for publication" %}</a>{% endif %}</div>
+    {% if saved_entries %}<ol class="mt-3 flex flex-col divide-y divide-outline-variant">{% for entry in saved_entries %}<li class="py-3">{{ entry.rank }}. {{ entry.project.title }} — {{ entry.project.team.name }} <span class="text-outline">({{ entry.final_score }})</span></li>{% endfor %}</ol>{% else %}<p class="mt-3 font-body-sm text-body-sm text-on-surface-variant">{% trans "No saved draft ranking yet." %}</p>{% endif %}
+  </section>
+</div>
+{% endblock %}
