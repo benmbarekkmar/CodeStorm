@@ -92,8 +92,8 @@ class Evaluation(models.Model):
     @property
     def total_score(self):
         """Compute the weighted aggregate score out of 100."""
-        scores = self.scores.select_related('criteria').all()
-        if not scores.exists():
+        scores = list(self.scores.all())
+        if not scores:
             return 0
         total_weight = sum(s.criteria.weight for s in scores)
         if total_weight == 0:

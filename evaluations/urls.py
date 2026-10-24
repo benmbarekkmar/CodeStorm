@@ -7,6 +7,12 @@ urlpatterns = [
     # Main evaluations dashboard
     path('', views.evaluations_home, name='home'),
 
+    # Hackathons + projects for the start picker
+    path('catalog/', views.evaluation_catalog, name='catalog'),
+
+    # Start an evaluation for a chosen project
+    path('start/', views.evaluation_start, name='start'),
+
     # Fetch evaluation data (AJAX)
     path('project/<int:project_id>/detail/', views.evaluation_detail, name='detail'),
 

@@ -1,15 +1,84 @@
 import json
-from django.shortcuts import render, get_object_or_404, redirect
+import statistics
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.views.decorators.http import require_POST
-from django.db.models import Avg, Count, Q
+from django.views.decorators.http import require_POST, require_GET
+from django.db.models import Prefetch
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from .models import (
     Hackathon, Project, EvaluationCriteria,
     Evaluation, EvaluationScore, EvaluationComment,
 )
+
+DEFAULT_CRITERIA = [
+    (_("Innovation & Creativity"), _("Novelty, uniqueness of concept, and creative problem-solving approach."), 20, 1),
+    (_("Technical Implementation"), _("Architecture soundness, code quality, stability, API integration depth."), 20, 2),
+    (_("User Experience & Design Polish"), _("Interface polish, intuitive task flow, accessibility, and visual feedback."), 20, 3),
+    (_("Impact & Relevance"), _("Problem clarity, market viability, direct target audience utility."), 20, 4),
+    (_("Presentation & Documentation"), _("Clarity of demo video, pitch deck coherence, and README completeness."), 20, 5),
+]
+
+
+def ensure_default_criteria():
+    if EvaluationCriteria.objects.filter(hackathon__isnull=True).exists():
+        return
+    EvaluationCriteria.objects.bulk_create([
+        EvaluationCriteria(hackathon=None, name=str(name), description=str(desc), weight=weight, order=order)
+        for name, desc, weight, order in DEFAULT_CRITERIA
+    ])
+
+
+def criteria_for_hackathon(hackathon):
+    ensure_default_criteria()
+    specific = EvaluationCriteria.objects.filter(hackathon=hackathon)
+    if specific.exists():
+        return specific.order_by('order', 'id')
+    return EvaluationCriteria.objects.filter(hackathon__isnull=True).order_by('order', 'id')
+
+
+def evaluation_queryset():
+    return Evaluation.objects.select_related(
+        'project', 'project__hackathon', 'evaluator'
+    ).prefetch_related(
+        Prefetch('scores', queryset=EvaluationScore.objects.select_related('criteria'))
+    )
+
+
+def build_catalog(user):
+    evaluated_ids = set(
+        Evaluation.objects.filter(evaluator=user).values_list('project_id', flat=True)
+    )
+    completed_ids = set(
+        Evaluation.objects.filter(evaluator=user, status=Evaluation.Status.COMPLETED)
+        .values_list('project_id', flat=True)
+    )
+    catalog = []
+    for hackathon in Hackathon.objects.prefetch_related('projects'):
+        projects = []
+        for project in hackathon.projects.all():
+            projects.append({
+                'id': project.id,
+                'name': project.name,
+                'team_name': project.team_name,
+                'started': project.id in evaluated_ids,
+                'completed': project.id in completed_ids,
+            })
+        catalog.append({
+            'id': hackathon.id,
+            'name': hackathon.name,
+            'track': hackathon.track or '',
+            'projects': projects,
+        })
+    return catalog
+
+
+def _pct(part, whole):
+    if not whole:
+        return 0
+    return round((part / whole) * 100)
 
 
 # ---------------------------------------------------------------------------
@@ -19,75 +88,137 @@ from .models import (
 @login_required
 def evaluations_home(request):
     user = request.user
+    ensure_default_criteria()
 
-    # ── Stats ──────────────────────────────────────────────────────────────
+    evals = list(evaluation_queryset().order_by('-updated_at'))
+    pending_list = [e for e in evals if e.status in (Evaluation.Status.PENDING, Evaluation.Status.IN_PROGRESS)]
+    completed_list = [e for e in evals if e.status == Evaluation.Status.COMPLETED]
+    my_evals = [e for e in evals if e.evaluator_id == user.id]
+
     total_projects = Project.objects.count()
+    pending_evals = sum(1 for e in evals if e.status == Evaluation.Status.PENDING)
+    inprogress_evals = sum(1 for e in evals if e.status == Evaluation.Status.IN_PROGRESS)
+    completed_evals = len(completed_list)
+    total_evals = len(evals)
+    queue_count = pending_evals + inprogress_evals
 
-    pending_evals = Evaluation.objects.filter(status=Evaluation.Status.PENDING).count()
-    inprogress_evals = Evaluation.objects.filter(status=Evaluation.Status.IN_PROGRESS).count()
-    completed_evals = Evaluation.objects.filter(status=Evaluation.Status.COMPLETED).count()
+    completed_scores = [e.total_score for e in completed_list]
+    avg_score = round(sum(completed_scores) / len(completed_scores)) if completed_scores else 0
+    median_score = round(statistics.median(completed_scores), 1) if completed_scores else 0
+    stdev_score = round(statistics.pstdev(completed_scores), 1) if len(completed_scores) > 1 else 0
 
-    # Average score across all completed evaluations
-    completed_qs = Evaluation.objects.filter(status=Evaluation.Status.COMPLETED)
-    avg_score = 0
-    if completed_qs.exists():
-        scores_sum = sum(e.total_score for e in completed_qs)
-        avg_score = round(scores_sum / completed_qs.count())
-
-    # ── Pending Reviews ────────────────────────────────────────────────────
-    pending_list = Evaluation.objects.filter(
-        status__in=[Evaluation.Status.PENDING, Evaluation.Status.IN_PROGRESS]
-    ).select_related('project', 'project__hackathon', 'evaluator').order_by('project__hackathon__deadline')
-
-    # ── Completed Reviews ──────────────────────────────────────────────────
-    completed_list = Evaluation.objects.filter(
-        status=Evaluation.Status.COMPLETED
-    ).select_related('project', 'project__hackathon', 'evaluator')
-
-    # annotate total_score lazily via property — already done in model
-
-    # ── My Evaluations ─────────────────────────────────────────────────────
-    my_evals = Evaluation.objects.filter(
-        evaluator=user
-    ).select_related('project', 'project__hackathon')
-
-    # ── Recent feed (completed, latest first) ──────────────────────────────
-    recent_feed = completed_list.order_by('-updated_at')[:8]
-
-    # ── Score Distribution ─────────────────────────────────────────────────
     dist = {'exceptional': 0, 'proficient': 0, 'needs_work': 0, 'unsatisfactory': 0}
-    for ev in completed_list:
-        s = ev.total_score
-        if s >= 85:
+    for score in completed_scores:
+        if score >= 85:
             dist['exceptional'] += 1
-        elif s >= 70:
+        elif score >= 70:
             dist['proficient'] += 1
-        elif s >= 50:
+        elif score >= 50:
             dist['needs_work'] += 1
         else:
             dist['unsatisfactory'] += 1
 
-    total_done = completed_evals or 1  # avoid division by zero
+    scored_pct = _pct(completed_evals, total_evals)
+    dist_total = completed_evals or 1
+    dist_pct = {
+        key: _pct(value, completed_evals) for key, value in dist.items()
+    }
 
-    # ── Hackathons list for filter ──────────────────────────────────────────
-    hackathons = Hackathon.objects.all()
+    next_hackathon = (
+        Hackathon.objects.filter(is_active=True, deadline__isnull=False)
+        .order_by('deadline')
+        .first()
+    )
+
+    hackathons = list(Hackathon.objects.all())
+    tracks = sorted({h.track for h in hackathons if h.track})
+
+    criteria_count = EvaluationCriteria.objects.filter(hackathon__isnull=True).count() or 5
+    for ev in evals:
+        ev.scores_json = json.dumps([
+            {'name': s.criteria.name, 'score': s.score}
+            for s in ev.scores.all()
+        ])
+    for ev in my_evals:
+        ev.scored_criteria = ev.scores.count()
+        ev.criteria_total = criteria_count
+        ev.draft_pct = _pct(ev.scored_criteria, ev.criteria_total)
 
     context = {
         'total_projects': total_projects,
         'pending_evals': pending_evals,
         'inprogress_evals': inprogress_evals,
         'completed_evals': completed_evals,
+        'queue_count': queue_count,
+        'total_evals': total_evals,
         'avg_score': avg_score,
+        'median_score': median_score,
+        'stdev_score': stdev_score,
         'pending_list': pending_list,
         'completed_list': completed_list,
         'my_evals': my_evals,
-        'recent_feed': recent_feed,
+        'recent_feed': completed_list[:8],
         'dist': dist,
-        'total_done': total_done,
+        'dist_pct': dist_pct,
+        'dist_total': dist_total,
+        'scored_pct': scored_pct,
+        'completed_pct': scored_pct,
+        'inprogress_pct': _pct(inprogress_evals, total_evals),
+        'pending_pct': _pct(pending_evals, total_evals),
         'hackathons': hackathons,
+        'tracks': tracks,
+        'catalog': build_catalog(user),
+        'next_hackathon': next_hackathon,
+        'now': timezone.now(),
         'page': 'evaluations',
     }
     return render(request, 'evaluations.html', context)
+
+
+# ---------------------------------------------------------------------------
+# Catalog (hackathons + projects for the start picker)
+# ---------------------------------------------------------------------------
+
+@login_required
+@require_GET
+def evaluation_catalog(request):
+    return JsonResponse({'hackathons': build_catalog(request.user)})
+
+
+# ---------------------------------------------------------------------------
+# Start evaluation for a chosen project
+# ---------------------------------------------------------------------------
+
+@login_required
+@require_POST
+def evaluation_start(request):
+    try:
+        body = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+
+    project_id = body.get('project_id')
+    if not project_id:
+        return JsonResponse({'error': str(_('Please choose a project to evaluate.'))}, status=400)
+
+    project = get_object_or_404(Project, pk=project_id)
+    ensure_default_criteria()
+    evaluation, created = Evaluation.objects.get_or_create(
+        project=project,
+        evaluator=request.user,
+        defaults={'status': Evaluation.Status.IN_PROGRESS},
+    )
+    if evaluation.status == Evaluation.Status.PENDING:
+        evaluation.status = Evaluation.Status.IN_PROGRESS
+        evaluation.save(update_fields=['status', 'updated_at'])
+
+    return JsonResponse({
+        'success': True,
+        'created': created,
+        'evaluation_id': evaluation.id,
+        'project_id': project.id,
+        'status': evaluation.status,
+    })
 
 
 # ---------------------------------------------------------------------------
@@ -100,27 +231,26 @@ def evaluation_detail(request, project_id):
     project = get_object_or_404(Project, pk=project_id)
     hackathon = project.hackathon
 
-    # Get or create the evaluation for this (project, evaluator) pair
     evaluation, _ = Evaluation.objects.get_or_create(
         project=project,
         evaluator=request.user,
-        defaults={'status': Evaluation.Status.IN_PROGRESS}
+        defaults={'status': Evaluation.Status.IN_PROGRESS},
     )
+    if evaluation.status == Evaluation.Status.PENDING:
+        evaluation.status = Evaluation.Status.IN_PROGRESS
+        evaluation.save(update_fields=['status', 'updated_at'])
 
-    # Criteria: hackathon-specific first, then global fallback
-    criteria_qs = EvaluationCriteria.objects.filter(
-        Q(hackathon=hackathon) | Q(hackathon__isnull=True)
-    ).order_by('order', 'id')
+    criteria_qs = criteria_for_hackathon(hackathon)
+    existing_scores = {s.criteria_id: s.score for s in evaluation.scores.all()}
 
     criteria_data = []
     for c in criteria_qs:
-        existing = evaluation.scores.filter(criteria=c).first()
         criteria_data.append({
             'id': c.id,
             'name': c.name,
             'description': c.description,
             'weight': c.weight,
-            'score': existing.score if existing else 5,
+            'score': existing_scores.get(c.id, 5),
         })
 
     data = {
@@ -159,16 +289,17 @@ def evaluation_submit(request):
 
     evaluation = get_object_or_404(Evaluation, pk=evaluation_id, evaluator=request.user)
 
-    # Update qualitative fields
     evaluation.strengths = body.get('strengths', '')
     evaluation.improvements = body.get('improvements', '')
     evaluation.confidential_notes = body.get('confidential_notes', '')
 
-    # Save scores
-    scores_data = body.get('scores', {})   # {criteria_id: score_value}
+    allowed_ids = set(criteria_for_hackathon(evaluation.project.hackathon).values_list('id', flat=True))
+    scores_data = body.get('scores', {})
     for criteria_id_str, score_val in scores_data.items():
         try:
             criteria_id = int(criteria_id_str)
+            if criteria_id not in allowed_ids:
+                continue
             score_val = max(0, min(10, int(score_val)))
             EvaluationScore.objects.update_or_create(
                 evaluation=evaluation,
@@ -178,7 +309,6 @@ def evaluation_submit(request):
         except (ValueError, TypeError):
             continue
 
-    # Update status
     if action == 'submit':
         evaluation.status = Evaluation.Status.COMPLETED
     else:
@@ -230,14 +360,11 @@ def evaluation_add_comment(request, evaluation_id):
 def results_leaderboard(request):
     """Public leaderboard: completed evaluations sorted by total_score desc."""
     hackathon_id = request.GET.get('hackathon', '')
-    evals = Evaluation.objects.filter(
-        status=Evaluation.Status.COMPLETED
-    ).select_related('project', 'project__hackathon', 'evaluator')
+    evals = evaluation_queryset().filter(status=Evaluation.Status.COMPLETED)
 
     if hackathon_id:
         evals = evals.filter(project__hackathon_id=hackathon_id)
 
-    # Sort by total_score (computed property) — we sort in Python
     ranked = sorted(evals, key=lambda e: e.total_score, reverse=True)
 
     hackathons = Hackathon.objects.all()
@@ -269,9 +396,9 @@ def export_csv(request):
         'Total Score', 'Status', 'Strengths', 'Improvements', 'Notes', 'Date',
     ])
 
-    evals = Evaluation.objects.filter(
+    evals = evaluation_queryset().filter(
         status=Evaluation.Status.COMPLETED
-    ).select_related('project', 'project__hackathon', 'evaluator').order_by('-updated_at')
+    ).order_by('-updated_at')
 
     for ev in evals:
         evaluator_name = ev.evaluator.get_full_name() if ev.evaluator else ''
