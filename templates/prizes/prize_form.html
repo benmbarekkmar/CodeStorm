@@ -11,7 +11,7 @@
 <div class="px-space-lg py-space-lg flex flex-col gap-space-lg max-w-2xl mx-auto w-full">
 
   <div class="flex items-center gap-space-md">
-    <a href="{% url 'prizes:home' %}" class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant transition-colors">
+    <a href="{% url 'prizes:home' %}" aria-label="{% trans 'Back to prizes' %}" class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
       <span class="material-symbols-outlined text-xl">arrow_back</span>
     </a>
     <div>
@@ -21,7 +21,7 @@
   </div>
 
   {% if form.non_field_errors %}
-  <div class="px-4 py-3 rounded-lg bg-error-container text-on-error-container font-body-sm text-body-sm">
+  <div class="px-4 py-3 rounded-lg bg-error-container text-on-error-container font-body-sm text-body-sm" role="alert">
     {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
   </div>
   {% endif %}
@@ -35,14 +35,14 @@
           {% trans "Hackathon" %} <span class="text-error">*</span>
         </label>
         {{ form.hackathon }}
-        {% if form.hackathon.errors %}<p class="text-error font-label-sm text-label-sm">{{ form.hackathon.errors.0 }}</p>{% endif %}
+        <div id="{{ form.hackathon.id_for_label }}-errors" aria-live="polite">{% for error in form.hackathon.errors %}<p class="text-error font-label-sm text-label-sm">{{ error }}</p>{% endfor %}</div>
       </div>
       <div class="flex flex-col gap-1">
         <label class="font-label-sm text-label-sm font-semibold text-on-surface" for="{{ form.category.id_for_label }}">
           {% trans "Category" %} <span class="text-error">*</span>
         </label>
         {{ form.category }}
-        {% if form.category.errors %}<p class="text-error font-label-sm text-label-sm">{{ form.category.errors.0 }}</p>{% endif %}
+        <div id="{{ form.category.id_for_label }}-errors" aria-live="polite">{% for error in form.category.errors %}<p class="text-error font-label-sm text-label-sm">{{ error }}</p>{% endfor %}</div>
       </div>
     </div>
 
@@ -51,7 +51,7 @@
         {% trans "Prize Name" %} <span class="text-error">*</span>
       </label>
       {{ form.name }}
-      {% if form.name.errors %}<p class="text-error font-label-sm text-label-sm">{{ form.name.errors.0 }}</p>{% endif %}
+      <div id="{{ form.name.id_for_label }}-errors" aria-live="polite">{% for error in form.name.errors %}<p class="text-error font-label-sm text-label-sm">{{ error }}</p>{% endfor %}</div>
     </div>
 
     <div class="flex flex-col gap-1">
@@ -59,7 +59,7 @@
         {% trans "Description" %}
       </label>
       {{ form.description }}
-      {% if form.description.errors %}<p class="text-error font-label-sm text-label-sm">{{ form.description.errors.0 }}</p>{% endif %}
+      <div id="{{ form.description.id_for_label }}-errors" aria-live="polite">{% for error in form.description.errors %}<p class="text-error font-label-sm text-label-sm">{{ error }}</p>{% endfor %}</div>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -68,14 +68,14 @@
           {% trans "Cash Amount (USD)" %}
         </label>
         {{ form.amount }}
-        {% if form.amount.errors %}<p class="text-error font-label-sm text-label-sm">{{ form.amount.errors.0 }}</p>{% endif %}
+        <div id="{{ form.amount.id_for_label }}-errors" aria-live="polite">{% for error in form.amount.errors %}<p class="text-error font-label-sm text-label-sm">{{ error }}</p>{% endfor %}</div>
       </div>
       <div class="flex flex-col gap-1">
         <label class="font-label-sm text-label-sm font-semibold text-on-surface" for="{{ form.winner_slots.id_for_label }}">
           {% trans "Winner Slots" %}
         </label>
         {{ form.winner_slots }}
-        {% if form.winner_slots.errors %}<p class="text-error font-label-sm text-label-sm">{{ form.winner_slots.errors.0 }}</p>{% endif %}
+        <div id="{{ form.winner_slots.id_for_label }}-errors" aria-live="polite">{% for error in form.winner_slots.errors %}<p class="text-error font-label-sm text-label-sm">{{ error }}</p>{% endfor %}</div>
       </div>
     </div>
 
@@ -85,7 +85,7 @@
       </label>
       {{ form.reward }}
       <p class="font-label-sm text-label-sm text-outline">{% trans "e.g. Cloud credits, internship offer, mentoring sessions..." %}</p>
-      {% if form.reward.errors %}<p class="text-error font-label-sm text-label-sm">{{ form.reward.errors.0 }}</p>{% endif %}
+      <div id="{{ form.reward.id_for_label }}-errors" aria-live="polite">{% for error in form.reward.errors %}<p class="text-error font-label-sm text-label-sm">{{ error }}</p>{% endfor %}</div>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -94,7 +94,7 @@
           {% trans "Sponsor" %}
         </label>
         {{ form.sponsor }}
-        {% if form.sponsor.errors %}<p class="text-error font-label-sm text-label-sm">{{ form.sponsor.errors.0 }}</p>{% endif %}
+        <div id="{{ form.sponsor.id_for_label }}-errors" aria-live="polite">{% for error in form.sponsor.errors %}<p class="text-error font-label-sm text-label-sm">{{ error }}</p>{% endfor %}</div>
       </div>
     </div>
 
@@ -103,7 +103,7 @@
         {% trans "Eligibility Criteria" %}
       </label>
       {{ form.eligibility_criteria }}
-      {% if form.eligibility_criteria.errors %}<p class="text-error font-label-sm text-label-sm">{{ form.eligibility_criteria.errors.0 }}</p>{% endif %}
+      <div id="{{ form.eligibility_criteria.id_for_label }}-errors" aria-live="polite">{% for error in form.eligibility_criteria.errors %}<p class="text-error font-label-sm text-label-sm">{{ error }}</p>{% endfor %}</div>
     </div>
 
     <div class="flex items-center justify-end gap-3 pt-2">

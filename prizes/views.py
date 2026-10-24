@@ -211,22 +211,38 @@ def prize_assign_winner(request, pk):
     form = AssignWinnerForm(request.POST or None, prize=prize)
     if request.method == 'POST' and form.is_valid():
         projects = list(form.cleaned_data['projects'])
-        rank_by_project = dict(LeaderboardEntry.objects.filter(
-            hackathon=prize.hackathon,
-            project__in=projects,
-        ).values_list('project_id', 'rank'))
-        projects.sort(key=lambda project: (rank_by_project.get(project.pk, 10**9), project.pk))
+        assignment_error = None
         with transaction.atomic():
-            prize.awards.all().delete()
-            PrizeAward.objects.bulk_create([
-                PrizeAward(prize=prize, project=project, position=slot)
-                for slot, project in enumerate(projects, start=1)
-            ])
-            prize.winning_project = projects[0] if projects else None
-            prize.status = Prize.Status.ASSIGNED if projects else Prize.Status.AVAILABLE
-            prize.save(update_fields=('winning_project', 'status', 'updated_at'))
-        messages.success(request, _('Winner assignments for “%(name)s” saved.') % {'name': prize.name})
-        return redirect(_home_url(prize.hackathon_id))
+            hackathon = Hackathon.objects.select_for_update().get(pk=prize.hackathon_id)
+            prize = Prize.objects.select_for_update().get(pk=prize.pk)
+            if hackathon.organizer_id != request.user.pk:
+                raise PermissionDenied
+            if hackathon.results_published:
+                assignment_error = _('Unpublish results before changing prize assignments.')
+            elif len(projects) > prize.winner_slots:
+                assignment_error = _('The selected winners exceed this prize’s configured slots.')
+            else:
+                rank_by_project = dict(LeaderboardEntry.objects.filter(
+                    hackathon=hackathon,
+                    project__in=projects,
+                ).values_list('project_id', 'rank'))
+                if len(rank_by_project) != len(projects):
+                    assignment_error = _('Every winner must be part of the saved ranking.')
+                else:
+                    projects.sort(key=lambda project: (rank_by_project[project.pk], project.pk))
+                    prize.awards.all().delete()
+                    PrizeAward.objects.bulk_create([
+                        PrizeAward(prize=prize, project=project, position=slot)
+                        for slot, project in enumerate(projects, start=1)
+                    ])
+                    prize.winning_project = projects[0] if projects else None
+                    prize.status = Prize.Status.ASSIGNED if projects else Prize.Status.AVAILABLE
+                    prize.save(update_fields=('winning_project', 'status', 'updated_at'))
+        if assignment_error:
+            form.add_error('projects', assignment_error)
+        else:
+            messages.success(request, _('Winner assignments for “%(name)s” saved.') % {'name': prize.name})
+            return redirect(_home_url(prize.hackathon_id))
     return render(request, 'prizes/prize_assign_winner.html', {'form': form, 'prize': prize})
 
 
@@ -368,21 +384,33 @@ def leaderboard_publish(request, hackathon_pk):
             readiness_error = str(error)
 
     if request.method == 'POST' and request.POST.get('confirm') == 'yes':
-        if readiness_error:
-            messages.error(request, readiness_error)
-        else:
-            with transaction.atomic():
-                locked = Hackathon.objects.select_for_update().get(pk=hackathon.pk)
-                if locked.organizer_id != request.user.pk:
-                    raise PermissionDenied
-                if locked.results_published:
-                    messages.info(request, _('Results are already published.'))
-                    return redirect(_home_url(hackathon.pk))
+        readiness_error = None
+        with transaction.atomic():
+            locked = Hackathon.objects.select_for_update().get(pk=hackathon.pk)
+            if locked.organizer_id != request.user.pk:
+                raise PermissionDenied
+            if locked.results_published:
+                messages.info(request, _('Results are already published.'))
+                return redirect(_home_url(hackathon.pk))
+            try:
+                if not LeaderboardEntry.objects.filter(hackathon=locked).exists():
+                    raise LeaderboardNotReady(
+                        _('Prepare and save a ranking before publishing results.')
+                    )
+                ranked = compute_leaderboard(locked)
+                validate_saved_leaderboard(locked, ranked)
+                validate_prize_awards(locked)
+            except LeaderboardNotReady as error:
+                readiness_error = str(error)
+            else:
                 locked.results_published = True
                 locked.save(update_fields=('results_published', 'updated_at'))
                 Prize.objects.filter(
                     hackathon=locked, status=Prize.Status.ASSIGNED
                 ).update(status=Prize.Status.AWARDED, updated_at=timezone.now())
+        if readiness_error:
+            messages.error(request, readiness_error)
+        else:
             messages.success(request, _('Official results have been published.'))
             return redirect(_home_url(hackathon.pk))
     return render(request, 'prizes/leaderboard_publish.html', {
@@ -445,6 +473,9 @@ def certificate_generate(request, hackathon_pk):
             if not locked.results_published:
                 messages.error(request, _('Publish official results before issuing certificates.'))
                 return redirect(_home_url(locked.pk))
+            if not entries.exists():
+                messages.error(request, _('There are no published ranking entries to certify.'))
+                return redirect(_home_url(locked.pk))
             for entry in entries:
                 rank_type = (
                     Certificate.CertType.WINNER if entry.rank == 1 else
@@ -463,6 +494,8 @@ def certificate_generate(request, hackathon_pk):
                         prize=None,
                         defaults={'rank': entry.rank},
                     )
+                    if created:
+                        certificate.full_clean()
                     generated += int(created)
                     for award in entry.project.prize_awards.filter(
                         prize__hackathon=hackathon,
@@ -475,6 +508,8 @@ def certificate_generate(request, hackathon_pk):
                             prize=award.prize,
                             defaults={'rank': entry.rank},
                         )
+                        if created:
+                            certificate.full_clean()
                         generated += int(created)
         messages.success(
             request,

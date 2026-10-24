@@ -7,7 +7,28 @@ from hackathons.models import Hackathon
 from projects.models import Project
 
 
-class PrizeCategoryForm(forms.ModelForm):
+class AccessibleFormMixin:
+    """Associate field errors with their controls for screen reader users."""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            field.widget.attrs.setdefault('aria-describedby', f'id_{name}-errors')
+            field.widget.attrs['class'] = (
+                f"{field.widget.attrs.get('class', '')} "
+                'focus-visible:outline-none focus-visible:ring-2 '
+                'focus-visible:ring-primary focus-visible:ring-offset-2'
+            ).strip()
+
+    def full_clean(self):
+        super().full_clean()
+        if self._errors:
+            for name, errors in self._errors.items():
+                if name in self.fields and errors:
+                    self.fields[name].widget.attrs['aria-invalid'] = 'true'
+
+
+class PrizeCategoryForm(AccessibleFormMixin, forms.ModelForm):
     """Formulaire de création / modification d'une catégorie de prix."""
 
     class Meta:
@@ -47,7 +68,7 @@ class PrizeCategoryForm(forms.ModelForm):
         return name
 
 
-class SponsorForm(forms.ModelForm):
+class SponsorForm(AccessibleFormMixin, forms.ModelForm):
     """Formulaire de création / modification d'un sponsor."""
 
     class Meta:
@@ -76,7 +97,7 @@ class SponsorForm(forms.ModelForm):
         }
 
 
-class PrizeForm(forms.ModelForm):
+class PrizeForm(AccessibleFormMixin, forms.ModelForm):
     """
     Formulaire de création / modification d'un prix.
     L'organisateur ne peut créer un prix que pour les hackathons dont il est responsable.
@@ -183,7 +204,7 @@ class PrizeForm(forms.ModelForm):
         return cleaned_data
 
 
-class AssignWinnerForm(forms.Form):
+class AssignWinnerForm(AccessibleFormMixin, forms.Form):
     """
     Formulaire permettant à l'organisateur d'assigner un projet gagnant à un prix.
     Filtre les projets au hackathon concerné.
@@ -220,7 +241,7 @@ class AssignWinnerForm(forms.Form):
         return projects
 
 
-class LeaderboardEntryForm(forms.ModelForm):
+class LeaderboardEntryForm(AccessibleFormMixin, forms.ModelForm):
     """Formulaire pour créer / mettre à jour une entrée de classement."""
 
     class Meta:
@@ -241,7 +262,7 @@ class LeaderboardEntryForm(forms.ModelForm):
                          'text-on-surface focus:outline-none',
                 'step': '0.01',
                 'min': 0,
-                'max': 100,
+                'max': 10,
             }),
             'notes': forms.Textarea(attrs={
                 'class': 'w-full p-3 rounded-lg bg-surface-container-low '

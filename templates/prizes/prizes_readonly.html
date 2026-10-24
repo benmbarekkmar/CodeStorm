@@ -50,7 +50,7 @@
       {% if hackathon.entries_display %}
       <div class="mt-2 overflow-x-auto rounded-lg border border-outline-variant">
         <table class="w-full text-start font-body-sm text-body-sm">
-          <thead class="bg-surface-container-low text-outline"><tr><th class="p-3">{% trans "Rank" %}</th><th class="p-3">{% trans "Team and project" %}</th><th class="p-3">{% trans "Score" %}</th><th class="p-3">{% trans "Prize" %}</th></tr></thead>
+          <thead class="bg-surface-container-low text-outline"><tr><th scope="col" class="p-3">{% trans "Rank" %}</th><th scope="col" class="p-3">{% trans "Team and project" %}</th><th scope="col" class="p-3">{% trans "Score" %}</th><th scope="col" class="p-3">{% trans "Prize" %}</th></tr></thead>
           <tbody>{% for entry in hackathon.entries_display %}
             <tr class="border-t border-outline-variant/50"><td class="p-3 font-semibold">{{ entry.rank }}</td><td class="p-3">{{ entry.project.team.name }} — {{ entry.project.title }}</td><td class="p-3">{{ entry.final_score|default:"—" }}</td><td class="p-3">{% for award in entry.project.prize_awards.all %}{{ award.prize.name }}{% if not forloop.last %}, {% endif %}{% empty %}—{% endfor %}</td></tr>
           {% endfor %}</tbody>

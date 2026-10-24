@@ -6,24 +6,14 @@ Utilise uniquement les données réelles de la base de données.
 """
 import io
 from xml.sax.saxutils import escape
-from reportlab.lib.pagesizes import A4, landscape
-from reportlab.lib import colors
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.units import cm
-from reportlab.platypus import (
-    SimpleDocTemplate, Paragraph, Spacer, HRFlowable, Table, TableStyle
-)
-from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from django.utils import timezone
 
 
 # Palette de couleurs (reprend le thème CodeStorm)
-COLOR_PRIMARY = colors.HexColor('#533DCF')       # violet primaire
-COLOR_SECONDARY = colors.HexColor('#006874')     # cyan secondaire
-COLOR_SURFACE = colors.HexColor('#FAFAFA')       # fond clair
-COLOR_ON_SURFACE = colors.HexColor('#161A30')    # texte principal
-COLOR_OUTLINE = colors.HexColor('#797586')       # texte secondaire
-COLOR_GOLD = colors.HexColor('#C8A84B')          # accent doré pour les gagnants
+COLOR_PRIMARY = '#533DCF'
+COLOR_ON_SURFACE = '#161A30'
+COLOR_OUTLINE = '#797586'
+COLOR_GOLD = '#C8A84B'
 
 
 def generate_certificate_pdf(certificate) -> bytes:
@@ -36,6 +26,19 @@ def generate_certificate_pdf(certificate) -> bytes:
     Retourne :
         bytes : contenu du fichier PDF
     """
+    from reportlab.lib.pagesizes import A4, landscape
+    from reportlab.lib import colors
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    from reportlab.lib.units import cm
+    from reportlab.platypus import (
+        SimpleDocTemplate, Paragraph, Spacer, HRFlowable, Table, TableStyle
+    )
+    from reportlab.lib.enums import TA_CENTER
+
+    color_primary = colors.HexColor(COLOR_PRIMARY)
+    color_on_surface = colors.HexColor(COLOR_ON_SURFACE)
+    color_outline = colors.HexColor(COLOR_OUTLINE)
+    color_gold = colors.HexColor(COLOR_GOLD)
     buffer = io.BytesIO()
 
     # Format paysage A4
@@ -56,7 +59,7 @@ def generate_certificate_pdf(certificate) -> bytes:
         'CertTitle',
         parent=styles['Title'],
         fontSize=11,
-        textColor=COLOR_OUTLINE,
+        textColor=color_outline,
         alignment=TA_CENTER,
         spaceAfter=0,
         fontName='Helvetica',
@@ -66,7 +69,7 @@ def generate_certificate_pdf(certificate) -> bytes:
         'RecipientName',
         parent=styles['Title'],
         fontSize=34,
-        textColor=COLOR_PRIMARY,
+        textColor=color_primary,
         alignment=TA_CENTER,
         spaceBefore=4,
         spaceAfter=4,
@@ -76,7 +79,7 @@ def generate_certificate_pdf(certificate) -> bytes:
         'CertBody',
         parent=styles['Normal'],
         fontSize=12,
-        textColor=COLOR_ON_SURFACE,
+        textColor=color_on_surface,
         alignment=TA_CENTER,
         spaceAfter=4,
         fontName='Helvetica',
@@ -85,7 +88,7 @@ def generate_certificate_pdf(certificate) -> bytes:
         'HackathonName',
         parent=styles['Heading2'],
         fontSize=18,
-        textColor=COLOR_ON_SURFACE,
+        textColor=color_on_surface,
         alignment=TA_CENTER,
         spaceBefore=4,
         spaceAfter=6,
@@ -95,7 +98,7 @@ def generate_certificate_pdf(certificate) -> bytes:
         'AwardBadge',
         parent=styles['Normal'],
         fontSize=14,
-        textColor=COLOR_GOLD,
+        textColor=color_gold,
         alignment=TA_CENTER,
         spaceBefore=6,
         spaceAfter=12,
@@ -105,7 +108,7 @@ def generate_certificate_pdf(certificate) -> bytes:
         'UID',
         parent=styles['Normal'],
         fontSize=8,
-        textColor=COLOR_OUTLINE,
+        textColor=color_outline,
         alignment=TA_CENTER,
         fontName='Courier',
     )
@@ -113,7 +116,7 @@ def generate_certificate_pdf(certificate) -> bytes:
         'FooterLabel',
         parent=styles['Normal'],
         fontSize=9,
-        textColor=COLOR_OUTLINE,
+        textColor=color_outline,
         alignment=TA_CENTER,
         fontName='Helvetica',
     )
@@ -121,7 +124,7 @@ def generate_certificate_pdf(certificate) -> bytes:
         'FooterName',
         parent=styles['Normal'],
         fontSize=11,
-        textColor=COLOR_ON_SURFACE,
+        textColor=color_on_surface,
         alignment=TA_CENTER,
         fontName='Helvetica-Bold',
     )
@@ -131,7 +134,7 @@ def generate_certificate_pdf(certificate) -> bytes:
     story.append(Spacer(1, 0.2 * cm))
     story.append(HRFlowable(
         width='100%', thickness=1.5,
-        color=COLOR_PRIMARY, spaceAfter=0.5 * cm
+        color=color_primary, spaceAfter=0.5 * cm
     ))
 
     # --- Corps du certificat ---
@@ -148,7 +151,7 @@ def generate_certificate_pdf(certificate) -> bytes:
 
     story.append(HRFlowable(
         width='40%', thickness=0.5,
-        color=COLOR_PRIMARY, hAlign='CENTER', spaceAfter=0.4 * cm
+        color=color_primary, hAlign='CENTER', spaceAfter=0.4 * cm
     ))
 
     story.append(Paragraph(
@@ -179,7 +182,7 @@ def generate_certificate_pdf(certificate) -> bytes:
     story.append(Spacer(1, 0.8 * cm))
     story.append(HRFlowable(
         width='100%', thickness=0.5,
-        color=COLOR_OUTLINE, spaceAfter=0.5 * cm
+        color=color_outline, spaceAfter=0.5 * cm
     ))
 
     # --- Pied de page : organisateur + sceau + UID ---
@@ -193,7 +196,7 @@ def generate_certificate_pdf(certificate) -> bytes:
             Paragraph(organizer_name, footer_name_style),
             Paragraph('✦', ParagraphStyle(
                 'Seal', parent=styles['Normal'],
-                fontSize=36, textColor=COLOR_PRIMARY,
+                fontSize=36, textColor=color_primary,
                 alignment=TA_CENTER, fontName='Helvetica'
             )),
             Paragraph(

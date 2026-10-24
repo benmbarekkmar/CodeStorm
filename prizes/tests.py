@@ -12,7 +12,7 @@ from projects.models import Project
 from teams.models import Team
 
 from .models import Certificate, LeaderboardEntry, Prize, PrizeAward, PrizeCategory, Sponsor
-from .services import LeaderboardNotReady, compute_leaderboard
+from .services import LeaderboardNotReady, compute_leaderboard, validate_prize_awards
 
 
 class PrizeWorkflowTests(TestCase):
@@ -152,6 +152,8 @@ class PrizeWorkflowTests(TestCase):
             'winner_slots': '1', 'eligibility_criteria': '',
         })
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'aria-invalid="true"', html=False)
+        self.assertContains(response, 'aria-describedby="id_amount-errors"', html=False)
         self.assertFalse(Prize.objects.filter(name='Negative prize').exists())
         response = self.client.post(reverse('prizes:prize_create'), {
             'hackathon': self.hackathon.pk,
@@ -300,6 +302,84 @@ class PrizeWorkflowTests(TestCase):
         prize = Prize(name='Invalid', hackathon=self.hackathon, winning_project=foreign_project)
         with self.assertRaises(ValidationError):
             prize.full_clean()
+
+    def test_leaderboard_and_award_models_reject_inconsistent_projects(self):
+        foreign_team = Team.objects.create(
+            name='Foreign ranking team', hackathon=self.other_hackathon,
+            leader=self.other_participant,
+        )
+        foreign_project = Project.objects.create(
+            title='Foreign ranking project', description='Other event',
+            hackathon=self.other_hackathon, team=foreign_team,
+            submitted_by=self.other_participant, status=Project.Status.EVALUATED,
+        )
+        entry = LeaderboardEntry(
+            hackathon=self.hackathon, project=foreign_project, rank=1,
+            final_score=Decimal('8.50'),
+        )
+        with self.assertRaises(ValidationError):
+            entry.full_clean()
+
+        prize = self.create_prize()
+        award = PrizeAward(prize=prize, project=foreign_project, position=1)
+        with self.assertRaises(ValidationError):
+            award.full_clean()
+
+        invalid_score = LeaderboardEntry(
+            hackathon=self.hackathon, project=self.project, rank=1,
+            final_score=Decimal('10.01'),
+        )
+        with self.assertRaises(ValidationError):
+            invalid_score.full_clean()
+
+    def test_prize_award_must_match_legacy_winner_and_slots_before_publication(self):
+        prize = self.create_prize()
+        LeaderboardEntry.objects.create(
+            hackathon=self.hackathon, project=self.project, rank=1,
+            final_score=Decimal('8.50'),
+        )
+        prize.awards.create(project=self.project, position=1)
+        prize.status = Prize.Status.ASSIGNED
+        prize.save(update_fields=('status',))
+
+        with self.assertRaises(LeaderboardNotReady):
+            validate_prize_awards(self.hackathon)
+
+        prize.winning_project = self.project
+        prize.save(update_fields=('winning_project',))
+        validate_prize_awards(self.hackathon)
+
+        unranked_project = self.make_project('Unranked project', Decimal('7.50'))
+        unranked_prize = self.create_prize(name='Unranked award')
+        unranked_prize.awards.create(project=unranked_project, position=1)
+        unranked_prize.winning_project = unranked_project
+        unranked_prize.status = Prize.Status.ASSIGNED
+        unranked_prize.save(update_fields=('winning_project', 'status'))
+        with self.assertRaises(LeaderboardNotReady):
+            validate_prize_awards(self.hackathon)
+
+    def test_certificate_model_rejects_unpublished_results_and_foreign_prize(self):
+        certificate = Certificate(
+            recipient=self.participant,
+            hackathon=self.hackathon,
+            cert_type=Certificate.CertType.WINNER,
+            rank=1,
+        )
+        with self.assertRaises(ValidationError) as error:
+            certificate.full_clean()
+        self.assertIn('hackathon', error.exception.message_dict)
+
+        self.hackathon.results_published = True
+        self.hackathon.save(update_fields=('results_published',))
+        foreign_prize = self.create_prize(
+            name='Foreign event prize', hackathon=self.other_hackathon,
+            status=Prize.Status.AWARDED,
+        )
+        certificate.prize = foreign_prize
+        certificate.cert_type = Certificate.CertType.SPECIAL_AWARD
+        with self.assertRaises(ValidationError) as error:
+            certificate.full_clean()
+        self.assertIn('prize', error.exception.message_dict)
 
     def test_weighted_rank_has_explicit_competition_ties(self):
         second = self.make_project('Second project', Decimal('8.50'))

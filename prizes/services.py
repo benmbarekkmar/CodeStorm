@@ -128,8 +128,11 @@ def compute_leaderboard(hackathon):
 @transaction.atomic
 def save_leaderboard(hackathon, ranked):
     """Replace the draft ranking in one transaction."""
-    if hackathon.results_published:
+    locked_hackathon = Hackathon.objects.select_for_update().get(pk=hackathon.pk)
+    if locked_hackathon.results_published:
         raise LeaderboardNotReady(_('Unpublish the results before changing the draft ranking.'))
+    if any(item['project'].hackathon_id != locked_hackathon.pk for item in ranked):
+        raise LeaderboardNotReady(_('A project in this ranking belongs to another hackathon.'))
     LeaderboardEntry.objects.filter(hackathon=hackathon).delete()
     LeaderboardEntry.objects.bulk_create([
         LeaderboardEntry(
@@ -175,6 +178,7 @@ def validate_prize_awards(hackathon):
     )
     for prize in prizes:
         awards = list(prize.awards.all())
+        positions = [award.position for award in awards]
         if prize.status in (Prize.Status.ASSIGNED, Prize.Status.AWARDED) and not awards:
             raise LeaderboardNotReady(
                 _('Prize “%(prize)s” is marked assigned but has no winning project.') % {
@@ -200,9 +204,34 @@ def validate_prize_awards(hackathon):
                         'prize': prize.name
                     }
                 )
-            if award.project.hackathon_id != hackathon.pk or award.project_id not in ranked_project_ids:
+            if (award.project.hackathon_id != hackathon.pk or
+                    award.project_id not in ranked_project_ids):
                 raise LeaderboardNotReady(
                     _('Prize “%(prize)s” is assigned to a project outside the saved ranking.') % {
                         'prize': prize.name
                     }
                 )
+        if awards and positions != list(range(1, len(awards) + 1)):
+            raise LeaderboardNotReady(
+                _('Prize “%(prize)s” has gaps in its winner slots.') % {
+                    'prize': prize.name
+                }
+            )
+        if awards and prize.winning_project_id != awards[0].project_id:
+            raise LeaderboardNotReady(
+                _('Prize “%(prize)s” has inconsistent primary winner data.') % {
+                    'prize': prize.name
+                }
+            )
+        if not awards and prize.winning_project_id:
+            raise LeaderboardNotReady(
+                _('Prize “%(prize)s” has a legacy winner without an award assignment.') % {
+                    'prize': prize.name
+                }
+            )
+        if prize.status == Prize.Status.AWARDED and not hackathon.results_published:
+            raise LeaderboardNotReady(
+                _('Prize “%(prize)s” is marked awarded before results are published.') % {
+                    'prize': prize.name
+                }
+            )

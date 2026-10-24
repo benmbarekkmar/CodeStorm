@@ -1,4 +1,5 @@
 import uuid
+from decimal import Decimal
 from django.db import models
 from django.db.models import Q
 from django.core.exceptions import ValidationError
@@ -268,6 +269,19 @@ class LeaderboardEntry(models.Model):
     def __str__(self):
         return f"#{self.rank} — {self.project.title} ({self.hackathon.name})"
 
+    def clean(self):
+        super().clean()
+        errors = {}
+        if self.rank is not None and self.rank < 1:
+            errors['rank'] = _('Rank must be at least 1.')
+        if self.final_score is not None and not Decimal('0') <= self.final_score <= Decimal('10'):
+            errors['final_score'] = _('Final score must be between 0 and 10.')
+        if self.hackathon_id and self.project_id:
+            if self.project.hackathon_id != self.hackathon_id:
+                errors['project'] = _('The project must belong to this hackathon.')
+        if errors:
+            raise ValidationError(errors)
+
 
 # ---------------------------------------------------------------------------
 # Certificate
@@ -368,6 +382,25 @@ class Certificate(models.Model):
             f"({self.hackathon.name})"
         )
 
+    def clean(self):
+        super().clean()
+        errors = {}
+        if self.rank is not None and self.rank < 1:
+            errors['rank'] = _('Certificate rank must be at least 1.')
+        if self.recipient_id and self.recipient.role != 'participant':
+            errors['recipient'] = _('Certificates can only be issued to participants.')
+        if self.hackathon_id and not self.hackathon.results_published:
+            errors['hackathon'] = _('Certificates can only be issued after results are published.')
+        if self.cert_type == self.CertType.SPECIAL_AWARD and not self.prize_id:
+            errors['prize'] = _('A special award certificate must reference its prize.')
+        if self.prize_id and self.hackathon_id:
+            if self.prize.hackathon_id != self.hackathon_id:
+                errors['prize'] = _('The prize must belong to this hackathon.')
+            elif self.prize.status != Prize.Status.AWARDED:
+                errors['prize'] = _('A prize certificate requires an officially awarded prize.')
+        if errors:
+            raise ValidationError(errors)
+
     @property
     def short_uid(self):
         """Affiche les 8 premiers caractères du UUID pour les certificats."""
@@ -411,6 +444,11 @@ class PrizeAward(models.Model):
         if self.prize_id and self.project_id:
             if self.prize.hackathon_id != self.project.hackathon_id:
                 errors['project'] = _('The winning project must belong to the prize hackathon.')
+            elif not LeaderboardEntry.objects.filter(
+                hackathon_id=self.prize.hackathon_id,
+                project_id=self.project_id,
+            ).exists():
+                errors['project'] = _('The winning project must be present in the saved ranking.')
         if self.prize_id and self.position and self.position > self.prize.winner_slots:
             errors['position'] = _('This prize has fewer winner slots than the selected position.')
         if errors:
