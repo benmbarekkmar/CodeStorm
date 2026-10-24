@@ -17,6 +17,8 @@ class Team(models.Model):
     name = models.CharField(_('Name'), max_length=120)
     slug = models.SlugField(_('Slug'), max_length=140, unique=True, blank=True)
     description = models.TextField(_('Description'), blank=True)
+    required_skills = models.TextField(_('Required skills'), blank=True, default='')
+    interests = models.TextField(_('Team interests'), blank=True, default='')
     hackathon = models.ForeignKey(
         'hackathons.Hackathon',
         verbose_name=_('Hackathon'),
@@ -96,29 +98,36 @@ class Team(models.Model):
     def can_manage(self, user):
         return self.is_captain(user)
 
-    def is_joinable(self, user):
+    def is_joinable(self, user, via_invitation=False):
         """Server-side eligibility for a participant joining this team.
 
-        This is the single source of truth reused by the request-join view and
-        the captain's approval, so every join path enforces the same rules.
+        Single source of truth reused by the request-join view, the captain's
+        approval and invitation acceptance, so every join path enforces the
+        same rules against the real ``Hackathon`` model.
+
+        ``via_invitation`` waives only the join-request opt-ins (visibility and
+        ``allow_join_requests``) — being invited is how a private or closed team
+        admits someone. Every membership rule still applies: hackathon
+        registration window, capacity, no duplicate membership and one team per
+        hackathon.
         """
         if self.status != self.Status.ACTIVE:
             return False, _('This team is not open for joining.')
-        if self.visibility != self.Visibility.PUBLIC:
-            return False, _('This team is private; an invitation is required.')
-        if not self.allow_join_requests:
-            return False, _('This team does not accept join requests.')
-        if self.hackathon and not self.hackathon.accepts_participants:
+        if not via_invitation:
+            if self.visibility != self.Visibility.PUBLIC:
+                return False, _('This team is private; an invitation is required.')
+            if not self.allow_join_requests:
+                return False, _('This team does not accept join requests.')
+        if self.hackathon and not self.hackathon.registration_open:
             return False, _('The hackathon is no longer accepting participants.')
         if self.is_full():
             return False, _('This team is full.')
         if self.has_member(user):
             return False, _('You are already a member of this team.')
-        if self.hackathon and not self.hackathon.allow_multiple_teams:
-            if Team.objects.filter(
-                hackathon=self.hackathon, memberships__user=user,
-            ).exists():
-                return False, _('You already have a team in this hackathon.')
+        if self.hackathon_id and Team.objects.filter(
+            hackathon_id=self.hackathon_id, memberships__user=user,
+        ).exclude(pk=self.pk).exists():
+            return False, _('You already have a team in this hackathon.')
         return True, ''
 
     # --- Mutations (call inside a transaction) ---------------------------

@@ -48,6 +48,10 @@
   </div>
   <div class="flex items-center gap-space-sm self-start md:self-auto">
     {% if is_participant %}
+    <a class="px-space-md py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container-low transition-all flex items-center gap-2" href="{% url 'teams:recommendations' %}">
+      <span class="material-symbols-outlined text-[18px] text-primary">auto_awesome</span>
+      <span>{% trans "Recommended" %}</span>
+    </a>
     <a class="px-space-md py-2.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container-low transition-all flex items-center gap-2" href="{% url 'teams:invitations' %}">
       <span class="material-symbols-outlined text-[18px] text-secondary">forward_to_inbox</span>
       <span>{% trans "Invitations" %}</span>
@@ -115,7 +119,7 @@
     </div>
     <select name="hackathon" class="bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20">
       <option value="all">{% trans "All hackathons" %}</option>
-      {% for h in hackathons %}<option value="{{ h.pk }}" {% if sel_hackathon == h.pk|stringformat:'s' %}selected{% endif %}>{{ h.name }}</option>{% endfor %}
+      {% for h in hackathons %}<option value="{{ h.pk }}" {% if sel_hackathon == h.pk|stringformat:'s' %}selected{% endif %}>{{ h.title }}</option>{% endfor %}
     </select>
     <select name="availability" class="bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20">
       <option value="all">{% trans "Any availability" %}</option>

@@ -210,14 +210,19 @@ def generate_description(request):
 
     title = str(data.get('title', '')).strip()[:150]
     category = str(data.get('category', '')).strip()[:50]
-    if len(title) < 3:
-        return JsonResponse({'error': _('Please enter a title first (3 characters minimum).')}, status=400)
+    if not title and not category:
+        return JsonResponse({'error': _('Please enter a title or choose a category first.')}, status=400)
 
     started = time.perf_counter()
     try:
-        text = ai.generate_description(title, category, request.user.language)
+        if title:
+            text = ai.generate_description(title, category, request.user.language)
+            payload = {'description': text, 'elapsed_ms': None}
+        else:
+            payload = ai.generate_title_and_description(category, request.user.language)
     except ai.AIServiceError as exc:
         return JsonResponse({'error': str(exc)}, status=502)
     elapsed_ms = round((time.perf_counter() - started) * 1000)
+    payload['elapsed_ms'] = elapsed_ms
     logger.info('AI description generated in %s ms (title=%r)', elapsed_ms, title)
-    return JsonResponse({'description': text, 'elapsed_ms': elapsed_ms})
+    return JsonResponse(payload)

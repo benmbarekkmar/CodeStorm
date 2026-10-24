@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from hackathons.models import Hackathon
@@ -18,24 +19,40 @@ INPUT = (
 class TeamForm(forms.ModelForm):
     hackathon = forms.ModelChoiceField(
         label=_('Hackathon'),
-        queryset=Hackathon.objects.filter(
-            status__in=[Hackathon.Status.REGISTRATION_OPEN, Hackathon.Status.ONGOING],
-        ),
+        queryset=Hackathon.objects.none(),
         required=False,
         empty_label=_('No hackathon'),
     )
 
     class Meta:
         model = Team
-        fields = ('name', 'description', 'hackathon', 'max_members', 'visibility', 'allow_join_requests')
+        fields = (
+            'name', 'description', 'required_skills', 'interests', 'hackathon',
+            'max_members', 'visibility', 'allow_join_requests',
+        )
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': _('Choose a unique team name')}),
             'description': forms.Textarea(attrs={'rows': 3, 'placeholder': _('Describe what your team aims to build.')}),
+            'required_skills': forms.TextInput(attrs={'placeholder': _('Skills the team is looking for, separated by commas')}),
+            'interests': forms.TextInput(attrs={'placeholder': _('Topics or domains the team focuses on, separated by commas')}),
             'max_members': forms.NumberInput(attrs={'min_value': 2, 'max_value': 50}),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # Built per request: a class-level queryset would freeze timezone.now()
+        # at import time and keep long-closed hackathons selectable. A NULL
+        # registration_deadline is excluded, matching Hackathon.registration_open.
+        open_qs = Hackathon.objects.filter(
+            status=Hackathon.Status.PUBLISHED,
+            registration_deadline__gte=timezone.now(),
+        )
+        current = self.instance.hackathon_id if self.instance.pk else None
+        if current:
+            # Keep the team's own hackathon selectable so a captain can still
+            # edit description/capacity once registration has closed.
+            open_qs = open_qs | Hackathon.objects.filter(pk=current)
+        self.fields['hackathon'].queryset = open_qs
         for name, field in self.fields.items():
             field.help_text = None
             widget = field.widget
@@ -112,4 +129,8 @@ class InviteMemberForm(forms.ModelForm):
             raise forms.ValidationError(_('This team is full.'))
         if self.team and self.team.invitations.filter(invitee=user, status=TeamInvitation.Status.PENDING).exists():
             raise forms.ValidationError(_('An invitation is already pending for this user.'))
+        if self.team is not None:
+            ok, reason = self.team.is_joinable(user, via_invitation=True)
+            if not ok:
+                raise forms.ValidationError(reason)
         return user

@@ -63,9 +63,11 @@ class PersonalInfoForm(forms.ModelForm):
         model = User
         fields = (
             'first_name', 'last_name', 'email', 'username', 'phone',
-            'institution', 'field_of_study', 'bio', 'avatar',
+            'institution', 'field_of_study', 'skills', 'interests', 'bio', 'avatar',
         )
         widgets = {
+            'skills': forms.TextInput(),
+            'interests': forms.TextInput(),
             'bio': forms.Textarea(attrs={'rows': 3, 'maxlength': 250}),
         }
 
@@ -79,6 +81,8 @@ class PersonalInfoForm(forms.ModelForm):
             'phone': _('Your phone number'),
             'institution': _('Your university or institution'),
             'field_of_study': _('Your field of study or specialization'),
+            'skills': _('List your skills, separated by commas'),
+            'interests': _('List your interests, separated by commas'),
             'bio': _('Write a short biography about yourself'),
         }
         for name, field in self.fields.items():
@@ -96,6 +100,8 @@ class PersonalInfoForm(forms.ModelForm):
             widget.attrs['class'] = f'{existing} {base}'.strip()
         self.fields['institution'].label = _('University / Institution')
         self.fields['field_of_study'].label = _('Field of study / Specialization')
+        self.fields['skills'].label = _('Skills')
+        self.fields['interests'].label = _('Interests')
 
     def clean_avatar(self):
         avatar = self.cleaned_data.get('avatar')

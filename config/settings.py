@@ -36,8 +36,9 @@ ALLOWED_HOSTS = [
 ]
 
 # Configuration Gemini
+GEMINI_MODEL_DEFAULT = 'gemini-3.8-flash'
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
-GEMINI_MODEL = os.environ.get('GEMINI_MODEL', 'gemini-2.5-flash')
+GEMINI_MODEL = os.environ.get('GEMINI_MODEL', GEMINI_MODEL_DEFAULT)
 
 
 # Application definition

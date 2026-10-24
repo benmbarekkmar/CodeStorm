@@ -78,21 +78,29 @@ class Hackathon(models.Model):
             return 'cancelled'
         if self.status == self.Status.DRAFT:
             return 'draft'
+        if self.start_date is None:
+            # 0002 added the date columns nullable on the diverged dev DB; the
+            # real dates arrive with the deferred data-population migration.
+            return 'unscheduled'
         now = timezone.now()
         if now < self.start_date:
             return 'upcoming'
-        if now <= self.end_date:
+        if self.end_date is None or now <= self.end_date:
             return 'ongoing'
         return 'completed'
 
     @property
     def registration_open(self):
-        return self.status == self.Status.PUBLISHED and timezone.now() <= self.registration_deadline
+        if self.status != self.Status.PUBLISHED or self.registration_deadline is None:
+            # No deadline recorded (legacy dev rows) => no open window to join.
+            return False
+        return timezone.now() <= self.registration_deadline
 
     @property
     def submission_open(self):
-        return (self.status == self.Status.PUBLISHED
-                and self.start_date <= timezone.now() <= self.submission_deadline)
+        if self.status != self.Status.PUBLISHED or self.start_date is None or self.submission_deadline is None:
+            return False
+        return self.start_date <= timezone.now() <= self.submission_deadline
 
 
 class Challenge(models.Model):

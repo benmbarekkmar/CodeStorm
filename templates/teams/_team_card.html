@@ -5,7 +5,7 @@
   <div class="flex flex-col gap-space-sm">
     <div class="flex items-center justify-between">
       <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold truncate max-w-[60%]">
-        {% firstof team.hackathon.name _("No hackathon") %}
+        {% firstof team.hackathon.title _("No hackathon") %}
       </span>
       {% if team.is_full %}
         <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">{% trans "Full" %}</span>

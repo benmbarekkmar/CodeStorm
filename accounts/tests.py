@@ -39,6 +39,11 @@ class UserModelTests(TestCase):
         self.assertFalse(user.notif_weekly)
         self.assertIn('Participant', str(user))
 
+    def test_skills_and_interests_default_empty(self):
+        user = make_user()
+        self.assertEqual(user.skills, '')
+        self.assertEqual(user.interests, '')
+
     def test_initials(self):
         user = make_user(first_name='Kmar', last_name='Ben Mbarek')
         self.assertEqual(user.initials, 'KB')
@@ -298,3 +303,68 @@ class AdminAccessTests(TestCase):
         self.client.force_login(make_user(username='ivan'))
         resp = self.client.get(reverse('admin:index'))
         self.assertEqual(resp.status_code, 302)
+
+
+# --------------------------------------------------------------------------
+# Skills / interests on the profile
+# --------------------------------------------------------------------------
+class SkillsInterestsTests(TestCase):
+    def _personal_data(self, user, **over):
+        data = {
+            'section': 'personal',
+            'p-username': user.username,
+            'p-first_name': user.first_name or 'F',
+            'p-last_name': user.last_name or 'L',
+            'p-email': user.email,
+            'p-skills': 'Python, Django, SQL',
+            'p-interests': 'AI, Web3',
+        }
+        data.update(over)
+        return data
+
+    def test_form_persists_skills_and_interests(self):
+        user = make_user(username='gina')
+        form = PersonalInfoForm(instance=user, data={
+            'username': user.username, 'first_name': 'G', 'last_name': 'A',
+            'email': user.email, 'skills': 'React, Figma', 'interests': 'Design',
+        })
+        self.assertTrue(form.is_valid(), form.errors)
+        form.save()
+        user.refresh_from_db()
+        self.assertEqual(user.skills, 'React, Figma')
+        self.assertEqual(user.interests, 'Design')
+
+    def test_form_accepts_empty_skills_and_interests(self):
+        user = make_user(username='hugo')
+        form = PersonalInfoForm(instance=user, data={
+            'username': user.username, 'first_name': 'H', 'last_name': 'U',
+            'email': user.email, 'skills': '', 'interests': '',
+        })
+        self.assertTrue(form.is_valid(), form.errors)
+        form.save()
+        user.refresh_from_db()
+        self.assertEqual(user.skills, '')
+        self.assertEqual(user.interests, '')
+
+    def test_profile_view_updates_and_redisplays(self):
+        user = make_user(username='iris')
+        self.client.force_login(user)
+        resp = self.client.post(reverse('profile_settings'), self._personal_data(user))
+        self.assertEqual(resp.status_code, 302)
+        user.refresh_from_db()
+        self.assertEqual(user.skills, 'Python, Django, SQL')
+        self.assertEqual(user.interests, 'AI, Web3')
+        # Re-displayed on the next GET.
+        page = self.client.get(reverse('profile_settings'))
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, 'Python, Django, SQL')
+        self.assertContains(page, 'AI, Web3')
+
+    def test_profile_view_update_replaces_previous_values(self):
+        user = make_user(username='jack', skills='Old', interests='Old')
+        self.client.force_login(user)
+        self.client.post(reverse('profile_settings'),
+                         self._personal_data(user, **{'p-skills': 'Go', 'p-interests': 'Systems'}))
+        user.refresh_from_db()
+        self.assertEqual(user.skills, 'Go')
+        self.assertEqual(user.interests, 'Systems')
