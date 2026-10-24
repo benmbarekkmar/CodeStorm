@@ -1,11 +1,21 @@
 from django.contrib import admin
+from .models import Hackathon, Challenge
 
-from hackathons.models import Hackathon
+
+class ChallengeInline(admin.TabularInline):
+    model = Challenge
+    extra = 0
 
 
 @admin.register(Hackathon)
 class HackathonAdmin(admin.ModelAdmin):
-    list_display = ('name', 'status', 'max_team_size', 'allow_multiple_teams', 'created_by', 'created_at')
-    list_filter = ('status', 'allow_multiple_teams')
-    search_fields = ('name', 'description')
-    readonly_fields = ('created_at', 'updated_at')
+    list_display = ('title', 'organizer', 'category', 'status', 'start_date', 'end_date')
+    list_filter = ('status', 'category', 'event_format')
+    search_fields = ('title', 'description')
+    inlines = [ChallengeInline]
+
+
+@admin.register(Challenge)
+class ChallengeAdmin(admin.ModelAdmin):
+    list_display = ('title', 'hackathon', 'difficulty', 'is_published')
+    list_filter = ('is_published', 'difficulty')
