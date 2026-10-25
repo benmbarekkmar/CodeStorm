@@ -7625,3 +7625,221 @@ msgstr "Note d'évaluation"
 
 msgid "Evaluation Scores"
 msgstr "Notes d'évaluation"
+
+msgid "No team reaches %(min)s%% compatibility for your profile in “%(hackathon)s” yet."
+msgstr "Aucune équipe n’atteint %(min)s%% de compatibilité avec votre profil dans « %(hackathon)s »."
+
+msgid "We would rather tell you the truth than list teams that do not fit. These actions can improve your results:"
+msgstr "Nous préférons être honnêtes plutôt que de lister des équipes qui ne vous conviennent pas. Ces actions peuvent améliorer vos résultats :"
+
+msgid "Add more skills and interests to your profile"
+msgstr "Ajouter des compétences et des intérêts à votre profil"
+
+msgid "Pick another hackathon above, where other teams are recruiting."
+msgstr "Choisir un autre hackathon ci-dessus, où d’autres équipes recrutent."
+
+msgid "Browse all teams instead"
+msgstr "Parcourir toutes les équipes"
+
+msgid "Every team that fits your profile is already full or no longer accepts requests."
+msgstr "Toutes les équipes qui correspondent à votre profil sont déjà complètes ou n’acceptent plus de demandes."
+
+msgid "submitted projects"
+msgstr "projets soumis"
+
+msgid "pending"
+msgstr "en attente"
+
+msgid "in progress"
+msgstr "en cours"
+
+msgid "published & finalized"
+msgstr "publiées & finalisées"
+
+msgid "weighted average"
+msgstr "moyenne pondérée"
+
+msgid "evaluations tracked"
+msgstr "évaluations suivies"
+
+msgid "Median:"
+msgstr "Médiane :"
+
+msgid "Avg:"
+msgstr "Moy. :"
+
+msgid "projects"
+msgstr "projets"
+
+msgid "No upcoming deadline"
+msgstr "Aucune échéance à venir"
+
+msgid "scored"
+msgstr "notées"
+
+msgid "View Leaderboard"
+msgstr "Voir le classement"
+
+msgid "Scored by"
+msgstr "Notée par"
+
+msgid "Unknown"
+msgstr "Inconnu"
+
+msgid "No completed evaluations yet. Start an evaluation to see it here."
+msgstr "Aucune évaluation finalisée pour le moment. Lancez une évaluation pour la voir ici."
+
+msgid "No pending evaluations. Use Start Evaluation to choose a hackathon and project."
+msgstr "Aucune évaluation en attente. Utilisez « Démarrer l’évaluation » pour choisir un hackathon et un projet."
+
+msgid "No qualitative feedback provided."
+msgstr "Aucun retour qualitatif fourni."
+
+msgid "No completed evaluations yet."
+msgstr "Aucune évaluation finalisée pour le moment."
+
+msgid "Evaluator Profile:"
+msgstr "Profil de l’évaluateur :"
+
+msgid "assigned submissions in your review queue"
+msgstr "projets soumis qui vous sont assignés dans votre file de relecture"
+
+msgid "CUTOFF"
+msgstr "LIMITE"
+
+msgid "Update Score"
+msgstr "Mettre à jour la note"
+
+msgid "No evaluations assigned to you yet. Click Start Evaluation to pick a hackathon and project."
+msgstr "Aucune évaluation ne vous est encore assignée. Cliquez sur « Démarrer l’évaluation » pour choisir un hackathon et un projet."
+
+msgid "New jury review"
+msgstr "Nouvelle relecture du jury"
+
+msgid "Start Evaluation"
+msgstr "Démarrer l’évaluation"
+
+msgid "Choose the hackathon, then the project you want to evaluate."
+msgstr "Choisissez le hackathon, puis le projet que vous souhaitez évaluer."
+
+msgid "Select a hackathon first"
+msgstr "Sélectionnez d’abord un hackathon"
+
+msgid "Start scoring"
+msgstr "Commencer la notation"
+
+msgid "No hackathons with submitted projects yet. Add them in admin first."
+msgstr "Aucun hackathon avec des projets soumis pour le moment. Ajoutez-les d’abord dans l’administration."
+
+msgid "Select a project"
+msgstr "Sélectionnez un projet"
+
+msgid "This hackathon has no submitted projects yet."
+msgstr "Ce hackathon n’a pas encore de projet soumis."
+
+msgid "already scored"
+msgstr "déjà noté"
+
+msgid "draft in progress"
+msgstr "brouillon en cours"
+
+msgid "Please choose a hackathon."
+msgstr "Veuillez choisir un hackathon."
+
+msgid "Please choose a project to evaluate."
+msgstr "Veuillez choisir un projet à évaluer."
+
+msgid "Evaluation created. Complete the rubric to publish scores."
+msgstr "Évaluation créée. Complétez la grille pour publier les notes."
+
+msgid "Could not start this evaluation. Try another project."
+msgstr "Impossible de démarrer cette évaluation. Essayez un autre projet."
+
+msgid "Unable to load this evaluation."
+msgstr "Impossible de charger cette évaluation."
+
+msgid "Evaluation submitted and added to the dashboard."
+msgstr "Évaluation soumise et ajoutée au tableau de bord."
+
+msgid "Draft saved. It now appears in your pending queue."
+msgstr "Brouillon enregistré. Il apparaît désormais dans vos évaluations en attente."
+
+msgid "No rubric scores recorded."
+msgstr "Aucune note enregistrée dans la grille."
+
+msgid "Results Leaderboard | CodeStorm"
+msgstr "Classement des résultats | CodeStorm"
+
+msgid "Results Leaderboard"
+msgstr "Classement des résultats"
+
+msgid "CODESTORM :: FINAL RANKINGS"
+msgstr "CODESTORM :: CLASSEMENT FINAL"
+
+msgid "Evaluation Results Leaderboard"
+msgstr "Classement des résultats d’évaluation"
+
+msgid "Finalized scores sorted by weighted aggregate across all jury criteria."
+msgstr "Notes finalisées, triées par agrégat pondéré sur l’ensemble des critères du jury."
+
+msgid "Back to Evaluations"
+msgstr "Retour aux évaluations"
+
+msgid "Filter by Hackathon:"
+msgstr "Filtrer par hackathon :"
+
+msgid "Project & Team"
+msgstr "Projet et équipe"
+
+msgid "Strengths"
+msgstr "Points forts"
+
+msgid "No completed evaluations to display yet."
+msgstr "Aucune évaluation finalisée à afficher pour le moment."
+
+msgid "Strengths & Highlights"
+msgstr "Points forts et réussites"
+
+msgid "Comment"
+msgstr "Commentaire"
+
+msgid "Evaluation Comment"
+msgstr "Commentaire d’évaluation"
+
+msgid "Evaluation Comments"
+msgstr "Commentaires d’évaluation"
+
+msgid "Innovation & Creativity"
+msgstr "Innovation et créativité"
+
+msgid "Technical Implementation"
+msgstr "Implémentation technique"
+
+msgid "User Experience & Design Polish"
+msgstr "Expérience utilisateur et finition du design"
+
+msgid "Impact & Relevance"
+msgstr "Impact et pertinence"
+
+msgid "Presentation & Documentation"
+msgstr "Présentation et documentation"
+
+msgid "The comment cannot be empty."
+msgstr "Le commentaire ne peut pas être vide."
+
+msgid "Total Score"
+msgstr "Note totale"
+
+msgid "%(when)s ago"
+msgstr "il y a %(when)s"
+
+msgid "Standard deviation is %(stdev_score)s pts among completed evaluations."
+msgstr "L’écart-type est de %(stdev_score)s pts parmi les évaluations finalisées."
+
+msgid "%(completed_evals)s of %(total_evals)s evaluations fully scored."
+msgstr "%(completed_evals)s évaluations sur %(total_evals)s sont entièrement notées."
+
+msgid "Breakdown across %(counter)s finalized project rubric"
+msgid_plural "Breakdown across %(counter)s finalized project rubrics"
+msgstr[0] "Répartition sur %(counter)s grille de projet finalisée"
+msgstr[1] "Répartition sur %(counter)s grilles de projet finalisées"

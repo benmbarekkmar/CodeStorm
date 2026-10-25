@@ -44,6 +44,12 @@ class Evaluation(models.Model):
     Évaluation d'un projet par un membre du jury.
     Chaque juré ne peut évaluer un projet qu'une seule fois.
     """
+
+    class Status(models.TextChoices):
+        PENDING = 'pending', _('Pending')
+        IN_PROGRESS = 'in_progress', _('In Progress')
+        COMPLETED = 'completed', _('Completed')
+
     project = models.ForeignKey(
         Project,
         on_delete=models.CASCADE,
@@ -57,7 +63,16 @@ class Evaluation(models.Model):
         limit_choices_to={'role': 'jury'},
         verbose_name=_('Jury member'),
     )
+    status = models.CharField(
+        _('Status'),
+        max_length=20,
+        choices=Status.choices,
+        default=Status.PENDING,
+    )
     comment = models.TextField(_('General comment'), blank=True)
+    strengths = models.TextField(_('Strengths & Highlights'), blank=True)
+    improvements = models.TextField(_('Areas for Improvement'), blank=True)
+    confidential_notes = models.TextField(_('Confidential Jury Summary'), blank=True)
     is_complete = models.BooleanField(
         _('Evaluation complete'),
         default=False,
@@ -75,15 +90,40 @@ class Evaluation(models.Model):
     def __str__(self):
         return f"{self.jury.username} → {self.project.title}"
 
+    def save(self, *args, **kwargs):
+        # ``is_complete`` stays the flag prizes/services.py validates, so the
+        # lifecycle status can never claim "completed" ahead of it; the reverse
+        # direction keeps the dashboard honest when a juré submits.
+        if self.is_complete and self.status != self.Status.COMPLETED:
+            self.status = self.Status.COMPLETED
+        super().save(*args, **kwargs)
+
+    @property
+    def total_score(self):
+        """The weighted score on the 0..100 scale the jury dashboard displays.
+
+        This is :meth:`get_weighted_score` rescaled, not a second formula: one
+        evaluation can only ever have one weighted result for the dashboard, the
+        leaderboard and the prizes ranking.
+        """
+        weighted = self.get_weighted_score()
+        if weighted is None:
+            return 0
+        return int(round(float(weighted) * 10))
+
     def get_weighted_score(self):
         """
         Calcule la note pondérée de cette évaluation en tenant compte
         des poids de chaque critère défini pour le hackathon.
         Formule : Somme(score_critère × poids_critère) / Somme(poids_critères)
         Si aucun score n'existe, retourne None.
+
+        Les appels en liste (tableau de bord du jury, classement, préparation des
+        prix) préchargent ``scores__criterion`` : on lit ce cache au lieu de
+        renvoyer une requête par évaluation.
         """
-        scores = self.scores.select_related('criterion').all()
-        if not scores.exists():
+        scores = list(self.scores.all())
+        if not scores:
             return None
 
         total_weighted = sum(
@@ -127,3 +167,36 @@ class EvaluationScore(models.Model):
 
     def __str__(self):
         return f"{self.evaluation} — {self.criterion.name}: {self.score}/10"
+
+
+class EvaluationComment(models.Model):
+    """
+    Fil de commentaires sur une évaluation (échange organisateur ↔ jury).
+
+    Stocké séparément des ``confidential_notes`` : un commentaire est partagé,
+    alors que le résumé du jury reste confidentiel.
+    """
+    evaluation = models.ForeignKey(
+        Evaluation,
+        on_delete=models.CASCADE,
+        related_name='comments',
+        verbose_name=_('Evaluation'),
+    )
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='evaluation_comments',
+        verbose_name=_('Author'),
+    )
+    text = models.TextField(_('Comment'))
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created_at']
+        verbose_name = _('Evaluation Comment')
+        verbose_name_plural = _('Evaluation Comments')
+
+    def __str__(self):
+        author = self.author.get_full_name() if self.author else _('Unknown')
+        return f"{author} → {self.evaluation.project.title}"

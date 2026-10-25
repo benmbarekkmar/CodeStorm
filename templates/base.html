@@ -113,7 +113,9 @@
 
         <div class="flex flex-col gap-1">
           <span class="px-space-sm font-label-sm text-label-sm text-outline tracking-wider uppercase">{% trans "Review &amp; Scoring" %}</span>
+          {% if user.is_superuser or user.role == 'jury' or user.role == 'organizer' %}
           <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="evaluations" href="{% url 'evaluations:home' %}"><span class="material-symbols-outlined text-[20px]">rate_review</span><span>{% trans "Evaluations" %}</span></a>
+          {% endif %}
           <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="prizes-leaderboard" href="{% url 'prizes:home' %}"><span class="material-symbols-outlined text-[20px]">leaderboard</span><span>{% trans "Prizes &amp; Leaderboard" %}</span></a>
           {% if user.is_authenticated and user.role == 'organizer' %}
           <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="analyses" href="{% url 'analyses:home' %}"><span class="material-symbols-outlined text-[20px]">auto_awesome</span><span>{% trans "AI Analyses" %}</span></a>
