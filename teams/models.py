@@ -98,7 +98,8 @@ class Team(models.Model):
     def can_manage(self, user):
         return self.is_captain(user)
 
-    def is_joinable(self, user, via_invitation=False):
+    def is_joinable(self, user, via_invitation=False, *, member_count=None,
+                    user_is_member=None, user_has_team_in_hackathon=None):
         """Server-side eligibility for a participant joining this team.
 
         Single source of truth reused by the request-join view, the captain's
@@ -110,6 +111,13 @@ class Team(models.Model):
         admits someone. Every membership rule still applies: hackathon
         registration window, capacity, no duplicate membership and one team per
         hackathon.
+
+        The three ``member_count`` / ``user_is_member`` /
+        ``user_has_team_in_hackathon`` keyword arguments are *pre-computed*
+        values for list views that render many teams at once: passing them
+        avoids one query per team. They change no rule — each check still runs,
+        only its data source differs — and every write path keeps calling this
+        method without hints, so it always reads the live database.
         """
         if self.status != self.Status.ACTIVE:
             return False, _('This team is not open for joining.')
@@ -120,13 +128,21 @@ class Team(models.Model):
                 return False, _('This team does not accept join requests.')
         if self.hackathon and not self.hackathon.registration_open:
             return False, _('The hackathon is no longer accepting participants.')
-        if self.is_full():
+        full = self.is_full() if member_count is None else member_count >= self.max_members
+        if full:
             return False, _('This team is full.')
-        if self.has_member(user):
+        if user_is_member is None:
+            user_is_member = self.has_member(user)
+        if user_is_member:
             return False, _('You are already a member of this team.')
-        if self.hackathon_id and Team.objects.filter(
-            hackathon_id=self.hackathon_id, memberships__user=user,
-        ).exclude(pk=self.pk).exists():
+        if user_has_team_in_hackathon is None:
+            user_has_team_in_hackathon = bool(
+                self.hackathon_id
+                and Team.objects.filter(
+                    hackathon_id=self.hackathon_id, memberships__user=user,
+                ).exclude(pk=self.pk).exists()
+            )
+        if user_has_team_in_hackathon:
             return False, _('You already have a team in this hackathon.')
         return True, ''
 

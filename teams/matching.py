@@ -26,9 +26,33 @@ from dataclasses import dataclass, field
 from typing import Iterable
 
 # Weights are the initial, adjustable heuristic. Keep them summing to 1.0.
+# Rationale: what a team explicitly asks for dominates (skills are the hard
+# requirement, interests the soft one), and complementarity only breaks ties
+# between profiles that already match. Nothing is added to flatter a result:
+# a component contributes 0 when it cannot be computed from real data.
 SKILLS_WEIGHT = 0.5
 INTERESTS_WEIGHT = 0.3
 COMPLEMENTARITY_WEIGHT = 0.2
+
+# Minimum score below which a team is *not* presented as a recommendation.
+# Initial, documented value. Reaching 20/100 takes real overlap with what the
+# team actually asks for: e.g. 40% of its required skills (0.5 * 40 = 20), or
+# all of its declared interests (0.3 * 100 = 30). A thinner overlap - a single
+# token out of a long list - stays hidden instead of being dressed up as a
+# match. Adjust here, never in a view or a template.
+MIN_MATCH_SCORE = 20
+
+
+def is_recommendable(result) -> bool:
+    """Honest gate: may this :class:`MatchResult` be shown as a recommendation?
+
+    ``True`` only when the team declared enough data for the score to mean
+    something *and* the weighted score reaches :data:`MIN_MATCH_SCORE`. A score
+    of ``0`` is a real answer ("this team does not fit"), not a missing value,
+    so low-scoring teams are filtered here instead of being inflated.
+    """
+    return bool(result.sufficient_data) and result.score >= MIN_MATCH_SCORE
+
 
 _SKILLS_MISSING = 'The team has not listed any required skills yet.'
 _INTERESTS_MISSING = 'The team has not listed any interests yet.'
@@ -212,11 +236,15 @@ def score_team(user, team, *, member_skills=None) -> MatchResult:
 
 def rank_teams(user, teams) -> list[MatchResult]:
     """Score ``user`` against many ``teams`` and return results sorted by score
-    (desc), then team id for a stable order.
+    (desc), then team id (desc) for a stable order.
 
     Members and their skills are loaded in a *single* query shared across all
     teams, so scoring N teams does not issue N membership queries. Pass a plain
     iterable of :class:`~teams.models.Team` instances.
+
+    The ordering is a pure function of the data: the same user and the same
+    teams always produce the same sequence, including on score ties (broken by
+    team id, so the newer team comes first). No randomness, no re-ranking.
     """
     teams = list(teams)
     team_ids = [t.pk for t in teams]
@@ -231,5 +259,6 @@ def rank_teams(user, teams) -> list[MatchResult]:
         preloaded.setdefault(membership.team_id, []).append(membership.user)
 
     results = [score_team(user, team, member_skills=preloaded.get(team.pk, [])) for team in teams]
+    # ``reverse=True`` applies to the whole key tuple: score desc, team id desc.
     results.sort(key=lambda r: (r.score, r.team_id if r.team_id is not None else 0), reverse=True)
     return results

@@ -559,6 +559,20 @@ def team_recommendations(request):
     ``Team.is_joinable(user)`` — this view creates no membership and never
     bypasses any permission.
 
+    A team reaches the page only when all three server-side conditions hold:
+    the team declared enough data for its score to mean something, the weighted
+    score is at least ``matching.MIN_MATCH_SCORE``, and ``is_joinable()`` says
+    the participant may request to join it (so full, archived, private,
+    request-less or already-taken teams are never presented as suggestions).
+    Candidates that were scored but filtered out are counted, not shown, so the
+    template can state honestly that nothing good enough exists instead of
+    padding the grid.
+
+    Cost is bounded and independent of how many teams the hackathon holds: the
+    membership counts, the participant's own memberships, the pending join
+    requests and the pending invitations are each fetched in one query for the
+    whole candidate set and fed to ``is_joinable()`` as pre-computed hints.
+
     The hackathon is selected through the ``?hackathon=<id>`` query param, the
     same convention used by the team list filter, limited to hackathons that are
     currently open for participants.
@@ -581,6 +595,8 @@ def team_recommendations(request):
     results = []
     no_teams = False
     all_joined = False
+    below_threshold = False
+    no_open_slot = False
     if selected is not None:
         member_team_ids = set(
             TeamMembership.objects.filter(user=user).values_list('team_id', flat=True)
@@ -600,33 +616,79 @@ def team_recommendations(request):
             no_teams = total_public == 0
             all_joined = total_public > 0
         else:
+            candidate_ids = [t.pk for t in teams_list]
+            # One query each for the whole candidate set (no per-team cost).
+            member_counts = dict(
+                TeamMembership.objects.filter(team_id__in=candidate_ids)
+                .values_list('team_id').annotate(c=Count('id'))
+            )
+            # "One team per hackathon": the teams of *this* hackathon the
+            # participant already belongs to (they were dropped from the
+            # candidates, so any hit is necessarily a *different* team).
+            hack_team_ids = set(
+                TeamMembership.objects.filter(
+                    user=user, team__hackathon=selected,
+                ).values_list('team_id', flat=True)
+            )
+            pending_request_ids = set(
+                JoinRequest.objects.filter(
+                    user=user, status=JoinRequest.Status.PENDING,
+                    team_id__in=candidate_ids,
+                ).values_list('team_id', flat=True)
+            )
+            pending_invitation_ids = set(
+                TeamInvitation.objects.filter(
+                    invitee=user, status=TeamInvitation.Status.PENDING,
+                    team_id__in=candidate_ids,
+                ).values_list('team_id', flat=True)
+            )
+
             team_by_id = {t.pk: t for t in teams_list}
+            scored = 0
+            above_threshold = 0
             for res in matching.rank_teams(user, teams_list):
                 team = team_by_id[res.team_id]
-                joinable, join_reason = team.is_joinable(user)
-                has_pending_request = team.join_requests.filter(
-                    user=user, status=JoinRequest.Status.PENDING,
-                ).exists()
-                has_invitation = team.invitations.filter(
-                    invitee=user, status=TeamInvitation.Status.PENDING,
-                ).exists()
+                scored += 1
+                if not matching.is_recommendable(res):
+                    continue
+                above_threshold += 1
+                count = member_counts.get(team.pk, 0)
+                joinable, join_reason = team.is_joinable(
+                    user,
+                    member_count=count,
+                    user_is_member=False,  # members are excluded from candidates
+                    user_has_team_in_hackathon=bool(hack_team_ids - {team.pk}),
+                )
+                if not joinable:
+                    continue
                 results.append({
                     'team': team,
                     'match': res.to_context(),
+                    'member_count': count,
+                    'remaining_slots': max(team.max_members - count, 0),
                     'joinable': joinable,
                     'join_reason': join_reason,
-                    'has_pending_request': has_pending_request,
-                    'has_invitation': has_invitation,
+                    'has_pending_request': team.pk in pending_request_ids,
+                    'has_invitation': team.pk in pending_invitation_ids,
                 })
+            # Two different honest states: nothing fitted the profile, or
+            # something fitted but no seat is open. Saying "no compatible team"
+            # in the second case would be a lie.
+            below_threshold = scored > 0 and above_threshold == 0
+            no_open_slot = above_threshold > 0 and not results
 
     context = {
         'hackathons': selectable_hackathons,
         'selected_hackathon': selected,
         'sel_hackathon': hackathon_id,
         'results': results,
+        'result_count': len(results),
         'profile_has_data': profile_has_data,
         'no_teams': no_teams,
         'all_joined': all_joined,
+        'below_threshold': below_threshold,
+        'no_open_slot': no_open_slot,
+        'min_score': matching.MIN_MATCH_SCORE,
         'weights': {
             'skills': int(matching.SKILLS_WEIGHT * 100),
             'interests': int(matching.INTERESTS_WEIGHT * 100),

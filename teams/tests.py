@@ -1,6 +1,7 @@
 
 import io
 from datetime import timedelta
+from types import SimpleNamespace
 
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
@@ -1562,6 +1563,131 @@ class MatchingDbSafetyTests(TeamsBase):
         self.assertEqual(member.skills, 'python')
 
 
+class MatchingThresholdTests(SimpleTestCase):
+    """The honest gate: nothing is shown as a recommendation below the threshold."""
+
+    def _result(self, score, sufficient_data=True):
+        return matching.MatchResult(
+            team_id=1, user_id=1, score=score,
+            skills_score=0.0, interests_score=0.0, complementarity_score=0.0,
+            contributions={}, sufficient_data=sufficient_data,
+        )
+
+    def _profile(self, skills='', interests=''):
+        return SimpleNamespace(pk=1, skills=skills, interests=interests)
+
+    def _team_like(self, required_skills='', interests=''):
+        return SimpleNamespace(pk=7, required_skills=required_skills, interests=interests)
+
+    def test_threshold_is_centralised_and_documented(self):
+        self.assertEqual(matching.MIN_MATCH_SCORE, 20)
+
+    def test_gate_boundary_is_inclusive(self):
+        self.assertTrue(matching.is_recommendable(self._result(20)))
+        self.assertFalse(matching.is_recommendable(self._result(19)))
+        self.assertFalse(matching.is_recommendable(self._result(0)))
+
+    def test_gate_rejects_high_score_built_on_no_team_data(self):
+        # A team that declares nothing cannot be claimed as a good match.
+        self.assertFalse(matching.is_recommendable(self._result(100, sufficient_data=False)))
+
+    def test_weak_overlap_scores_below_threshold_without_inflation(self):
+        res = matching.score_team(
+            self._profile(skills='python'),
+            self._team_like(required_skills='python, rust, go, ml, web'),
+            member_skills=set(),
+        )
+        self.assertEqual(res.skills_score, 20.0)
+        self.assertEqual(res.complementarity_score, 20.0)
+        self.assertEqual(res.score, 14)          # 0.5*20 + 0.2*20, no bonus added
+        self.assertFalse(matching.is_recommendable(res))
+
+    def test_partial_overlap_scores_above_threshold(self):
+        res = matching.score_team(
+            self._profile(skills='python'),
+            self._team_like(required_skills='python, rust'),
+            member_skills=set(),
+        )
+        self.assertEqual(res.score, 35)
+        self.assertTrue(matching.is_recommendable(res))
+
+    def test_team_declaring_nothing_scores_zero_and_is_flagged(self):
+        res = matching.score_team(
+            self._profile(skills='python', interests='ai'), self._team_like(),
+            member_skills=set(),
+        )
+        self.assertEqual(res.score, 0)
+        self.assertFalse(res.sufficient_data)
+        self.assertFalse(matching.is_recommendable(res))
+
+    def test_weights_are_unchanged_and_sum_to_one(self):
+        self.assertEqual(
+            (matching.SKILLS_WEIGHT, matching.INTERESTS_WEIGHT,
+             matching.COMPLEMENTARITY_WEIGHT), (0.5, 0.3, 0.2),
+        )
+        self.assertAlmostEqual(
+            matching.SKILLS_WEIGHT + matching.INTERESTS_WEIGHT
+            + matching.COMPLEMENTARITY_WEIGHT, 1.0,
+        )
+
+
+class JoinableHintTests(TeamsBase):
+    """Pre-computed hints must reproduce ``is_joinable()`` exactly, with no query."""
+
+    def _team(self, **kw):
+        defaults = dict(hackathon=self.hack, created_by=self.captain,
+                        captain=self.captain, max_members=5,
+                        visibility='public', status='active')
+        defaults.update(kw)
+        return Team.objects.create(name='Hinted', **defaults)
+
+    def test_hints_match_live_evaluation_for_every_rule(self):
+        outsider = make_user('hint_out', P, skills='python')
+        full = self._team(max_members=1)
+        full.add_member(self.captain)
+
+        cases = [
+            ('full', full, outsider),
+            ('member', self.team, self.member),
+            ('outsider', self.team, outsider),
+        ]
+        for label, team, user in cases:
+            count = team.memberships.count()
+            is_member = team.has_member(user)
+            other = Team.objects.filter(
+                hackathon_id=team.hackathon_id, memberships__user=user,
+            ).exclude(pk=team.pk).exists()
+            with self.subTest(rule=label):
+                self.assertEqual(
+                    team.is_joinable(user),
+                    team.is_joinable(
+                        user, member_count=count, user_is_member=is_member,
+                        user_has_team_in_hackathon=other,
+                    ),
+                )
+
+    def test_hints_are_read_from_the_database_when_omitted(self):
+        team = self._team(max_members=2)
+        team.add_member(self.captain)
+        outsider = make_user('hint_cost', P)
+        with CaptureQueriesContext(connection) as ctx:
+            team.is_joinable(outsider)
+        self.assertGreaterEqual(len(ctx), 1)
+
+    def test_hinted_call_issues_no_query(self):
+        team = self._team(max_members=2)
+        team.add_member(self.captain)
+        outsider = make_user('hint_free', P)
+        team.hackathon  # warm the select_related cache like the view does
+        with CaptureQueriesContext(connection) as ctx:
+            result = team.is_joinable(
+                outsider, member_count=1, user_is_member=False,
+                user_has_team_in_hackathon=False,
+            )
+        self.assertEqual(result, (True, ''))
+        self.assertEqual(len(ctx), 0)
+
+
 class RecommendationsViewTests(TeamsBase):
     """Integrates the matching engine into the participant recommendations page."""
 
@@ -1620,26 +1746,47 @@ class RecommendationsViewTests(TeamsBase):
     # 5. Ordering by score desc
     def test_results_ordered_by_score_desc(self):
         strong = self._team('Strong', required_skills='python, django', interests='ai, web')
+        mid = self._team('Mid', required_skills='python, rust', interests='ai, iot')
         weak = self._team('Weak', required_skills='rust', interests='iot')
         self.login(self._participant('o2', skills='python, django', interests='ai, web'))
         results = self.client.get(self.url(self.hack)).context['results']
         names = [r['team'].name for r in results]
-        self.assertEqual(names[0], 'Strong')
+        # 'Weak' scores 0% and is not a recommendation at all (see D3 threshold).
+        self.assertEqual(names, ['Strong', 'Mid'])
+        self.assertNotIn(weak.name, names)
         scores = [r['match']['score'] for r in results]
         self.assertEqual(scores, sorted(scores, reverse=True))
-        self.assertGreater(self._item(results, strong)['match']['score'],
-                           self._item(results, weak)['match']['score'])
+        self.assertEqual(self._item(results, strong)['match']['score'], 100)
+        self.assertEqual(self._item(results, mid)['match']['score'], 50)
 
-    # 6. Compatibility vs joinability
-    def test_full_team_is_compatible_but_not_joinable(self):
+    # 6. Eligibility is applied before ranking output (mission §3.4)
+    def test_full_team_is_compatible_but_not_recommended(self):
         full = self._team('FullRoom', required_skills='python', max_members=1)
         full.add_member(self.captain)
+        open_team = self._team('OpenRoom', required_skills='python', max_members=5)
         self.login(self._participant('o3', skills='python'))
-        results = self.client.get(self.url(self.hack)).context['results']
-        item = self._item(results, full)
-        self.assertEqual(item['match']['skills_score'], 100.0)  # compatible
-        self.assertFalse(item['joinable'])                       # but cannot join
-        self.assertTrue(item['join_reason'])
+        resp = self.client.get(self.url(self.hack))
+        names = [r['team'].name for r in resp.context['results']]
+        # Perfectly compatible (100% skills) yet a full team is never suggested:
+        # the participant could not act on it.
+        self.assertNotIn(full.name, names)
+        self.assertIn(open_team.name, names)
+        self.assertFalse(resp.context['below_threshold'])
+
+    def test_team_that_refuses_requests_is_not_recommended(self):
+        closed = self._team('NoRequests', required_skills='python',
+                            allow_join_requests=False)
+        self.login(self._participant('o3b', skills='python'))
+        resp = self.client.get(self.url(self.hack))
+        self.assertNotIn(closed.name, [r['team'].name for r in resp.context['results']])
+
+    def test_participant_with_another_team_in_the_hackathon_is_not_recommended(self):
+        # The "one team per hackathon" rule must survive the batched hint:
+        # every other team of the hackathon becomes unjoinable, not just theirs.
+        other = self._team('SecondSeat', required_skills='python')
+        self.login(self.member)  # member of self.team, same hackathon
+        resp = self.client.get(self.url(self.hack))
+        self.assertNotIn(other.name, [r['team'].name for r in resp.context['results']])
 
     # 7. Respect archived / private / closed
     def test_archived_and_private_teams_excluded(self):
@@ -1729,6 +1876,147 @@ class RecommendationsViewTests(TeamsBase):
         self.assertEqual(match['uncovered_team_skills'], ['python'])
         self.assertTrue(match['sufficient_data'])
         self.assertEqual(match['score'], 100)
+
+
+class RecommendationsHonestyTests(TeamsBase):
+    """Nothing is dressed up as a match: below-threshold output is an honest state."""
+
+    def url(self, hackathon):
+        return reverse('teams:recommendations') + f'?hackathon={hackathon.pk}'
+
+    def _participant(self, name, skills='', interests=''):
+        return make_user(name, skills=skills, interests=interests)
+
+    def _team(self, name, **kw):
+        defaults = dict(hackathon=self.hack, created_by=self.captain,
+                        captain=self.captain, max_members=5,
+                        visibility='public', status='active',
+                        required_skills='', interests='')
+        defaults.update(kw)
+        return Team.objects.create(name=name, **defaults)
+
+    def test_zero_score_team_is_hidden_and_state_is_honest(self):
+        self._team('NoFit', required_skills='rust, go, ml', interests='iot, embedded')
+        self.login(self._participant('h1', skills='python'))
+        resp = self.client.get(self.url(self.hack))
+        self.assertEqual(resp.context['results'], [])
+        self.assertTrue(resp.context['below_threshold'])
+        self.assertFalse(resp.context['no_teams'])
+        self.assertFalse(resp.context['all_joined'])
+        self.assertEqual(resp.context['min_score'], 20)
+
+    def test_honest_state_offers_useful_actions(self):
+        self._team('NoFit2', required_skills='rust')
+        self.login(self._participant('h2', skills='python'))
+        resp = self.client.get(self.url(self.hack))
+        body = resp.content.decode()
+        self.assertIn('No team reaches', body)
+        self.assertIn(reverse('profile_settings'), body)
+        self.assertNotIn('NoFit2', body)
+
+    def test_team_without_declared_data_is_not_recommended(self):
+        self._team('EmptyBrief')
+        self.login(self._participant('h3', skills='python', interests='ai'))
+        resp = self.client.get(self.url(self.hack))
+        self.assertNotIn('EmptyBrief', [r['team'].name for r in resp.context['results']])
+        self.assertTrue(resp.context['below_threshold'])
+
+    def test_compatible_but_no_open_seat_states_the_real_reason(self):
+        full = self._team('SeatsTaken', required_skills='python', max_members=1)
+        full.add_member(self.captain)
+        self.login(self._participant('h5', skills='python'))
+        resp = self.client.get(self.url(self.hack))
+        self.assertEqual(resp.context['results'], [])
+        # Never claim "no compatible team" when the real reason is capacity.
+        self.assertFalse(resp.context['below_threshold'])
+        self.assertTrue(resp.context['no_open_slot'])
+        self.assertContains(resp, 'already full or no longer accepts requests')
+        self.assertNotIn('No team reaches', resp.content.decode())
+
+    def test_honest_state_is_translated_in_the_catalog(self):
+        from django.utils.translation import gettext, override
+
+        with override('fr'):
+            self.assertEqual(gettext('Browse all teams instead'),
+                             'Parcourir toutes les équipes')
+            scored = gettext(
+                'No team reaches %(min)s%% compatibility for your profile '
+                'in “%(hackathon)s” yet.'
+            ) % {'min': 20, 'hackathon': 'IA'}
+        self.assertIn('20%', scored)
+        self.assertIn('compatibilité', scored)
+
+    def test_result_count_matches_rendered_cards(self):
+        self._team('FitA', required_skills='python')
+        self._team('FitB', required_skills='python, django')
+        self.login(self._participant('h4', skills='python, django'))
+        resp = self.client.get(self.url(self.hack))
+        self.assertEqual(resp.context['result_count'], len(resp.context['results']))
+        self.assertEqual(resp.context['result_count'], resp.content.decode().count('data-rec-card'))
+
+
+class RecommendationsQueryCostTests(TeamsBase):
+    """The page costs a bounded number of queries, whatever the candidate count."""
+
+    def url(self, hackathon):
+        return reverse('teams:recommendations') + f'?hackathon={hackathon.pk}'
+
+    def _populate(self, count):
+        outsider = make_user(f'cost_{count}', P, skills='python', interests='ai')
+        for i in range(count):
+            team = Team.objects.create(
+                name=f'Bulk{count}-{i}', hackathon=self.hack,
+                created_by=self.captain, captain=self.captain, max_members=5,
+                required_skills='python', interests='ai',
+            )
+            team.add_member(self.captain)
+        return outsider
+
+    def _query_count(self, user):
+        self.login(user)
+        with CaptureQueriesContext(connection) as ctx:
+            resp = self.client.get(self.url(self.hack))
+        return len(ctx), resp
+
+    def test_query_count_does_not_grow_with_the_number_of_teams(self):
+        # 'Code Warriors' (the fixture team) declares no skills/interests, so it
+        # is never recommendable; only the teams created here reach the page.
+        small = self._populate(4)
+        n_small, resp_small = self._query_count(small)
+        self.assertEqual(len(resp_small.context['results']), 4)
+
+        big = self._populate(12)
+        n_big, resp_big = self._query_count(big)
+        self.assertEqual(len(resp_big.context['results']), 16)
+
+        self.assertEqual(n_small, n_big)
+        self.assertLessEqual(n_big, 16)
+
+    def test_batched_page_uses_fewer_queries_than_the_per_team_loop(self):
+        """Guard for the old shape: one eligibility block per team scaled linearly."""
+        outsider = self._populate(8)
+        candidates = list(
+            Team.objects.filter(
+                hackathon=self.hack, status=Team.Status.ACTIVE,
+                visibility=Team.Visibility.PUBLIC, required_skills='python',
+            ).select_related('hackathon', 'captain')
+        )
+        self.assertEqual(len(candidates), 8)
+        with CaptureQueriesContext(connection) as ctx:
+            for team in candidates:
+                team.is_joinable(outsider)
+                team.join_requests.filter(
+                    user=outsider, status=JoinRequest.Status.PENDING,
+                ).exists()
+                team.invitations.filter(
+                    invitee=outsider, status=TeamInvitation.Status.PENDING,
+                ).exists()
+                team.member_count()
+        per_team_loop = len(ctx)
+        batched, resp = self._query_count(outsider)
+        self.assertEqual(len(resp.context['results']), 8)
+        self.assertGreaterEqual(per_team_loop, 8 * 5)
+        self.assertLess(batched, per_team_loop)
 
 
 class SeedDemoHackathonRepairTests(TeamsBase):

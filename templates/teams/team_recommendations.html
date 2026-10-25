@@ -75,13 +75,43 @@
         {% trans "You already belong to every team available in this hackathon." %}
       </div>
     {% elif not results %}
+      {% if below_threshold %}
+      <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col items-center gap-2 text-center">
+        <span class="material-symbols-outlined text-[32px] text-outline">travel_explore</span>
+        <p class="font-body-md text-body-md text-on-surface font-medium">
+          {% blocktrans trimmed with min=min_score hackathon=selected_hackathon.title %}
+            No team reaches {{ min }}% compatibility for your profile in “{{ hackathon }}” yet.
+          {% endblocktrans %}
+        </p>
+        <p class="font-body-sm text-body-sm text-on-surface-variant max-w-xl">
+          {% trans "We would rather tell you the truth than list teams that do not fit. These actions can improve your results:" %}
+        </p>
+        <ul class="font-body-sm text-body-sm text-on-surface-variant flex flex-col gap-1 text-start max-w-xl">
+          <li>&bull; <a class="underline font-semibold" href="{% url 'profile_settings' %}?section=personal">{% trans "Add more skills and interests to your profile" %}</a></li>
+          <li>&bull; {% trans "Pick another hackathon above, where other teams are recruiting." %}</li>
+          <li>&bull; <a class="underline font-semibold" href="{% url 'teams:home' %}">{% trans "Browse all teams instead" %}</a></li>
+        </ul>
+      </div>
+      {% elif no_open_slot %}
+      <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col items-center gap-2 text-center">
+        <span class="material-symbols-outlined text-[32px] text-outline">event_busy</span>
+        <p class="font-body-md text-body-md text-on-surface font-medium">
+          {% trans "Every team that fits your profile is already full or no longer accepts requests." %}
+        </p>
+        <ul class="font-body-sm text-body-sm text-on-surface-variant flex flex-col gap-1 text-start max-w-xl">
+          <li>&bull; {% trans "Pick another hackathon above, where other teams are recruiting." %}</li>
+          <li>&bull; <a class="underline font-semibold" href="{% url 'teams:home' %}">{% trans "Browse all teams instead" %}</a></li>
+        </ul>
+      </div>
+      {% else %}
       <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm text-center text-on-surface-variant font-body-md">
         {% trans "No teams match your profile for this hackathon." %}
       </div>
+      {% endif %}
     {% else %}
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
       {% for item in results %}
-      <article class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex flex-col gap-space-sm">
+      <article data-rec-card class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex flex-col gap-space-sm">
         <div class="flex items-start justify-between gap-2">
           <div class="flex flex-col gap-1 min-w-0">
             <span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold truncate max-w-[100%]">
@@ -102,7 +132,7 @@
             <span class="material-symbols-outlined text-[18px] text-outline">person</span>
             <span class="font-body-sm text-body-sm truncate max-w-[12rem]">{% firstof item.team.captain.get_full_name item.team.captain.username _("No captain") %}</span>
           </div>
-          <span class="font-code-inline text-code-inline whitespace-nowrap">{{ item.team.member_count }}/{{ item.team.max_members }}</span>
+          <span class="font-code-inline text-code-inline whitespace-nowrap">{{ item.member_count }}/{{ item.team.max_members }}</span>
         </div>
 
         {% if not item.match.sufficient_data %}
