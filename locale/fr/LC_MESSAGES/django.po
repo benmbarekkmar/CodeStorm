@@ -7843,3 +7843,310 @@ msgid "Breakdown across %(counter)s finalized project rubric"
 msgid_plural "Breakdown across %(counter)s finalized project rubrics"
 msgstr[0] "Répartition sur %(counter)s grille de projet finalisée"
 msgstr[1] "Répartition sur %(counter)s grilles de projet finalisées"
+
+msgid "Submission"
+msgstr "Soumission"
+
+msgid "Dates"
+msgstr "Dates"
+
+msgid "Give your project a name"
+msgstr "Donnez un nom à votre projet"
+
+msgid "Summarize the project in one sentence"
+msgstr "Résumez le projet en une phrase"
+
+msgid "Explain the problem you solve, your solution, and who it helps"
+msgstr "Décrivez le problème résolu, votre solution et le public concerné"
+
+msgid "List the technologies you used, separated by commas"
+msgstr "Indiquez les technologies utilisées, séparées par des virgules"
+
+msgid "Paste the full repository URL, starting with https://"
+msgstr "Collez l’URL complète du dépôt, en commençant par https://"
+
+msgid "Paste the full live demo URL, starting with https://"
+msgstr "Collez l’URL complète de la démo en ligne, en commençant par https://"
+
+msgid "Select a team"
+msgstr "Choisir une équipe"
+
+msgid "Project name"
+msgstr "Nom du projet"
+
+msgid "Short pitch"
+msgstr "Pitch court"
+
+msgid "Problem and solution"
+msgstr "Problème et solution"
+
+msgid "Live demo URL"
+msgstr "URL de la démo en ligne"
+
+msgid "Progress (%)"
+msgstr "Avancement (%)"
+
+msgid "Banner"
+msgstr "Bannière"
+
+msgid "Pitch deck (PDF)"
+msgstr "Pitch deck (PDF)"
+
+msgid "Enter a project name."
+msgstr "Saisissez un nom de projet."
+
+msgid "Enter a short pitch."
+msgstr "Saisissez un pitch court."
+
+msgid "Describe the project."
+msgstr "Décrivez le projet."
+
+msgid "The banner"
+msgstr "La bannière"
+
+msgid "The pitch deck"
+msgstr "Le pitch deck"
+
+msgid "Copy into team"
+msgstr "Copier dans une autre équipe"
+
+msgid "%(label)s must be %(limit)s MB or smaller."
+msgstr "%(label)s doit peser %(limit)s Mo ou moins."
+
+msgid "List the technologies used, separated by commas."
+msgstr "Indiquez les technologies utilisées, séparées par des virgules."
+
+msgid "Progress"
+msgstr "Avancement"
+
+msgid "Pitch deck"
+msgstr "Pitch deck"
+
+msgid "This team is not registered for a hackathon."
+msgstr "Cette équipe n’est inscrite à aucun hackathon."
+
+msgid "The team must belong to the selected hackathon."
+msgstr "L’équipe doit appartenir au hackathon sélectionné."
+
+msgid "Add a project name before submitting."
+msgstr "Ajoutez un nom de projet avant de soumettre."
+
+msgid "Add a description before submitting."
+msgstr "Ajoutez une description avant de soumettre."
+
+msgid "Add a repository URL before submitting."
+msgstr "Ajoutez l’URL du dépôt avant de soumettre."
+
+msgid "The submission window for this hackathon is closed."
+msgstr "La période de soumission de ce hackathon est terminée."
+
+msgid "You cannot edit this project."
+msgstr "Vous ne pouvez pas modifier ce projet."
+
+msgid "You cannot create a project for this team."
+msgstr "Vous ne pouvez pas créer de projet pour cette équipe."
+
+msgid "This team already has a project for this hackathon."
+msgstr "Cette équipe a déjà un projet pour ce hackathon."
+
+msgid "You cannot submit this project."
+msgstr "Vous ne pouvez pas soumettre ce projet."
+
+msgid "This project cannot be reopened."
+msgstr "Ce projet ne peut pas être rouvert."
+
+msgid "This project cannot be moved to evaluation."
+msgstr "Ce projet ne peut pas passer en évaluation."
+
+msgid "A completed jury evaluation is required before this project can be marked evaluated."
+msgstr "Une évaluation complète du jury est requise avant de marquer ce projet comme évalué."
+
+msgid "You cannot duplicate this project."
+msgstr "Vous ne pouvez pas dupliquer ce projet."
+
+msgid "Choose a team that does not already have a project."
+msgstr "Choisissez une équipe qui n’a pas encore de projet."
+
+msgid "Copy of %(title)s"
+msgstr "Copie de %(title)s"
+
+msgid "Submit"
+msgstr "Soumettre"
+
+msgid "No technologies yet"
+msgstr "Aucune technologie pour l’instant"
+
+msgid "PNG, JPG, or WebP up to 5MB."
+msgstr "PNG, JPG ou WebP jusqu’à 5 Mo."
+
+msgid "PDF only, up to 10MB."
+msgstr "PDF uniquement, jusqu’à 10 Mo."
+
+msgid "Delete Project"
+msgstr "Supprimer le projet"
+
+msgid "Delete this project?"
+msgstr "Supprimer ce projet ?"
+
+msgid "“%(title)s” will be removed. Submitted work, jury scores, and prize rankings cannot be deleted from here."
+msgstr "« %(title)s » sera supprimé. Les travaux soumis, les notes du jury et le classement des récompenses ne peuvent pas être supprimés ici."
+
+msgid "All projects"
+msgstr "Tous les projets"
+
+msgid "No repository linked yet."
+msgstr "Aucun dépôt associé pour l’instant."
+
+msgid "Open live demo"
+msgstr "Ouvrir la démo en ligne"
+
+msgid "No pitch deck uploaded."
+msgstr "Aucun pitch deck téléchargé."
+
+msgid "Submission deadline"
+msgstr "Date limite de soumission"
+
+msgid "Submission window is open."
+msgstr "La période de soumission est ouverte."
+
+msgid "Submission window is closed."
+msgstr "La période de soumission est terminée."
+
+msgid "Not submitted"
+msgstr "Non soumis"
+
+msgid "Filed by"
+msgstr "Soumis par"
+
+msgid "Jury score"
+msgstr "Note du jury"
+
+msgid "%(counter)s completed evaluation"
+msgid_plural "%(counter)s completed evaluations"
+msgstr[0] "%(counter)s évaluation terminée"
+msgstr[1] "%(counter)s évaluations terminées"
+
+msgid "The score stays hidden until the organizer publishes the results."
+msgstr "La note reste masquée tant que l’organisateur ne publie pas les résultats."
+
+msgid "Organizer actions"
+msgstr "Actions de l’organisateur"
+
+msgid "Scores are recorded by the jury in Evaluations. Marking a project evaluated is what lets Prizes rank it. Published results and awarded prizes stay locked."
+msgstr "Les notes sont saisies par le jury dans Évaluations. Marquer un projet comme évalué permet à Récompenses de le classer. Les résultats publiés et les récompenses attribuées restent verrouillés."
+
+msgid "Move to evaluation"
+msgstr "Passer en évaluation"
+
+msgid "Mark as evaluated"
+msgstr "Marquer comme évalué"
+
+msgid "Unlock for editing"
+msgstr "Déverrouiller pour modification"
+
+msgid "Open prizes"
+msgstr "Ouvrir Récompenses"
+
+msgid "Open evaluations"
+msgstr "Ouvrir Évaluations"
+
+msgid "Copied"
+msgstr "Copié"
+
+msgid "Duplicate Project"
+msgstr "Dupliquer le projet"
+
+msgid "Duplicate project"
+msgstr "Dupliquer le projet"
+
+msgid "Copy the text of “%(title)s” into another team that does not have a project yet. The banner and the pitch deck are not copied."
+msgstr "Copiez le texte de « %(title)s » dans une autre équipe qui n’a pas encore de projet. La bannière et le pitch deck ne sont pas copiés."
+
+msgid "Create draft copy"
+msgstr "Créer une copie de brouillon"
+
+msgid "There is no other open team you can copy this into. Each team keeps a single project."
+msgstr "Aucune autre équipe ouverte ne peut recevoir cette copie. Chaque équipe ne garde qu’un seul projet."
+
+msgid "Create"
+msgstr "Créer"
+
+msgid "The team and the hackathon stay fixed. Save a draft, or keep the project in progress until the captain submits it."
+msgstr "L’équipe et le hackathon restent inchangés. Enregistrez un brouillon ou laissez le projet en cours jusqu’à la soumission par le capitaine."
+
+msgid "One project per team. You can keep editing until the captain locks the submission."
+msgstr "Un projet par équipe. Vous pouvez continuer à modifier jusqu’à ce que le capitaine verrouille la soumission."
+
+msgid "Read submitted projects while you prepare your evaluations. Drafts stay with the teams."
+msgstr "Consultez les projets soumis pendant que vous préparez vos évaluations. Les brouillons restent réservés aux équipes."
+
+msgid "Follow every submission in your hackathons, unlock a project when a team needs to fix it, and hand evaluated work to the prizes."
+msgstr "Suivez chaque soumission de vos hackathons, déverrouillez un projet qu’une équipe doit corriger et transmettez les projets évalués aux récompenses."
+
+msgid "Prepare your team's submission, keep the repository up to date, and lock it before the deadline."
+msgstr "Préparez la soumission de votre équipe, tenez le dépôt à jour et verrouillez-la avant la date limite."
+
+msgid "+%(counter)s this week"
+msgid_plural "+%(counter)s this week"
+msgstr[0] "+%(counter)s cette semaine"
+msgstr[1] "+%(counter)s cette semaine"
+
+msgid "Nothing new this week"
+msgstr "Rien de nouveau cette semaine"
+
+msgid "Still being written"
+msgstr "Encore en cours de rédaction"
+
+msgid "Locked for the jury"
+msgstr "Verrouillé pour le jury"
+
+msgid "Waiting on jury scores"
+msgstr "En attente des notes du jury"
+
+msgid "No projects yet"
+msgstr "Aucun projet pour l’instant"
+
+msgid "Submitted projects will show up here once a team locks its repository."
+msgstr "Les projets soumis apparaîtront ici dès qu’une équipe verrouille son dépôt."
+
+msgid "Create a project for your team, or wait until a hackathon you joined has a submission."
+msgstr "Créez un projet pour votre équipe ou attendez qu’un hackathon auquel vous participez ait une soumission."
+
+msgid "Find a team"
+msgstr "Trouver une équipe"
+
+msgid "Submit Project"
+msgstr "Soumettre le projet"
+
+msgid "Lock and submit for jury evaluation?"
+msgstr "Verrouiller et soumettre pour l’évaluation du jury ?"
+
+msgid "“%(title)s” will be locked. The team can change it again only if the organizer unlocks it, and only before results or prizes are attached."
+msgstr "« %(title)s » sera verrouillé. L’équipe ne pourra le modifier à nouveau que si l’organisateur le déverrouille, et seulement avant la publication des résultats ou l’attribution des récompenses."
+
+msgid "No team in your hackathons can open a project right now."
+msgstr "Aucune équipe de vos hackathons ne peut ouvrir de projet pour le moment."
+
+msgid "Join a team in an open hackathon before creating a project."
+msgstr "Rejoignez une équipe dans un hackathon ouvert avant de créer un projet."
+
+msgid "Project saved."
+msgstr "Projet enregistré."
+
+msgid "Project deleted."
+msgstr "Projet supprimé."
+
+msgid "Project submitted. It is now locked for the jury."
+msgstr "Projet soumis. Il est désormais verrouillé pour le jury."
+
+msgid "Draft copy created. Files were not copied."
+msgstr "Copie de brouillon créée. Les fichiers n’ont pas été copiés."
+
+msgid "Project unlocked. The team can edit it again."
+msgstr "Projet déverrouillé. L’équipe peut le modifier à nouveau."
+
+msgid "Project moved to evaluation."
+msgstr "Projet passé en évaluation."
+
+msgid "Project marked as evaluated. It can now be ranked with the prizes."
+msgstr "Projet marqué comme évalué. Il peut désormais être classé avec les récompenses."
