@@ -61,7 +61,7 @@ class UserModelTests(TestCase):
 
 
 # --------------------------------------------------------------------------
-# Registration form + view: role is never self-selectable
+# Registration form + view
 # --------------------------------------------------------------------------
 class RegisterFormTests(TestCase):
     def base_data(self, **over):
@@ -72,17 +72,34 @@ class RegisterFormTests(TestCase):
         data.update(over)
         return data
 
-    def test_no_role_field(self):
-        self.assertNotIn('role', RegisterForm().fields)
+    def test_role_field_has_all_supported_choices(self):
+        self.assertEqual(
+            list(RegisterForm().fields['role'].choices),
+            [
+                (User.Role.PARTICIPANT, 'Participant'),
+                (User.Role.ORGANIZER, 'Organizer'),
+                (User.Role.JURY, 'Jury / Mentor'),
+            ],
+        )
 
-    def test_valid_creates_participant_with_hashed_password(self):
-        form = RegisterForm(data=self.base_data())
+    def test_valid_creates_selected_role_with_hashed_password(self):
+        form = RegisterForm(data=self.base_data(role=User.Role.ORGANIZER))
         self.assertTrue(form.is_valid(), form.errors)
         user = form.save()
-        self.assertEqual(user.role, User.Role.PARTICIPANT)
+        self.assertEqual(user.role, User.Role.ORGANIZER)
         # Native Django hashing: raw password must not be stored in clear.
         self.assertNotEqual(user.password, GOOD_PW)
         self.assertTrue(user.check_password(GOOD_PW))
+
+    def test_missing_role_uses_participant_default(self):
+        form = RegisterForm(data=self.base_data())
+        self.assertTrue(form.is_valid(), form.errors)
+        self.assertEqual(form.save().role, User.Role.PARTICIPANT)
+
+    def test_invalid_role_rejected(self):
+        form = RegisterForm(data=self.base_data(role='admin'))
+        self.assertFalse(form.is_valid())
+        self.assertIn('role', form.errors)
 
     def test_password_mismatch_rejected(self):
         form = RegisterForm(data=self.base_data(password2='Different!2026'))
@@ -110,28 +127,27 @@ class RegisterViewTests(TestCase):
         resp = self.client.get(self.url())
         self.assertEqual(resp.status_code, 302)
 
-    def test_valid_signup_creates_participant_and_logs_in(self):
+    def test_valid_signup_creates_selected_role_and_logs_in(self):
         resp = self.client.post(self.url(), {
             'username': 'newbie', 'first_name': 'New', 'last_name': 'Bie',
             'email': 'newbie@example.com', 'password1': GOOD_PW, 'password2': GOOD_PW,
+            'role': User.Role.JURY,
         })
         self.assertEqual(resp.status_code, 302)
         self.assertEqual(resp['Location'], reverse('dashboard'))
         user = User.objects.get(username='newbie')
-        self.assertEqual(user.role, User.Role.PARTICIPANT)
+        self.assertEqual(user.role, User.Role.JURY)
         # Now logged in: a private page is reachable.
         self.assertEqual(self.client.get(reverse('profile_settings')).status_code, 200)
 
-    def test_injected_role_is_ignored(self):
-        # The classic privilege-escalation attempt at signup.
+    def test_invalid_role_does_not_create_user(self):
         resp = self.client.post(self.url(), {
             'username': 'sneaky', 'first_name': 'S', 'last_name': 'K',
             'email': 'sneaky@example.com', 'password1': GOOD_PW, 'password2': GOOD_PW,
-            'role': 'organizer',
+            'role': 'admin',
         })
-        self.assertEqual(resp.status_code, 302)
-        user = User.objects.get(username='sneaky')
-        self.assertEqual(user.role, User.Role.PARTICIPANT)
+        self.assertEqual(resp.status_code, 200)
+        self.assertFalse(User.objects.filter(username='sneaky').exists())
 
     def test_invalid_signup_no_user_created(self):
         resp = self.client.post(self.url(), {

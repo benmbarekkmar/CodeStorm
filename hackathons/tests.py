@@ -260,12 +260,12 @@ class GeminiModelConfigTests(TestCase):
             return importlib.reload(config_settings)
 
     def test_default_model_is_the_supported_one(self):
-        self.assertEqual(config_settings.GEMINI_MODEL_DEFAULT, "gemini-3.8-flash")
+        self.assertEqual(config_settings.GEMINI_MODEL_DEFAULT, "gemini-3.5-flash-lite")
 
     def test_default_applies_when_env_is_absent(self):
         saved = os.environ.pop("GEMINI_MODEL", None)
         try:
-            self.assertEqual(self.reload_without_dotenv().GEMINI_MODEL, "gemini-3.8-flash")
+            self.assertEqual(self.reload_without_dotenv().GEMINI_MODEL, "gemini-3.5-flash-lite")
         finally:
             if saved is not None:
                 os.environ["GEMINI_MODEL"] = saved

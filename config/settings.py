@@ -59,7 +59,7 @@ if RENDER_HOST and f'https://{RENDER_HOST}' not in CSRF_TRUSTED_ORIGINS:
     CSRF_TRUSTED_ORIGINS.append(f'https://{RENDER_HOST}')
 
 # Configuration Gemini
-GEMINI_MODEL_DEFAULT = 'gemini-3.8-flash'
+GEMINI_MODEL_DEFAULT = 'gemini-3.5-flash-lite'
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
 GEMINI_MODEL = os.environ.get('GEMINI_MODEL', GEMINI_MODEL_DEFAULT)
 

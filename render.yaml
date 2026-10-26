@@ -55,7 +55,7 @@ services:
       - key: ALLOWED_HOSTS
         value: ""
       - key: GEMINI_MODEL
-        value: "gemini-3.8-flash"
+        value: "gemini-3.5-flash-lite"
       - key: GEMINI_TIMEOUT
         value: "120"
       # Fill this in once in the Render dashboard; it is never stored in git.

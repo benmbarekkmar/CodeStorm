@@ -15,10 +15,7 @@ INPUT_CLASSES = (
 class RegisterForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
-        # ``role`` is intentionally NOT a public field: self-service signup can
-        # never mint an organizer/jury account. New users always get the model
-        # default (participant); admin assigns roles afterwards.
-        fields = ('username', 'first_name', 'last_name', 'email')
+        fields = ('username', 'first_name', 'last_name', 'email', 'role')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -30,6 +27,8 @@ class RegisterForm(UserCreationForm):
         self.fields['last_name'].widget.attrs.update({'placeholder': 'Ben Mbarek'})
         self.fields['email'].label = _('Email')
         self.fields['email'].widget.attrs.update({'placeholder': 'kmar@example.com', 'autocomplete': 'email'})
+        self.fields['role'].label = _('Role')
+        self.fields['role'].widget.attrs.update({'autocomplete': 'off'})
         self.fields['password1'].label = _('Password')
         self.fields['password2'].label = _('Confirm password')
         self.fields['password1'].widget.attrs.update({'placeholder': '••••••••', 'autocomplete': 'new-password'})
