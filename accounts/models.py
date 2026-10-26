@@ -32,6 +32,8 @@ class User(AbstractUser):
     institution = models.CharField('University / Institution', max_length=150, blank=True)
     field_of_study = models.CharField('Field of study', max_length=150, blank=True)
     bio = models.TextField('Short biography', blank=True, max_length=250)
+    skills = models.TextField('Skills', blank=True, default='')
+    interests = models.TextField('Interests', blank=True, default='')
     avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
 
     theme = models.CharField(max_length=10, choices=Theme.choices, default=Theme.LIGHT)

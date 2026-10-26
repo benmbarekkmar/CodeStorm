@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "New analysis" %} · {% trans "AI Analyses" %}{% endblock %}
+{% block page_name %}analyses{% endblock %}
+{% block breadcrumb_section %}{% trans "Review &amp; Scoring" %}{% endblock %}
+{% block breadcrumb_page %}{% trans "New analysis" %}{% endblock %}
+
+{% block content %}
+{% include "teams/_messages.html" %}
+
+<div class="w-full max-w-2xl mx-auto px-margin py-space-lg flex flex-col gap-space-md">
+  <a class="group inline-flex items-center gap-1 text-on-surface-variant hover:text-on-surface font-label-md text-label-md w-fit transition-colors" href="{% url 'analyses:home' %}">
+    <span class="material-symbols-outlined text-[18px] transition-transform duration-200 group-hover:-translate-x-1 rtl:rotate-180 rtl:group-hover:translate-x-1">arrow_back</span>{% trans "Back to analyses" %}
+  </a>
+  <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm">
+    {% include "analyses/_analysis_form.html" %}
+  </div>
+</div>
+{% endblock %}

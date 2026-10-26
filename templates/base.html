@@ -14,6 +14,15 @@
   <style>
     @layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}
     ::-webkit-scrollbar{display:none;}
+    /* Below lg the sidebar becomes an overlay drawer; without this the fixed
+       w-72 rail plus the ps-72 content offset is wider than a phone viewport
+       and every page scrolls horizontally. */
+    @media (max-width:1023px){
+      #primaryNav{position:fixed;inset-block-start:0;transition:transform .2s ease-out;transform:translateX(-100%);}
+      html[dir=rtl] #primaryNav{transform:translateX(100%);}
+      body.nav-open #primaryNav{transform:translateX(0);}
+      body.nav-open #navOverlay{display:block;}
+    }
   </style>
 
   <style id="theme-vars">
@@ -90,14 +99,18 @@
 
   {% if not request.GET.embed %}
   <!-- ============ SIDEBAR ============ -->
-  <aside class="fixed start-0 top-0 h-screen w-72 bg-surface-container-lowest z-40 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+  <aside id="primaryNav" class="fixed start-0 top-0 h-screen w-72 bg-surface-container-lowest z-40 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
     <div class="flex flex-col flex-1 overflow-y-auto px-space-md py-space-md">
       <div class="flex items-center justify-between pb-space-md mb-space-sm">
         <a class="flex items-center gap-space-sm" href="{% url 'dashboard' %}">
           <img alt="CodeStorm Logo" class="h-12 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrYdH-vRBh7jYx7DLH1vImN3ZSFIOgu9MFc_nQw9JZs9c40cBCKfuFWB0swqqCGvN4440hlrho5nsxjCO3nP6rX7o1R0sxoPF4prW64BstD5x0FKbnPgIKHXOug3XwWZqJuytHBoY6bRHHsnlfGc3TeUTE1jzLg0xebIh4BWDzB9t8Hs9wkhbQxcwPVbXAdOSV3is3zx9yWH4o1-9RSd0Ggs3cnTUx6rjDf_pKsNmyClyAuWKO0ABfdw"/>
           <span class="font-headline-md text-headline-md text-on-surface">{% trans "CodeStorm" %}</span>
         </a>
-       
+        <button id="navClose" type="button"
+                class="lg:hidden p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+          <span class="material-symbols-outlined" aria-hidden="true">close</span>
+          <span class="sr-only">{% trans "Close" %}</span>
+        </button>
       </div>
 
       
@@ -113,8 +126,13 @@
 
         <div class="flex flex-col gap-1">
           <span class="px-space-sm font-label-sm text-label-sm text-outline tracking-wider uppercase">{% trans "Review &amp; Scoring" %}</span>
+          {% if user.is_superuser or user.role == 'jury' or user.role == 'organizer' %}
           <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="evaluations" href="{% url 'evaluations:home' %}"><span class="material-symbols-outlined text-[20px]">rate_review</span><span>{% trans "Evaluations" %}</span></a>
+          {% endif %}
           <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="prizes-leaderboard" href="{% url 'prizes:home' %}"><span class="material-symbols-outlined text-[20px]">leaderboard</span><span>{% trans "Prizes &amp; Leaderboard" %}</span></a>
+          {% if user.is_superuser or user.role == 'jury' or user.role == 'organizer' %}
+          <a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="analyses" href="{% url 'analyses:home' %}"><span class="material-symbols-outlined text-[20px]">auto_awesome</span><span>{% trans "AI Analyses" %}</span></a>
+          {% endif %}
         </div>
 
         <div class="flex flex-col gap-1">
@@ -137,20 +155,27 @@
       </form>
     </div>
   </aside>
+  <div id="navOverlay" class="hidden lg:hidden fixed inset-0 z-[35] bg-inverse-surface/40 backdrop-blur-sm"></div>
   {% endif %}
 
-  <div class="{% if not request.GET.embed %}ps-72{% endif %} flex flex-col min-h-screen">
+  <div class="{% if not request.GET.embed %}lg:ps-72{% endif %} flex flex-col min-h-screen">
 
     {% if not request.GET.embed %}
     <!-- ============ TOPBAR ============ -->
-    <header class="fixed top-0 start-72 end-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-30 flex items-center justify-between px-space-lg">
-      <div class="flex items-center gap-space-md">
-        <div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant">
-          <span class="hover:text-on-surface transition-colors cursor-pointer">{% trans "Platform" %}</span>
-          <span class="material-symbols-outlined rtl:rotate-180 text-[16px] text-outline-variant">chevron_right</span>
-          <span class="hover:text-on-surface transition-colors cursor-pointer">{% block breadcrumb_section %}{% trans "Dashboard" %}{% endblock %}</span>
-          <span class="material-symbols-outlined rtl:rotate-180 text-[16px] text-outline-variant">chevron_right</span>
-          <span class="text-on-surface font-semibold">{% block breadcrumb_page %}{% trans "Overview" %}{% endblock %}</span>
+    <header class="fixed top-0 start-0 lg:start-72 end-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-30 flex items-center justify-between px-space-md lg:px-space-lg">
+      <div class="flex items-center gap-space-md min-w-0">
+        <button id="navToggle" type="button"
+                class="lg:hidden shrink-0 p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                aria-controls="primaryNav" aria-expanded="false">
+          <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+          <span class="sr-only">{% trans "Menu" %}</span>
+        </button>
+        <div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant min-w-0">
+          <span class="hidden sm:inline text-outline">{% trans "Platform" %}</span>
+          <span class="hidden sm:inline material-symbols-outlined rtl:rotate-180 text-[16px] text-outline-variant" aria-hidden="true">chevron_right</span>
+          <span class="truncate text-on-surface-variant">{% block breadcrumb_section %}{% trans "Dashboard" %}{% endblock %}</span>
+          <span class="material-symbols-outlined rtl:rotate-180 text-[16px] text-outline-variant" aria-hidden="true">chevron_right</span>
+          <span class="text-on-surface font-semibold truncate">{% block breadcrumb_page %}{% trans "Overview" %}{% endblock %}</span>
         </div>
       </div>
 
@@ -160,10 +185,14 @@
         <div class="flex items-center gap-space-sm">
           {% if user.notif_in_app %}
           <button id="notificationButton" type="button"
-        class="relative p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant">
-    <span class="material-symbols-outlined">notifications</span>
-    <span class="absolute top-1 end-1 h-2 w-2 rounded-full bg-error"></span>
-</button>
+                  class="relative p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  aria-haspopup="true" aria-controls="notificationPanel">
+            <span class="material-symbols-outlined" aria-hidden="true">notifications</span>
+            <span class="sr-only">{% trans "Notifications" %}</span>
+            {% if notification_summary.actionable %}
+            <span class="absolute top-1 end-1 h-2 w-2 rounded-full bg-error" aria-hidden="true"></span>
+            {% endif %}
+          </button>
 
 <div id="notificationPanel"
      class="hidden absolute end-4 top-16 z-50 w-96 max-w-[calc(100vw-2rem)]
@@ -172,41 +201,29 @@
     <div class="flex items-center justify-between border-b border-outline-variant p-4">
         <h3 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Notifications" %}</h3>
         <button id="closeNotifications" type="button"
-                class="text-outline hover:text-on-surface">
-            <span class="material-symbols-outlined">close</span>
+                class="text-outline hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+            <span class="material-symbols-outlined" aria-hidden="true">close</span>
+            <span class="sr-only">{% trans "Close notifications" %}</span>
         </button>
     </div>
 
     <div class="max-h-96 overflow-y-auto p-4">
-        {% if user.notif_team %}
-        <div class="flex gap-3 border-b border-outline-variant py-3">
-            <span class="material-symbols-outlined text-primary">groups</span>
-            <div>
-                <p class="font-label-md text-label-md font-semibold text-on-surface">{% trans "New team invitation" %}</p>
-                <p class="font-body-sm text-body-sm text-on-surface-variant">
-                    {% trans "You received an invitation to join a team." %}
-                </p>
-                <p class="mt-1 font-body-sm text-body-sm text-outline">{% trans "2 minutes ago" %}</p>
-            </div>
+        {% for group in notification_feed %}
+        <div class="border-b border-outline-variant py-3 last:border-b-0">
+            <p class="font-label-sm text-label-sm text-outline uppercase tracking-wide mb-2">{{ group.title }}</p>
+            {% for item in group.items|slice:":3" %}
+            <a class="flex gap-3 py-1 hover:text-primary text-on-surface-variant" href="{{ item.url }}">
+                <span class="material-symbols-outlined text-[18px] flex-shrink-0" aria-hidden="true">{{ group.icon }}</span>
+                <span class="flex flex-col min-w-0">
+                    <span class="font-body-sm text-body-sm">{{ item.text }}</span>
+                    <span class="font-body-sm text-body-sm text-outline">{{ item.date|date:"SHORT_DATE_FORMAT" }}</span>
+                </span>
+            </a>
+            {% endfor %}
         </div>
-        {% endif %}
-
-        {% if user.notif_hackathon %}
-        <div class="flex gap-3 border-b border-outline-variant py-3">
-            <span class="material-symbols-outlined text-secondary">event</span>
-            <div>
-                <p class="font-label-md text-label-md font-semibold text-on-surface">{% trans "New hackathon available" %}</p>
-                <p class="font-body-sm text-body-sm text-on-surface-variant">
-                    {% trans "Registration is now open." %}
-                </p>
-                <p class="mt-1 font-body-sm text-body-sm text-outline">{% trans "15 minutes ago" %}</p>
-            </div>
-        </div>
-        {% endif %}
-
-        {% if not user.notif_team and not user.notif_hackathon %}
+        {% empty %}
         <p class="py-6 text-center font-body-sm text-body-sm text-outline">{% trans "You have no notifications." %}</p>
-        {% endif %}
+        {% endfor %}
     </div>
 
     <a href="{% url 'notifications' %}"
@@ -250,7 +267,7 @@
         <span class="material-symbols-outlined text-[20px] text-primary">settings</span>
         <span>{% trans "Profile &amp; Settings" %}</span>
       </div>
-      <button id="profileDrawerClose" type="button" class="p-2 rounded-full hover:bg-surface-container transition-colors" aria-label"{% trans "Close" %}">
+      <button id="profileDrawerClose" type="button" class="p-2 rounded-full hover:bg-surface-container transition-colors" aria-label="{% trans "Close" %}">
         <span class="material-symbols-outlined text-[20px]">close</span>
       </button>
     </div>
@@ -330,6 +347,31 @@
         if (event.key === 'Escape' && profileDrawer && !profileDrawer.classList.contains('translate-x-full')) {
             closeProfileDrawer();
         }
+    });
+</script>
+
+<script>
+    // ---------- Sidebar drawer (below lg) ----------
+    const navToggle = document.getElementById('navToggle');
+    const navOverlay = document.getElementById('navOverlay');
+
+    function setNavOpen(open) {
+        document.body.classList.toggle('nav-open', open);
+        navToggle?.setAttribute('aria-expanded', String(open));
+    }
+
+    navToggle?.addEventListener('click', (event) => {
+        event.stopPropagation();
+        setNavOpen(!document.body.classList.contains('nav-open'));
+    });
+    navOverlay?.addEventListener('click', () => setNavOpen(false));
+    document.getElementById('navClose')?.addEventListener('click', () => setNavOpen(false));
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') setNavOpen(false);
+    });
+    // A link that was just in the drawer must not leave the drawer open behind it.
+    document.querySelectorAll('#primaryNav nav a').forEach(link => {
+        link.addEventListener('click', () => setNavOpen(false));
     });
 </script>
 </body>

@@ -1,0 +1,44 @@
+{% load i18n %}
+<form method="post" action="{{ action_url }}" enctype="multipart/form-data" data-resource-form novalidate
+      class="flex flex-col gap-space-md">
+  {% csrf_token %}
+
+  <div class="flex items-center justify-between gap-space-md">
+    <h2 class="font-headline-md text-headline-md text-on-surface">
+      {% if mode == 'edit' %}{% trans "Edit resource" %}{% else %}{% trans "Add a resource" %}{% endif %}
+    </h2>
+    <button type="button" data-close-form aria-label="{% trans 'Close' %}"
+            class="p-1.5 -me-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all">
+      <span class="material-symbols-outlined text-[20px]">close</span>
+    </button>
+  </div>
+
+  {% if form.non_field_errors %}
+  <div class="rounded-lg bg-error-container text-on-error-container px-4 py-3 font-body-sm flex flex-col gap-1">
+    {% for err in form.non_field_errors %}<span>{{ err }}</span>{% endfor %}
+  </div>
+  {% endif %}
+
+  {% for field in form %}
+    {% if field.field.widget.input_type == 'checkbox' %}
+    <label class="flex items-center gap-3 cursor-pointer">
+      {{ field }}
+      <span class="font-body-md text-body-md text-on-surface">{{ field.label }}</span>
+    </label>
+    {% else %}
+    <div class="flex flex-col gap-1.5">
+      <label class="font-label-md text-label-md text-on-surface" for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field }}
+      {% if field.errors %}<p class="text-error font-body-sm">{{ field.errors.0 }}</p>{% endif %}
+    </div>
+    {% endif %}
+  {% endfor %}
+
+  <div class="flex items-center justify-end gap-space-sm pt-2">
+    <button type="button" data-close-form
+            class="px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high font-label-md text-label-md transition-all">{% trans "Cancel" %}</button>
+    <button class="px-space-md py-2.5 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all" type="submit">
+      {% if mode == 'edit' %}{% trans "Save changes" %}{% else %}{% trans "Create resource" %}{% endif %}
+    </button>
+  </div>
+</form>

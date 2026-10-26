@@ -1,26 +1,26 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
+from accounts.models import User
+from config import dashboards
 
 ROLE_DASHBOARDS = {
-    'organizer': 'organizer_dashboard.html',
-    'jury': 'jury_dashboard.html',
-    'participant': 'participant_dashboard.html',
+    User.Role.ORGANIZER: ('organizer_dashboard.html', dashboards.organizer_context),
+    User.Role.JURY: ('jury_dashboard.html', dashboards.jury_context),
+    User.Role.PARTICIPANT: ('participant_dashboard.html', dashboards.participant_context),
 }
 
 
+@login_required
 def dashboard(request):
-    template = ROLE_DASHBOARDS.get(getattr(request.user, 'role', None), 'dashboard.html')
-    return render(request, template)
-
-def hackathons(request):
-    return render(request, "hackathons.html")
-
-def projects(request):
-    return render(request, "projects.html")
-
-def teams(request):
-    return render(request, "teams.html")
+    """The landing page of each role, built entirely from live queries."""
+    template, build = ROLE_DASHBOARDS.get(
+        getattr(request.user, 'role', None), ('dashboard.html', dashboards.participant_context),
+    )
+    return render(request, template, build(request.user))
 
 
-def evaluations(request):
-    return render(request, "evaluations.html")
+@login_required
+def notifications(request):
+    """The feed itself comes from the notification_feed context processor."""
+    return render(request, 'notifications.html')

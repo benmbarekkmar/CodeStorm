@@ -31,3 +31,15 @@ media/
 
 .coverage
 htmlcov/
+
+# Dumps et sauvegardes de base de données (jamais versionnés)
+
+*.dump
+/*.patch
+hackathons_backup.json
+/_state_before_*.json
+/_state_after_*.json
+
+# Scripts d'audit, de sonde et de répétition écrits à la racine
+
+/_*.py

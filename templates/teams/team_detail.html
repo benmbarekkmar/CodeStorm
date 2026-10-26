@@ -1,0 +1,296 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ team.name }} · {% trans "Teams" %}{% endblock %}
+{% block page_name %}teams{% endblock %}
+{% block breadcrumb_section %}{% trans "Teams" %}{% endblock %}
+{% block breadcrumb_page %}{{ team.name }}{% endblock %}
+
+{% block content %}
+{% include "teams/_messages.html" %}
+
+<style>
+  @keyframes tdFade { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @keyframes tdBarGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+  .td-fade { animation: tdFade .5s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(var(--i, 0) * 70ms); }
+  .td-card { position: relative; overflow: hidden; transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease; }
+  .td-card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px -14px rgb(var(--c-primary) / .34); }
+  .td-accent { position: absolute; inset-inline: 0; top: 0; height: 3px; transform: scaleX(0); transform-origin: left; transition: transform .4s cubic-bezier(.2,.8,.2,1); }
+  .td-card:hover .td-accent { transform: scaleX(1); }
+  html[dir="rtl"] .td-accent { transform-origin: right; }
+
+  .td-bar { transform-origin: left; animation: tdBarGrow 1s cubic-bezier(.2,.8,.2,1) both; animation-delay: .3s; }
+  html[dir="rtl"] .td-bar { transform-origin: right; }
+
+  .td-row { transition: background-color .2s ease; animation: tdFade .45s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(var(--i, 0) * 55ms); }
+  .td-row:hover { background-color: rgb(var(--c-surface-container-low)); }
+  .td-avatar { transition: transform .2s ease; }
+  .td-row:hover .td-avatar { transform: scale(1.08); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .td-fade, .td-bar, .td-row { animation: none; }
+    .td-card, .td-accent, .td-avatar { transition: none; }
+    .td-card:hover { transform: none; }
+  }
+</style>
+
+<div class="w-full px-margin py-space-lg flex flex-col gap-space-lg">
+
+  <a class="group inline-flex items-center gap-1 text-on-surface-variant hover:text-on-surface font-label-md text-label-md w-fit transition-colors" href="{% url 'teams:home' %}">
+    <span class="material-symbols-outlined text-[18px] transition-transform duration-200 group-hover:-translate-x-1 rtl:rotate-180 rtl:group-hover:translate-x-1">arrow_back</span>{% trans "Back to teams" %}
+  </a>
+
+  <!-- ============ HEADER ============ -->
+  <div class="td-card td-fade p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-md">
+    <span class="td-accent bg-gradient-to-r from-primary via-primary-container to-secondary" aria-hidden="true"></span>
+    <div class="flex flex-wrap items-start justify-between gap-space-md">
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center gap-2 flex-wrap">
+          <h1 class="font-headline-lg text-headline-lg text-on-surface">{{ team.name }}</h1>
+          <span class="px-2.5 py-0.5 rounded-full font-label-sm text-label-sm
+            {% if team.visibility == 'public' %}bg-surface-container-high text-on-surface-variant{% else %}bg-primary-fixed text-on-primary-fixed-variant{% endif %}">
+            <span class="material-symbols-outlined text-[14px] align-middle">{% if team.visibility == 'public' %}public{% else %}lock{% endif %}</span>
+            {{ team.get_visibility_display }}
+          </span>
+          <span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm">{{ team.get_status_display }}</span>
+        </div>
+        <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">{{ team.description|default:_("No description provided.") }}</p>
+      </div>
+      <div class="flex items-center gap-space-sm flex-wrap">
+        {% if is_captain %}
+          <button type="button" data-open-edit class="px-space-md py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high active:scale-[0.97] text-on-surface font-label-md text-label-md transition-all duration-200 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[18px]">edit</span>{% trans "Edit" %}
+          </button>
+        {% endif %}
+        {% if is_member %}
+          {% if not is_captain %}
+          <form method="post" action="{% url 'teams:leave' team.pk %}">
+            {% csrf_token %}
+            <button class="px-space-md py-2 rounded-lg bg-surface-container-low hover:bg-error-container hover:text-error active:scale-[0.97] text-on-surface-variant font-label-md text-label-md transition-all duration-200 flex items-center gap-1.5" type="submit">
+              <span class="material-symbols-outlined text-[18px]">logout</span>{% trans "Leave team" %}
+            </button>
+          </form>
+          {% endif %}
+        {% elif pending_request %}
+          <span class="px-space-md py-2 rounded-lg bg-surface-container text-on-surface-variant font-label-md text-label-md flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[18px]">hourglass_top</span>{% trans "Request pending" %}
+          </span>
+          <form method="post" action="{% url 'teams:join_request_cancel' pending_request.pk %}">
+            {% csrf_token %}
+            <button class="px-space-md py-2 rounded-lg bg-surface-container-low hover:bg-error-container hover:text-error active:scale-[0.97] text-on-surface-variant font-label-md text-label-md transition-all duration-200" type="submit">
+              {% trans "Cancel request" %}
+            </button>
+          </form>
+        {% elif is_participant and can_join and team.allow_join_requests %}
+          <form method="post" action="{% url 'teams:request_join' team.pk %}">
+            {% csrf_token %}
+            <button class="px-space-md py-2 rounded-lg bg-gradient-to-r from-primary to-primary-container text-on-primary hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.97] font-label-md text-label-md transition-all duration-200 flex items-center gap-1.5" type="submit">
+              <span class="material-symbols-outlined text-[18px]">group_add</span>{% trans "Join team" %}
+            </button>
+          </form>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if join_reason and not is_member and not is_captain %}
+    <div class="flex items-center gap-2 text-on-surface-variant font-body-sm bg-surface-container-low rounded-lg px-3 py-2">
+      <span class="material-symbols-outlined text-[18px]">info</span>{{ join_reason }}
+    </div>
+    {% endif %}
+
+    <!-- stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-gutter pt-2">
+      <div class="td-fade p-4 rounded-xl bg-surface-container-low" style="--i: 0;">
+        <div class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Members" %}</div>
+        <div class="font-headline-md text-headline-md text-on-surface font-bold">{{ team.member_count }}/{{ team.max_members }}</div>
+        <div class="mt-2 w-full h-1.5 rounded-full bg-surface-container overflow-hidden">
+          <div class="td-bar h-full bg-gradient-to-r from-primary to-primary-container rounded-full" style="width: {% widthratio team.member_count team.max_members 100 %}%"></div>
+        </div>
+      </div>
+      <div class="td-fade p-4 rounded-xl bg-surface-container-low" style="--i: 1;">
+        <div class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Open slots" %}</div>
+        <div class="font-headline-md text-headline-md text-on-surface font-bold">{{ remaining }}</div>
+      </div>
+      <div class="td-fade p-4 rounded-xl bg-surface-container-low" style="--i: 2;">
+        <div class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Hackathon" %}</div>
+        <div class="font-body-md text-body-md text-on-surface font-semibold truncate">{% firstof team.hackathon.title _("No hackathon") %}</div>
+      </div>
+      <div class="td-fade p-4 rounded-xl bg-surface-container-low" style="--i: 3;">
+        <div class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Captain" %}</div>
+        <div class="font-body-md text-body-md text-on-surface font-semibold truncate">{% firstof team.captain.get_full_name team.captain.username _("Unassigned") %}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+    <!-- ============ ROSTER ============ -->
+    <div class="lg:col-span-2 flex flex-col gap-space-md">
+      <div class="td-card td-fade p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-md" style="--i: 1;">
+        <span class="td-accent bg-gradient-to-r from-primary to-secondary" aria-hidden="true"></span>
+        <div class="flex items-center justify-between">
+          <h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">{% trans "Members" %}</h2>
+          <span class="font-label-sm text-label-sm text-outline">{{ memberships|length }} {% trans "total" %}</span>
+        </div>
+        <ul class="flex flex-col divide-y divide-outline-variant -mx-2">
+          {% for m in memberships %}
+          <li class="td-row flex items-center justify-between gap-3 px-2 py-3 rounded-lg" style="--i: {{ forloop.counter0 }};">
+            <div class="flex items-center gap-3 min-w-0">
+              <span class="td-avatar w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-md text-label-md shrink-0">{{ m.user.initials }}</span>
+              <div class="flex flex-col min-w-0">
+                <span class="font-label-md text-label-md text-on-surface truncate">{% firstof m.user.get_full_name m.user.username %}</span>
+                <span class="font-body-sm text-body-sm text-outline truncate">{{ m.user.email }}</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              {% if m.role == 'captain' %}
+                <span class="px-2 py-0.5 rounded bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold">{% trans "Captain" %}</span>
+              {% else %}
+                <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">{% trans "Member" %}</span>
+                {% if is_captain %}
+                <form method="post" action="{% url 'teams:transfer_captain' team.pk %}">
+                  {% csrf_token %}
+                  <input type="hidden" name="new_captain" value="{{ m.user_id }}"/>
+                  <button class="p-1.5 rounded hover:bg-surface-container-high active:scale-90 text-on-surface-variant transition-all duration-200" title="{% trans 'Make captain' %}" type="submit">
+                    <span class="material-symbols-outlined text-[18px]">workspace_premium</span>
+                  </button>
+                </form>
+                <form method="post" action="{% url 'teams:remove_member' team.pk m.pk %}">
+                  {% csrf_token %}
+                  <button class="p-1.5 rounded hover:bg-error-container active:scale-90 text-on-surface-variant transition-all duration-200" title="{% trans 'Remove member' %}" type="submit">
+                    <span class="material-symbols-outlined text-[18px]">person_remove</span>
+                  </button>
+                </form>
+                {% endif %}
+              {% endif %}
+            </div>
+          </li>
+          {% empty %}
+          <li class="py-4 text-on-surface-variant font-body-sm">{% trans "No members yet." %}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <!-- ============ SIDE: captain tools ============ -->
+    <div class="flex flex-col gap-space-md">
+      {% if is_captain %}
+      <!-- Invite -->
+      <div class="td-card td-fade p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm" style="--i: 2;">
+        <span class="td-accent bg-gradient-to-r from-secondary to-primary" aria-hidden="true"></span>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">{% trans "Invite a participant" %}</h2>
+        <form method="post" action="{% url 'teams:send_invitation' team.pk %}" class="flex flex-col gap-3">
+          {% csrf_token %}
+          <label class="font-label-sm text-label-sm text-on-surface-variant">{% trans "Participant" %}</label>
+          {{ invite_form.invitee }}
+          {% if invite_form.invitee.errors %}<p class="text-error font-body-sm">{{ invite_form.invitee.errors.0 }}</p>{% endif %}
+          <label class="font-label-sm text-label-sm text-on-surface-variant">{% trans "Message" %}</label>
+          {{ invite_form.message }}
+          <button class="py-2.5 rounded-lg bg-gradient-to-r from-primary to-primary-container text-on-primary hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] font-label-md text-label-md transition-all duration-200 flex items-center justify-center gap-2" type="submit">
+            <span class="material-symbols-outlined text-[18px]">send</span>{% trans "Send invitation" %}
+          </button>
+        </form>
+      </div>
+
+      <!-- Disband -->
+      <div class="td-card td-fade p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-2" style="--i: 3;">
+        <span class="td-accent bg-gradient-to-r from-error to-error-container" aria-hidden="true"></span>
+        <h2 class="font-label-md text-label-md text-error font-semibold">{% trans "Danger zone" %}</h2>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Disbanding permanently removes the team and all memberships." %}</p>
+        <a class="mt-1 py-2 rounded-lg bg-error-container text-on-error-container hover:bg-error/20 active:scale-[0.98] font-label-md text-label-md transition-all duration-200 text-center flex items-center justify-center gap-2" href="{% url 'teams:disband' team.pk %}">
+          <span class="material-symbols-outlined text-[18px]">delete_forever</span>{% trans "Disband team" %}
+        </a>
+      </div>
+      {% endif %}
+
+      {% if join_requests %}
+      <div class="td-card td-fade p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm" style="--i: 4;">
+        <span class="td-accent bg-gradient-to-r from-secondary to-primary" aria-hidden="true"></span>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">{% trans "Pending requests" %}</h2>
+        <ul class="flex flex-col gap-3">
+          {% for jr in join_requests %}
+          <li class="flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-label-sm text-label-sm shrink-0">{{ jr.user.initials }}</span>
+              <span class="font-body-sm text-body-sm text-on-surface truncate">{% firstof jr.user.get_full_name jr.user.username %}</span>
+            </div>
+            <div class="flex items-center gap-1 shrink-0">
+              <form method="post" action="{% url 'teams:join_request_respond' jr.pk %}">{% csrf_token %}<input type="hidden" name="action" value="accept"/>
+                <button class="px-2 py-1 rounded bg-tertiary text-on-tertiary hover:brightness-110 active:scale-95 font-label-sm text-label-sm transition-all duration-200" type="submit">{% trans "Accept" %}</button></form>
+              <form method="post" action="{% url 'teams:join_request_respond' jr.pk %}">{% csrf_token %}<input type="hidden" name="action" value="reject"/>
+                <button class="px-2 py-1 rounded bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest active:scale-95 font-label-sm text-label-sm transition-all duration-200" type="submit">{% trans "Reject" %}</button></form>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      {% if pending_invites %}
+      <div class="td-card td-fade p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-2" style="--i: 5;">
+        <span class="td-accent bg-gradient-to-r from-primary to-secondary" aria-hidden="true"></span>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">{% trans "Outstanding invitations" %}</h2>
+        <ul class="flex flex-col gap-1.5">
+          {% for inv in pending_invites %}
+          <li class="flex items-center justify-between font-body-sm text-body-sm text-on-surface-variant">
+            <span class="truncate">{{ inv.invitee.get_username }}</span>
+            <form method="post" action="{% url 'teams:invitation_cancel' inv.pk %}">{% csrf_token %}
+              <button class="text-error hover:underline text-label-sm font-label-sm transition-colors" type="submit">{% trans "Cancel" %}</button></form>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% if is_captain %}
+<!-- ============ EDIT TEAM MODAL ============ -->
+<dialog id="editTeamDialog"
+        class="w-[min(92vw,42rem)] rounded-2xl bg-surface-container-lowest text-on-surface p-0 shadow-xl border border-outline-variant backdrop:bg-on-background/50">
+  <div class="p-space-lg">
+    <div id="editTeamForm">{% include "teams/_edit_form.html" with form=edit_form %}</div>
+  </div>
+</dialog>
+
+<script>
+  (function () {
+    const dlg = document.getElementById('editTeamDialog');
+    if (!dlg) return;
+
+    document.querySelectorAll('[data-open-edit]').forEach((btn) =>
+      btn.addEventListener('click', (e) => { e.preventDefault(); dlg.showModal(); }));
+
+    dlg.addEventListener('click', (e) => {
+      if (e.target === dlg || e.target.closest('[data-close-edit]')) dlg.close();
+    });
+
+    dlg.addEventListener('submit', async (e) => {
+      const form = e.target.closest('[data-team-edit-form]');
+      if (!form) return;
+      e.preventDefault();
+      const submit = form.querySelector('button[type="submit"]');
+      if (submit) submit.disabled = true;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'X-Requested-With': 'XMLHttpRequest' },
+          credentials: 'same-origin',
+        });
+        const type = res.headers.get('content-type') || '';
+        if (type.includes('application/json')) {
+          const data = await res.json();
+          window.location.href = data.redirect;
+          return;
+        }
+        document.getElementById('editTeamForm').innerHTML = await res.text();
+      } finally {
+        if (submit) submit.disabled = false;
+      }
+    });
+  })();
+</script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,4546 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-26 09:08+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Access denied | CodeStorm"
+msgstr ""
+
+msgid "Platform"
+msgstr ""
+
+msgid "Access denied"
+msgstr ""
+
+msgid "This page is not yours to open"
+msgstr ""
+
+#, python-format
+msgid ""
+"Your account is signed in as %(role)s. Each module checks that role on the "
+"server before showing anything, so a page belonging to another role stays "
+"closed here too, not only in the menu."
+msgstr ""
+
+msgid "You have to be signed in to open this page."
+msgstr ""
+
+msgid "Shortcut links"
+msgstr ""
+
+msgid "Back to dashboard"
+msgstr ""
+
+msgid "Log in"
+msgstr ""
+
+msgid "Resources"
+msgstr ""
+
+msgid "Page not found | CodeStorm"
+msgstr ""
+
+msgid "Page not found"
+msgstr ""
+
+msgid "We could not find that page"
+msgstr ""
+
+msgid ""
+"The address you followed does not match any page of this platform. The item "
+"may have been deleted, or the link you used is out of date."
+msgstr ""
+
+#, python-format
+msgid "You asked for: %(request_path)s"
+msgstr ""
+
+msgid "Explore hackathons"
+msgstr ""
+
+msgid "Server error | CodeStorm"
+msgstr ""
+
+msgid "Server error"
+msgstr ""
+
+msgid "Something broke on our side"
+msgstr ""
+
+msgid ""
+"This is not your fault. Nothing was saved by this request. Try again in a "
+"moment, and if it keeps happening let the organizer of your hackathon know."
+msgstr ""
+
+msgid "CodeStorm"
+msgstr ""
+
+msgid "Your hackathon. Your team."
+msgstr ""
+
+msgid "Your victory."
+msgstr ""
+
+msgid ""
+"48&nbsp;hours to dare, build and win the jury over — we handle the rest."
+msgstr ""
+
+msgid "victory.exe"
+msgstr ""
+
+msgid "Hackathons"
+msgstr ""
+
+msgid "Hackers"
+msgstr ""
+
+msgid "in prizes"
+msgstr ""
+
+msgid "© 2026 CodeStorm — Built for builders."
+msgstr ""
+
+msgid "Dashboard"
+msgstr ""
+
+msgid "Teams"
+msgstr ""
+
+msgid "Projects"
+msgstr ""
+
+msgid "Review &amp; Scoring"
+msgstr ""
+
+msgid "Evaluations"
+msgstr ""
+
+msgid "Prizes &amp; Leaderboard"
+msgstr ""
+
+msgid "AI Analyses"
+msgstr ""
+
+msgid "Support"
+msgstr ""
+
+msgid "Log out"
+msgstr ""
+
+msgid "Overview"
+msgstr ""
+
+msgid "Notifications"
+msgstr ""
+
+msgid "Close notifications"
+msgstr ""
+
+msgid "You have no notifications."
+msgstr ""
+
+msgid "View all notifications"
+msgstr ""
+
+msgid "Profile &amp; Settings"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Profile & Settings"
+msgstr ""
+
+msgid "Dashboard | CodeStorm"
+msgstr ""
+
+msgid ""
+"Your account has no role assigned yet, so this page shows only what is "
+"visible to every signed-in user."
+msgstr ""
+
+msgid "What needs your attention"
+msgstr ""
+
+msgid "View all"
+msgstr ""
+
+msgid "Nothing waiting for you."
+msgstr ""
+
+msgid "My teams"
+msgstr ""
+
+msgid "Profile settings"
+msgstr ""
+
+msgid "v2.5 Django"
+msgstr ""
+
+msgid "Organizer"
+msgstr ""
+
+msgid "Jury"
+msgstr ""
+
+msgid "Participant"
+msgstr ""
+
+msgid "Core"
+msgstr ""
+
+msgid "System"
+msgstr ""
+
+msgid "Active Sprint"
+msgstr ""
+
+msgid "Global AI Sprint 2025"
+msgstr ""
+
+msgid "Status: Live Round 2"
+msgstr ""
+
+msgid "Search hackathons, teams, repos..."
+msgstr ""
+
+msgid "⌘K"
+msgstr ""
+
+msgid "Live Hackathon"
+msgstr ""
+
+msgid "Elena Vance"
+msgstr ""
+
+msgid "Lead Organizer"
+msgstr ""
+
+msgid "Foundation"
+msgstr ""
+
+msgid "UI Architecture &amp; Tokens"
+msgstr ""
+
+msgid "CodeStorm Design System"
+msgstr ""
+
+msgid "Django 5.2 • BS 5.3 Tokens"
+msgstr ""
+
+msgid ""
+"Where ideas become innovation — Centralized component architecture, tokens, "
+"and operational guidelines for organizer, jury, and hacker interfaces."
+msgstr ""
+
+msgid "Download Tokens (.json / .css)"
+msgstr ""
+
+msgid "New Hackathon"
+msgstr ""
+
+msgid "Current Context Scope"
+msgstr ""
+
+msgid ""
+"Switching view updates live state preview permissions and API mock hooks"
+msgstr ""
+
+msgid "Organizer (Active)"
+msgstr ""
+
+msgid "Jury &amp; Mentor"
+msgstr ""
+
+msgid "Active Hackathons"
+msgstr ""
+
+msgid "+1 this week"
+msgstr ""
+
+msgid "Across 3 geographic regions"
+msgstr ""
+
+msgid "Registered Devs"
+msgstr ""
+
+msgid "profile completion"
+msgstr ""
+
+msgid "Submissions"
+msgstr ""
+
+msgid "verified"
+msgstr ""
+
+msgid "GitHub Webhooks operational"
+msgstr ""
+
+msgid "Pending Reviews"
+msgstr ""
+
+msgid "12 Jury members active"
+msgstr ""
+
+msgid "Avg round scoring: 4.8m"
+msgstr ""
+
+msgid "Button Architecture"
+msgstr ""
+
+msgid ".btn-* tokens"
+msgstr ""
+
+msgid "Primary Action"
+msgstr ""
+
+msgid "Secondary"
+msgstr ""
+
+msgid "Tertiary Cyan"
+msgstr ""
+
+msgid "Danger Action"
+msgstr ""
+
+msgid "Syncing..."
+msgstr ""
+
+msgid "Console"
+msgstr ""
+
+msgid "Badges &amp; Tab Rails"
+msgstr ""
+
+msgid ".badge-pill"
+msgstr ""
+
+msgid "Published"
+msgstr ""
+
+msgid "Live Hack"
+msgstr ""
+
+msgid "Draft Spec"
+msgstr ""
+
+msgid "Flagged IP"
+msgstr ""
+
+msgid "Jury Finalist"
+msgstr ""
+
+msgid "Submissions Segment Rail"
+msgstr ""
+
+msgid "All Submissions"
+msgstr ""
+
+msgid "Under Evaluation"
+msgstr ""
+
+msgid "Finalists"
+msgstr ""
+
+msgid "Archived"
+msgstr ""
+
+msgid "Form Controls &amp; Input Verification States"
+msgstr ""
+
+msgid "Django Form rendering specs with reactive client-side focus rings"
+msgstr ""
+
+msgid "django.forms.widgets"
+msgstr ""
+
+msgid "Global Quick Filter"
+msgstr ""
+
+msgid "Search repos, tags..."
+msgstr ""
+
+msgid "Linear-style keyboard command"
+msgstr ""
+
+msgid "Track Selection"
+msgstr ""
+
+msgid "Generative AI &amp; LLM Agents"
+msgstr ""
+
+msgid "Zero-Knowledge &amp; Web3"
+msgstr ""
+
+msgid "Climate &amp; CleanTech Tech"
+msgstr ""
+
+msgid "Fintech Infrastructure"
+msgstr ""
+
+msgid "Category classification tag"
+msgstr ""
+
+msgid "GitHub Repo URL"
+msgstr ""
+
+msgid "Repository webhook connected"
+msgstr ""
+
+msgid "Team Mentor Handle"
+msgstr ""
+
+msgid "Mentor handle not verified"
+msgstr ""
+
+msgid "Django QuerySet Data Table Component"
+msgstr ""
+
+msgid ""
+"Tabular listing pattern with batch selections, score indicators, and action "
+"triggers"
+msgstr ""
+
+msgid "Filter"
+msgstr ""
+
+msgid "Export CSV"
+msgstr ""
+
+msgid "Project / Repository"
+msgstr ""
+
+msgid "Track / Category"
+msgstr ""
+
+msgid "Team Lead &amp; Members"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "Jury Score"
+msgstr ""
+
+msgid "Actions"
+msgstr ""
+
+msgid "NP"
+msgstr ""
+
+msgid "NeuroPulse AI"
+msgstr ""
+
+msgid "github.com/neuropulse/core"
+msgstr ""
+
+msgid "Agentic LLMs"
+msgstr ""
+
+msgid "DR"
+msgstr ""
+
+msgid "AK"
+msgstr ""
+
+msgid "Round 2"
+msgstr ""
+
+msgid "ZC"
+msgstr ""
+
+msgid "ZeroCarbon Logistics"
+msgstr ""
+
+msgid "github.com/ecotrace/router"
+msgstr ""
+
+msgid "CleanTech"
+msgstr ""
+
+msgid "LS"
+msgstr ""
+
+msgid "MT"
+msgstr ""
+
+msgid "Evaluated"
+msgstr ""
+
+msgid "VC"
+msgstr ""
+
+msgid "VeriChain Identity"
+msgstr ""
+
+msgid "github.com/verichain/id-zkp"
+msgstr ""
+
+msgid "Web3 &amp; ZK"
+msgstr ""
+
+msgid "JK"
+msgstr ""
+
+msgid "EW"
+msgstr ""
+
+msgid "TY"
+msgstr ""
+
+msgid "Under Review"
+msgstr ""
+
+msgid "Showing"
+msgstr ""
+
+msgid "verified projects"
+msgstr ""
+
+msgid "Event Card Specification"
+msgstr ""
+
+msgid "Card Module"
+msgstr ""
+
+msgid "Round 2 Live"
+msgstr ""
+
+msgid "4d 12h remaining"
+msgstr ""
+
+msgid "Global AI Innovation Cup 2025"
+msgstr ""
+
+msgid "Total Prize Pool"
+msgstr ""
+
+msgid "Active Teams"
+msgstr ""
+
+msgid "68 Cohorts"
+msgstr ""
+
+msgid ""
+"Accelerating production agent architectures, synthetic evaluation systems, "
+"and autonomous verification tools on modern cloud runtimes."
+msgstr ""
+
+msgid "Global Hybrid / SF Demo Day"
+msgstr ""
+
+msgid "View Dashboard"
+msgstr ""
+
+msgid "System States &amp; Overlays"
+msgstr ""
+
+msgid "Modals &amp; Alerts"
+msgstr ""
+
+msgid "Submission Dispatched"
+msgstr ""
+
+msgid "Remove Team Member?"
+msgstr ""
+
+msgid ""
+"This revokes repository write access and Jury evaluation association "
+"immediately."
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Confirm Removal"
+msgstr ""
+
+msgid "Skeleton Loading Prototype"
+msgstr ""
+
+msgid "Evaluations | CodeStorm"
+msgstr ""
+
+msgid "Evaluation successfully submitted!"
+msgstr ""
+
+msgid "COHORT REVIEW • DJANGO APP :: EVALUATIONS &amp; JURY SCORING"
+msgstr ""
+
+msgid "Evaluations Management"
+msgstr ""
+
+msgid ""
+"Review project submissions, score innovations, and provide structured "
+"qualitative feedback across active jury tracks."
+msgstr ""
+
+msgid "Export Results"
+msgstr ""
+
+msgid "+ Start Evaluation"
+msgstr ""
+
+msgid "Total Submissions"
+msgstr ""
+
+msgid "submitted projects"
+msgstr ""
+
+msgid "Pending Evaluations"
+msgstr ""
+
+msgid "pending"
+msgstr ""
+
+msgid "in progress"
+msgstr ""
+
+msgid "Completed Reviews"
+msgstr ""
+
+msgid "published & finalized"
+msgstr ""
+
+msgid "Average Score"
+msgstr ""
+
+msgid "weighted average"
+msgstr ""
+
+msgid "My Evaluations"
+msgstr ""
+
+msgid "evaluations tracked"
+msgstr ""
+
+msgid "Search submissions by project, team, or jury..."
+msgstr ""
+
+msgid "All Hackathons"
+msgstr ""
+
+msgid "All Statuses"
+msgstr ""
+
+msgid "Pending"
+msgstr ""
+
+msgid "In Progress"
+msgstr ""
+
+msgid "Completed"
+msgstr ""
+
+msgid "All Tracks"
+msgstr ""
+
+msgid "Reset Filters"
+msgstr ""
+
+msgid "Score Distribution Analysis"
+msgstr ""
+
+#, python-format
+msgid "Breakdown across %(counter)s finalized project rubric"
+msgid_plural "Breakdown across %(counter)s finalized project rubrics"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Median:"
+msgstr ""
+
+msgid "Avg:"
+msgstr ""
+
+msgid "85 – 100 (Exceptional)"
+msgstr ""
+
+msgid "projects"
+msgstr ""
+
+msgid "70 – 84 (Proficient)"
+msgstr ""
+
+msgid "50 – 69 (Needs Work)"
+msgstr ""
+
+msgid "0 – 49 (Unsatisfactory)"
+msgstr ""
+
+#, python-format
+msgid "Standard deviation is %(stdev_score)s pts among completed evaluations."
+msgstr ""
+
+msgid "Evaluation Pace"
+msgstr ""
+
+msgid "Active Cycle"
+msgstr ""
+
+msgid "Scored"
+msgstr ""
+
+#, python-format
+msgid "%(completed_evals)s of %(total_evals)s evaluations fully scored."
+msgstr ""
+
+msgid "Cutoff &amp; SLA"
+msgstr ""
+
+msgid "Next Scoring Cutoff"
+msgstr ""
+
+msgid "No upcoming deadline"
+msgstr ""
+
+msgid "Jury On-Time Compliance:"
+msgstr ""
+
+msgid "scored"
+msgstr ""
+
+msgid "Recent Evaluations Feed"
+msgstr ""
+
+msgid "Live audit log of finalized reviews across cohorts"
+msgstr ""
+
+msgid "View Leaderboard"
+msgstr ""
+
+msgid "Scored by"
+msgstr ""
+
+msgid "Unknown"
+msgstr ""
+
+#, python-format
+msgid "%(when)s ago"
+msgstr ""
+
+msgid "No completed evaluations yet. Start an evaluation to see it here."
+msgstr ""
+
+msgid "Project &amp; Team"
+msgstr ""
+
+msgid "Hackathon Track"
+msgstr ""
+
+msgid "Assigned Jury"
+msgstr ""
+
+msgid "Submission Date"
+msgstr ""
+
+msgid "Deadline"
+msgstr ""
+
+msgid "Action"
+msgstr ""
+
+msgid "Unassigned"
+msgstr ""
+
+msgid "Continue Review"
+msgstr ""
+
+msgid "Review Project"
+msgstr ""
+
+msgid ""
+"No pending evaluations. Use Start Evaluation to choose a hackathon and "
+"project."
+msgstr ""
+
+msgid "Team:"
+msgstr ""
+
+msgid "Finalized"
+msgstr ""
+
+msgid "Jury Feedback"
+msgstr ""
+
+msgid "No qualitative feedback provided."
+msgstr ""
+
+msgid "View Evaluation"
+msgstr ""
+
+msgid "No completed evaluations yet."
+msgstr ""
+
+msgid "Evaluator Profile:"
+msgstr ""
+
+msgid "assigned submissions in your review queue"
+msgstr ""
+
+msgid "Priority Queue"
+msgstr ""
+
+msgid "CUTOFF"
+msgstr ""
+
+msgid "Team"
+msgstr ""
+
+msgid "Rubric draft"
+msgstr ""
+
+msgid "Update Score"
+msgstr ""
+
+msgid "Resume Draft"
+msgstr ""
+
+msgid "Evaluate Now"
+msgstr ""
+
+msgid ""
+"No evaluations assigned to you yet. Click Start Evaluation to pick a "
+"hackathon and project."
+msgstr ""
+
+msgid "New jury review"
+msgstr ""
+
+msgid "Start Evaluation"
+msgstr ""
+
+msgid "Choose the hackathon, then the project you want to evaluate."
+msgstr ""
+
+msgid "Hackathon"
+msgstr ""
+
+msgid "Select a hackathon"
+msgstr ""
+
+msgid "Project"
+msgstr ""
+
+msgid "Select a hackathon first"
+msgstr ""
+
+msgid "Start scoring"
+msgstr ""
+
+msgid "Track: Official Jury Scoring"
+msgstr ""
+
+msgid "GitHub Repo"
+msgstr ""
+
+msgid "Live Demo"
+msgstr ""
+
+msgid "Dynamic Aggregate Score"
+msgstr ""
+
+msgid "Normalized 100-point scale based on rubric weighting"
+msgstr ""
+
+msgid "AI technical summary"
+msgstr ""
+
+msgid "Open full report"
+msgstr ""
+
+msgid ""
+"The AI scores below are indicative proposals. Your own slider values are the "
+"jury's decision; nothing is applied automatically."
+msgstr ""
+
+msgid "Scoring Rubric (0 to 10 Scale)"
+msgstr ""
+
+msgid "Qualitative Feedback"
+msgstr ""
+
+msgid "Strengths &amp; Highlights"
+msgstr ""
+
+msgid ""
+"Mention key technical strengths, clever code practices, or novel "
+"implementations..."
+msgstr ""
+
+msgid "Areas for Improvement"
+msgstr ""
+
+msgid "Provide actionable advice for iteration before demo day..."
+msgstr ""
+
+msgid "Confidential Jury Summary"
+msgstr ""
+
+msgid "Private notes visible only to the organizing committee and co-jurors..."
+msgstr ""
+
+msgid "Save Draft"
+msgstr ""
+
+msgid "Submit Evaluation"
+msgstr ""
+
+msgid "Finalized Scorecard"
+msgstr ""
+
+msgid "Evaluator"
+msgstr ""
+
+msgid "Rubric Breakdown"
+msgstr ""
+
+msgid "Official Jury Review"
+msgstr ""
+
+msgid "Close Scorecard"
+msgstr ""
+
+msgid "No hackathons with submitted projects yet. Add them in admin first."
+msgstr ""
+
+msgid "Select a project"
+msgstr ""
+
+msgid "This hackathon has no submitted projects yet."
+msgstr ""
+
+msgid "already scored"
+msgstr ""
+
+msgid "draft in progress"
+msgstr ""
+
+msgid "AI"
+msgstr ""
+
+msgid "Use"
+msgstr ""
+
+msgid ""
+"AI suggestion copied into your score. Adjust it freely: the value you submit "
+"is yours."
+msgstr ""
+
+msgid "Files analyzed"
+msgstr ""
+
+msgid "Weighted"
+msgstr ""
+
+msgid "Unverified citations removed"
+msgstr ""
+
+msgid ""
+"An AI analysis is running for this repository. Reopen this form in a moment "
+"to see its result."
+msgstr ""
+
+msgid ""
+"The last AI analysis of this project failed, so no suggestion is available."
+msgstr ""
+
+msgid "Please choose a hackathon."
+msgstr ""
+
+msgid "Please choose a project to evaluate."
+msgstr ""
+
+msgid "Evaluation created. Complete the rubric to publish scores."
+msgstr ""
+
+msgid "Could not start this evaluation. Try another project."
+msgstr ""
+
+msgid "Unable to load this evaluation."
+msgstr ""
+
+msgid "Evaluation submitted and added to the dashboard."
+msgstr ""
+
+msgid "Draft saved. It now appears in your pending queue."
+msgstr ""
+
+msgid "No rubric scores recorded."
+msgstr ""
+
+msgid "CSV export generated and downloaded."
+msgstr ""
+
+msgid "Results Leaderboard | CodeStorm"
+msgstr ""
+
+msgid "Results Leaderboard"
+msgstr ""
+
+msgid "CODESTORM :: FINAL RANKINGS"
+msgstr ""
+
+msgid "Evaluation Results Leaderboard"
+msgstr ""
+
+msgid "Finalized scores sorted by weighted aggregate across all jury criteria."
+msgstr ""
+
+msgid "Back to Evaluations"
+msgstr ""
+
+msgid "Rank"
+msgstr ""
+
+msgid "Project & Team"
+msgstr ""
+
+msgid "Score"
+msgstr ""
+
+msgid "Strengths"
+msgstr ""
+
+msgid "No completed evaluations to display yet."
+msgstr ""
+
+msgid "Hackathons | CodeStorm"
+msgstr ""
+
+msgid "Hackathons Directory"
+msgstr ""
+
+msgid ""
+"Discover exciting hackathons, join challenges, and turn your ideas into "
+"reality."
+msgstr ""
+
+msgid "Create Hackathon"
+msgstr ""
+
+msgid "Total Hackathons"
+msgstr ""
+
+msgid "Active portfolio across domains"
+msgstr ""
+
+msgid "Upcoming"
+msgstr ""
+
+msgid "+2 opening next week"
+msgstr ""
+
+msgid "Ongoing"
+msgstr ""
+
+msgid "Sprint submissions active"
+msgstr ""
+
+msgid "Evaluated &amp; prizes settled"
+msgstr ""
+
+msgid "Search hackathons..."
+msgstr ""
+
+msgid "All Status"
+msgstr ""
+
+msgid "All Categories"
+msgstr ""
+
+msgid "AI &amp; Machine Learning"
+msgstr ""
+
+msgid "Web Development"
+msgstr ""
+
+msgid "FinTech"
+msgstr ""
+
+msgid "GreenTech"
+msgstr ""
+
+msgid "Cybersecurity"
+msgstr ""
+
+msgid "My Hackathons"
+msgstr ""
+
+msgid "Reset"
+msgstr ""
+
+msgid "Active filters:"
+msgstr ""
+
+msgid "Clear all"
+msgstr ""
+
+msgid "AI &amp; ML"
+msgstr ""
+
+msgid "Online Global"
+msgstr ""
+
+msgid "AI Innovation Challenge"
+msgstr ""
+
+msgid ""
+"Build innovative AI solutions and next-generation neural agents to solve "
+"real-world industry bottlenecks."
+msgstr ""
+
+msgid "Oct 20–22, 2026"
+msgstr ""
+
+msgid "2–5 members"
+msgstr ""
+
+msgid "128 registered"
+msgstr ""
+
+msgid "• 42 teams formed"
+msgstr ""
+
+msgid "View Details"
+msgstr ""
+
+msgid "Tunis, Tunisia"
+msgstr ""
+
+msgid "GreenTech Hackathon"
+msgstr ""
+
+msgid ""
+"Create technology that contributes to a more sustainable future through "
+"energy efficiency and carbon monitoring."
+msgstr ""
+
+msgid "Oct 8–10, 2026"
+msgstr ""
+
+msgid "2–4 members"
+msgstr ""
+
+msgid "86 registered"
+msgstr ""
+
+msgid "• Submissions Open"
+msgstr ""
+
+msgid "FinTech Future"
+msgstr ""
+
+msgid ""
+"Rethink digital finance with secure, scalable, and inclusive blockchain and "
+"automated payment solutions."
+msgstr ""
+
+msgid "Nov 5–7, 2026"
+msgstr ""
+
+msgid "94 registered"
+msgstr ""
+
+msgid "• Mentorship active"
+msgstr ""
+
+msgid "CyberSecure Sprint"
+msgstr ""
+
+msgid ""
+"Design practical security mechanisms to counter modern zero-day "
+"vulnerabilities and cloud penetration vectors."
+msgstr ""
+
+msgid "Sep 12–14, 2026"
+msgstr ""
+
+msgid "72 participants"
+msgstr ""
+
+msgid "View Results"
+msgstr ""
+
+msgid "Web Dev"
+msgstr ""
+
+msgid "Web Creators Weekend"
+msgstr ""
+
+msgid ""
+"Build creative, hyper-fast, and accessible web experiences in 48 hours using "
+"the latest web standards."
+msgstr ""
+
+msgid "Nov 15–16, 2026"
+msgstr ""
+
+msgid "110 registered"
+msgstr ""
+
+msgid "• Registration Closes Soon"
+msgstr ""
+
+msgid "Smart City"
+msgstr ""
+
+msgid "Smart City Hack"
+msgstr ""
+
+msgid ""
+"Develop smart data solutions, IoT sensors, and autonomous city routing to "
+"improve everyday urban vitality."
+msgstr ""
+
+msgid "Oct 9–11, 2026"
+msgstr ""
+
+msgid "65 registered"
+msgstr ""
+
+msgid "• Live Mentorship Round"
+msgstr ""
+
+msgid "No hackathons found"
+msgstr ""
+
+msgid ""
+"Try tweaking your search keywords or loosening the category and status "
+"filters."
+msgstr ""
+
+msgid "Clear Filters"
+msgstr ""
+
+msgid "Hackathons Pagination"
+msgstr ""
+
+msgid "Previous page"
+msgstr ""
+
+msgid "Next page"
+msgstr ""
+
+msgid "6 per page"
+msgstr ""
+
+msgid "12 per page"
+msgstr ""
+
+msgid "24 per page"
+msgstr ""
+
+msgid "Create New Hackathon"
+msgstr ""
+
+msgid "Configure event parameters, track details, and team quotas"
+msgstr ""
+
+msgid "Close modal"
+msgstr ""
+
+msgid "Hackathon Name"
+msgstr ""
+
+msgid "e.g. NextGen Web3 Challenge"
+msgstr ""
+
+msgid "Primary Track / Category"
+msgstr ""
+
+msgid "Select track..."
+msgstr ""
+
+msgid "Max Participant Cap"
+msgstr ""
+
+msgid "e.g. 200"
+msgstr ""
+
+msgid "Short Description"
+msgstr ""
+
+msgid ""
+"Provide a compelling mission statement and criteria for the challenge..."
+msgstr ""
+
+msgid "Start Date"
+msgstr ""
+
+msgid "End Date"
+msgstr ""
+
+msgid "Registration Deadline"
+msgstr ""
+
+msgid "Event Format"
+msgstr ""
+
+msgid "Online"
+msgstr ""
+
+msgid "In-Person"
+msgstr ""
+
+msgid "City / Venue Address"
+msgstr ""
+
+msgid "e.g. Tunis Science Hall, Tunisia"
+msgstr ""
+
+msgid "Min Team Size"
+msgstr ""
+
+msgid "Max Team Size"
+msgstr ""
+
+msgid "Header Banner Artwork"
+msgstr ""
+
+msgid "Click to upload or drag and drop"
+msgstr ""
+
+msgid "PNG, JPG, or WebP up to 5MB (1200x480 recommended)"
+msgstr ""
+
+msgid "Search"
+msgstr ""
+
+msgid "Track"
+msgstr ""
+
+msgid "My Hackathons only"
+msgstr ""
+
+msgid "Creating..."
+msgstr ""
+
+msgid "Created!"
+msgstr ""
+
+msgid "Jury Dashboard | CodeStorm"
+msgstr ""
+
+msgid "Jury View"
+msgstr ""
+
+msgid "Review the projects you are allowed to score."
+msgstr ""
+
+msgid "Today"
+msgstr ""
+
+msgid "Scoring catalog"
+msgstr ""
+
+msgid "AI analyses"
+msgstr ""
+
+msgid "Projects to score"
+msgstr ""
+
+msgid "Evaluate"
+msgstr ""
+
+msgid "Details"
+msgstr ""
+
+msgid "Every project you can access already has one of your evaluations."
+msgstr ""
+
+msgid "Draft evaluations"
+msgstr ""
+
+msgid "In progress"
+msgstr ""
+
+msgid "Continue"
+msgstr ""
+
+msgid "No draft in progress."
+msgstr ""
+
+msgid "Your submitted evaluations"
+msgstr ""
+
+msgid "You have not submitted an evaluation yet."
+msgstr ""
+
+msgid "Upcoming Deadlines"
+msgstr ""
+
+#, python-format
+msgid "%(days)s day left"
+msgid_plural "%(days)s days left"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "No deadline coming up."
+msgstr ""
+
+msgid "Criteria per hackathon"
+msgstr ""
+
+msgid "none"
+msgstr ""
+
+msgid "No hackathon to score yet."
+msgstr ""
+
+msgid "Login | CodeStorm"
+msgstr ""
+
+msgid "Welcome back!"
+msgstr ""
+
+msgid "Sign in to find your hackathons, teams and projects."
+msgstr ""
+
+msgid "Login"
+msgstr ""
+
+msgid "Register"
+msgstr ""
+
+msgid "Wrong username or password. Give it another try."
+msgstr ""
+
+msgid "Username"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+msgid "Show password"
+msgstr ""
+
+msgid "Sign in"
+msgstr ""
+
+msgid "No account yet?"
+msgstr ""
+
+msgid "Create it in 30 seconds"
+msgstr ""
+
+msgid "Signing in…"
+msgstr ""
+
+msgid "Notifications | CodeStorm"
+msgstr ""
+
+msgid ""
+"Each line is a real fact still waiting for you. It disappears once the "
+"invitation, request or evaluation behind it is handled."
+msgstr ""
+
+msgid "Summary"
+msgstr ""
+
+msgid "Waiting for your action"
+msgstr ""
+
+msgid "Submissions waiting for results"
+msgstr ""
+
+msgid "Nothing pending"
+msgstr ""
+
+msgid ""
+"No invitation, join request, draft evaluation or published result is waiting "
+"for you right now."
+msgstr ""
+
+msgid "Organizer Dashboard | CodeStorm"
+msgstr ""
+
+msgid "Organizer Overview"
+msgstr ""
+
+msgid "Everything happening in the hackathons you run."
+msgstr ""
+
+msgid "Follow evaluations"
+msgstr ""
+
+msgid "Your hackathons"
+msgstr ""
+
+msgid "Results published"
+msgstr ""
+
+msgid "You do not organize any hackathon yet."
+msgstr ""
+
+msgid "Latest submissions"
+msgstr ""
+
+msgid "No project has been submitted yet."
+msgstr ""
+
+msgid "Newest teams"
+msgstr ""
+
+msgid "No team has registered yet."
+msgstr ""
+
+msgid "Join requests still pending"
+msgstr ""
+
+msgid "Review"
+msgstr ""
+
+msgid "No pending join request."
+msgstr ""
+
+msgid "No resource published yet."
+msgstr ""
+
+msgid "Participant Dashboard | CodeStorm"
+msgstr ""
+
+msgid "Participant Overview"
+msgstr ""
+
+msgid "Your hackathon journey, all in one place."
+msgstr ""
+
+msgid "Create Team"
+msgstr ""
+
+msgid "Explore Hackathons"
+msgstr ""
+
+msgid "Hackathons open for registration"
+msgstr ""
+
+msgid "No hackathon is open for registration right now."
+msgstr ""
+
+msgid "My Teams"
+msgstr ""
+
+#, python-format
+msgid "Assigned to: %(event)s"
+msgstr ""
+
+msgid "No hackathon yet"
+msgstr ""
+
+#, python-format
+msgid "%(n)s member"
+msgid_plural "%(n)s members"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "up to"
+msgstr ""
+
+msgid "You are not in a team yet. Join one or create one for a hackathon."
+msgstr ""
+
+msgid "Find a team"
+msgstr ""
+
+msgid "My Projects"
+msgstr ""
+
+msgid "No project yet. Create one once your team is set up."
+msgstr ""
+
+msgid "Create project"
+msgstr ""
+
+msgid "No deadline coming up for your hackathons."
+msgstr ""
+
+msgid "Published results"
+msgstr ""
+
+msgid "View Full"
+msgstr ""
+
+msgid "No results have been published for your hackathons yet."
+msgstr ""
+
+msgid "Nothing waiting for you. Your invitations and requests are all handled."
+msgstr ""
+
+msgid "Prizes & Leaderboard – CodeStorm"
+msgstr ""
+
+msgid "Review & Scoring"
+msgstr ""
+
+msgid "Prizes & Leaderboard"
+msgstr ""
+
+msgid "FINAL ROUND :: PRIZE ALLOCATION &amp; AWARDS"
+msgstr ""
+
+msgid ""
+"Celebrate innovation, recognize outstanding teams, and track hackathon "
+"rankings across cohorts."
+msgstr ""
+
+msgid "+ Add Prize"
+msgstr ""
+
+msgid "Across 6 active hackathons"
+msgstr ""
+
+msgid "Available Prizes"
+msgstr ""
+
+msgid "Ready for allocation"
+msgstr ""
+
+msgid "Awarded Prizes"
+msgstr ""
+
+msgid "Confirmed by jury"
+msgstr ""
+
+msgid "Completed Hackathons"
+msgstr ""
+
+msgid "Rankings finalized"
+msgstr ""
+
+msgid "Overview &amp; Leaderboard"
+msgstr ""
+
+msgid "05 Teams"
+msgstr ""
+
+msgid "Prize Management"
+msgstr ""
+
+msgid "06 Prizes"
+msgstr ""
+
+msgid "Certificates"
+msgstr ""
+
+msgid "04 Issued"
+msgstr ""
+
+msgid "AI Innovation Challenge (Global 2025)"
+msgstr ""
+
+msgid "FinTech Future Sprint"
+msgstr ""
+
+msgid "CyberSecure 2025"
+msgstr ""
+
+msgid "Search teams..."
+msgstr ""
+
+msgid "RANK #2 · SILVER"
+msgstr ""
+
+msgid "CW"
+msgstr ""
+
+msgid "Code Warriors"
+msgstr ""
+
+msgid "Finalist"
+msgstr ""
+
+msgid "Project: SmartHealth AI"
+msgstr ""
+
+msgid "93.2 pts"
+msgstr ""
+
+msgid "Innovation:"
+msgstr ""
+
+msgid "Technical:"
+msgstr ""
+
+msgid "Award Allocation"
+msgstr ""
+
+msgid "Preview Certificate"
+msgstr ""
+
+msgid "GRAND CHAMPION · RANK #1"
+msgstr ""
+
+msgid "PP"
+msgstr ""
+
+msgid "Pixel Pioneers"
+msgstr ""
+
+msgid "Winner"
+msgstr ""
+
+msgid "Project: CampusConnect"
+msgstr ""
+
+msgid "UX/Impact:"
+msgstr ""
+
+msgid "Secured Grand Prize"
+msgstr ""
+
+msgid "Certificate"
+msgstr ""
+
+msgid "RANK #3 · BRONZE"
+msgstr ""
+
+msgid "GI"
+msgstr ""
+
+msgid "Green Innovators"
+msgstr ""
+
+msgid "Project: EcoTrack"
+msgstr ""
+
+msgid "90.8 pts"
+msgstr ""
+
+msgid "Cohort Final Standings"
+msgstr ""
+
+msgid ""
+"Scored across rubric parameters: Technical Execution, Impact, Design &amp; "
+"Pitch"
+msgstr ""
+
+msgid "5 of 5 Teams Evaluated"
+msgstr ""
+
+msgid "Team &amp; Squad"
+msgstr ""
+
+msgid "Project Name"
+msgstr ""
+
+msgid "Rubric Metrics"
+msgstr ""
+
+msgid "Prize / Achievement"
+msgstr ""
+
+msgid "Jacem &amp; Oussama"
+msgstr ""
+
+msgid "CampusConnect"
+msgstr ""
+
+msgid "96.5 pts"
+msgstr ""
+
+msgid "Innov:"
+msgstr ""
+
+msgid "Tech:"
+msgstr ""
+
+msgid "View Breakdown"
+msgstr ""
+
+msgid "Kmar, Abir, Zeineb"
+msgstr ""
+
+msgid "SmartHealth AI"
+msgstr ""
+
+msgid "Jacem, Kmar, Zeineb"
+msgstr ""
+
+msgid "EcoTrack"
+msgstr ""
+
+msgid "FV"
+msgstr ""
+
+msgid "FinVision"
+msgstr ""
+
+msgid "Sara M. &amp; Amine K."
+msgstr ""
+
+msgid "FinWise"
+msgstr ""
+
+msgid "87.4 pts"
+msgstr ""
+
+msgid "BB"
+msgstr ""
+
+msgid "Byte Builders"
+msgstr ""
+
+msgid "Tarek D., Nour H."
+msgstr ""
+
+msgid "SecureVault"
+msgstr ""
+
+msgid "85.9 pts"
+msgstr ""
+
+msgid "Configured Event Prizes"
+msgstr ""
+
+msgid ""
+"Direct sponsor allocations, eligibility criteria, and distribution states."
+msgstr ""
+
+msgid "New Prize Tier"
+msgstr ""
+
+msgid "Awarded"
+msgstr ""
+
+msgid "First Place — Overall Winner"
+msgstr ""
+
+msgid ""
+"Top-ranking team with highest combined technical and innovation evaluation "
+"scores."
+msgstr ""
+
+msgid "Hackathon:"
+msgstr ""
+
+msgid "Sponsor:"
+msgstr ""
+
+msgid "TechFuture Global"
+msgstr ""
+
+msgid "Eligibility:"
+msgstr ""
+
+msgid "All hackathon finalists"
+msgstr ""
+
+msgid "Recipient:"
+msgstr ""
+
+msgid "1 Winner Slot"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Second Place — Runner Up"
+msgstr ""
+
+msgid ""
+"Outstanding project execution with notable community adoption potential."
+msgstr ""
+
+msgid "Innovate Labs"
+msgstr ""
+
+msgid "Top 3 finalists"
+msgstr ""
+
+msgid "Third Place — Honorable Merit"
+msgstr ""
+
+msgid ""
+"Impressive technical architecture and robust user testing during prototype "
+"phase."
+msgstr ""
+
+msgid "Digital Hub"
+msgstr ""
+
+msgid "Top 5 finalists"
+msgstr ""
+
+msgid "Available"
+msgstr ""
+
+msgid "Best Innovation Award"
+msgstr ""
+
+msgid ""
+"Exceptional novelty and sustainable ecological impact in the climate track."
+msgstr ""
+
+msgid "EcoVision Ventures"
+msgstr ""
+
+msgid "GreenTech track submissions"
+msgstr ""
+
+msgid "Assigned"
+msgstr ""
+
+msgid "Best FinTech Idea"
+msgstr ""
+
+msgid ""
+"Revolutionary decentralized or algorithmic asset allocation architecture."
+msgstr ""
+
+msgid "FinLabs Capital"
+msgstr ""
+
+msgid "FinTech track submissions"
+msgstr ""
+
+msgid "Best Security Solution"
+msgstr ""
+
+msgid ""
+"Zero-trust network defense model and encrypted identity protection solution."
+msgstr ""
+
+msgid "SecureTech Systems"
+msgstr ""
+
+msgid "Cybersecurity track"
+msgstr ""
+
+msgid "Official Award Certificates"
+msgstr ""
+
+msgid ""
+"Generate, preview, and issue cryptographically verifiable credentials for "
+"participants and winners."
+msgstr ""
+
+msgid "Batch Issue All"
+msgstr ""
+
+msgid "Recipient &amp; Team"
+msgstr ""
+
+msgid "Hackathon Event"
+msgstr ""
+
+msgid "Certificate Type"
+msgstr ""
+
+msgid "Issue Date"
+msgstr ""
+
+msgid "Certificate Actions"
+msgstr ""
+
+msgid "Winner (First Place)"
+msgstr ""
+
+msgid "Oct 12, 2026"
+msgstr ""
+
+msgid "Ready"
+msgstr ""
+
+msgid "Preview"
+msgstr ""
+
+msgid "Generate Certificate"
+msgstr ""
+
+msgid "Winner (Second Place)"
+msgstr ""
+
+msgid "Abir, Kmar, Jacem, Zeineb"
+msgstr ""
+
+msgid "Winner (Third Place)"
+msgstr ""
+
+msgid "Sara M., Amine K."
+msgstr ""
+
+msgid "Special Award (Best FinTech)"
+msgstr ""
+
+msgid "Urban Minds"
+msgstr ""
+
+msgid "Participant Cohort"
+msgstr ""
+
+msgid "Participation Certificate"
+msgstr ""
+
+msgid "Issued"
+msgstr ""
+
+msgid "Download PDF"
+msgstr ""
+
+msgid "Add New Prize Award"
+msgstr ""
+
+msgid "Prize Name"
+msgstr ""
+
+msgid "e.g. Grand Champion Award"
+msgstr ""
+
+msgid "Prize Category / Tier"
+msgstr ""
+
+msgid "1st Place (Grand Champion)"
+msgstr ""
+
+msgid "2nd Place (Runner-up)"
+msgstr ""
+
+msgid "3rd Place (Third)"
+msgstr ""
+
+msgid "Special Track Award"
+msgstr ""
+
+msgid "Community Choice"
+msgstr ""
+
+msgid "Associated Hackathon"
+msgstr ""
+
+msgid "Sponsor Organization"
+msgstr ""
+
+msgid "e.g. Google Cloud, AWS, Stripe"
+msgstr ""
+
+msgid "Number of Winners (Slots)"
+msgstr ""
+
+msgid "Non-Cash Perks (Optional)"
+msgstr ""
+
+msgid "e.g. $10,000 Cloud Credits + Direct Fast-Track VC Interview"
+msgstr ""
+
+msgid "Eligibility Criteria"
+msgstr ""
+
+msgid ""
+"Describe requirements, eligible categories or minimum evaluation cutoffs..."
+msgstr ""
+
+msgid "Save Prize"
+msgstr ""
+
+msgid "Certificate Preview &amp; Credential Verification"
+msgstr ""
+
+msgid "Print / Download PDF"
+msgstr ""
+
+msgid "Certified"
+msgstr ""
+
+msgid "ID: HF-2026-X8849"
+msgstr ""
+
+msgid "Certificate of Achievement"
+msgstr ""
+
+msgid "This official document is proudly conferred upon"
+msgstr ""
+
+msgid "for outstanding technical distinction and first-place leadership in"
+msgstr ""
+
+msgid "AI Innovation Challenge 2025"
+msgstr ""
+
+msgid "Lead Organizer &amp; Director"
+msgstr ""
+
+msgid "Marcus Sterling"
+msgstr ""
+
+msgid "Jury Board President"
+msgstr ""
+
+msgid "Prize tier saved successfully and assigned to hackathon rubric!"
+msgstr ""
+
+msgid "Team Name"
+msgstr ""
+
+msgid "Overall Score"
+msgstr ""
+
+msgid "Innovation"
+msgstr ""
+
+msgid "Technical"
+msgstr ""
+
+msgid "First Place"
+msgstr ""
+
+msgid "Second Place"
+msgstr ""
+
+msgid "Third Place"
+msgstr ""
+
+msgid "Profile & Settings – CodeStorm"
+msgstr ""
+
+msgid "Changes Saved"
+msgstr ""
+
+msgid "Done."
+msgstr ""
+
+msgid ""
+"Manage your personal identity, platform security, and workspace preferences."
+msgstr ""
+
+msgid "Staff"
+msgstr ""
+
+msgid "Complete"
+msgstr ""
+
+msgid "Role"
+msgstr ""
+
+msgid "Personal Information"
+msgstr ""
+
+msgid "Account Security"
+msgstr ""
+
+msgid "Appearance"
+msgstr ""
+
+msgid "Update your public profile and hackathon contact details."
+msgstr ""
+
+msgid "Edit Profile"
+msgstr ""
+
+msgid "First Name"
+msgstr ""
+
+msgid "Last Name"
+msgstr ""
+
+msgid "Email Address"
+msgstr ""
+
+msgid "Phone Number"
+msgstr ""
+
+msgid "University / Institution"
+msgstr ""
+
+msgid "Field of Study / Specialization"
+msgstr ""
+
+msgid "Skills"
+msgstr ""
+
+msgid "Interests"
+msgstr ""
+
+msgid "Short Biography"
+msgstr ""
+
+msgid "Profile Avatar"
+msgstr ""
+
+msgid "PNG, JPG or WEBP up to 5MB."
+msgstr ""
+
+msgid "Save Changes"
+msgstr ""
+
+msgid "Update Password"
+msgstr ""
+
+msgid "Ensure your account is protected with a strong, distinct passphrase."
+msgstr ""
+
+msgid "Current Password"
+msgstr ""
+
+msgid "New Password"
+msgstr ""
+
+msgid "Confirm Password"
+msgstr ""
+
+msgid "Password Strength:"
+msgstr ""
+
+msgid "None"
+msgstr ""
+
+msgid "≥ 8 characters"
+msgstr ""
+
+msgid "Uppercase letter"
+msgstr ""
+
+msgid "Number (0-9)"
+msgstr ""
+
+msgid "Special character"
+msgstr ""
+
+msgid "Notification Preferences"
+msgstr ""
+
+msgid "Choose which updates you receive during hackathon sprints."
+msgstr ""
+
+msgid "Dispatch Channels"
+msgstr ""
+
+msgid "Push alerts in the top navigation bell."
+msgstr ""
+
+msgid "Event &amp; Activity Notifications"
+msgstr ""
+
+msgid "Organizer updates, keynote times, schedule changes."
+msgstr ""
+
+msgid "Member requests, roster changes, role assignments."
+msgstr ""
+
+msgid "T-24h, T-6h and T-1h reminders before code freeze."
+msgstr ""
+
+msgid "Live jury score releases and judge feedback."
+msgstr ""
+
+msgid "Winner announcements and bounty claim instructions."
+msgstr ""
+
+msgid "Weekly developer roundup and community news."
+msgstr ""
+
+msgid "Save Preferences"
+msgstr ""
+
+msgid "Appearance &amp; Interface"
+msgstr ""
+
+msgid ""
+"Customize theme, accent color, density and language. Saved to your account."
+msgstr ""
+
+msgid "Theme Mode"
+msgstr ""
+
+msgid "Light Mode"
+msgstr ""
+
+msgid "Dark Mode"
+msgstr ""
+
+msgid "System Default"
+msgstr ""
+
+msgid "Platform Accent Color"
+msgstr ""
+
+msgid "Electric Purple"
+msgstr ""
+
+msgid "Vibrant Cyan"
+msgstr ""
+
+msgid "Emerald Green"
+msgstr ""
+
+msgid "Sunset Orange"
+msgstr ""
+
+msgid "Interface Density"
+msgstr ""
+
+msgid "Comfortable"
+msgstr ""
+
+msgid "Compact"
+msgstr ""
+
+msgid "Display Language"
+msgstr ""
+
+msgid "Apply Appearance Settings"
+msgstr ""
+
+msgid "Weak"
+msgstr ""
+
+msgid "Fair"
+msgstr ""
+
+msgid "Good"
+msgstr ""
+
+msgid "Strong"
+msgstr ""
+
+msgid "Saved"
+msgstr ""
+
+msgid "Projects – CodeStorm"
+msgstr ""
+
+msgid "COHORT MANAGEMENT"
+msgstr ""
+
+msgid "DJANGO APP :: PROJECTS"
+msgstr ""
+
+msgid "Projects Management"
+msgstr ""
+
+msgid ""
+"Manage submissions, track progress, and showcase your team's innovation "
+"across all live sprints and cohorts."
+msgstr ""
+
+msgid "Export Projects"
+msgstr ""
+
+msgid "Create Project"
+msgstr ""
+
+msgid "Total Projects"
+msgstr ""
+
+msgid "+4 this week"
+msgstr ""
+
+msgid "• Active cohorts"
+msgstr ""
+
+msgid "Drafts"
+msgstr ""
+
+msgid "Under active squad authoring"
+msgstr ""
+
+msgid "Submitted"
+msgstr ""
+
+msgid "Locked &amp; git webhook verified"
+msgstr ""
+
+msgid "Jury scoring in progress"
+msgstr ""
+
+msgid "Search projects by name, team, or technology..."
+msgstr ""
+
+msgid "All Teams"
+msgstr ""
+
+msgid "All Tech Stacks"
+msgstr ""
+
+msgid "Python"
+msgstr ""
+
+msgid "Angular"
+msgstr ""
+
+msgid "Django"
+msgstr ""
+
+msgid "Node.js"
+msgstr ""
+
+msgid "PostgreSQL"
+msgstr ""
+
+msgid "React"
+msgstr ""
+
+msgid "Grid View"
+msgstr ""
+
+msgid "List View"
+msgstr ""
+
+msgid "Reset all filters"
+msgstr ""
+
+msgid "All"
+msgstr ""
+
+msgid "Draft"
+msgstr ""
+
+msgid "Filtered:"
+msgstr ""
+
+msgid "Duplicate"
+msgstr ""
+
+msgid ""
+"An AI-powered platform that helps users understand health data and access "
+"personalized insights."
+msgstr ""
+
+msgid "Sprint Completion"
+msgstr ""
+
+msgid "SM"
+msgstr ""
+
+msgid "YB"
+msgstr ""
+
+msgid "GitHub Repository"
+msgstr ""
+
+msgid "Updated Oct 9, 2026"
+msgstr ""
+
+msgid "Continue Project"
+msgstr ""
+
+msgid ""
+"A sustainability platform that helps individuals monitor and reduce their "
+"environmental footprint."
+msgstr ""
+
+msgid "MongoDB"
+msgstr ""
+
+msgid "Final Verified Artifact"
+msgstr ""
+
+msgid "AB"
+msgstr ""
+
+msgid "KM"
+msgstr ""
+
+msgid "JC"
+msgstr ""
+
+msgid "ZB"
+msgstr ""
+
+msgid "Updated Oct 8, 2026"
+msgstr ""
+
+msgid "View Submission"
+msgstr ""
+
+msgid ""
+"A smart personal finance solution for tracking expenses and improving "
+"financial decisions."
+msgstr ""
+
+msgid "Jury Scorecard 2/3 Received"
+msgstr ""
+
+msgid "Locked"
+msgstr ""
+
+msgid "AM"
+msgstr ""
+
+msgid "SR"
+msgstr ""
+
+msgid "Updated Oct 7, 2026"
+msgstr ""
+
+msgid ""
+"A digital platform that connects students with campus events, communities, "
+"and opportunities."
+msgstr ""
+
+msgid "TypeScript"
+msgstr ""
+
+msgid "Bootstrap"
+msgstr ""
+
+msgid "Setup &amp; Scaffold Phase"
+msgstr ""
+
+msgid "OS"
+msgstr ""
+
+msgid "Repo not yet linked"
+msgstr ""
+
+msgid "No Repo"
+msgstr ""
+
+msgid "Updated Oct 6, 2026"
+msgstr ""
+
+msgid "Edit Project"
+msgstr ""
+
+msgid "Evaluated (Score: 94.5)"
+msgstr ""
+
+msgid ""
+"A secure document management solution with modern access control and audit "
+"features."
+msgstr ""
+
+msgid "Security"
+msgstr ""
+
+msgid "Final Grade Published"
+msgstr ""
+
+msgid "AL"
+msgstr ""
+
+msgid "RV"
+msgstr ""
+
+msgid "TM"
+msgstr ""
+
+msgid "Updated Oct 5, 2026"
+msgstr ""
+
+msgid "CityPulse"
+msgstr ""
+
+msgid ""
+"A smart-city dashboard for monitoring urban mobility and public service "
+"indicators."
+msgstr ""
+
+msgid "Data Science"
+msgstr ""
+
+msgid "Chart.js"
+msgstr ""
+
+msgid "ML"
+msgstr ""
+
+msgid "DS"
+msgstr ""
+
+msgid "Updated Oct 4, 2026"
+msgstr ""
+
+msgid "Technologies"
+msgstr ""
+
+msgid "Last Updated"
+msgstr ""
+
+msgid "Python, AI, Django"
+msgstr ""
+
+msgid "Oct 9, 2026"
+msgstr ""
+
+msgid "View"
+msgstr ""
+
+msgid "Angular, Node.js, MongoDB"
+msgstr ""
+
+msgid "Oct 8, 2026"
+msgstr ""
+
+msgid "Python, React, PostgreSQL"
+msgstr ""
+
+msgid "Oct 7, 2026"
+msgstr ""
+
+msgid "Angular, TypeScript, Bootstrap"
+msgstr ""
+
+msgid "Oct 6, 2026"
+msgstr ""
+
+msgid "Django, PostgreSQL, Security"
+msgstr ""
+
+msgid "Oct 5, 2026"
+msgstr ""
+
+msgid "Python, Data Science, Chart.js"
+msgstr ""
+
+msgid "Oct 4, 2026"
+msgstr ""
+
+msgid "No projects matched your criteria"
+msgstr ""
+
+msgid ""
+"Try modifying your keyword search, selecting different hackathon tracks, or "
+"clearing all active filters."
+msgstr ""
+
+msgid "Reset All Filters"
+msgstr ""
+
+msgid "Project Title"
+msgstr ""
+
+msgid "By"
+msgstr ""
+
+msgid "About the Innovation"
+msgstr ""
+
+msgid "Detailed project synopsis."
+msgstr ""
+
+msgid "Source Code Repository"
+msgstr ""
+
+msgid "Webhook Active"
+msgstr ""
+
+msgid "https://github.com/example/repo"
+msgstr ""
+
+msgid "Copy URL"
+msgstr ""
+
+msgid "Technology Stack"
+msgstr ""
+
+msgid "Attached Deliverables"
+msgstr ""
+
+msgid "Pitch_Deck_v2.pdf"
+msgstr ""
+
+msgid "4.2 MB"
+msgstr ""
+
+msgid "Product_Demo.mp4"
+msgstr ""
+
+msgid "3m 14s (1080p)"
+msgstr ""
+
+msgid "Milestone Validation Status"
+msgstr ""
+
+msgid "README &amp; Architecture Diagram committed"
+msgstr ""
+
+msgid "Verified"
+msgstr ""
+
+msgid "Live Sandbox Endpoint reachable"
+msgstr ""
+
+msgid "200 OK"
+msgstr ""
+
+msgid "Plagiarism &amp; Open Source Audit"
+msgstr ""
+
+msgid "Passed"
+msgstr ""
+
+msgid "match"
+msgstr ""
+
+msgid "Close Preview"
+msgstr ""
+
+msgid "Edit Details"
+msgstr ""
+
+msgid "Submit for Jury"
+msgstr ""
+
+msgid "Create New Project"
+msgstr ""
+
+msgid "Configure cohort workspace and submission manifest."
+msgstr ""
+
+msgid "Project Name *"
+msgstr ""
+
+msgid "e.g. SmartHealth AI"
+msgstr ""
+
+msgid "Associated Hackathon *"
+msgstr ""
+
+msgid "Assigned Team Squad *"
+msgstr ""
+
+msgid "Code Warriors (3 members)"
+msgstr ""
+
+msgid "Green Innovators (4 members)"
+msgstr ""
+
+msgid "FinVision (3 members)"
+msgstr ""
+
+msgid "Pixel Pioneers (2 members)"
+msgstr ""
+
+msgid "Byte Builders (3 members)"
+msgstr ""
+
+msgid "Urban Minds (2 members)"
+msgstr ""
+
+msgid "Short Pitch Tagline *"
+msgstr ""
+
+msgid "One-sentence elevator pitch of your submission"
+msgstr ""
+
+msgid "Full Problem &amp; Solution Statement"
+msgstr ""
+
+msgid ""
+"Describe the problem, solution architecture, target impact, and current "
+"constraints..."
+msgstr ""
+
+msgid "Technologies &amp; Frameworks (comma separated)"
+msgstr ""
+
+msgid "e.g. Python, Django, PostgreSQL, Docker, Redis"
+msgstr ""
+
+msgid "GitHub Repository URL"
+msgstr ""
+
+msgid "https://github.com/org/repo"
+msgstr ""
+
+msgid "Live Sandbox Demo URL"
+msgstr ""
+
+msgid "https://demo.codestorm.app"
+msgstr ""
+
+msgid "Project Banner / Pitch Visual"
+msgstr ""
+
+msgid "Click to upload banner image"
+msgstr ""
+
+msgid "PNG, JPG, or WebP up to 5MB (1200x630 recommended)"
+msgstr ""
+
+msgid "Save as Draft"
+msgstr ""
+
+msgid "Save Project"
+msgstr ""
+
+msgid "Lock &amp; Submit for Jury Evaluation?"
+msgstr ""
+
+msgid ""
+"Once submitted, repository webhooks freeze commit snapshots. Any further "
+"modifications require lead organizer unlock clearance."
+msgstr ""
+
+msgid "Automatic Checks Passed"
+msgstr ""
+
+msgid "GitHub release branch tagged:"
+msgstr ""
+
+msgid "v1.0.0-jury-eval"
+msgstr ""
+
+msgid "Keep Editing"
+msgstr ""
+
+msgid "Confirm Submission"
+msgstr ""
+
+msgid "Operation completed successfully."
+msgstr ""
+
+msgid "Query"
+msgstr ""
+
+msgid "Tech"
+msgstr ""
+
+msgid "Updated"
+msgstr ""
+
+msgid "No public repository specified"
+msgstr ""
+
+msgid "successfully saved and synchronized."
+msgstr ""
+
+msgid "Untitled Draft"
+msgstr ""
+
+msgid "saved to squad workspace."
+msgstr ""
+
+msgid "Submission finalized! Project locked for jury scorecard review."
+msgstr ""
+
+msgid "Repository URL copied to clipboard!"
+msgstr ""
+
+msgid "Preparing Django CSV export payload... Download will begin shortly."
+msgstr ""
+
+msgid "Register | CodeStorm"
+msgstr ""
+
+msgid "Create an account"
+msgstr ""
+
+msgid "Join CodeStorm and launch your first hackathon."
+msgstr ""
+
+msgid "Strength"
+msgstr ""
+
+msgid "Password requirements"
+msgstr ""
+
+msgid "At least 8 characters"
+msgstr ""
+
+msgid "Not entirely numeric"
+msgstr ""
+
+msgid "Not too similar to your username or email"
+msgstr ""
+
+msgid "Not a commonly used password"
+msgstr ""
+
+msgid "Create my account"
+msgstr ""
+
+msgid "Already have an account?"
+msgstr ""
+
+msgid "Creating account…"
+msgstr ""
+
+msgid "Teams · CodeStorm"
+msgstr ""
+
+msgid "Teams Management"
+msgstr ""
+
+msgid ""
+"Create your team, discover other teams, and collaborate to build something "
+"amazing."
+msgstr ""
+
+msgid "Join a Team"
+msgstr ""
+
+msgid "Active in your hackathons"
+msgstr ""
+
+msgid "Invitations"
+msgstr ""
+
+msgid "Waiting for your answer"
+msgstr ""
+
+msgid "Pending Requests"
+msgstr ""
+
+msgid "Awaiting team approval"
+msgstr ""
+
+msgid "Total Members"
+msgstr ""
+
+msgid "Collaborators across squads"
+msgstr ""
+
+msgid "Discover Teams"
+msgstr ""
+
+msgid "Join Requests"
+msgstr ""
+
+msgid "Auto-synced with Git repo hooks"
+msgstr ""
+
+msgid "Recruiting"
+msgstr ""
+
+msgid "Team Leader"
+msgstr ""
+
+msgid ""
+"Building intelligent solutions for real-world challenges with generative "
+"edge agents and responsive UI telemetry."
+msgstr ""
+
+msgid "KW"
+msgstr ""
+
+msgid "AA"
+msgstr ""
+
+msgid "3/5 members"
+msgstr ""
+
+msgid "Project Progress"
+msgstr ""
+
+msgid "View Team"
+msgstr ""
+
+msgid "Manage Members"
+msgstr ""
+
+msgid "Member"
+msgstr ""
+
+msgid ""
+"Creating modern, accessible, and beautiful web experiences with reactive "
+"state and lightweight architecture."
+msgstr ""
+
+msgid "JB"
+msgstr ""
+
+msgid "OM"
+msgstr ""
+
+msgid "2/5 members"
+msgstr ""
+
+msgid "Team Roster"
+msgstr ""
+
+msgid "Full"
+msgstr ""
+
+msgid ""
+"Developing technology for a greener, sustainable future with solar "
+"optimization calculations and edge battery monitoring."
+msgstr ""
+
+msgid "4/4 members"
+msgstr ""
+
+msgid "Search teams, skills or hackathons..."
+msgstr ""
+
+msgid "Availability:"
+msgstr ""
+
+msgid "Recruiting Only"
+msgstr ""
+
+msgid "Full Teams"
+msgstr ""
+
+msgid "Neural Sparks"
+msgstr ""
+
+msgid "Led by"
+msgstr ""
+
+msgid "Amine K."
+msgstr ""
+
+msgid ""
+"Developing real-time neural edge processing tools for edge inference on low-"
+"power devices."
+msgstr ""
+
+msgid "Desired Skills"
+msgstr ""
+
+msgid "Request to Join"
+msgstr ""
+
+msgid "2/4 members"
+msgstr ""
+
+msgid "EcoTech Crew"
+msgstr ""
+
+msgid "Sami B."
+msgstr ""
+
+msgid ""
+"IoT telemetry pipeline for urban carbon tracking and neighborhood eco-credit "
+"incentives."
+msgstr ""
+
+msgid "Sustainability"
+msgstr ""
+
+msgid "UI/UX"
+msgstr ""
+
+msgid "4/5 members"
+msgstr ""
+
+msgid "Sara M."
+msgstr ""
+
+msgid ""
+"Decentralized micro-lending verification platform incorporating "
+"cryptographic proofs."
+msgstr ""
+
+msgid "NS"
+msgstr ""
+
+msgid "• October 9, 2026"
+msgstr ""
+
+msgid "sent an invitation:"
+msgstr ""
+
+msgid "Decline"
+msgstr ""
+
+msgid "Accept"
+msgstr ""
+
+msgid "• October 8, 2026"
+msgstr ""
+
+msgid "DD"
+msgstr ""
+
+msgid "Data Dreamers"
+msgstr ""
+
+msgid "Global AI Sprint"
+msgstr ""
+
+msgid "• October 7, 2026"
+msgstr ""
+
+msgid "Youssef B."
+msgstr ""
+
+msgid "Requests Sent by You"
+msgstr ""
+
+msgid "Tracking your submitted applications"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+msgid "Leader"
+msgstr ""
+
+msgid "CyberSentinels"
+msgstr ""
+
+msgid "Malek K."
+msgstr ""
+
+msgid "Quantum Leap"
+msgstr ""
+
+msgid "Nadia T."
+msgstr ""
+
+msgid "Accepted"
+msgstr ""
+
+msgid "Incoming Join Requests"
+msgstr ""
+
+msgid "You are reviewing as Team Leader"
+msgstr ""
+
+msgid "LM"
+msgstr ""
+
+msgid "Leila Mansour"
+msgstr ""
+
+msgid "Software Engineer • Applied 2h ago"
+msgstr ""
+
+msgid "Accept Candidate"
+msgstr ""
+
+msgid "KT"
+msgstr ""
+
+msgid "Karim Trabelsi"
+msgstr ""
+
+msgid "ML Specialist • Applied 5h ago"
+msgstr ""
+
+msgid "PyTorch"
+msgstr ""
+
+msgid "Computer Vision"
+msgstr ""
+
+msgid "FastAPI"
+msgstr ""
+
+msgid "Create a New Team"
+msgstr ""
+
+msgid "e.g. Quantum Pioneers"
+msgstr ""
+
+msgid "Max Members"
+msgstr ""
+
+msgid "Team Description"
+msgstr ""
+
+msgid "Briefly describe what your team aims to build and solve..."
+msgstr ""
+
+msgid "Desired Skills (Comma-separated)"
+msgstr ""
+
+msgid "e.g. Python, UI/UX, Docker, PyTorch"
+msgstr ""
+
+msgid "Recruiting Status"
+msgstr ""
+
+msgid "Allow other hackathon participants to request to join"
+msgstr ""
+
+msgid "Associated Hackathon:"
+msgstr ""
+
+msgid "AI Innovation Challenge 2026"
+msgstr ""
+
+msgid "Finished"
+msgstr ""
+
+msgid "Repository:"
+msgstr ""
+
+msgid "github.com/codewarriors/sprint-core"
+msgstr ""
+
+msgid "Target Pitch: In 48 hours"
+msgstr ""
+
+msgid "Active Team Members (3/5)"
+msgstr ""
+
+msgid "Kmar Weslati (You)"
+msgstr ""
+
+msgid "Lead Architect • Joined Oct 1"
+msgstr ""
+
+msgid "Abir Ayari"
+msgstr ""
+
+msgid "Full-Stack Engineer • Joined Oct 2"
+msgstr ""
+
+msgid "Frontend Lead"
+msgstr ""
+
+msgid "Zeineb Ben Ali"
+msgstr ""
+
+msgid "AI &amp; ML Specialist • Joined Oct 3"
+msgstr ""
+
+msgid "AI Engineer"
+msgstr ""
+
+msgid "Required Skills for Empty Slots"
+msgstr ""
+
+msgid "Docker / Kubernetes"
+msgstr ""
+
+msgid "UI/UX Prototype"
+msgstr ""
+
+msgid "Manage Team Members"
+msgstr ""
+
+msgid "Invite via Email or GitHub Handle"
+msgstr ""
+
+msgid "colleague@domain.com or @handle"
+msgstr ""
+
+msgid "Send Invite"
+msgstr ""
+
+msgid "Current Squad"
+msgstr ""
+
+msgid "Co-Leader"
+msgstr ""
+
+msgid "Remove member"
+msgstr ""
+
+msgid "Transfer Leadership"
+msgstr ""
+
+msgid "Pass administrative ownership to another active member"
+msgstr ""
+
+msgid "Select a co-leader to transfer ownership."
+msgstr ""
+
+msgid "Transfer..."
+msgstr ""
+
+msgid "Done"
+msgstr ""
+
+msgid "Request Pending"
+msgstr ""
+
+msgid "Join request submitted to"
+msgstr ""
+
+msgid "Accepted invitation to"
+msgstr ""
+
+msgid "Declined invitation from"
+msgstr ""
+
+msgid "Cancelled request to join"
+msgstr ""
+
+msgid "added to the team!"
+msgstr ""
+
+msgid "Declined application from"
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "from the active team?"
+msgstr ""
+
+msgid "removed from squad roster."
+msgstr ""
+
+msgid "Please enter an email or handle."
+msgstr ""
+
+msgid "Invitation dispatched to"
+msgstr ""
+
+msgid "No description yet."
+msgstr ""
+
+msgid "Closed"
+msgstr ""
+
+msgid "members"
+msgstr ""
+
+msgid "Team successfully created! You are designated as Leader."
+msgstr ""
+
+msgid "New analysis"
+msgstr ""
+
+msgid ""
+"Pick the project whose submitted repository you want analyzed against this "
+"hackathon's criteria."
+msgstr ""
+
+msgid ""
+"Pick a project to score its own submitted repository against this "
+"hackathon's criteria, or enter a URL for a standalone technical review."
+msgstr ""
+
+msgid ""
+"Only public GitHub repositories (https://github.com/owner/repo) are "
+"analyzed. This may take a moment."
+msgstr ""
+
+msgid "Analyzing…"
+msgstr ""
+
+msgid "Run analysis"
+msgstr ""
+
+msgid "Running"
+msgstr ""
+
+msgid "Failed"
+msgstr ""
+
+msgid "files"
+msgstr ""
+
+msgid "No summary available."
+msgstr ""
+
+msgid "View report"
+msgstr ""
+
+msgid "Confirm"
+msgstr ""
+
+msgid "Delete this report?"
+msgstr ""
+
+#, python-format
+msgid ""
+"This will permanently delete the analysis report for <strong>%(url)s</"
+"strong>. This action cannot be undone."
+msgstr ""
+
+msgid "Yes, delete"
+msgstr ""
+
+msgid "Back to analyses"
+msgstr ""
+
+msgid "Re-analyze"
+msgstr ""
+
+msgid ""
+"This report is decision support. Scores are indicative and the final grade "
+"belongs to the jury."
+msgstr ""
+
+msgid "This analysis is still running."
+msgstr ""
+
+msgid "Please refresh this page in a moment to see the result."
+msgstr ""
+
+msgid "The analysis could not be completed."
+msgstr ""
+
+msgid "No further details are available."
+msgstr ""
+
+msgid "Indicative scores"
+msgstr ""
+
+msgid "Mean"
+msgstr ""
+
+msgid ""
+"These scores use the evaluation criteria of this hackathon, on the same 0-10 "
+"scale the jury fills in."
+msgstr ""
+
+msgid ""
+"No evaluation criteria are defined for this hackathon yet, so these are "
+"generic technical-review notes rather than rubric scores."
+msgstr ""
+
+#, python-format
+msgid ""
+"%(n)s cited file path could not be matched with the files actually fetched, "
+"and was removed from the evidence."
+msgid_plural ""
+"%(n)s cited file paths could not be matched with the files actually fetched, "
+"and were removed from the evidence."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "None noted."
+msgstr ""
+
+msgid "Potential concerns"
+msgstr ""
+
+msgid "Analysis limitations"
+msgstr ""
+
+msgid "files actually read"
+msgstr ""
+
+msgid "files truncated"
+msgstr ""
+
+msgid "files skipped"
+msgstr ""
+
+msgid "Show which files were used"
+msgstr ""
+
+msgid "Created by"
+msgstr ""
+
+msgid "AI model"
+msgstr ""
+
+msgid ""
+"Generate decision-support reports from public GitHub repositories. Scores "
+"are indicative; the final grade always belongs to the jury."
+msgstr ""
+
+msgid "reports"
+msgstr ""
+
+msgid "No analyses yet"
+msgstr ""
+
+msgid "Submit a public GitHub repository to generate your first AI report."
+msgstr ""
+
+msgid "Access Denied"
+msgstr ""
+
+msgid "You do not have permission to access this page."
+msgstr ""
+
+msgid "The page you are looking for does not exist."
+msgstr ""
+
+msgid "Confirm deletion"
+msgstr ""
+
+msgid "This action is permanent."
+msgstr ""
+
+msgid "Generate with AI"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Generating…"
+msgstr ""
+
+msgid "Description generated"
+msgstr ""
+
+msgid "Take part"
+msgstr ""
+
+#, python-format
+msgid "You already take part with the team %(team)s. One team per hackathon."
+msgstr ""
+
+msgid "Open my team"
+msgstr ""
+
+#, python-format
+msgid "%(n)s team is already registered here."
+msgid_plural "%(n)s teams are already registered here."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Create my team"
+msgstr ""
+
+msgid "Join an existing team"
+msgstr ""
+
+msgid ""
+"Registration is closed for this hackathon, so no new team and no join "
+"request can be accepted."
+msgstr ""
+
+msgid "Unpublish"
+msgstr ""
+
+msgid "Publish"
+msgstr ""
+
+msgid "Cancel this hackathon?"
+msgstr ""
+
+msgid "Cancel event"
+msgstr ""
+
+msgid "Dates & deadlines"
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
+msgid "End"
+msgstr ""
+
+msgid "Registration deadline"
+msgstr ""
+
+msgid "Submission deadline"
+msgstr ""
+
+msgid "Format"
+msgstr ""
+
+msgid "Challenges"
+msgstr ""
+
+msgid "Add a challenge"
+msgstr ""
+
+msgid "No challenge yet."
+msgstr ""
+
+msgid "Discover hackathons, join challenges and turn your ideas into reality."
+msgstr ""
+
+msgid "Statistics"
+msgstr ""
+
+msgid "Total"
+msgstr ""
+
+msgid "Category"
+msgstr ""
+
+msgid "All categories"
+msgstr ""
+
+msgid "My drafts"
+msgstr ""
+
+msgid "Scope"
+msgstr ""
+
+msgid "All hackathons"
+msgstr ""
+
+msgid "My hackathons"
+msgstr ""
+
+msgid "Hackathons list"
+msgstr ""
+
+#, python-format
+msgid "Banner of %(t)s"
+msgstr ""
+
+msgid "No hackathon found."
+msgstr ""
+
+msgid "Pagination"
+msgstr ""
+
+msgid "Previous"
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+msgid "Delete category"
+msgstr ""
+
+msgid "Delete category?"
+msgstr ""
+
+#, python-format
+msgid ""
+"Delete “%(name)s”? Existing prizes will be kept and will no longer have this "
+"category."
+msgstr ""
+
+msgid "Save category"
+msgstr ""
+
+msgid "Prize categories"
+msgstr ""
+
+msgid "Categories"
+msgstr ""
+
+msgid ""
+"Categories are shared labels. Changes are blocked while another organizer "
+"uses the category."
+msgstr ""
+
+msgid "No description"
+msgstr ""
+
+msgid "No categories yet."
+msgstr ""
+
+msgid "Back to Prizes & Leaderboard"
+msgstr ""
+
+msgid "Add category"
+msgstr ""
+
+msgid "Create category"
+msgstr ""
+
+msgid "Issue certificates"
+msgstr ""
+
+msgid ""
+"Each team member receives one rank certificate; each winning project "
+"receives a separate certificate for each prize."
+msgstr ""
+
+msgid "Issue certificates for the published results?"
+msgstr ""
+
+msgid "There are no published ranking entries to certify."
+msgstr ""
+
+msgid "Issued certificates"
+msgstr ""
+
+msgid "Download"
+msgstr ""
+
+msgid "No certificates have been issued yet."
+msgstr ""
+
+msgid "Certificate preview"
+msgstr ""
+
+msgid "HackFlow certificate"
+msgstr ""
+
+msgid "is recognized for"
+msgstr ""
+
+msgid "Certificate ID"
+msgstr ""
+
+msgid "Prepare leaderboard"
+msgstr ""
+
+msgid ""
+"Results are published. Unpublish them before changing the draft ranking."
+msgstr ""
+
+msgid "Calculated result"
+msgstr ""
+
+msgid ""
+"For each jury evaluation, the existing weighted criterion score is used; "
+"project scores are then averaged across complete evaluations. Equal scores "
+"share a rank (1, 1, 3). Jury comments are not shown."
+msgstr ""
+
+msgid "Project / team"
+msgstr ""
+
+msgid "Save draft ranking"
+msgstr ""
+
+msgid "There is no reliable ranking to show yet."
+msgstr ""
+
+msgid "Saved draft"
+msgstr ""
+
+msgid "Review for publication"
+msgstr ""
+
+msgid "No saved draft ranking yet."
+msgstr ""
+
+msgid "Publish results"
+msgstr ""
+
+msgid "Review before publishing"
+msgstr ""
+
+msgid "Publishing makes this ranking and its prize assignments official."
+msgstr ""
+
+msgid "Team / project"
+msgstr ""
+
+msgid "Prizes"
+msgstr ""
+
+msgid ""
+"Only the published aggregate scores are visible. Jury comments and private "
+"notes are excluded."
+msgstr ""
+
+msgid "Back"
+msgstr ""
+
+msgid "Publish the official results for this hackathon?"
+msgstr ""
+
+msgid "Unpublish results"
+msgstr ""
+
+msgid "Unpublish official results?"
+msgstr ""
+
+#, python-format
+msgid ""
+"Participants will no longer see the ranking for %(name)s. Prize assignments "
+"will return to draft status."
+msgstr ""
+
+msgid ""
+"This action is unavailable after certificates have been issued, so existing "
+"credentials remain valid."
+msgstr ""
+
+msgid "Assign winners"
+msgstr ""
+
+msgid "Assign winning projects"
+msgstr ""
+
+#, python-format
+msgid ""
+"Select up to %(slots)s project(s) from the saved, evaluated ranking. An "
+"empty selection leaves the prize available."
+msgstr ""
+
+msgid "Save a complete leaderboard before assigning a winner."
+msgstr ""
+
+msgid "No eligible ranked projects."
+msgstr ""
+
+msgid "Save assignment"
+msgstr ""
+
+msgid "Delete Prize"
+msgstr ""
+
+msgid "This action cannot be undone."
+msgstr ""
+
+msgid "Are you sure you want to delete the prize"
+msgstr ""
+
+msgid "from"
+msgstr ""
+
+msgid ""
+"This prize has already been awarded to a project. Deleting it may affect "
+"reports."
+msgstr ""
+
+msgid "Yes, Delete Prize"
+msgstr ""
+
+msgid "Prize"
+msgstr ""
+
+msgid "Prize details"
+msgstr ""
+
+msgid "Back to prizes"
+msgstr ""
+
+msgid "No additional description."
+msgstr ""
+
+msgid "Reward"
+msgstr ""
+
+msgid "Not specified"
+msgstr ""
+
+msgid "Cash amount"
+msgstr ""
+
+msgid "Sponsor"
+msgstr ""
+
+msgid "Winner slots"
+msgstr ""
+
+msgid "Eligibility"
+msgstr ""
+
+msgid "Assigned winning projects"
+msgstr ""
+
+msgid "No winner has been assigned."
+msgstr ""
+
+msgid "Edit prize"
+msgstr ""
+
+msgid "Assign winner"
+msgstr ""
+
+msgid "Edit Prize"
+msgstr ""
+
+msgid "Create Prize"
+msgstr ""
+
+msgid "New Prize"
+msgstr ""
+
+msgid "Fill in the details for this prize."
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+msgid "Cash Amount (USD)"
+msgstr ""
+
+msgid "Winner Slots"
+msgstr ""
+
+msgid "Non-Cash Reward"
+msgstr ""
+
+msgid "e.g. Cloud credits, internship offer, mentoring sessions..."
+msgstr ""
+
+msgid "Prizes & Leaderboard | HackFlow"
+msgstr ""
+
+msgid "Manage prize categories, awards, official rankings and certificates."
+msgstr ""
+
+msgid "Sponsors"
+msgstr ""
+
+msgid "Add prize"
+msgstr ""
+
+msgid "Prize statistics"
+msgstr ""
+
+msgid "Cash prize pool (USD)"
+msgstr ""
+
+msgid "Choose a hackathon"
+msgstr ""
+
+msgid "Each prize, project ranking and certificate is scoped to its hackathon."
+msgstr ""
+
+msgid "prize(s)"
+msgstr ""
+
+msgid "Open"
+msgstr ""
+
+msgid "configured prize(s)"
+msgstr ""
+
+msgid "Prepare ranking"
+msgstr ""
+
+msgid "Review & publish"
+msgstr ""
+
+msgid "Jury assigned through evaluations"
+msgstr ""
+
+msgid "No jury evaluations are assigned to projects in this hackathon yet."
+msgstr ""
+
+msgid "Jury assignments are managed by the existing evaluation workflow."
+msgstr ""
+
+msgid "winner slot(s)"
+msgstr ""
+
+msgid "Assigned projects"
+msgstr ""
+
+msgid "No prizes configured for this hackathon."
+msgstr ""
+
+msgid "Create the first prize"
+msgstr ""
+
+msgid "Leaderboard draft"
+msgstr ""
+
+msgid "Jury notes and comments are never displayed here."
+msgstr ""
+
+msgid "Open ranking"
+msgstr ""
+
+msgid "Team / Project"
+msgstr ""
+
+msgid ""
+"No ranking has been saved yet. Prepare one after all submitted projects have "
+"complete evaluations."
+msgstr ""
+
+msgid "Official results are published."
+msgstr ""
+
+msgid "Draft results are visible only to this hackathon’s organizer."
+msgstr ""
+
+msgid "You do not manage any hackathons yet."
+msgstr ""
+
+msgid "Create or get assigned to a hackathon before adding prizes."
+msgstr ""
+
+msgid "Recently issued certificates"
+msgstr ""
+
+msgid "Prizes & Results | HackFlow"
+msgstr ""
+
+msgid ""
+"Published prizes and rankings for hackathons where you have evaluated "
+"projects."
+msgstr ""
+
+msgid "Prizes for your hackathons and official rankings after publication."
+msgstr ""
+
+msgid "Results not published"
+msgstr ""
+
+msgid "Cash amount:"
+msgstr ""
+
+msgid "Awarded to"
+msgstr ""
+
+msgid "No prizes have been configured yet."
+msgstr ""
+
+msgid "Official leaderboard"
+msgstr ""
+
+msgid "Team and project"
+msgstr ""
+
+msgid "No ranking entries have been published."
+msgstr ""
+
+msgid ""
+"The organizer has not published results yet. Jury scores and comments remain "
+"private."
+msgstr ""
+
+msgid "No published results are available for your assigned evaluations."
+msgstr ""
+
+msgid "You are not a member of a hackathon team yet."
+msgstr ""
+
+msgid "My certificates"
+msgstr ""
+
+msgid "No certificates have been issued to your account yet."
+msgstr ""
+
+msgid "Save sponsor"
+msgstr ""
+
+msgid ""
+"Sponsor records are reusable. Only their creator can edit public details."
+msgstr ""
+
+msgid "Add sponsor"
+msgstr ""
+
+msgid "No sponsors have been added yet."
+msgstr ""
+
+msgid "Submit"
+msgstr ""
+
+msgid "No technologies yet"
+msgstr ""
+
+msgid "Progress"
+msgstr ""
+
+msgid "PNG, JPG, or WebP up to 5MB."
+msgstr ""
+
+msgid "PDF only, up to 10MB."
+msgstr ""
+
+msgid "Delete Project"
+msgstr ""
+
+msgid "Delete this project?"
+msgstr ""
+
+#, python-format
+msgid ""
+"“%(title)s” will be removed. Submitted work, jury scores, and prize rankings "
+"cannot be deleted from here."
+msgstr ""
+
+msgid "All projects"
+msgstr ""
+
+msgid "No repository linked yet."
+msgstr ""
+
+msgid "Open live demo"
+msgstr ""
+
+msgid "Pitch deck"
+msgstr ""
+
+msgid "No pitch deck uploaded."
+msgstr ""
+
+msgid "Submission window is open."
+msgstr ""
+
+msgid "Submission window is closed."
+msgstr ""
+
+msgid "Submitted at"
+msgstr ""
+
+msgid "Not submitted"
+msgstr ""
+
+msgid "Filed by"
+msgstr ""
+
+msgid "Jury score"
+msgstr ""
+
+#, python-format
+msgid "%(counter)s completed evaluation"
+msgid_plural "%(counter)s completed evaluations"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "The score stays hidden until the organizer publishes the results."
+msgstr ""
+
+msgid "Organizer actions"
+msgstr ""
+
+msgid ""
+"Scores are recorded by the jury in Evaluations. Marking a project evaluated "
+"is what lets Prizes rank it. Published results and awarded prizes stay "
+"locked."
+msgstr ""
+
+msgid "Move to evaluation"
+msgstr ""
+
+msgid "Mark as evaluated"
+msgstr ""
+
+msgid "Unlock for editing"
+msgstr ""
+
+msgid "Open prizes"
+msgstr ""
+
+msgid "Open evaluations"
+msgstr ""
+
+msgid "Copied"
+msgstr ""
+
+msgid "Duplicate Project"
+msgstr ""
+
+msgid "Duplicate project"
+msgstr ""
+
+#, python-format
+msgid ""
+"Copy the text of “%(title)s” into another team that does not have a project "
+"yet. The banner and the pitch deck are not copied."
+msgstr ""
+
+msgid "Create draft copy"
+msgstr ""
+
+msgid ""
+"There is no other open team you can copy this into. Each team keeps a single "
+"project."
+msgstr ""
+
+msgid "Create"
+msgstr ""
+
+msgid ""
+"The team and the hackathon stay fixed. Save a draft, or keep the project in "
+"progress until the captain submits it."
+msgstr ""
+
+msgid ""
+"One project per team. You can keep editing until the captain locks the "
+"submission."
+msgstr ""
+
+msgid ""
+"Read submitted projects while you prepare your evaluations. Drafts stay with "
+"the teams."
+msgstr ""
+
+msgid ""
+"Follow every submission in your hackathons, unlock a project when a team "
+"needs to fix it, and hand evaluated work to the prizes."
+msgstr ""
+
+msgid ""
+"Prepare your team's submission, keep the repository up to date, and lock it "
+"before the deadline."
+msgstr ""
+
+#, python-format
+msgid "+%(counter)s this week"
+msgid_plural "+%(counter)s this week"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Nothing new this week"
+msgstr ""
+
+msgid "Still being written"
+msgstr ""
+
+msgid "Locked for the jury"
+msgstr ""
+
+msgid "Waiting on jury scores"
+msgstr ""
+
+msgid "Apply"
+msgstr ""
+
+msgid "No projects yet"
+msgstr ""
+
+msgid "Submitted projects will show up here once a team locks its repository."
+msgstr ""
+
+msgid ""
+"Create a project for your team, or wait until a hackathon you joined has a "
+"submission."
+msgstr ""
+
+msgid "Submit Project"
+msgstr ""
+
+msgid "Lock and submit for jury evaluation?"
+msgstr ""
+
+#, python-format
+msgid ""
+"“%(title)s” will be locked. The team can change it again only if the "
+"organizer unlocks it, and only before results or prizes are attached."
+msgstr ""
+
+msgid "No description provided."
+msgstr ""
+
+msgid "View resource"
+msgstr ""
+
+msgid "Edit resource"
+msgstr ""
+
+msgid "Add a resource"
+msgstr ""
+
+msgid "Save changes"
+msgstr ""
+
+msgid "Create resource"
+msgstr ""
+
+msgid "Delete this resource?"
+msgstr ""
+
+#, python-format
+msgid ""
+"This will permanently delete <strong>%(name)s</strong>. This action cannot "
+"be undone."
+msgstr ""
+
+msgid "Back to resources"
+msgstr ""
+
+msgid "About this resource"
+msgstr ""
+
+msgid "Download file"
+msgstr ""
+
+msgid "This resource has no link or file yet."
+msgstr ""
+
+msgid "Author"
+msgstr ""
+
+msgid "Add"
+msgstr ""
+
+msgid "Provide a link or upload a file so participants can open this resource."
+msgstr ""
+
+msgid ""
+"Curate the tutorials, documentation and tools your participants rely on "
+"during the hackathon."
+msgstr ""
+
+msgid ""
+"Browse tutorials, documentation, tools and templates to power up your "
+"hackathon project."
+msgstr ""
+
+msgid "Add Resource"
+msgstr ""
+
+msgid "Search resources by title or description"
+msgstr ""
+
+msgid "All Types"
+msgstr ""
+
+msgid "Newest first"
+msgstr ""
+
+msgid "Oldest first"
+msgstr ""
+
+msgid "Title A–Z"
+msgstr ""
+
+msgid "Title Z–A"
+msgstr ""
+
+msgid "Reset filters"
+msgstr ""
+
+msgid "resources"
+msgstr ""
+
+msgid "No resources match your filter"
+msgstr ""
+
+msgid "Try clearing selected criteria or checking your spelling."
+msgstr ""
+
+msgid "No resources yet"
+msgstr ""
+
+msgid ""
+"The library is empty. Add your first resource to get participants started."
+msgstr ""
+
+msgid "Resources will appear here once organizers publish them."
+msgstr ""
+
+msgid "Create a new team"
+msgstr ""
+
+msgid "You will become the captain of this team."
+msgstr ""
+
+msgid "Create team"
+msgstr ""
+
+msgid "Edit team"
+msgstr ""
+
+msgid "No hackathon"
+msgstr ""
+
+msgid "Pending join requests"
+msgstr ""
+
+msgid "Private"
+msgstr ""
+
+msgid "No captain"
+msgstr ""
+
+msgid "Request pending"
+msgstr ""
+
+msgid "Join"
+msgstr ""
+
+msgid "Disband this team?"
+msgstr ""
+
+#, python-format
+msgid ""
+"This will permanently delete <strong>%(name)s</strong> and all of its "
+"memberships, invitations and requests. This action cannot be undone."
+msgstr ""
+
+msgid "Yes, disband"
+msgstr ""
+
+msgid "Back to teams"
+msgstr ""
+
+msgid "Leave team"
+msgstr ""
+
+msgid "Cancel request"
+msgstr ""
+
+msgid "Join team"
+msgstr ""
+
+msgid "Members"
+msgstr ""
+
+msgid "Open slots"
+msgstr ""
+
+msgid "Captain"
+msgstr ""
+
+msgid "total"
+msgstr ""
+
+msgid "Make captain"
+msgstr ""
+
+msgid "No members yet."
+msgstr ""
+
+msgid "Invite a participant"
+msgstr ""
+
+msgid "Message"
+msgstr ""
+
+msgid "Send invitation"
+msgstr ""
+
+msgid "Danger zone"
+msgstr ""
+
+msgid "Disbanding permanently removes the team and all memberships."
+msgstr ""
+
+msgid "Disband team"
+msgstr ""
+
+msgid "Pending requests"
+msgstr ""
+
+msgid "Reject"
+msgstr ""
+
+msgid "Outstanding invitations"
+msgstr ""
+
+msgid "Invitations · Teams"
+msgstr ""
+
+msgid "Team invitations"
+msgstr ""
+
+msgid "Received"
+msgstr ""
+
+msgid "From"
+msgstr ""
+
+msgid "No invitations received."
+msgstr ""
+
+msgid "Sent"
+msgstr ""
+
+msgid "to"
+msgstr ""
+
+msgid "No invitations sent."
+msgstr ""
+
+msgid ""
+"Review and supervise the teams registered for the hackathons you manage."
+msgstr ""
+
+msgid "Browse teams and their members. Access is read-only for jury accounts."
+msgstr ""
+
+msgid ""
+"Create your team, discover available teams, and collaborate to build "
+"something amazing."
+msgstr ""
+
+msgid "Recommended"
+msgstr ""
+
+msgid "Total Teams"
+msgstr ""
+
+msgid "Incomplete"
+msgstr ""
+
+msgid "pending join request(s) to review."
+msgstr ""
+
+msgid "Search teams by name or description"
+msgstr ""
+
+msgid "Any availability"
+msgstr ""
+
+msgid "All teams"
+msgstr ""
+
+msgid "I'm a member"
+msgstr ""
+
+msgid "Teams I created"
+msgstr ""
+
+msgid "Teams I'm a member of"
+msgstr ""
+
+msgid "You are not part of any team yet."
+msgstr ""
+
+msgid "Create one"
+msgstr ""
+
+msgid "No available teams match your filters."
+msgstr ""
+
+msgid "Supervised teams"
+msgstr ""
+
+msgid "No teams to display yet."
+msgstr ""
+
+msgid "Recommended teams · CodeStorm"
+msgstr ""
+
+msgid "Recommended teams"
+msgstr ""
+
+msgid ""
+"Teams ranked by how well they match your profile skills and interests for a "
+"hackathon. This is an explainable suggestion, not a prediction of success."
+msgstr ""
+
+msgid "No hackathon is currently open for participants."
+msgstr ""
+
+msgid "Select a hackathon to see your best-matching teams."
+msgstr ""
+
+msgid "Your profile has no skills or interests yet."
+msgstr ""
+
+msgid "Add them to your profile to get meaningful recommendations."
+msgstr ""
+
+msgid "Complete my profile"
+msgstr ""
+
+msgid "No public team is recruiting in this hackathon yet."
+msgstr ""
+
+msgid "You already belong to every team available in this hackathon."
+msgstr ""
+
+#, python-format
+msgid ""
+"No team reaches %(min)s%% compatibility for your profile in “%(hackathon)s” "
+"yet."
+msgstr ""
+
+msgid ""
+"We would rather tell you the truth than list teams that do not fit. These "
+"actions can improve your results:"
+msgstr ""
+
+msgid "Add more skills and interests to your profile"
+msgstr ""
+
+msgid "Pick another hackathon above, where other teams are recruiting."
+msgstr ""
+
+msgid "Browse all teams instead"
+msgstr ""
+
+msgid ""
+"Every team that fits your profile is already full or no longer accepts "
+"requests."
+msgstr ""
+
+msgid "No teams match your profile for this hackathon."
+msgstr ""
+
+msgid ""
+"This team has not described what it is looking for yet, so the score is not "
+"reliable."
+msgstr ""
+
+msgid "Complementarity"
+msgstr ""
+
+msgid "Shared skills"
+msgstr ""
+
+msgid "Skills you could add"
+msgstr ""
+
+msgid "Still missing in the team"
+msgstr ""
+
+msgid "Invitation received"
+msgstr ""
+
+msgid "Request to join"
+msgstr ""

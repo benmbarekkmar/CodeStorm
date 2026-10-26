@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% if mode == 'edit' %}{% trans "Edit resource" %}{% else %}{% trans "Add a resource" %}{% endif %} · {% trans "Resources" %}{% endblock %}
+{% block page_name %}resources{% endblock %}
+{% block breadcrumb_section %}{% trans "Resources" %}{% endblock %}
+{% block breadcrumb_page %}{% if mode == 'edit' %}{% trans "Edit" %}{% else %}{% trans "Add" %}{% endif %}{% endblock %}
+
+{% block content %}
+{% include "teams/_messages.html" %}
+
+<div class="w-full max-w-2xl mx-auto px-margin py-space-lg flex flex-col gap-space-lg">
+  <a class="inline-flex items-center gap-1 text-on-surface-variant hover:text-on-surface font-label-md text-label-md w-fit"
+     href="{% if mode == 'edit' %}{% url 'resources:detail' resource.pk %}{% else %}{% url 'resources:home' %}{% endif %}">
+    <span class="material-symbols-outlined text-[18px] rtl:rotate-180">arrow_back</span>{% trans "Back" %}
+  </a>
+
+  <div class="flex flex-col gap-1">
+    <h1 class="font-headline-lg text-headline-lg text-on-surface">
+      {% if mode == 'edit' %}{% trans "Edit resource" %}{% else %}{% trans "Add a resource" %}{% endif %}
+    </h1>
+    <p class="font-body-md text-body-md text-on-surface-variant">{% trans "Provide a link or upload a file so participants can open this resource." %}</p>
+  </div>
+
+  <div class="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm">
+    {% include "resources/_resource_form.html" %}
+  </div>
+</div>
+{% endblock %}

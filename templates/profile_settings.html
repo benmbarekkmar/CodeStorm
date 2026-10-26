@@ -186,6 +186,14 @@
           <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.field_of_study.id_for_label }}">{% trans "Field of Study / Specialization" %}</label>
           {{ personal_form.field_of_study }}{% include "partials/_field_errors.html" with field=personal_form.field_of_study %}
         </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.skills.id_for_label }}">{% trans "Skills" %}</label>
+          {{ personal_form.skills }}{% include "partials/_field_errors.html" with field=personal_form.skills %}
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.interests.id_for_label }}">{% trans "Interests" %}</label>
+          {{ personal_form.interests }}{% include "partials/_field_errors.html" with field=personal_form.interests %}
+        </div>
         <div class="flex flex-col gap-1.5 md:col-span-2">
           <div class="flex items-center justify-between">
             <label class="font-label-md text-label-md text-on-surface" for="{{ personal_form.bio.id_for_label }}">{% trans "Short Biography" %}</label>

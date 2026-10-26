@@ -1,12 +1,17 @@
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
-from django.views.generic import TemplateView
 
 from accounts.views import register, profile_settings
-from config.views import dashboard
+from config.views import dashboard, notifications
 from django.conf import settings
 from django.conf.urls.static import static
+
+# Declared explicitly: templates/404.html, 403.html and 500.html are the answer a
+# visitor gets, so a permission failure never shows a bare stack trace.
+handler404 = 'django.views.defaults.page_not_found'
+handler403 = 'django.views.defaults.permission_denied'
+handler500 = 'django.views.defaults.server_error'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,11 +33,7 @@ urlpatterns = [
     ),
 
     # Pages simples (sans app dédiée)
-    path(
-        'notifications/',
-        TemplateView.as_view(template_name='notifications.html'),
-        name='notifications',
-    ),
+    path('notifications/', notifications, name='notifications'),
     path(
         'profile/',
         profile_settings,
@@ -46,6 +47,7 @@ urlpatterns = [
     path('prizes/', include('prizes.urls')),
     path('evaluations/', include('evaluations.urls')),
     path('resources/', include('resources.urls')),
+    path('analyses/', include('analyses.urls')),
 ]
 
 if settings.DEBUG:

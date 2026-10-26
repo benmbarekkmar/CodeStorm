@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{{ title }} | HackFlow{% endblock %}
+{% block page_name %}prizes-leaderboard{% endblock %}
+{% block breadcrumb_section %}{% trans "Prizes & Leaderboard" %}{% endblock %}
+{% block breadcrumb_page %}{{ title }}{% endblock %}
+{% block content %}
+{% include "prizes/_messages.html" %}
+<div class="mx-auto w-full max-w-2xl px-space-md py-space-lg"><section class="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm"><h1 class="font-headline-sm text-headline-sm font-bold">{{ title }}</h1><form method="post" enctype="multipart/form-data" class="mt-5 flex flex-col gap-4">{% csrf_token %}{% for field in form %}<div class="flex flex-col gap-1"><label class="font-label-sm text-label-sm font-semibold" for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% if field.help_text %}<small class="text-outline">{{ field.help_text }}</small>{% endif %}<div id="{{ field.id_for_label }}-errors" aria-live="polite">{% for error in field.errors %}<small class="text-error">{{ error }}</small>{% endfor %}</div></div>{% endfor %}{% for error in form.non_field_errors %}<p class="text-error" role="alert">{{ error }}</p>{% endfor %}<div class="flex justify-end gap-2"><a class="rounded-lg bg-surface-container px-4 py-2" href="{% url 'prizes:sponsor_list' %}">{% trans "Cancel" %}</a><button class="rounded-lg bg-primary-container px-4 py-2 font-semibold text-on-primary" type="submit">{% trans "Save sponsor" %}</button></div></form></section></div>
+{% endblock %}

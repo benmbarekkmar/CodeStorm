@@ -4460,8 +4460,9 @@ msgid "An AI-powered platform that helps users understand health data and access
 msgstr "Une plateforme alimentée par l'IA qui aide les utilisateurs à comprendre leurs données de santé et à obtenir des analyses personnalisées."
 
 #: .\templates\projects.html:244 .\templates\teams.html:249
+#: templates/evaluations.html
 msgid "AI"
-msgstr ""
+msgstr "IA"
 
 #: .\templates\projects.html:267 .\templates\projects.html:334
 #: .\templates\projects.html:400 .\templates\projects.html:532
@@ -6035,3 +6036,2719 @@ msgstr "membres"
 #: .\templates\teams.html:842
 msgid "Team successfully created! You are designated as Leader."
 msgstr "Équipe créée avec succès ! Vous êtes désigné comme leader."
+
+msgid "Create your team, discover available teams, and collaborate to build something amazing."
+msgstr "Créez votre équipe, découvrez d'autres équipes et collaborez pour construire quelque chose d'incroyable."
+
+msgid "Review and supervise the teams registered for the hackathons you manage."
+msgstr "Consultez et supervisez les équipes inscrites aux hackathons que vous gérez."
+
+msgid "Browse teams and their members. Access is read-only for jury accounts."
+msgstr "Parcourez les équipes et leurs membres. Accès en lecture seule pour les comptes jury."
+
+msgid "Total Teams"
+msgstr "Total des équipes"
+
+msgid "Incomplete"
+msgstr "Incomplètes"
+
+msgid "Search teams by name or description"
+msgstr "Rechercher une équipe par nom ou description"
+
+msgid "All hackathons"
+msgstr "Tous les hackathons"
+
+msgid "Any availability"
+msgstr "Toute disponibilité"
+
+msgid "Apply"
+msgstr "Appliquer"
+
+msgid "You are not part of any team yet."
+msgstr "Vous ne faites pas encore partie d'une équipe."
+
+msgid "Create one"
+msgstr "En créer une"
+
+msgid "No available teams match your filters."
+msgstr "Aucune équipe disponible ne correspond à vos filtres."
+
+msgid "Supervised teams"
+msgstr "Équipes supervisées"
+
+msgid "No teams to display yet."
+msgstr "Aucune équipe à afficher pour le moment."
+
+msgid "No hackathon"
+msgstr "Aucun hackathon"
+
+msgid "No description provided."
+msgstr "Aucune description fournie."
+
+msgid "No captain"
+msgstr "Aucun capitaine"
+
+msgid "Join"
+msgstr "Rejoindre"
+
+msgid "Back to teams"
+msgstr "Retour aux équipes"
+
+msgid "Back"
+msgstr "Retour"
+
+msgid "Leave team"
+msgstr "Quitter l'équipe"
+
+msgid "Join team"
+msgstr "Rejoindre l'équipe"
+
+msgid "Request to join"
+msgstr "Demander à rejoindre"
+
+msgid "Members"
+msgstr "Membres"
+
+msgid "total"
+msgstr "au total"
+
+msgid "Open slots"
+msgstr "Places disponibles"
+
+msgid "Captain"
+msgstr "Capitaine"
+
+msgid "Make captain"
+msgstr "Nommer capitaine"
+
+msgid "No members yet."
+msgstr "Aucun membre pour le moment."
+
+msgid "Invite a participant"
+msgstr "Inviter un participant"
+
+msgid "Message"
+msgstr "Message"
+
+msgid "Send invitation"
+msgstr "Envoyer l'invitation"
+
+msgid "Danger zone"
+msgstr "Zone sensible"
+
+msgid "Disbanding permanently removes the team and all memberships."
+msgstr "La dissolution supprime définitivement l'équipe et toutes les affiliations."
+
+msgid "Disband team"
+msgstr "Dissoudre l'équipe"
+
+msgid "Pending requests"
+msgstr "Demandes en attente"
+
+msgid "Reject"
+msgstr "Refuser"
+
+msgid "Outstanding invitations"
+msgstr "Invitations en cours"
+
+msgid "Create a new team"
+msgstr "Créer une nouvelle équipe"
+
+msgid "You will become the captain of this team."
+msgstr "Vous deviendrez le capitaine de cette équipe."
+
+msgid "Choose a unique team name"
+msgstr "Choisissez un nom d'équipe unique"
+
+msgid "Describe what your team aims to build."
+msgstr "Décrivez ce que votre équipe souhaite construire."
+
+msgid "Max members"
+msgstr "Membres maximum"
+
+msgid "Visibility"
+msgstr "Visibilité"
+
+msgid "Allow join requests"
+msgstr "Autoriser les demandes de rejoindre"
+
+msgid "Save changes"
+msgstr "Enregistrer les modifications"
+
+msgid "Create team"
+msgstr "Créer l'équipe"
+
+msgid "Edit team"
+msgstr "Modifier l'équipe"
+
+msgid "Team invitations"
+msgstr "Invitations d'équipe"
+
+msgid "Received"
+msgstr "Reçues"
+
+msgid "From"
+msgstr "De"
+
+msgid "No invitations received."
+msgstr "Aucune invitation reçue."
+
+msgid "Sent"
+msgstr "Envoyées"
+
+msgid "to"
+msgstr "à"
+
+msgid "No invitations sent."
+msgstr "Aucune invitation envoyée."
+
+msgid "Confirm"
+msgstr "Confirmer"
+
+msgid "Disband this team?"
+msgstr "Dissoudre cette équipe ?"
+
+msgid "This will permanently delete <strong>%(name)s</strong> and all of its memberships, invitations and requests. This action cannot be undone."
+msgstr "Cette action supprime définitivement <strong>%(name)s</strong> ainsi que toutes ses affiliations, invitations et demandes. Elle est irréversible."
+
+msgid "Yes, disband"
+msgstr "Oui, dissoudre"
+
+msgid "Team created. You are now its captain."
+msgstr "Équipe créée. Vous en êtes maintenant le capitaine."
+
+msgid "Team updated."
+msgstr "Équipe mise à jour."
+
+msgid "You joined \"%(team)s\"."
+msgstr "Vous avez rejoint « %(team)s »."
+
+msgid "You left \"%(team)s\"."
+msgstr "Vous avez quitté « %(team)s »."
+
+msgid "You are not a member of this team."
+msgstr "Vous n'êtes pas membre de cette équipe."
+
+msgid "Transfer the captaincy before leaving the team."
+msgstr "Transférez le capitanat avant de quitter l'équipe."
+
+msgid "You are the last member; disband the team instead."
+msgstr "Vous êtes le dernier membre ; dissolvez plutôt l'équipe."
+
+msgid "The captain cannot be removed. Transfer leadership first."
+msgstr "Le capitaine ne peut pas être retiré. Transférez d'abord la direction."
+
+msgid "Member removed."
+msgstr "Membre retiré."
+
+msgid "Captaincy transferred."
+msgstr "Capitanat transféré."
+
+msgid "Select a current member as the new captain."
+msgstr "Sélectionnez un membre actuel comme nouveau capitaine."
+
+msgid "Team disbanded."
+msgstr "Équipe dissoute."
+
+msgid "Invitation sent."
+msgstr "Invitation envoyée."
+
+msgid "An invitation is already pending for this user."
+msgstr "Une invitation est déjà en cours pour cet utilisateur."
+
+msgid "You cannot respond to an invitation addressed to another user."
+msgstr "Vous ne pouvez pas répondre à une invitation destinée à un autre utilisateur."
+
+msgid "This invitation is no longer valid."
+msgstr "Cette invitation n'est plus valide."
+
+msgid "This team is already full."
+msgstr "Cette équipe est déjà complète."
+
+msgid "Invitation cancelled."
+msgstr "Invitation annulée."
+
+msgid "Your join request was submitted."
+msgstr "Votre demande de rejoindre a été envoyée."
+
+msgid "You already requested to join this team."
+msgstr "Vous avez déjà demandé à rejoindre cette équipe."
+
+msgid "This team does not accept join requests."
+msgstr "Cette équipe n'accepte pas les demandes de rejoindre."
+
+msgid "You are already a member of this team."
+msgstr "Vous êtes déjà membre de cette équipe."
+
+msgid "This team is full."
+msgstr "Cette équipe est complète."
+
+msgid "Request accepted."
+msgstr "Demande acceptée."
+
+msgid "Request rejected."
+msgstr "Demande refusée."
+
+msgid "Request cancelled."
+msgstr "Demande annulée."
+
+msgid "You can only cancel your own requests."
+msgstr "Vous ne pouvez annuler que vos propres demandes."
+
+msgid "You do not have permission to manage this team."
+msgstr "Vous n'avez pas l'autorisation de gérer cette équipe."
+
+msgid "You do not have permission to perform this action."
+msgstr "Vous n'avez pas l'autorisation d'effectuer cette action."
+
+msgid "This team is private."
+msgstr "Cette équipe est privée."
+
+msgid "This team is not open for joining."
+msgstr "Cette équipe n'est pas ouverte à l'adhésion."
+
+msgid "This team is private; an invitation is required."
+msgstr "Cette équipe est privée ; une invitation est requise."
+
+msgid "The hackathon is no longer accepting participants."
+msgstr "Le hackathon n'accepte plus de participants."
+
+msgid "You already have a team in this hackathon."
+msgstr "Vous avez déjà une équipe dans ce hackathon."
+
+msgid "This request has already been processed."
+msgstr "Cette demande a déjà été traitée."
+
+msgid "Only the captain can review requests."
+msgstr "Seul le capitaine peut examiner les demandes."
+
+msgid "This user is already a member."
+msgstr "Cet utilisateur est déjà membre."
+
+msgid "This user already has a team in this hackathon."
+msgstr "Cet utilisateur a déjà une équipe dans ce hackathon."
+
+msgid "This user is already a member of the team."
+msgstr "Cet utilisateur est déjà membre de l'équipe."
+
+msgid "A team with this name already exists."
+msgstr "Une équipe portant ce nom existe déjà."
+
+msgid "Max members cannot be lower than the current number of members (%(count)s)."
+msgstr "Le nombre maximum de membres ne peut pas être inférieur au nombre actuel de membres (%(count)s)."
+
+msgid "Select a participant"
+msgstr "Sélectionner un participant"
+
+msgid "Optional message to the invitee."
+msgstr "Message facultatif destiné à l'invité."
+
+msgid "All teams"
+msgstr "Toutes les équipes"
+
+msgid "I'm a member"
+msgstr "Je suis membre"
+
+msgid "Teams I created"
+msgstr "Équipes que j'ai créées"
+
+msgid "Teams I'm a member of"
+msgstr "Équipes dont je suis membre"
+
+msgid "Request pending"
+msgstr "Demande en attente"
+
+msgid "Cancel request"
+msgstr "Annuler la demande"
+
+msgid "Pending join requests"
+msgstr "Demandes de rejoindre en attente"
+
+msgid "pending join request(s) to review."
+msgstr "demande(s) de rejoindre à examiner."
+
+msgid "Useful Hackathon Links"
+msgstr "Liens utiles pour les hackathons"
+
+msgid "Download"
+msgstr "Télécharger"
+
+msgid "Watch video"
+msgstr "Voir la vidéo"
+
+msgid "Open tool"
+msgstr "Ouvrir l’outil"
+
+msgid "Get template"
+msgstr "Obtenir le modèle"
+
+msgid "Read tutorial"
+msgstr "Lire le tutoriel"
+
+msgid "Open resource"
+msgstr "Ouvrir la ressource"
+
+msgid "You do not have permission to manage resources."
+msgstr "Vous n’avez pas l’autorisation de gérer les ressources."
+
+msgid "Resource created."
+msgstr "Ressource créée."
+
+msgid "Resource updated."
+msgstr "Ressource mise à jour."
+
+msgid "Resource deleted."
+msgstr "Ressource supprimée."
+
+msgid "Describe what this resource offers."
+msgstr "Décrivez ce que propose cette ressource."
+
+msgid "Only http or https links are allowed."
+msgstr "Seuls les liens http ou https sont autorisés."
+
+msgid "Provide a link or upload a file."
+msgstr "Fournissez un lien ou téléversez un fichier."
+
+msgid "View resource"
+msgstr "Voir la ressource"
+
+msgid "Newest first"
+msgstr "Plus récentes"
+
+msgid "Oldest first"
+msgstr "Plus anciennes"
+
+msgid "Title A–Z"
+msgstr "Titre A–Z"
+
+msgid "Title Z–A"
+msgstr "Titre Z–A"
+
+msgid "Reset filters"
+msgstr "Réinitialiser les filtres"
+
+msgid "No resources yet"
+msgstr "Aucune ressource pour le moment"
+
+msgid "Add a resource"
+msgstr "Ajouter une ressource"
+
+msgid "Create resource"
+msgstr "Créer la ressource"
+
+msgid "Edit resource"
+msgstr "Modifier la ressource"
+
+msgid "Back to resources"
+msgstr "Retour aux ressources"
+
+msgid "About this resource"
+msgstr "À propos de cette ressource"
+
+msgid "Download file"
+msgstr "Télécharger le fichier"
+
+msgid "Delete this resource?"
+msgstr "Supprimer cette ressource ?"
+
+msgid "Yes, delete"
+msgstr "Oui, supprimer"
+
+msgid "Search resources by title or description"
+msgstr "Rechercher une ressource par titre ou description"
+
+msgid "Try clearing selected criteria or checking your spelling."
+msgstr "Essayez d’effacer les critères sélectionnés ou de vérifier votre orthographe."
+
+msgid "Curate the tutorials, documentation and tools your participants rely on during the hackathon."
+msgstr "Gérez les tutoriels, documentations et outils sur lesquels vos participants s’appuient pendant le hackathon."
+
+msgid "Browse tutorials, documentation, tools and templates to power up your hackathon project."
+msgstr "Parcourez tutoriels, documentations, outils et modèles pour booster votre projet de hackathon."
+
+msgid "The library is empty. Add your first resource to get participants started."
+msgstr "La bibliothèque est vide. Ajoutez votre première ressource pour aider vos participants."
+
+msgid "Resources will appear here once organizers publish them."
+msgstr "Les ressources apparaîtront ici dès que les organisateurs les publieront."
+
+msgid "This resource has no link or file yet."
+msgstr "Cette ressource n’a pas encore de lien ni de fichier."
+
+msgid "Unsupported file type. Allowed: %(types)s."
+msgstr "Type de fichier non pris en charge. Autorisés : %(types)s."
+
+msgid "The file is too large (max %(size)s MB)."
+msgstr "Le fichier est trop volumineux (max %(size)s Mo)."
+
+msgid "Add"
+msgstr "Ajouter"
+
+msgid "resources"
+msgstr "ressources"
+
+msgid "This will permanently delete <strong>%(name)s</strong>. This action cannot be undone."
+msgstr "Cette action supprimera définitivement <strong>%(name)s</strong>. Cette action est irréversible."
+
+
+# --- analyses module ---
+msgid "AI Analyses"
+msgstr "Analyses IA"
+
+msgid "Generate decision-support reports from public GitHub repositories. Scores are indicative; the final grade always belongs to the jury."
+msgstr "Générez des rapports d'aide à la décision à partir de dépôts GitHub publics. Les scores sont indicatifs ; la note finale relève toujours du jury."
+
+msgid "New analysis"
+msgstr "Nouvelle analyse"
+
+msgid "reports"
+msgstr "rapports"
+
+msgid "No analyses yet"
+msgstr "Aucune analyse pour le moment"
+
+msgid "Submit a public GitHub repository to generate your first AI report."
+msgstr "Soumettez un dépôt GitHub public pour générer votre premier rapport IA."
+
+msgid "Analyzing…"
+msgstr "Analyse en cours…"
+
+msgid "Back to analyses"
+msgstr "Retour aux analyses"
+
+msgid "GitHub repository URL"
+msgstr "URL du dépôt GitHub"
+
+msgid "Only public GitHub repositories (https://github.com/owner/repo) are analyzed. This may take a moment."
+msgstr "Seuls les dépôts GitHub publics (https://github.com/owner/repo) sont analysés. Cette opération peut prendre un instant."
+
+msgid "Run analysis"
+msgstr "Lancer l'analyse"
+
+msgid "A repository URL is required."
+msgstr "L'URL du dépôt est requise."
+
+msgid "Only https GitHub links are allowed."
+msgstr "Seuls les liens GitHub https sont autorisés."
+
+msgid "Credentials embedded in the URL are not allowed."
+msgstr "Les identifiants intégrés dans l'URL ne sont pas autorisés."
+
+msgid "URLs with a custom port are not allowed."
+msgstr "Les URL avec un port personnalisé ne sont pas autorisées."
+
+msgid "Only public github.com repositories can be analyzed."
+msgstr "Seuls les dépôts publics github.com peuvent être analysés."
+
+msgid "GitHub URLs with query strings or fragments are not allowed."
+msgstr "Les URL GitHub avec paramètres ou ancres ne sont pas autorisées."
+
+msgid "The URL must point to a github.com repository (https://github.com/owner/repo)."
+msgstr "L'URL doit désigner un dépôt github.com (https://github.com/owner/repo)."
+
+msgid "The repository path is not allowed."
+msgstr "Le chemin du dépôt n'est pas autorisé."
+
+msgid "That does not look like a valid URL."
+msgstr "Cela ne semble pas être une URL valide."
+
+msgid "Failed"
+msgstr "Échec"
+
+msgid "Running"
+msgstr "En cours"
+
+msgid "files"
+msgstr "fichiers"
+
+msgid "No summary available."
+msgstr "Aucun résumé disponible."
+
+msgid "View report"
+msgstr "Voir le rapport"
+
+msgid "This report is decision support. Scores are indicative and the final grade belongs to the jury."
+msgstr "Ce rapport est une aide à la décision. Les scores sont indicatifs et la note finale relève du jury."
+
+msgid "This analysis is still running."
+msgstr "Cette analyse est toujours en cours."
+
+msgid "Please refresh this page in a moment to see the result."
+msgstr "Rechargez cette page dans un instant pour voir le résultat."
+
+msgid "The analysis could not be completed."
+msgstr "L'analyse n'a pas pu être menée à terme."
+
+msgid "No further details are available."
+msgstr "Aucun détail supplémentaire n'est disponible."
+
+msgid "Summary"
+msgstr "Résumé"
+
+msgid "Indicative scores"
+msgstr "Scores indicatifs"
+
+msgid "Mean"
+msgstr "Moyenne"
+
+msgid "None noted."
+msgstr "Aucun élément noté."
+
+msgid "Potential concerns"
+msgstr "Points de vigilance potentiels"
+
+msgid "Analysis limitations"
+msgstr "Limites de l'analyse"
+
+msgid "Results depend only on the files that could be analyzed."
+msgstr "Les résultats dépendent uniquement des fichiers ayant pu être analysés."
+
+msgid "AI model"
+msgstr "Modèle d'IA"
+
+msgid "Files analyzed"
+msgstr "Fichiers analysés"
+
+msgid "Created by"
+msgstr "Créé par"
+
+msgid "Delete this report?"
+msgstr "Supprimer ce rapport ?"
+
+msgid "This will permanently delete the analysis report for <strong>%(url)s</strong>. This action cannot be undone."
+msgstr "Cette action supprimera définitivement le rapport d'analyse de <strong>%(url)s</strong>. Cette action est irréversible."
+
+msgid "You do not have permission to access analyses."
+msgstr "Vous n'avez pas l'autorisation d'accéder aux analyses."
+
+msgid "Analysis completed."
+msgstr "Analyse terminée."
+
+msgid "Report deleted."
+msgstr "Rapport supprimé."
+
+msgid "The AI service is not configured. Set the OPENROUTER_API_KEY environment variable before launching an analysis."
+msgstr "Le service d'IA n'est pas configuré. Définissez la variable d'environnement OPENROUTER_API_KEY avant de lancer une analyse."
+
+msgid "AI report"
+msgstr "Rapport IA"
+
+msgid "AI reports"
+msgstr "Rapports IA"
+
+msgid "Repository URL"
+msgstr "URL du dépôt"
+
+msgid "Commit reference"
+msgstr "Référence du commit"
+
+msgid "Report"
+msgstr "Rapport"
+
+msgid "Analyzed bytes"
+msgstr "Octets analysés"
+
+msgid "Error message"
+msgstr "Message d'erreur"
+
+msgid "Created at"
+msgstr "Créé le"
+
+msgid "Updated at"
+msgstr "Mis à jour le"
+
+msgid "The GitHub repository could not be read."
+msgstr "Le dépôt GitHub n'a pas pu être lu."
+
+msgid "The repository was not found. Make sure it is public."
+msgstr "Le dépôt est introuvable. Vérifiez qu'il est public."
+
+msgid "This repository is private. Only public repositories can be analyzed."
+msgstr "Ce dépôt est privé. Seuls les dépôts publics peuvent être analysés."
+
+msgid "GitHub rate limit reached. Please try again in a moment."
+msgstr "Limite de requêtes GitHub atteinte. Réessayez dans un instant."
+
+msgid "This repository is too large to analyze."
+msgstr "Ce dépôt est trop volumineux pour être analysé."
+
+msgid "A network error occurred while analyzing the repository."
+msgstr "Une erreur réseau est survenue lors de l'analyse du dépôt."
+
+msgid "The request timed out. Please try again."
+msgstr "La requête a expiré. Veuillez réessayer."
+
+msgid "The AI service could not be reached."
+msgstr "Le service d'IA est injoignable."
+
+msgid "The AI service is not configured. Ask an administrator to set the OPENROUTER_API_KEY environment variable."
+msgstr "Le service d'IA n'est pas configuré. Demandez à un administrateur de définir la variable d'environnement OPENROUTER_API_KEY."
+
+msgid "The AI free-tier quota has been reached. Please try again later."
+msgstr "Le quota gratuit de l'IA est atteint. Réessayez plus tard."
+
+msgid "The AI service rejected the request. Please try again."
+msgstr "Le service d'IA a rejeté la requête. Veuillez réessayer."
+
+msgid "The AI returned an unexpected result. Please try again."
+msgstr "L'IA a renvoyé un résultat inattendu. Veuillez réessayer."
+
+msgid "The AI service refused the API key."
+msgstr "Le service d'IA a refusé la clé API."
+
+msgid "The AI service is temporarily unavailable."
+msgstr "Le service d'IA est temporairement indisponible."
+
+msgid "The AI service returned an error."
+msgstr "Le service d'IA a renvoyé une erreur."
+
+msgid "The AI service returned an unreadable response."
+msgstr "Le service d'IA a renvoyé une réponse illisible."
+
+msgid "The AI service returned an error response."
+msgstr "Le service d'IA a renvoyé une réponse d'erreur."
+
+msgid "The AI response was empty or malformed."
+msgstr "La réponse de l'IA est vide ou malformée."
+
+msgid "The AI response was not valid JSON."
+msgstr "La réponse de l'IA n'est pas un JSON valide."
+
+msgid "The AI response was not a JSON object."
+msgstr "La réponse de l'IA n'est pas un objet JSON."
+
+msgid "The AI response is invalid: the response is not a JSON object."
+msgstr "La réponse de l'IA est invalide : il ne s'agit pas d'un objet JSON."
+
+msgid "GitHub returned an unexpected response."
+msgstr "GitHub a renvoyé une réponse inattendue."
+
+msgid "Relevance and fit to the brief"
+msgstr "Pertinence et conformité au sujet"
+
+msgid "Technical quality and architecture"
+msgstr "Qualité technique et architecture"
+
+msgid "Functionality and prototype completeness"
+msgstr "Fonctionnalité et complétude du prototype"
+
+msgid "Innovation and originality"
+msgstr "Innovation et originalité"
+
+msgid "Documentation and repository structure"
+msgstr "Documentation et structure du dépôt"
+
+# --- analyses module (Gemini) ---
+msgid "The AI service is not configured. Ask an administrator to set the GEMINI_API_KEY and GEMINI_MODEL environment variables."
+msgstr "Le service d'IA n'est pas configuré. Demandez à un administrateur de définir les variables d'environnement GEMINI_API_KEY et GEMINI_MODEL."
+
+msgid "The AI service is not configured. Set the GEMINI_API_KEY and GEMINI_MODEL environment variables before launching an analysis."
+msgstr "Le service d'IA n'est pas configuré. Définissez les variables d'environnement GEMINI_API_KEY et GEMINI_MODEL avant de lancer une analyse."
+
+msgid "No Gemini model is configured. Set GEMINI_MODEL to a model available on your project Free Tier."
+msgstr "Aucun modèle Gemini n'est configuré. Définissez GEMINI_MODEL sur un modèle disponible dans le Free Tier de votre projet."
+
+msgid "The configured Gemini model id is not valid."
+msgstr "L'identifiant du modèle Gemini configuré n'est pas valide."
+
+msgid "The request was blocked by the safety filters."
+msgstr "La requête a été bloquée par les filtres de sécurité."
+
+msgid "The response was filtered by the safety settings."
+msgstr "La réponse a été filtrée par les paramètres de sécurité."
+
+msgid "The AI service rejected the request."
+msgstr "Le service d'IA a rejeté la requête."
+
+msgid "The configured Gemini model is not available for this API key. Set GEMINI_MODEL to a model your key can access on the Free Tier."
+msgstr "Le modèle Gemini configuré n'est pas disponible pour cette clé API. Définissez GEMINI_MODEL sur un modèle accessible par votre clé dans le Free Tier."
+
+msgid "Skills"
+msgstr "Compétences"
+
+msgid "Interests"
+msgstr "Intérêts"
+
+msgid "List your skills, separated by commas"
+msgstr "Indiquez vos compétences, séparées par des virgules"
+
+msgid "List your interests, separated by commas"
+msgstr "Indiquez vos intérêts, séparés par des virgules"
+
+msgid "Required skills"
+msgstr "Compétences recherchées"
+
+msgid "Team interests"
+msgstr "Intérêts de l'équipe"
+
+msgid "Skills the team is looking for, separated by commas"
+msgstr "Compétences recherchées par l'équipe, séparées par des virgules"
+
+msgid "Topics or domains the team focuses on, separated by commas"
+msgstr "Thèmes ou domaines couverts par l'équipe, séparés par des virgules"
+
+msgid "Recommended teams · CodeStorm"
+msgstr "Équipes recommandées · CodeStorm"
+
+msgid "Recommended teams"
+msgstr "Équipes recommandées"
+
+msgid "Recommended"
+msgstr "Recommandées"
+
+msgid "Teams ranked by how well they match your profile skills and interests for a hackathon. This is an explainable suggestion, not a prediction of success."
+msgstr "Équipes classées selon la compatibilité de vos compétences et intérêts avec un hackathon. Il s'agit d'une suggestion explicable, pas d'une prédiction de réussite."
+
+msgid "Choose a hackathon"
+msgstr "Choisir un hackathon"
+
+msgid "No hackathon is currently open for participants."
+msgstr "Aucun hackathon n'est actuellement ouvert aux participants."
+
+msgid "Select a hackathon to see your best-matching teams."
+msgstr "Sélectionnez un hackathon pour voir les équipes qui vous correspondent le mieux."
+
+msgid "Your profile has no skills or interests yet."
+msgstr "Votre profil n'indique encore ni compétences ni intérêts."
+
+msgid "Add them to your profile to get meaningful recommendations."
+msgstr "Ajoutez-en à votre profil pour obtenir des recommandations pertinentes."
+
+msgid "Complete my profile"
+msgstr "Compléter mon profil"
+
+msgid "No public team is recruiting in this hackathon yet."
+msgstr "Aucune équipe publique ne recrute encore dans ce hackathon."
+
+msgid "You already belong to every team available in this hackathon."
+msgstr "Vous appartenez déjà à toutes les équipes disponibles dans ce hackathon."
+
+msgid "No teams match your profile for this hackathon."
+msgstr "Aucune équipe ne correspond à votre profil pour ce hackathon."
+
+msgid "This team has not described what it is looking for yet, so the score is not reliable."
+msgstr "Cette équipe n'a pas encore décrit ce qu'elle recherche, le score n'est donc pas fiable."
+
+msgid "Complementarity"
+msgstr "Complémentarité"
+
+msgid "Shared skills"
+msgstr "Compétences communes"
+
+msgid "Skills you could add"
+msgstr "Compétences que vous pourriez ajouter"
+
+msgid "Still missing in the team"
+msgstr "Encore manquants dans l'équipe"
+
+msgid "Invitation received"
+msgstr "Invitation reçue"
+
+msgid "Delete category"
+msgstr "Supprimer la catégorie"
+
+msgid "Delete category?"
+msgstr "Supprimer la catégorie ?"
+
+msgid "Delete “%(name)s”? Existing prizes will be kept and will no longer have this category."
+msgstr "Supprimer « %(name)s » ? Les récompenses existantes seront conservées et n'auront plus cette catégorie."
+
+msgid "Save category"
+msgstr "Enregistrer la catégorie"
+
+msgid "Prize categories"
+msgstr "Catégories de récompenses"
+
+msgid "Categories"
+msgstr "Catégories"
+
+msgid "Categories are shared labels. Changes are blocked while another organizer uses the category."
+msgstr "Les catégories sont des libellés partagés. Les modifications sont bloquées tant qu'un autre organisateur les utilise."
+
+msgid "No description"
+msgstr "Aucune description"
+
+msgid "No categories yet."
+msgstr "Aucune catégorie pour le moment."
+
+msgid "Back to Prizes & Leaderboard"
+msgstr "Retour aux récompenses et au classement"
+
+msgid "Add category"
+msgstr "Ajouter une catégorie"
+
+msgid "Create category"
+msgstr "Créer une catégorie"
+
+msgid "Issue certificates"
+msgstr "Délivrer les diplômes"
+
+msgid "Each team member receives one rank certificate; each winning project receives a separate certificate for each prize."
+msgstr "Chaque membre de l'équipe reçoit un diplôme de rang ; chaque projet lauréat reçoit un diplôme distinct pour chaque récompense."
+
+msgid "Issue certificates for the published results?"
+msgstr "Délivrer les diplômes pour les résultats publiés ?"
+
+msgid "There are no published ranking entries to certify."
+msgstr "Aucun projet publié au classement ne peut être certifié."
+
+msgid "Issued certificates"
+msgstr "Diplômes délivrés"
+
+msgid "No certificates have been issued yet."
+msgstr "Aucun diplôme n'a encore été délivré."
+
+msgid "Certificate preview"
+msgstr "Aperçu du diplôme"
+
+msgid "HackFlow certificate"
+msgstr "Diplôme HackFlow"
+
+msgid "is recognized for"
+msgstr "est reconnu pour"
+
+msgid "Certificate ID"
+msgstr "Identifiant du diplôme"
+
+msgid "Prepare leaderboard"
+msgstr "Préparer le classement"
+
+msgid "Results are published. Unpublish them before changing the draft ranking."
+msgstr "Les résultats sont publiés. Dépubliez-les avant de modifier le classement provisoire."
+
+msgid "Calculated result"
+msgstr "Résultat calculé"
+
+msgid "For each jury evaluation, the existing weighted criterion score is used; project scores are then averaged across complete evaluations. Equal scores share a rank (1, 1, 3). Jury comments are not shown."
+msgstr "Pour chaque évaluation du jury, la note pondérée du critère est réutilisée ; les notes des projets sont ensuite moyennées sur les évaluations complètes. Les notes égales partagent un rang (1, 1, 3). Les commentaires du jury ne sont pas affichés."
+
+msgid "Project / team"
+msgstr "Projet / équipe"
+
+msgid "Save draft ranking"
+msgstr "Enregistrer le classement provisoire"
+
+msgid "There is no reliable ranking to show yet."
+msgstr "Aucun classement fiable à afficher pour le moment."
+
+msgid "Saved draft"
+msgstr "Provisoire enregistré"
+
+msgid "Review for publication"
+msgstr "Vérifier avant publication"
+
+msgid "No saved draft ranking yet."
+msgstr "Aucun classement provisoire enregistré pour le moment."
+
+msgid "Publish results"
+msgstr "Publier les résultats"
+
+msgid "Review before publishing"
+msgstr "Vérification avant publication"
+
+msgid "Publishing makes this ranking and its prize assignments official."
+msgstr "La publication rend ce classement et ses attributions de récompenses officiels."
+
+msgid "Team / project"
+msgstr "Équipe / projet"
+
+msgid "Only the published aggregate scores are visible. Jury comments and private notes are excluded."
+msgstr "Seules les notes agrégées publiées sont visibles. Les commentaires du jury et les notes privées en sont exclus."
+
+msgid "Publish the official results for this hackathon?"
+msgstr "Publier les résultats officiels de ce hackathon ?"
+
+msgid "Unpublish results"
+msgstr "Dépublier les résultats"
+
+msgid "Unpublish official results?"
+msgstr "Dépublier les résultats officiels ?"
+
+msgid "This action is unavailable after certificates have been issued, so existing credentials remain valid."
+msgstr "Cette action est indisponible après la délivrance des diplômes, afin que les attestations existantes restent valides."
+
+msgid "Unpublish"
+msgstr "Dépublier"
+
+msgid "Participants will no longer see the ranking for %(name)s. Prize assignments will return to draft status."
+msgstr "Les participants ne verront plus le classement de %(name)s. Les attributions de récompenses reviendront à l'état provisoire."
+
+msgid "Assign winners"
+msgstr "Attribuer les lauréats"
+
+msgid "Assign winning projects"
+msgstr "Attribuer les projets lauréats"
+
+msgid "Save a complete leaderboard before assigning a winner."
+msgstr "Enregistrez un classement complet avant d'attribuer un lauréat."
+
+msgid "No eligible ranked projects."
+msgstr "Aucun projet classé éligible."
+
+msgid "Save assignment"
+msgstr "Enregistrer l'attribution"
+
+msgid "Select up to %(slots)s project(s) from the saved, evaluated ranking. An empty selection leaves the prize available."
+msgstr "Sélectionnez jusqu'à %(slots)s projet(s) parmi le classement évalué enregistré. Une sélection vide laisse la récompense disponible."
+
+msgid "Delete Prize"
+msgstr "Supprimer la récompense"
+
+msgid "This action cannot be undone."
+msgstr "Cette action est irréversible."
+
+msgid "Are you sure you want to delete the prize"
+msgstr "Voulez-vous vraiment supprimer la récompense"
+
+msgid "from"
+msgstr "de"
+
+msgid "This prize has already been awarded to a project. Deleting it may affect reports."
+msgstr "Cette récompense a déjà été attribuée à un projet. Sa suppression peut affecter les rapports."
+
+msgid "Yes, Delete Prize"
+msgstr "Oui, supprimer la récompense"
+
+msgid "Prize"
+msgstr "Récompense"
+
+msgid "Prize details"
+msgstr "Détails de la récompense"
+
+msgid "Back to prizes"
+msgstr "Retour aux récompenses"
+
+msgid "No additional description."
+msgstr "Aucune description supplémentaire."
+
+msgid "Reward"
+msgstr "Gratification"
+
+msgid "Not specified"
+msgstr "Non précisé"
+
+msgid "Cash amount"
+msgstr "Montant en argent"
+
+msgid "Sponsor"
+msgstr "Sponsor"
+
+msgid "Winner slots"
+msgstr "Places de lauréats"
+
+msgid "Eligibility"
+msgstr "Éligibilité"
+
+msgid "Assigned winning projects"
+msgstr "Projets lauréats attribués"
+
+msgid "No winner has been assigned."
+msgstr "Aucun lauréat n'a été attribué."
+
+msgid "Edit prize"
+msgstr "Modifier la récompense"
+
+msgid "Assign winner"
+msgstr "Attribuer un lauréat"
+
+msgid "Edit Prize"
+msgstr "Modifier la récompense"
+
+msgid "Create Prize"
+msgstr "Créer une récompense"
+
+msgid "New Prize"
+msgstr "Nouvelle récompense"
+
+msgid "Fill in the details for this prize."
+msgstr "Renseignez les détails de cette récompense."
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Cash Amount (USD)"
+msgstr "Montant en argent (USD)"
+
+msgid "Winner Slots"
+msgstr "Places de lauréats"
+
+msgid "Non-Cash Reward"
+msgstr "Gratification non monétaire"
+
+msgid "e.g. Cloud credits, internship offer, mentoring sessions..."
+msgstr "Ex. : crédits cloud, offre de stage, séances de mentorat..."
+
+msgid "Prizes & Leaderboard | HackFlow"
+msgstr "Récompenses et classement | HackFlow"
+
+msgid "Manage prize categories, awards, official rankings and certificates."
+msgstr "Gérez les catégories de récompenses, les prix, les classements officiels et les diplômes."
+
+msgid "Sponsors"
+msgstr "Sponsors"
+
+msgid "Add prize"
+msgstr "Ajouter une récompense"
+
+msgid "Prize statistics"
+msgstr "Statistiques des récompenses"
+
+msgid "Cash prize pool (USD)"
+msgstr "Enveloppe monétaire (USD)"
+
+msgid "Each prize, project ranking and certificate is scoped to its hackathon."
+msgstr "Chaque récompense, classement de projet et diplôme est rattaché à son hackathon."
+
+msgid "prize(s)"
+msgstr "récompense(s)"
+
+msgid "configured prize(s)"
+msgstr "récompense(s) configurée(s)"
+
+msgid "Prepare ranking"
+msgstr "Préparer le classement"
+
+msgid "Review & publish"
+msgstr "Vérifier et publier"
+
+msgid "Jury assigned through evaluations"
+msgstr "Jury attribué par les évaluations"
+
+msgid "No jury evaluations are assigned to projects in this hackathon yet."
+msgstr "Aucune évaluation du jury n'est encore attribuée aux projets de ce hackathon."
+
+msgid "Jury assignments are managed by the existing evaluation workflow."
+msgstr "Les attributions du jury sont gérées par le flux d'évaluation existant."
+
+msgid "winner slot(s)"
+msgstr "place(s) de lauréat"
+
+msgid "Assigned projects"
+msgstr "Projets attribués"
+
+msgid "No prizes configured for this hackathon."
+msgstr "Aucune récompense configurée pour ce hackathon."
+
+msgid "Create the first prize"
+msgstr "Créer la première récompense"
+
+msgid "Leaderboard draft"
+msgstr "Classement provisoire"
+
+msgid "Jury notes and comments are never displayed here."
+msgstr "Les notes et commentaires du jury ne sont jamais affichés ici."
+
+msgid "Open ranking"
+msgstr "Ouvrir le classement"
+
+msgid "Team / Project"
+msgstr "Équipe / Projet"
+
+msgid "No ranking has been saved yet. Prepare one after all submitted projects have complete evaluations."
+msgstr "Aucun classement n'a encore été enregistré. Préparez-le une fois que tous les projets soumis ont des évaluations complètes."
+
+msgid "Official results are published."
+msgstr "Les résultats officiels sont publiés."
+
+msgid "Draft results are visible only to this hackathon’s organizer."
+msgstr "Les résultats provisoires ne sont visibles que par l'organisateur de ce hackathon."
+
+msgid "You do not manage any hackathons yet."
+msgstr "Vous ne gérez encore aucun hackathon."
+
+msgid "Create or get assigned to a hackathon before adding prizes."
+msgstr "Créez un hackathon ou soyez rattaché à l'un d'eux avant d'ajouter des récompenses."
+
+msgid "Recently issued certificates"
+msgstr "Diplômes récemment délivrés"
+
+msgid "Prizes & Results | HackFlow"
+msgstr "Récompenses et résultats | HackFlow"
+
+msgid "Published prizes and rankings for hackathons where you have evaluated projects."
+msgstr "Récompenses et classements publiés pour les hackathons où vous avez évalué des projets."
+
+msgid "Prizes for your hackathons and official rankings after publication."
+msgstr "Récompenses de vos hackathons et classements officiels après publication."
+
+msgid "Published results"
+msgstr "Résultats publiés"
+
+msgid "Results not published"
+msgstr "Résultats non publiés"
+
+msgid "Cash amount:"
+msgstr "Montant en argent :"
+
+msgid "Awarded to"
+msgstr "Attribuée à"
+
+msgid "No prizes have been configured yet."
+msgstr "Aucune récompense n'a encore été configurée."
+
+msgid "Official leaderboard"
+msgstr "Classement officiel"
+
+msgid "Team and project"
+msgstr "Équipe et projet"
+
+msgid "No ranking entries have been published."
+msgstr "Aucun élément du classement n'a été publié."
+
+msgid "The organizer has not published results yet. Jury scores and comments remain private."
+msgstr "L'organisateur n'a pas encore publié les résultats. Les notes et commentaires du jury restent privés."
+
+msgid "No published results are available for your assigned evaluations."
+msgstr "Aucun résultat publié n'est disponible pour les évaluations qui vous sont assignées."
+
+msgid "You are not a member of a hackathon team yet."
+msgstr "Vous n'êtes encore membre d'aucune équipe de hackathon."
+
+msgid "My certificates"
+msgstr "Mes diplômes"
+
+msgid "No certificates have been issued to your account yet."
+msgstr "Aucun diplôme n'a encore été délivré à votre compte."
+
+msgid "Save sponsor"
+msgstr "Enregistrer le sponsor"
+
+msgid "Sponsor records are reusable. Only their creator can edit public details."
+msgstr "Les fiches de sponsor sont réutilisables. Seul leur créateur peut modifier les informations publiques."
+
+msgid "Add sponsor"
+msgstr "Ajouter un sponsor"
+
+msgid "No sponsors have been added yet."
+msgstr "Aucun sponsor n'a encore été ajouté."
+
+msgid "Sponsor name"
+msgstr "Nom du sponsor"
+
+msgid "Website"
+msgstr "Site web"
+
+msgid "Logo"
+msgstr "Logo"
+
+msgid "Contact email"
+msgstr "E-mail de contact"
+
+msgid "Category name"
+msgstr "Nom de la catégorie"
+
+msgid "Material icon name"
+msgstr "Nom de l'icône Material"
+
+msgid "Google Material Symbols icon name, e.g. \"emoji_events\""
+msgstr "Nom d'icône Google Material Symbols, par ex. « emoji_events »"
+
+msgid "Display order"
+msgstr "Ordre d'affichage"
+
+msgid "Prize Category"
+msgstr "Catégorie de récompense"
+
+msgid "Prize Categories"
+msgstr "Catégories de récompenses"
+
+msgid "Assigned — awaiting confirmation"
+msgstr "Attribuée — en attente de confirmation"
+
+msgid "Awarded — officially confirmed"
+msgstr "Décernée — officiellement confirmée"
+
+msgid "Prize name"
+msgstr "Nom de la récompense"
+
+msgid "Reward description"
+msgstr "Description de la gratification"
+
+msgid "Brief text describing the reward (e.g. Cloud credits, internship...)"
+msgstr "Texte bref décrivant la gratification (ex. crédits cloud, stage...)"
+
+msgid "Cash amount (USD)"
+msgstr "Montant en argent (USD)"
+
+msgid "Winning project"
+msgstr "Projet lauréat"
+
+msgid "Number of winner slots"
+msgstr "Nombre de places de lauréats"
+
+msgid "Eligibility criteria"
+msgstr "Critères d'éligibilité"
+
+msgid "Describes who can receive this prize."
+msgstr "Décrit qui peut recevoir cette récompense."
+
+msgid "The winning project must belong to this hackathon."
+msgstr "Le projet lauréat doit appartenir à ce hackathon."
+
+msgid "1 = First place."
+msgstr "1 = première place."
+
+msgid "Final score"
+msgstr "Note finale"
+
+msgid "Score breakdown"
+msgstr "Détail des notes"
+
+msgid "JSON dict: {criterion_name: averaged_score}"
+msgstr "Dictionnaire JSON : {nom_du_critère: note_moyenne}"
+
+msgid "Organizer notes"
+msgstr "Notes de l'organisateur"
+
+msgid "Private notes visible only to organizers."
+msgstr "Notes privées visibles uniquement par les organisateurs."
+
+msgid "Leaderboard Entry"
+msgstr "Entrée de classement"
+
+msgid "Leaderboard Entries"
+msgstr "Entrées de classement"
+
+msgid "Rank must be at least 1."
+msgstr "Le rang doit être au moins 1."
+
+msgid "Final score must be between 0 and 10."
+msgstr "La note finale doit être comprise entre 0 et 10."
+
+msgid "The project must belong to this hackathon."
+msgstr "Le projet doit appartenir à ce hackathon."
+
+msgid "Winner Certificate"
+msgstr "Diplôme de lauréat"
+
+msgid "Finalist Certificate"
+msgstr "Diplôme de finaliste"
+
+msgid "Special Award Certificate"
+msgstr "Diplôme de prix spécial"
+
+msgid "Certificate UID"
+msgstr "Identifiant unique du diplôme"
+
+msgid "Certificate type"
+msgstr "Type de diplôme"
+
+msgid "Recipient"
+msgstr "Bénéficiaire"
+
+msgid "Associated prize"
+msgstr "Récompense associée"
+
+msgid "Issue date"
+msgstr "Date de délivrance"
+
+msgid "PDF file"
+msgstr "Fichier PDF"
+
+msgid "Certificate rank must be at least 1."
+msgstr "Le rang du diplôme doit être au moins 1."
+
+msgid "Certificates can only be issued to participants."
+msgstr "Les diplômes ne peuvent être délivrés qu'à des participants."
+
+msgid "Certificates can only be issued after results are published."
+msgstr "Les diplômes ne peuvent être délivrés qu'après la publication des résultats."
+
+msgid "A special award certificate must reference its prize."
+msgstr "Un diplôme de prix spécial doit référencer sa récompense."
+
+msgid "The prize must belong to this hackathon."
+msgstr "La récompense doit appartenir à ce hackathon."
+
+msgid "A prize certificate requires an officially awarded prize."
+msgstr "Un diplôme de récompense exige une récompense officiellement décernée."
+
+msgid "Winner slot"
+msgstr "Place de lauréat"
+
+msgid "Slot number within the prize, from 1 to the configured winner slots."
+msgstr "Numéro de place dans la récompense, de 1 au nombre de places configuré."
+
+msgid "Prize award"
+msgstr "Attribution de récompense"
+
+msgid "Prize awards"
+msgstr "Attributions de récompenses"
+
+msgid "The winning project must belong to the prize hackathon."
+msgstr "Le projet lauréat doit appartenir au hackathon de la récompense."
+
+msgid "The winning project must be present in the saved ranking."
+msgstr "Le projet lauréat doit figurer dans le classement enregistré."
+
+msgid "This prize has fewer winner slots than the selected position."
+msgstr "Cette récompense a moins de places de lauréats que la position sélectionnée."
+
+msgid "Prize “%(name)s” created."
+msgstr "Récompense « %(name)s » créée."
+
+msgid "Create prize"
+msgstr "Créer la récompense"
+
+msgid "Save prize"
+msgstr "Enregistrer la récompense"
+
+msgid "Unpublish results before changing this prize."
+msgstr "Dépubliez les résultats avant de modifier cette récompense."
+
+msgid "Prize “%(name)s” updated."
+msgstr "Récompense « %(name)s » mise à jour."
+
+msgid "Update prize"
+msgstr "Mettre à jour la récompense"
+
+msgid "Remove the draft winner assignments before deleting this prize."
+msgstr "Retirez les attributions provisoires de lauréats avant de supprimer cette récompense."
+
+msgid "Prize “%(name)s” deleted."
+msgstr "Récompense « %(name)s » supprimée."
+
+msgid "Unpublish results before changing prize assignments."
+msgstr "Dépubliez les résultats avant de modifier les attributions de récompenses."
+
+msgid "The selected winners exceed this prize’s configured slots."
+msgstr "Les lauréats sélectionnés dépassent les places configurées de cette récompense."
+
+msgid "Every winner must be part of the saved ranking."
+msgstr "Chaque lauréat doit figurer dans le classement enregistré."
+
+msgid "Winner assignments for “%(name)s” saved."
+msgstr "Attributions de lauréats pour « %(name)s » enregistrées."
+
+msgid "Sponsor “%(name)s” created."
+msgstr "Sponsor « %(name)s » créé."
+
+msgid "Sponsor updated."
+msgstr "Sponsor mis à jour."
+
+msgid "Edit sponsor"
+msgstr "Modifier le sponsor"
+
+msgid "Category “%(name)s” created."
+msgstr "Catégorie « %(name)s » créée."
+
+msgid "Category updated."
+msgstr "Catégorie mise à jour."
+
+msgid "Edit category"
+msgstr "Modifier la catégorie"
+
+msgid "Category deleted; existing prizes were preserved."
+msgstr "Catégorie supprimée ; les récompenses existantes ont été conservées."
+
+msgid "Draft ranking saved for review."
+msgstr "Classement provisoire enregistré pour vérification."
+
+msgid "Results are already published."
+msgstr "Les résultats sont déjà publiés."
+
+msgid "Prepare and save a ranking before publishing results."
+msgstr "Préparez et enregistrez un classement avant de publier les résultats."
+
+msgid "Official results have been published."
+msgstr "Les résultats officiels ont été publiés."
+
+msgid "Results are not currently published."
+msgstr "Les résultats ne sont pas publiés actuellement."
+
+msgid "Results cannot be unpublished after certificates have been issued."
+msgstr "Les résultats ne peuvent plus être dépubliés après la délivrance des diplômes."
+
+msgid "Publication removed; prize assignments remain drafts."
+msgstr "Publication retirée ; les attributions de récompenses restent provisoires."
+
+msgid "Publish official results before issuing certificates."
+msgstr "Publiez les résultats officiels avant de délivrer les diplômes."
+
+msgid "%(count)d new certificate(s) issued. They can now be downloaded by their recipients."
+msgstr "%(count)d nouveau(x) diplôme(s) délivré(s). Ils peuvent désormais être téléchargés par leurs bénéficiaires."
+
+msgid "PDF generation is unavailable on this server."
+msgstr "La génération de PDF est indisponible sur ce serveur."
+
+msgid "e.g. Grand Prize, Best Innovation..."
+msgstr "Ex. : Grand prix, Meilleure innovation..."
+
+msgid "A category with this name already exists."
+msgstr "Une catégorie portant ce nom existe déjà."
+
+msgid "Sponsor organization name"
+msgstr "Nom de l'organisation sponsor"
+
+msgid "e.g. Cloud credits, internship, mentoring..."
+msgstr "Ex. : crédits cloud, stage, mentorat..."
+
+msgid "Who can receive this prize?"
+msgstr "Qui peut recevoir cette récompense ?"
+
+msgid "Prize amount cannot be negative."
+msgstr "Le montant de la récompense ne peut pas être négatif."
+
+msgid "A prize with this name already exists for this hackathon."
+msgstr "Une récompense portant ce nom existe déjà pour ce hackathon."
+
+msgid "Winner slots cannot be fewer than the current winner assignments."
+msgstr "Le nombre de places de lauréats ne peut être inférieur aux attributions actuelles."
+
+msgid "Winning projects"
+msgstr "Projets lauréats"
+
+msgid "Select no more projects than this prize has winner slots."
+msgstr "Sélectionnez pas plus de projets que de places de lauréats pour cette récompense."
+
+msgid "Select at most %(count)d winning project(s)."
+msgstr "Sélectionnez au plus %(count)d projet(s) lauréat(s)."
+
+msgid "Private organizer notes..."
+msgstr "Notes privées de l'organisateur..."
+
+msgid "Add evaluation criteria before preparing results."
+msgstr "Ajoutez des critères d'évaluation avant de préparer les résultats."
+
+msgid "The evaluation rubric contains an invalid weight."
+msgstr "Le barème d'évaluation contient une pondération invalide."
+
+msgid "The evaluation rubric contains duplicate criterion names."
+msgstr "Le barème d'évaluation contient des noms de critères en double."
+
+msgid "There are no submitted projects to rank."
+msgstr "Aucun projet soumis à classer."
+
+msgid "Project “%(project)s” has not been marked as evaluated."
+msgstr "Le projet « %(project)s » n'a pas été marqué comme évalué."
+
+msgid "Project “%(project)s” has no jury evaluations."
+msgstr "Le projet « %(project)s » n'a aucune évaluation du jury."
+
+msgid "At least one evaluation for “%(project)s” is still incomplete."
+msgstr "Au moins une évaluation de « %(project)s » est encore incomplète."
+
+msgid "An evaluation for “%(project)s” does not cover this hackathon’s full rubric."
+msgstr "Une évaluation de « %(project)s » ne couvre pas tout le barème de ce hackathon."
+
+msgid "An evaluation for “%(project)s” has no usable weighted score."
+msgstr "Une évaluation de « %(project)s » n'a aucune note pondérée utilisable."
+
+msgid "Unpublish the results before changing the draft ranking."
+msgstr "Dépubliez les résultats avant de modifier le classement provisoire."
+
+msgid "A project in this ranking belongs to another hackathon."
+msgstr "Un projet de ce classement appartient à un autre hackathon."
+
+msgid "The saved ranking is out of date. Prepare it again before publishing."
+msgstr "Le classement enregistré est obsolète. Préparez-le de nouveau avant de publier."
+
+msgid "Prize “%(prize)s” is marked assigned but has no winning project."
+msgstr "La récompense « %(prize)s » est marquée attribuée mais n'a aucun projet lauréat."
+
+msgid "Prize “%(prize)s” has winning projects but is still marked available."
+msgstr "La récompense « %(prize)s » a des projets lauréats mais est encore marquée disponible."
+
+msgid "Prize “%(prize)s” has more winners than its configured slots."
+msgstr "La récompense « %(prize)s » a plus de lauréats que ses places configurées."
+
+msgid "Prize “%(prize)s” has a winner outside its configured slots."
+msgstr "La récompense « %(prize)s » a un lauréat hors de ses places configurées."
+
+msgid "Prize “%(prize)s” is assigned to a project outside the saved ranking."
+msgstr "La récompense « %(prize)s » est attribuée à un projet hors du classement enregistré."
+
+msgid "Prize “%(prize)s” has gaps in its winner slots."
+msgstr "La récompense « %(prize)s » a des trous dans ses places de lauréats."
+
+msgid "Prize “%(prize)s” has inconsistent primary winner data."
+msgstr "La récompense « %(prize)s » a des données de lauréat principal incohérentes."
+
+msgid "Prize “%(prize)s” has a legacy winner without an award assignment."
+msgstr "La récompense « %(prize)s » a un lauréat hérité sans attribution enregistrée."
+
+msgid "Prize “%(prize)s” is marked awarded before results are published."
+msgstr "La récompense « %(prize)s » est marquée décernée avant la publication des résultats."
+
+msgid "Basic Information"
+msgstr "Informations de base"
+
+msgid "Associations"
+msgstr "Associations"
+
+msgid "Timestamps"
+msgstr "Horodatages"
+
+msgid "Title"
+msgstr "Titre"
+
+msgid "Demo URL"
+msgstr "URL de démo"
+
+msgid "Submitted at"
+msgstr "Soumis le"
+
+msgid "Criterion name"
+msgstr "Nom du critère"
+
+msgid "Weight (%)"
+msgstr "Pondération (%)"
+
+msgid "Percentage weight of this criterion in the final score."
+msgstr "Pourcentage de pondération de ce critère dans la note finale."
+
+msgid "Evaluation Criterion"
+msgstr "Critère d'évaluation"
+
+msgid "Evaluation Criteria"
+msgstr "Critères d'évaluation"
+
+msgid "Jury member"
+msgstr "Membre du jury"
+
+msgid "General comment"
+msgstr "Commentaire général"
+
+msgid "Evaluation complete"
+msgstr "Évaluation complète"
+
+msgid "Mark as complete when all scores have been assigned."
+msgstr "Marquez comme complète lorsque toutes les notes ont été attribuées."
+
+msgid "Evaluation"
+msgstr "Évaluation"
+
+msgid "Criterion"
+msgstr "Critère"
+
+msgid "Evaluation Score"
+msgstr "Note d'évaluation"
+
+msgid "Evaluation Scores"
+msgstr "Notes d'évaluation"
+
+msgid "No team reaches %(min)s%% compatibility for your profile in “%(hackathon)s” yet."
+msgstr "Aucune équipe n’atteint %(min)s%% de compatibilité avec votre profil dans « %(hackathon)s »."
+
+msgid "We would rather tell you the truth than list teams that do not fit. These actions can improve your results:"
+msgstr "Nous préférons être honnêtes plutôt que de lister des équipes qui ne vous conviennent pas. Ces actions peuvent améliorer vos résultats :"
+
+msgid "Add more skills and interests to your profile"
+msgstr "Ajouter des compétences et des intérêts à votre profil"
+
+msgid "Pick another hackathon above, where other teams are recruiting."
+msgstr "Choisir un autre hackathon ci-dessus, où d’autres équipes recrutent."
+
+msgid "Browse all teams instead"
+msgstr "Parcourir toutes les équipes"
+
+msgid "Every team that fits your profile is already full or no longer accepts requests."
+msgstr "Toutes les équipes qui correspondent à votre profil sont déjà complètes ou n’acceptent plus de demandes."
+
+msgid "submitted projects"
+msgstr "projets soumis"
+
+msgid "pending"
+msgstr "en attente"
+
+msgid "in progress"
+msgstr "en cours"
+
+msgid "published & finalized"
+msgstr "publiées & finalisées"
+
+msgid "weighted average"
+msgstr "moyenne pondérée"
+
+msgid "evaluations tracked"
+msgstr "évaluations suivies"
+
+msgid "Median:"
+msgstr "Médiane :"
+
+msgid "Avg:"
+msgstr "Moy. :"
+
+msgid "projects"
+msgstr "projets"
+
+msgid "No upcoming deadline"
+msgstr "Aucune échéance à venir"
+
+msgid "scored"
+msgstr "notées"
+
+msgid "View Leaderboard"
+msgstr "Voir le classement"
+
+msgid "Scored by"
+msgstr "Notée par"
+
+msgid "Unknown"
+msgstr "Inconnu"
+
+msgid "No completed evaluations yet. Start an evaluation to see it here."
+msgstr "Aucune évaluation finalisée pour le moment. Lancez une évaluation pour la voir ici."
+
+msgid "No pending evaluations. Use Start Evaluation to choose a hackathon and project."
+msgstr "Aucune évaluation en attente. Utilisez « Démarrer l’évaluation » pour choisir un hackathon et un projet."
+
+msgid "No qualitative feedback provided."
+msgstr "Aucun retour qualitatif fourni."
+
+msgid "No completed evaluations yet."
+msgstr "Aucune évaluation finalisée pour le moment."
+
+msgid "Evaluator Profile:"
+msgstr "Profil de l’évaluateur :"
+
+msgid "assigned submissions in your review queue"
+msgstr "projets soumis qui vous sont assignés dans votre file de relecture"
+
+msgid "CUTOFF"
+msgstr "LIMITE"
+
+msgid "Update Score"
+msgstr "Mettre à jour la note"
+
+msgid "No evaluations assigned to you yet. Click Start Evaluation to pick a hackathon and project."
+msgstr "Aucune évaluation ne vous est encore assignée. Cliquez sur « Démarrer l’évaluation » pour choisir un hackathon et un projet."
+
+msgid "New jury review"
+msgstr "Nouvelle relecture du jury"
+
+msgid "Start Evaluation"
+msgstr "Démarrer l’évaluation"
+
+msgid "Choose the hackathon, then the project you want to evaluate."
+msgstr "Choisissez le hackathon, puis le projet que vous souhaitez évaluer."
+
+msgid "Select a hackathon first"
+msgstr "Sélectionnez d’abord un hackathon"
+
+msgid "Start scoring"
+msgstr "Commencer la notation"
+
+msgid "No hackathons with submitted projects yet. Add them in admin first."
+msgstr "Aucun hackathon avec des projets soumis pour le moment. Ajoutez-les d’abord dans l’administration."
+
+msgid "Select a project"
+msgstr "Sélectionnez un projet"
+
+msgid "This hackathon has no submitted projects yet."
+msgstr "Ce hackathon n’a pas encore de projet soumis."
+
+msgid "already scored"
+msgstr "déjà noté"
+
+msgid "draft in progress"
+msgstr "brouillon en cours"
+
+msgid "Please choose a hackathon."
+msgstr "Veuillez choisir un hackathon."
+
+msgid "Please choose a project to evaluate."
+msgstr "Veuillez choisir un projet à évaluer."
+
+msgid "Evaluation created. Complete the rubric to publish scores."
+msgstr "Évaluation créée. Complétez la grille pour publier les notes."
+
+msgid "Could not start this evaluation. Try another project."
+msgstr "Impossible de démarrer cette évaluation. Essayez un autre projet."
+
+msgid "Unable to load this evaluation."
+msgstr "Impossible de charger cette évaluation."
+
+msgid "Evaluation submitted and added to the dashboard."
+msgstr "Évaluation soumise et ajoutée au tableau de bord."
+
+msgid "Draft saved. It now appears in your pending queue."
+msgstr "Brouillon enregistré. Il apparaît désormais dans vos évaluations en attente."
+
+msgid "No rubric scores recorded."
+msgstr "Aucune note enregistrée dans la grille."
+
+msgid "Results Leaderboard | CodeStorm"
+msgstr "Classement des résultats | CodeStorm"
+
+msgid "Results Leaderboard"
+msgstr "Classement des résultats"
+
+msgid "CODESTORM :: FINAL RANKINGS"
+msgstr "CODESTORM :: CLASSEMENT FINAL"
+
+msgid "Evaluation Results Leaderboard"
+msgstr "Classement des résultats d’évaluation"
+
+msgid "Finalized scores sorted by weighted aggregate across all jury criteria."
+msgstr "Notes finalisées, triées par agrégat pondéré sur l’ensemble des critères du jury."
+
+msgid "Back to Evaluations"
+msgstr "Retour aux évaluations"
+
+msgid "Filter by Hackathon:"
+msgstr "Filtrer par hackathon :"
+
+msgid "Project & Team"
+msgstr "Projet et équipe"
+
+msgid "Strengths"
+msgstr "Points forts"
+
+msgid "No completed evaluations to display yet."
+msgstr "Aucune évaluation finalisée à afficher pour le moment."
+
+msgid "Strengths & Highlights"
+msgstr "Points forts et réussites"
+
+msgid "Comment"
+msgstr "Commentaire"
+
+msgid "Evaluation Comment"
+msgstr "Commentaire d’évaluation"
+
+msgid "Evaluation Comments"
+msgstr "Commentaires d’évaluation"
+
+msgid "Innovation & Creativity"
+msgstr "Innovation et créativité"
+
+msgid "Technical Implementation"
+msgstr "Implémentation technique"
+
+msgid "User Experience & Design Polish"
+msgstr "Expérience utilisateur et finition du design"
+
+msgid "Impact & Relevance"
+msgstr "Impact et pertinence"
+
+msgid "Presentation & Documentation"
+msgstr "Présentation et documentation"
+
+msgid "The comment cannot be empty."
+msgstr "Le commentaire ne peut pas être vide."
+
+msgid "Total Score"
+msgstr "Note totale"
+
+msgid "%(when)s ago"
+msgstr "il y a %(when)s"
+
+msgid "Standard deviation is %(stdev_score)s pts among completed evaluations."
+msgstr "L’écart-type est de %(stdev_score)s pts parmi les évaluations finalisées."
+
+msgid "%(completed_evals)s of %(total_evals)s evaluations fully scored."
+msgstr "%(completed_evals)s évaluations sur %(total_evals)s sont entièrement notées."
+
+msgid "Breakdown across %(counter)s finalized project rubric"
+msgid_plural "Breakdown across %(counter)s finalized project rubrics"
+msgstr[0] "Répartition sur %(counter)s grille de projet finalisée"
+msgstr[1] "Répartition sur %(counter)s grilles de projet finalisées"
+
+msgid "Submission"
+msgstr "Soumission"
+
+msgid "Dates"
+msgstr "Dates"
+
+msgid "Give your project a name"
+msgstr "Donnez un nom à votre projet"
+
+msgid "Summarize the project in one sentence"
+msgstr "Résumez le projet en une phrase"
+
+msgid "Explain the problem you solve, your solution, and who it helps"
+msgstr "Décrivez le problème résolu, votre solution et le public concerné"
+
+msgid "List the technologies you used, separated by commas"
+msgstr "Indiquez les technologies utilisées, séparées par des virgules"
+
+msgid "Paste the full repository URL, starting with https://"
+msgstr "Collez l’URL complète du dépôt, en commençant par https://"
+
+msgid "Paste the full live demo URL, starting with https://"
+msgstr "Collez l’URL complète de la démo en ligne, en commençant par https://"
+
+msgid "Select a team"
+msgstr "Choisir une équipe"
+
+msgid "Project name"
+msgstr "Nom du projet"
+
+msgid "Short pitch"
+msgstr "Pitch court"
+
+msgid "Problem and solution"
+msgstr "Problème et solution"
+
+msgid "Live demo URL"
+msgstr "URL de la démo en ligne"
+
+msgid "Progress (%)"
+msgstr "Avancement (%)"
+
+msgid "Banner"
+msgstr "Bannière"
+
+msgid "Pitch deck (PDF)"
+msgstr "Pitch deck (PDF)"
+
+msgid "Enter a project name."
+msgstr "Saisissez un nom de projet."
+
+msgid "Enter a short pitch."
+msgstr "Saisissez un pitch court."
+
+msgid "Describe the project."
+msgstr "Décrivez le projet."
+
+msgid "The banner"
+msgstr "La bannière"
+
+msgid "The pitch deck"
+msgstr "Le pitch deck"
+
+msgid "Copy into team"
+msgstr "Copier dans une autre équipe"
+
+msgid "%(label)s must be %(limit)s MB or smaller."
+msgstr "%(label)s doit peser %(limit)s Mo ou moins."
+
+msgid "List the technologies used, separated by commas."
+msgstr "Indiquez les technologies utilisées, séparées par des virgules."
+
+msgid "Progress"
+msgstr "Avancement"
+
+msgid "Pitch deck"
+msgstr "Pitch deck"
+
+msgid "This team is not registered for a hackathon."
+msgstr "Cette équipe n’est inscrite à aucun hackathon."
+
+msgid "The team must belong to the selected hackathon."
+msgstr "L’équipe doit appartenir au hackathon sélectionné."
+
+msgid "Add a project name before submitting."
+msgstr "Ajoutez un nom de projet avant de soumettre."
+
+msgid "Add a description before submitting."
+msgstr "Ajoutez une description avant de soumettre."
+
+msgid "Add a repository URL before submitting."
+msgstr "Ajoutez l’URL du dépôt avant de soumettre."
+
+msgid "The submission window for this hackathon is closed."
+msgstr "La période de soumission de ce hackathon est terminée."
+
+msgid "You cannot edit this project."
+msgstr "Vous ne pouvez pas modifier ce projet."
+
+msgid "You cannot create a project for this team."
+msgstr "Vous ne pouvez pas créer de projet pour cette équipe."
+
+msgid "This team already has a project for this hackathon."
+msgstr "Cette équipe a déjà un projet pour ce hackathon."
+
+msgid "You cannot submit this project."
+msgstr "Vous ne pouvez pas soumettre ce projet."
+
+msgid "This project cannot be reopened."
+msgstr "Ce projet ne peut pas être rouvert."
+
+msgid "This project cannot be moved to evaluation."
+msgstr "Ce projet ne peut pas passer en évaluation."
+
+msgid "A completed jury evaluation is required before this project can be marked evaluated."
+msgstr "Une évaluation complète du jury est requise avant de marquer ce projet comme évalué."
+
+msgid "You cannot duplicate this project."
+msgstr "Vous ne pouvez pas dupliquer ce projet."
+
+msgid "Choose a team that does not already have a project."
+msgstr "Choisissez une équipe qui n’a pas encore de projet."
+
+msgid "Copy of %(title)s"
+msgstr "Copie de %(title)s"
+
+msgid "Submit"
+msgstr "Soumettre"
+
+msgid "No technologies yet"
+msgstr "Aucune technologie pour l’instant"
+
+msgid "PNG, JPG, or WebP up to 5MB."
+msgstr "PNG, JPG ou WebP jusqu’à 5 Mo."
+
+msgid "PDF only, up to 10MB."
+msgstr "PDF uniquement, jusqu’à 10 Mo."
+
+msgid "Delete Project"
+msgstr "Supprimer le projet"
+
+msgid "Delete this project?"
+msgstr "Supprimer ce projet ?"
+
+msgid "“%(title)s” will be removed. Submitted work, jury scores, and prize rankings cannot be deleted from here."
+msgstr "« %(title)s » sera supprimé. Les travaux soumis, les notes du jury et le classement des récompenses ne peuvent pas être supprimés ici."
+
+msgid "All projects"
+msgstr "Tous les projets"
+
+msgid "No repository linked yet."
+msgstr "Aucun dépôt associé pour l’instant."
+
+msgid "Open live demo"
+msgstr "Ouvrir la démo en ligne"
+
+msgid "No pitch deck uploaded."
+msgstr "Aucun pitch deck téléchargé."
+
+msgid "Submission deadline"
+msgstr "Date limite de soumission"
+
+msgid "Submission window is open."
+msgstr "La période de soumission est ouverte."
+
+msgid "Submission window is closed."
+msgstr "La période de soumission est terminée."
+
+msgid "Not submitted"
+msgstr "Non soumis"
+
+msgid "Filed by"
+msgstr "Soumis par"
+
+msgid "Jury score"
+msgstr "Note du jury"
+
+msgid "%(counter)s completed evaluation"
+msgid_plural "%(counter)s completed evaluations"
+msgstr[0] "%(counter)s évaluation terminée"
+msgstr[1] "%(counter)s évaluations terminées"
+
+msgid "The score stays hidden until the organizer publishes the results."
+msgstr "La note reste masquée tant que l’organisateur ne publie pas les résultats."
+
+msgid "Organizer actions"
+msgstr "Actions de l’organisateur"
+
+msgid "Scores are recorded by the jury in Evaluations. Marking a project evaluated is what lets Prizes rank it. Published results and awarded prizes stay locked."
+msgstr "Les notes sont saisies par le jury dans Évaluations. Marquer un projet comme évalué permet à Récompenses de le classer. Les résultats publiés et les récompenses attribuées restent verrouillés."
+
+msgid "Move to evaluation"
+msgstr "Passer en évaluation"
+
+msgid "Mark as evaluated"
+msgstr "Marquer comme évalué"
+
+msgid "Unlock for editing"
+msgstr "Déverrouiller pour modification"
+
+msgid "Open prizes"
+msgstr "Ouvrir Récompenses"
+
+msgid "Open evaluations"
+msgstr "Ouvrir Évaluations"
+
+msgid "Copied"
+msgstr "Copié"
+
+msgid "Duplicate Project"
+msgstr "Dupliquer le projet"
+
+msgid "Duplicate project"
+msgstr "Dupliquer le projet"
+
+msgid "Copy the text of “%(title)s” into another team that does not have a project yet. The banner and the pitch deck are not copied."
+msgstr "Copiez le texte de « %(title)s » dans une autre équipe qui n’a pas encore de projet. La bannière et le pitch deck ne sont pas copiés."
+
+msgid "Create draft copy"
+msgstr "Créer une copie de brouillon"
+
+msgid "There is no other open team you can copy this into. Each team keeps a single project."
+msgstr "Aucune autre équipe ouverte ne peut recevoir cette copie. Chaque équipe ne garde qu’un seul projet."
+
+msgid "Create"
+msgstr "Créer"
+
+msgid "The team and the hackathon stay fixed. Save a draft, or keep the project in progress until the captain submits it."
+msgstr "L’équipe et le hackathon restent inchangés. Enregistrez un brouillon ou laissez le projet en cours jusqu’à la soumission par le capitaine."
+
+msgid "One project per team. You can keep editing until the captain locks the submission."
+msgstr "Un projet par équipe. Vous pouvez continuer à modifier jusqu’à ce que le capitaine verrouille la soumission."
+
+msgid "Read submitted projects while you prepare your evaluations. Drafts stay with the teams."
+msgstr "Consultez les projets soumis pendant que vous préparez vos évaluations. Les brouillons restent réservés aux équipes."
+
+msgid "Follow every submission in your hackathons, unlock a project when a team needs to fix it, and hand evaluated work to the prizes."
+msgstr "Suivez chaque soumission de vos hackathons, déverrouillez un projet qu’une équipe doit corriger et transmettez les projets évalués aux récompenses."
+
+msgid "Prepare your team's submission, keep the repository up to date, and lock it before the deadline."
+msgstr "Préparez la soumission de votre équipe, tenez le dépôt à jour et verrouillez-la avant la date limite."
+
+msgid "+%(counter)s this week"
+msgid_plural "+%(counter)s this week"
+msgstr[0] "+%(counter)s cette semaine"
+msgstr[1] "+%(counter)s cette semaine"
+
+msgid "Nothing new this week"
+msgstr "Rien de nouveau cette semaine"
+
+msgid "Still being written"
+msgstr "Encore en cours de rédaction"
+
+msgid "Locked for the jury"
+msgstr "Verrouillé pour le jury"
+
+msgid "Waiting on jury scores"
+msgstr "En attente des notes du jury"
+
+msgid "No projects yet"
+msgstr "Aucun projet pour l’instant"
+
+msgid "Submitted projects will show up here once a team locks its repository."
+msgstr "Les projets soumis apparaîtront ici dès qu’une équipe verrouille son dépôt."
+
+msgid "Create a project for your team, or wait until a hackathon you joined has a submission."
+msgstr "Créez un projet pour votre équipe ou attendez qu’un hackathon auquel vous participez ait une soumission."
+
+msgid "Find a team"
+msgstr "Trouver une équipe"
+
+msgid "Submit Project"
+msgstr "Soumettre le projet"
+
+msgid "Lock and submit for jury evaluation?"
+msgstr "Verrouiller et soumettre pour l’évaluation du jury ?"
+
+msgid "“%(title)s” will be locked. The team can change it again only if the organizer unlocks it, and only before results or prizes are attached."
+msgstr "« %(title)s » sera verrouillé. L’équipe ne pourra le modifier à nouveau que si l’organisateur le déverrouille, et seulement avant la publication des résultats ou l’attribution des récompenses."
+
+msgid "No team in your hackathons can open a project right now."
+msgstr "Aucune équipe de vos hackathons ne peut ouvrir de projet pour le moment."
+
+msgid "Join a team in an open hackathon before creating a project."
+msgstr "Rejoignez une équipe dans un hackathon ouvert avant de créer un projet."
+
+msgid "Project saved."
+msgstr "Projet enregistré."
+
+msgid "Project deleted."
+msgstr "Projet supprimé."
+
+msgid "Project submitted. It is now locked for the jury."
+msgstr "Projet soumis. Il est désormais verrouillé pour le jury."
+
+msgid "Draft copy created. Files were not copied."
+msgstr "Copie de brouillon créée. Les fichiers n’ont pas été copiés."
+
+msgid "Project unlocked. The team can edit it again."
+msgstr "Projet déverrouillé. L’équipe peut le modifier à nouveau."
+
+msgid "Project moved to evaluation."
+msgstr "Projet passé en évaluation."
+
+msgid "Project marked as evaluated. It can now be ranked with the prizes."
+msgstr "Projet marqué comme évalué. Il peut désormais être classé avec les récompenses."
+
+#: analyses/forms.py
+msgid "Enter a repository URL, or pick a project to analyze its own submission."
+msgstr "Saisissez l’URL d’un dépôt, ou choisissez un projet pour analyser le dépôt qu’il a soumis."
+
+#: analyses/forms.py
+msgid "No project: analyze this URL only"
+msgstr "Aucun projet : analyser uniquement cette URL"
+
+#: analyses/services/rubric.py
+msgid "How well the project matches its stated goal and scope."
+msgstr "Dans quelle mesure le projet répond à l’objectif et au périmètre annoncés."
+
+#: analyses/services/rubric.py
+msgid "Code structure, readability, soundness of design choices."
+msgstr "Structure du code, lisibilité, solidité des choix de conception."
+
+#: analyses/services/rubric.py
+msgid "Whether the core features appear implemented and usable."
+msgstr "Fonctionnalités centrales réellement implémentées et utilisables."
+
+#: analyses/services/rubric.py
+msgid "Novelty of the idea and of the approach taken."
+msgstr "Nouveauté de l’idée et de l’approche adoptée."
+
+#: analyses/services/rubric.py
+msgid "README, setup instructions, organization of the repo."
+msgstr "README, instructions d’installation, organisation du dépôt."
+
+#: templates/analyses/_analysis_form.html
+msgid "Pick a project to score its own submitted repository against this hackathon's criteria, or enter a URL for a standalone technical review."
+msgstr "Choisissez un projet pour évaluer le dépôt qu’il a soumis avec les critères de ce hackathon, ou saisissez une URL pour une revue technique isolée."
+
+#: templates/analyses/analysis_detail.html
+msgid "No evaluation criteria are defined for this hackathon yet, so these are generic technical-review notes rather than rubric scores."
+msgstr "Aucun critère d’évaluation n’est encore défini pour ce hackathon : il s’agit donc de notes de revue technique génériques, pas de scores de grille."
+
+#: templates/analyses/analysis_detail.html
+msgid "Re-analyze"
+msgstr "Réanalyser"
+
+#: templates/analyses/analysis_detail.html
+msgid "Show which files were used"
+msgstr "Afficher les fichiers utilisés"
+
+#: templates/analyses/analysis_detail.html
+msgid "These scores use the evaluation criteria of this hackathon, on the same 0-10 scale the jury fills in."
+msgstr "Ces scores utilisent les critères d’évaluation de ce hackathon, sur la même échelle de 0 à 10 que celle remplie par le jury."
+
+#: templates/analyses/analysis_detail.html
+msgid "Weighted"
+msgstr "Pondéré"
+
+#: templates/analyses/analysis_detail.html
+msgid "files actually read"
+msgstr "fichiers réellement lus"
+
+#: templates/analyses/analysis_detail.html
+msgid "files skipped"
+msgstr "fichiers ignorés"
+
+#: templates/analyses/analysis_detail.html
+msgid "files truncated"
+msgstr "fichiers tronqués"
+
+#: templates/analyses/analysis_detail.html
+#, python-format
+msgid "%(n)s cited file path could not be matched with the files actually fetched, and was removed from the evidence."
+msgid_plural "%(n)s cited file paths could not be matched with the files actually fetched, and were removed from the evidence."
+msgstr[0] "%(n)s chemin cité n’a pas pu être rapproché des fichiers réellement récupérés ; il a été retiré des preuves."
+msgstr[1] "%(n)s chemins cités n’ont pas pu être rapprochés des fichiers réellement récupérés ; ils ont été retirés des preuves."
+
+#: templates/evaluations.html
+msgid "AI technical summary"
+msgstr "Résumé technique par IA"
+
+#: templates/evaluations.html
+msgid "An AI analysis is running for this repository. Reopen this form in a moment to see its result."
+msgstr "Une analyse par IA est en cours pour ce dépôt. Rouvrez ce formulaire dans un instant pour voir son résultat."
+
+#: templates/evaluations.html
+msgid "Open full report"
+msgstr "Ouvrir le rapport complet"
+
+#: templates/evaluations.html
+msgid "The AI scores below are indicative proposals. Your own slider values are the jury's decision; nothing is applied automatically."
+msgstr "Les scores IA ci-dessous sont des propositions indicatives. Vos propres curseurs constituent la décision du jury ; rien n’est appliqué automatiquement."
+
+#: templates/evaluations.html
+msgid "The last AI analysis of this project failed, so no suggestion is available."
+msgstr "La dernière analyse IA de ce projet a échoué : aucune suggestion n’est disponible."
+
+#: templates/evaluations.html
+msgid "Unverified citations removed"
+msgstr "Citations non vérifiées retirées"
+
+#: templates/evaluations.html
+msgid "Use"
+msgstr "Utiliser"
+
+#: templates/evaluations.html
+msgid "AI suggestion copied into your score. Adjust it freely: the value you submit is yours."
+msgstr "Proposition IA copiée dans votre note. Ajustez-la librement : la valeur que vous soumettez vous appartient."
+
+#: analyses/views.py
+msgid "An analysis is already running for this repository."
+msgstr "Une analyse est déjà en cours pour ce dépôt."
+
+#: templates/analyses/_analysis_form.html
+msgid "Pick the project whose submitted repository you want analyzed against this hackathon's criteria."
+msgstr "Choisissez le projet dont le dépôt soumis doit être évalué avec les critères de ce hackathon."
+
+msgid "%(n)s member"
+msgid_plural "%(n)s members"
+msgstr[0] "%(n)s membre"
+msgstr[1] "%(n)s membres"
+
+msgid "%(days)s day left"
+msgid_plural "%(days)s days left"
+msgstr[0] "%(days)s jour restant"
+msgstr[1] "%(days)s jours restants"
+
+msgid "%(avg)s average of your scores"
+msgstr "%(avg)s de moyenne pour vos notes"
+
+msgid "%(done)s of %(total)s score submitted"
+msgid_plural "%(done)s of %(total)s scores submitted"
+msgstr[0] "%(done)s note sur %(total)s soumise"
+msgstr[1] "%(done)s notes sur %(total)s soumises"
+
+msgid "%(event)s results are published: %(project)s is rank %(rank)s."
+msgstr "Les résultats de %(event)s sont publiés : %(project)s est en %(rank)s position."
+
+msgid "%(n)s as captain"
+msgstr "%(n)s comme capitaine"
+
+msgid "%(n)s event joined"
+msgid_plural "%(n)s events joined"
+msgstr[0] "%(n)s événement rejoint"
+msgstr[1] "%(n)s événements rejoins"
+
+msgid "%(n)s hackathon in scope"
+msgid_plural "%(n)s hackathons in scope"
+msgstr[0] "%(n)s hackathon concern"
+msgstr[1] "%(n)s hackathons concernés"
+
+msgid "%(n)s still a draft"
+msgid_plural "%(n)s still drafts"
+msgstr[0] "%(n)s encore en brouillon"
+msgstr[1] "%(n)s encore en brouillon"
+
+msgid "%(n)s team"
+msgid_plural "%(n)s teams"
+msgstr[0] "%(n)s équipe"
+msgstr[1] "%(n)s équipes"
+
+msgid "%(project)s has no complete evaluation yet."
+msgstr "%(project)s n'a pas encore d'évaluation complète."
+
+msgid "%(score)s points"
+msgstr "%(score)s points"
+
+msgid "%(upcoming)s upcoming, %(ongoing)s running"
+msgstr "%(upcoming)s à venir, %(ongoing)s en cours"
+
+msgid "%(user)s asked to join %(team)s."
+msgstr "%(user)s a demandé à rejoindre %(team)s."
+
+msgid "AI analyses"
+msgstr "Analyses IA"
+
+msgid "Assigned to: %(event)s"
+msgstr "Assignée à : %(event)s"
+
+msgid "Back to dashboard"
+msgstr "Retour au tableau de bord"
+
+msgid "Close notifications"
+msgstr "Fermer les notifications"
+
+msgid "Create project"
+msgstr "Créer un projet"
+
+msgid "Criteria per hackathon"
+msgstr "Critères par hackathon"
+
+msgid "Draft evaluations"
+msgstr "Évaluations en brouillon"
+
+msgid "Each line is a real fact still waiting for you. It disappears once the invitation, request or evaluation behind it is handled."
+msgstr "Chaque ligne est un fait réel qui attend encore une action. Elle disparaît dès que l’invitation, la demande ou l’évaluation correspondante est traitée."
+
+msgid "Evaluations to collect"
+msgstr "Évaluations à collecter"
+
+msgid "Evaluations to finish"
+msgstr "Évaluations à terminer"
+
+msgid "Evaluations to start"
+msgstr "Évaluations à démarrer"
+
+msgid "Event ends"
+msgstr "Fin de l'événement"
+
+msgid "Every project you can access already has one of your evaluations."
+msgstr "Chaque projet accessible contient déjà une de vos évaluations."
+
+msgid "Everything happening in the hackathons you run."
+msgstr "Tout ce qui se passe dans les hackathons que vous organisez."
+
+msgid "Explore hackathons"
+msgstr "Explorer les hackathons"
+
+msgid "Follow evaluations"
+msgstr "Suivre les évaluations"
+
+msgid "From %(inviter)s on %(event)s."
+msgstr "De %(inviter)s pour %(event)s."
+
+msgid "Hackathons open for registration"
+msgstr "Hackathons ouverts à l'inscription"
+
+msgid "Hackathons you manage"
+msgstr "Hackathons que vous gérez"
+
+msgid "Invitations to answer"
+msgstr "Invitations à traiter"
+
+msgid "Join requests still pending"
+msgstr "Demandes de rejoindre en attente"
+
+msgid "Jury View"
+msgstr "Vue jury"
+
+msgid "Latest submissions"
+msgstr "Dernières soumissions"
+
+msgid "My teams"
+msgstr "Mes équipes"
+
+msgid "Newest teams"
+msgstr "Équipes les plus récentes"
+
+msgid "No deadline coming up for your hackathons."
+msgstr "Aucune échéance proche pour vos hackathons."
+
+msgid "No deadline coming up."
+msgstr "Aucune échéance à venir."
+
+msgid "No draft in progress."
+msgstr "Aucun brouillon en cours."
+
+msgid "No hackathon is open for registration right now."
+msgstr "Aucun hackathon n'est ouvert à l'inscription pour le moment."
+
+msgid "No hackathon to score yet."
+msgstr "Aucun hackathon à noter pour le moment."
+
+msgid "No hackathon yet"
+msgstr "Aucun hackathon pour l'instant"
+
+msgid "No invitation, join request, draft evaluation or published result is waiting for you right now."
+msgstr "Aucune invitation, demande de rejoindre une équipe, évaluation en cours ou résultat publié ne vous attend pour le moment."
+
+msgid "No pending join request."
+msgstr "Aucune demande de rejoindre en attente."
+
+msgid "No project has been submitted yet."
+msgstr "Aucun projet n'a encore été soumis."
+
+msgid "No project yet. Create one once your team is set up."
+msgstr "Aucun projet pour l'instant. Créez-en un dès que votre équipe est prête."
+
+msgid "No resource published yet."
+msgstr "Aucune ressource publiée pour le moment."
+
+msgid "No results have been published for your hackathons yet."
+msgstr "Aucun résultat n’a encore été publié pour vos hackathons."
+
+msgid "No team has registered yet."
+msgstr "Aucune équipe n'est encore inscrite."
+
+msgid "Nothing pending"
+msgstr "Rien en attente"
+
+msgid "Nothing waiting for you."
+msgstr "Rien ne vous attend."
+
+msgid "Nothing waiting for you. Your invitations and requests are all handled."
+msgstr "Rien ne vous attend. Vos invitations et demandes sont toutes traitées."
+
+msgid "Profile settings"
+msgstr "Paramètres du profil"
+
+msgid "Project submission"
+msgstr "Soumission des projets"
+
+msgid "Projects to score"
+msgstr "Projets à noter"
+
+msgid "Projects you can score"
+msgstr "Projets que vous pouvez noter"
+
+msgid "Registered participants"
+msgstr "Participants inscrits"
+
+msgid "Requests waiting for your decision"
+msgstr "Demandes en attente de votre décision"
+
+msgid "Results published"
+msgstr "Résultats publiés"
+
+msgid "Results published for you"
+msgstr "Résultats publiés pour vous"
+
+msgid "Review"
+msgstr "Examiner"
+
+msgid "Review the projects you are allowed to score."
+msgstr "Consultez les projets que vous êtes autorisé à noter."
+
+msgid "Scoring catalog"
+msgstr "Catalogue de notation"
+
+msgid "Shortcut links"
+msgstr "Liens rapides"
+
+msgid "Submissions still without a submitted score"
+msgstr "Soumissions sans note saisie"
+
+msgid "Submissions waiting for results"
+msgstr "Soumissions en attente de résultats"
+
+msgid "Submitted evaluations"
+msgstr "Évaluations soumises"
+
+msgid "Submitted projects"
+msgstr "Projets soumis"
+
+msgid "Waiting for your action"
+msgstr "En attente de votre action"
+
+msgid "What needs your attention"
+msgstr "Ce qui demande votre attention"
+
+msgid "You are not in a team yet. Join one or create one for a hackathon."
+msgstr "Vous n'êtes encore dans aucune équipe. Rejoignez-en une ou créez-en une pour un hackathon."
+
+msgid "You do not organize any hackathon yet."
+msgstr "Vous n'organisez encore aucun hackathon."
+
+msgid "You have not submitted an evaluation yet."
+msgstr "Vous n'avez encore soumis aucune évaluation."
+
+msgid "You were invited to join %(team)s."
+msgstr "Vous avez été invité à rejoindre %(team)s."
+
+msgid "Your account has no role assigned yet, so this page shows only what is visible to every signed-in user."
+msgstr "Votre compte n'a pas encore de rôle attribué, cette page n'affiche donc que les éléments visibles par tout utilisateur connecté."
+
+msgid "Your evaluation of %(project)s is still a draft."
+msgstr "Votre évaluation de %(project)s est encore un brouillon."
+
+msgid "Your hackathons"
+msgstr "Vos hackathons"
+
+msgid "Your pending requests"
+msgstr "Vos demandes en attente"
+
+msgid "Your request to join %(team)s is waiting for the captain."
+msgstr "Votre demande pour rejoindre %(team)s attend la décision du capitaine."
+
+msgid "Your submitted evaluations"
+msgstr "Vos évaluations soumises"
+
+msgid "no hackathon"
+msgstr "aucun hackathon"
+
+msgid "none"
+msgstr "aucun"
+
+msgid "none yet"
+msgstr "aucune pour l'instant"
+
+msgid "not published yet"
+msgstr "pas encore publié"
+
+msgid "not scored by you yet"
+msgstr "pas encore noté par vous"
+
+msgid "published results"
+msgstr "résultats publiés"
+
+msgid "saved but not submitted"
+msgstr "enregistrées mais non soumises"
+
+msgid "up to"
+msgstr "jusqu’à"
+
+msgid "Access denied | CodeStorm"
+msgstr "Accès refusé | CodeStorm"
+
+msgid "Access denied"
+msgstr "Accès refusé"
+
+msgid "This page is not yours to open"
+msgstr "Cette page ne vous est pas destinée"
+
+msgid "Your account is signed in as %(role)s. Each module checks that role on the server before showing anything, so a page belonging to another role stays closed here too, not only in the menu."
+msgstr "Votre compte est connecté en tant que %(role)s. Chaque module vérifie ce rôle côté serveur avant d’afficher quoi que ce soit : une page réservée à un autre rôle reste donc fermée ici aussi, et pas seulement dans le menu."
+
+msgid "You have to be signed in to open this page."
+msgstr "Vous devez être connecté pour ouvrir cette page."
+
+msgid "Log in"
+msgstr "Se connecter"
+
+msgid "Page not found | CodeStorm"
+msgstr "Page introuvable | CodeStorm"
+
+msgid "Page not found"
+msgstr "Page introuvable"
+
+msgid "We could not find that page"
+msgstr "Nous n’avons pas trouvé cette page"
+
+msgid "The address you followed does not match any page of this platform. The item may have been deleted, or the link you used is out of date."
+msgstr "L’adresse suivie ne correspond à aucune page de cette plateforme. L’élément a peut-être été supprimé, ou le lien utilisé est périmé."
+
+msgid "You asked for: %(request_path)s"
+msgstr "Vous avez demandé : %(request_path)s"
+
+msgid "Server error | CodeStorm"
+msgstr "Erreur serveur | CodeStorm"
+
+msgid "Server error"
+msgstr "Erreur serveur"
+
+msgid "Something broke on our side"
+msgstr "Un problème est survenu de notre côté"
+
+msgid "This is not your fault. Nothing was saved by this request. Try again in a moment, and if it keeps happening let the organizer of your hackathon know."
+msgstr "Ce n’est pas de votre faute. Cette requête n’a rien enregistré. Réessayez dans un moment et, si le problème persiste, prévenez l’organisateur de votre hackathon."
+
+msgid "Confirm deletion"
+msgstr "Confirmer la suppression"
+
+msgid "This action is permanent."
+msgstr "Cette action est définitive."
+
+msgid "Generate with AI"
+msgstr "Générer avec l'IA"
+
+msgid "Save"
+msgstr "Enregistrer"
+
+msgid "Generating…"
+msgstr "Génération en cours…"
+
+msgid "Description generated"
+msgstr "Description générée"
+
+msgid "Take part"
+msgstr "Participer"
+
+msgid "You already take part with the team %(team)s. One team per hackathon."
+msgstr "Vous participez déjà avec l'équipe %(team)s. Une seule équipe par hackathon."
+
+msgid "Open my team"
+msgstr "Ouvrir mon équipe"
+
+msgid "%(n)s team is already registered here."
+msgid_plural "%(n)s teams are already registered here."
+msgstr[0] "%(n)s équipe est déjà inscrite ici."
+msgstr[1] "%(n)s équipes sont déjà inscrites ici."
+
+msgid "Create my team"
+msgstr "Créer mon équipe"
+
+msgid "Join an existing team"
+msgstr "Rejoindre une équipe existante"
+
+msgid "Registration is closed for this hackathon, so no new team and no join request can be accepted."
+msgstr "Les inscriptions sont closes pour ce hackathon : aucune nouvelle équipe ni aucune demande de rejoindre ne peuvent être acceptées."
+
+msgid "Publish"
+msgstr "Publier"
+
+msgid "Cancel this hackathon?"
+msgstr "Annuler ce hackathon ?"
+
+msgid "Cancel event"
+msgstr "Annuler l'événement"
+
+msgid "Dates & deadlines"
+msgstr "Dates et échéances"
+
+msgid "Start"
+msgstr "Début"
+
+msgid "End"
+msgstr "Fin"
+
+msgid "Registration deadline"
+msgstr "Date limite d'inscription"
+
+msgid "Challenges"
+msgstr "Défis"
+
+msgid "Add a challenge"
+msgstr "Ajouter un défi"
+
+msgid "No challenge yet."
+msgstr "Aucun défi pour le moment."
+
+msgid "Discover hackathons, join challenges and turn your ideas into reality."
+msgstr "Découvrez des hackathons, rejoignez des défis et concrétisez vos idées."
+
+msgid "Statistics"
+msgstr "Statistiques"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "All categories"
+msgstr "Toutes les catégories"
+
+msgid "My drafts"
+msgstr "Mes brouillons"
+
+msgid "Scope"
+msgstr "Périmètre"
+
+msgid "My hackathons"
+msgstr "Mes hackathons"
+
+msgid "Hackathons list"
+msgstr "Liste des hackathons"
+
+msgid "Banner of %(t)s"
+msgstr "Bannière de %(t)s"
+
+msgid "No hackathon found."
+msgstr "Aucun hackathon trouvé."
+
+msgid "Pagination"
+msgstr "Pagination"
+
+msgid "Previous"
+msgstr "Précédent"
+
+msgid "Next"
+msgstr "Suivant"
+
+msgid "Provide a link or upload a file so participants can open this resource."
+msgstr "Fournissez un lien ou téléversez un fichier pour que les participants puissent ouvrir cette ressource."
+
+msgid "Private"
+msgstr "Privé"
+
+msgid "Invitations · Teams"
+msgstr "Invitations · Équipes"
+
+msgid "Cancelled"
+msgstr "Annulé"
+
+msgid "Unscheduled"
+msgstr "Sans date prévue"
+
+msgid "Menu"
+msgstr "Menu"
+
+msgid "This project has no public github.com repository to analyze. The team must fix its submission first."
+msgstr "Ce projet n'a pas de dépôt public github.com à analyser. L'équipe doit d'abord corriger sa soumission."
+
+msgid "This report is not linked to a project, so it cannot be re-analyzed. Launch the analysis from the project page instead."
+msgstr "Ce rapport n'est lié à aucun projet : il ne peut donc pas être ré-analysé. Lancez l'analyse depuis la page du projet."
+
+msgid "The AI service did not answer before the request deadline, so no analysis was saved. The deadline can be raised with the GEMINI_TIMEOUT environment variable."
+msgstr "Le service IA n'a pas répondu avant la date limite de la requête : aucune analyse n'a été enregistrée. Ce délai peut être augmenté avec la variable d'environnement GEMINI_TIMEOUT."
+
+msgid "Generate decision-support reports from the repository a project submitted. Scores are indicative; the final grade always belongs to the jury."
+msgstr "Générez des rapports d'aide à la décision à partir du dépôt soumis par un projet. Les scores sont indicatifs ; la note finale relève toujours du jury."
+
+msgid "An analysis is launched from a project, on the repository that project submitted."
+msgstr "Une analyse se lance depuis un projet, sur le dépôt que ce projet a soumis."
+
+msgid "AI analysis"
+msgstr "Analyse IA"
+
+msgid "Open report"
+msgstr "Ouvrir le rapport"
+
+msgid "Run AI analysis"
+msgstr "Lancer l'analyse IA"
+
+msgid "The analysis reads the repository URL above, the one this team submitted. Scores are indicative; the final grade belongs to the jury."
+msgstr "Le dépôt ci-dessus est celui soumis par cette équipe ; l'analyse le lit tel quel. Les scores sont indicatifs ; la note finale relève du jury."
+
+msgid "No project of your hackathons has submitted a GitHub repository yet, so there is nothing to analyze. Create the project first, then come back."
+msgstr "Aucun projet de vos hackathons n'a encore soumis de dépôt GitHub : il n'y a donc rien à analyser. Créez d'abord le projet, puis revenez ici."

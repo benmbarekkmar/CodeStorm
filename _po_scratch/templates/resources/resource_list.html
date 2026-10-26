@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Resources" %} · CodeStorm{% endblock %}
+{% block page_name %}resources{% endblock %}
+{% block breadcrumb_section %}{% trans "Support" %}{% endblock %}
+{% block breadcrumb_page %}{% trans "Resources" %}{% endblock %}
+
+{% block content %}
+{% include "teams/_messages.html" %}
+
+<style>
+  @keyframes resFadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  .res-card {
+    transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease;
+    animation: resFadeUp .5s cubic-bezier(.2,.8,.2,1) both;
+    animation-delay: calc(var(--i, 0) * 60ms);
+  }
+  .res-card:hover { transform: translateY(-4px); box-shadow: 0 14px 34px -14px rgb(var(--c-primary) / .38); }
+  .res-card__accent { transition: transform .35s cubic-bezier(.2,.8,.2,1); }
+  .res-card:hover .res-card__accent { transform: scaleX(1); }
+  html[dir="rtl"] .res-card__accent { transform-origin: right; }
+  .section-enter { animation: resFadeUp .5s cubic-bezier(.2,.8,.2,1) both; }
+  @media (prefers-reduced-motion: reduce) {
+    .res-card, .section-enter { animation: none; }
+    .res-card, .res-card__accent { transition: none; }
+    .res-card:hover { transform: none; }
+  }
+</style>
+
+<!-- ============ HEADER ============ -->
+<div class="section-enter w-full px-margin py-space-lg flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+  <div class="flex flex-col gap-1">
+    <h1 class="font-headline-lg text-headline-lg text-on-surface">{% trans "Resources" %}</h1>
+    <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+      {% if is_organizer %}{% trans "Curate the tutorials, documentation and tools your participants rely on during the hackathon." %}
+      {% else %}{% trans "Browse tutorials, documentation, tools and templates to power up your hackathon project." %}{% endif %}
+    </p>
+  </div>
+  {% if is_organizer %}
+  <div class="flex items-center gap-space-sm self-start md:self-auto">
+    <button type="button" data-open-create class="group/create px-space-md py-2.5 rounded-lg bg-gradient-to-r from-primary to-primary-container text-on-primary font-label-md text-label-md shadow-sm hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] transition-all duration-200 flex items-center gap-2">
+      <span class="material-symbols-outlined text-[18px] transition-transform duration-300 group-hover/create:rotate-90">add</span>
+      <span>{% trans "Add Resource" %}</span>
+    </button>
+  </div>
+  {% endif %}
+</div>
+
+<div class="w-full px-margin pb-space-xl flex flex-col gap-space-lg">
+
+  <!-- ============ FILTERS ============ -->
+  <form method="get" id="resourceFilters" class="section-enter p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col lg:flex-row items-stretch lg:items-center gap-space-sm">
+    <div class="relative w-full lg:w-80 flex items-center">
+      <span class="material-symbols-outlined absolute start-3 text-outline text-[18px]">search</span>
+      <input class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg ps-9 pe-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline"
+             type="search" name="q" value="{{ q }}" placeholder="{% trans 'Search resources by title or description' %}"/>
+    </div>
+    <select name="category" class="bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20">
+      <option value="all">{% trans "All Categories" %}</option>
+      {% for value, label in categories %}<option value="{{ value }}" {% if sel_category == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+    </select>
+    <select name="type" class="bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20">
+      <option value="all">{% trans "All Types" %}</option>
+      {% for value, label in types %}<option value="{{ value }}" {% if sel_type == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+    </select>
+    <select name="sort" class="bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20">
+      <option value="recent" {% if sel_sort == 'recent' %}selected{% endif %}>{% trans "Newest first" %}</option>
+      <option value="oldest" {% if sel_sort == 'oldest' %}selected{% endif %}>{% trans "Oldest first" %}</option>
+      <option value="az" {% if sel_sort == 'az' %}selected{% endif %}>{% trans "Title A–Z" %}</option>
+      <option value="za" {% if sel_sort == 'za' %}selected{% endif %}>{% trans "Title Z–A" %}</option>
+    </select>
+    {% if has_filters %}
+    <a href="{% url 'resources:home' %}" class="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-all">
+      <span class="material-symbols-outlined text-[18px]">filter_alt_off</span>{% trans "Reset filters" %}
+    </a>
+    {% endif %}
+  </form>
+
+  <!-- ============ RESULTS ============ -->
+  <section class="section-enter flex flex-col gap-space-md">
+    <div class="flex items-center justify-between">
+      <span class="font-body-sm text-body-sm text-on-surface-variant">
+        {{ resources|length }} {% trans "resources" %}
+      </span>
+    </div>
+
+    {% if resources %}
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+      {% for resource in resources %}{% include "resources/_resource_card.html" %}{% endfor %}
+    </div>
+    {% elif has_filters %}
+    <div class="p-space-xl rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col items-center gap-3 text-center">
+      <span class="material-symbols-outlined text-[40px] text-outline">search_off</span>
+      <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">{% trans "No resources match your filter" %}</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant max-w-md">{% trans "Try clearing selected criteria or checking your spelling." %}</p>
+      <a href="{% url 'resources:home' %}" class="mt-1 px-5 py-2.5 rounded-lg bg-surface-container font-label-md text-label-md text-on-surface hover:bg-surface-container-high transition-colors">{% trans "Reset All Filters" %}</a>
+    </div>
+    {% else %}
+    <div class="p-space-xl rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col items-center gap-3 text-center">
+      <span class="material-symbols-outlined text-[40px] text-outline">menu_book</span>
+      <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">{% trans "No resources yet" %}</h3>
+      {% if is_organizer %}
+      <p class="font-body-md text-body-md text-on-surface-variant max-w-md">{% trans "The library is empty. Add your first resource to get participants started." %}</p>
+      <button type="button" data-open-create class="mt-1 px-5 py-2.5 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all">{% trans "Add Resource" %}</button>
+      {% else %}
+      <p class="font-body-md text-body-md text-on-surface-variant max-w-md">{% trans "Resources will appear here once organizers publish them." %}</p>
+      {% endif %}
+    </div>
+    {% endif %}
+  </section>
+</div>
+
+{% if is_organizer %}
+<!-- ============ CREATE MODAL ============ -->
+<dialog id="createResourceDialog"
+        class="w-[min(92vw,42rem)] rounded-2xl bg-surface-container-lowest text-on-surface p-0 shadow-xl border border-outline-variant backdrop:bg-on-background/50">
+  <div class="p-space-lg max-h-[85vh] overflow-y-auto">
+    <div id="createResourceForm">{% include "resources/_resource_form.html" with form=create_form mode='create' action_url=action_create %}</div>
+  </div>
+</dialog>
+
+<script>
+  (function () {
+    const dlg = document.getElementById('createResourceDialog');
+    if (!dlg) return;
+    document.querySelectorAll('[data-open-create]').forEach((btn) =>
+      btn.addEventListener('click', (e) => { e.preventDefault(); dlg.showModal(); }));
+    dlg.addEventListener('click', (e) => {
+      if (e.target === dlg || e.target.closest('[data-close-form]')) dlg.close();
+    });
+    dlg.addEventListener('submit', async (e) => {
+      const form = e.target.closest('[data-resource-form]');
+      if (!form) return;
+      e.preventDefault();
+      const submit = form.querySelector('button[type="submit"]');
+      if (submit) submit.disabled = true;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'X-Requested-With': 'XMLHttpRequest' },
+          credentials: 'same-origin',
+        });
+        const type = res.headers.get('content-type') || '';
+        if (type.includes('application/json')) {
+          window.location.href = (await res.json()).redirect;
+          return;
+        }
+        document.getElementById('createResourceForm').innerHTML = await res.text();
+      } finally {
+        if (submit) submit.disabled = false;
+      }
+    });
+  })();
+</script>
+{% endif %}
+
+<script>
+  (function () {
+    var form = document.getElementById('resourceFilters');
+    if (!form) return;
+    var submit = function () { form.submit(); };
+    form.querySelectorAll('select').forEach(function (s) {
+      s.addEventListener('change', submit);
+    });
+    var search = form.querySelector('input[name="q"]');
+    if (search) {
+      var t;
+      search.addEventListener('input', function () {
+        clearTimeout(t);
+        t = setTimeout(submit, 400);
+      });
+      search.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { clearTimeout(t); }
+      });
+    }
+  })();
+</script>
+{% endblock %}

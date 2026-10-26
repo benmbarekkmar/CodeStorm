@@ -1,0 +1,24 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% trans "Assign winners" %} | {{ prize.name }}{% endblock %}
+{% block page_name %}prizes-leaderboard{% endblock %}
+{% block breadcrumb_section %}{% trans "Prizes & Leaderboard" %}{% endblock %}
+{% block breadcrumb_page %}{% trans "Assign winners" %}{% endblock %}
+{% block content %}
+{% include "prizes/_messages.html" %}
+<div class="mx-auto flex w-full max-w-3xl flex-col gap-space-md px-space-md py-space-lg">
+  <h1 class="font-headline-lg text-headline-lg font-bold text-on-surface">{% trans "Assign winning projects" %}</h1>
+  <section class="rounded-xl bg-surface-container-lowest p-space-lg shadow-sm">
+    <p class="font-label-md text-label-md font-semibold">{{ prize.name }} · {{ prize.hackathon.title }}</p>
+    <p class="mt-1 font-body-sm text-body-sm text-on-surface-variant">{% blocktrans with slots=prize.winner_slots %}Select up to {{ slots }} project(s) from the saved, evaluated ranking. An empty selection leaves the prize available.{% endblocktrans %}</p>
+    {% if not form.projects.field.queryset %}<p class="mt-4 rounded-lg bg-secondary-fixed p-3 text-on-secondary-fixed">{% trans "Save a complete leaderboard before assigning a winner." %}</p>{% endif %}
+    <form method="post" class="mt-5 flex flex-col gap-4">{% csrf_token %}
+      {% if form.non_field_errors %}<div class="rounded-lg bg-error-container p-3 text-on-error-container" role="alert">{{ form.non_field_errors }}</div>{% endif %}
+      <fieldset class="flex flex-col gap-3"><legend class="font-label-md text-label-md font-semibold">{{ form.projects.label }}</legend>
+        {% for checkbox in form.projects %}<label class="flex items-start gap-3 rounded-lg bg-surface-container-low p-3">{{ checkbox.tag }}<span>{{ checkbox.choice_label }}</span></label>{% empty %}<p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "No eligible ranked projects." %}</p>{% endfor %}
+      </fieldset>
+      <div id="{{ form.projects.id_for_label }}-errors" aria-live="polite">{% if form.projects.errors %}<p class="text-error" role="alert">{{ form.projects.errors }}</p>{% endif %}</div>
+      <div class="flex flex-wrap justify-end gap-2"><a class="rounded-lg bg-surface-container px-4 py-2 font-label-sm text-label-sm font-semibold" href="{% url 'prizes:home' %}?hackathon={{ prize.hackathon_id }}">{% trans "Cancel" %}</a><button class="rounded-lg bg-primary-container px-4 py-2 font-label-sm text-label-sm font-semibold text-on-primary" type="submit">{% trans "Save assignment" %}</button></div>
+    </form>
+  </section>
+</div>
+{% endblock %}

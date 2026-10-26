@@ -1,0 +1,258 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Participant Dashboard | CodeStorm" %}{% endblock %}
+{% block page_name %}dashboard{% endblock %}
+{% block breadcrumb_section %}{% trans "Dashboard" %}{% endblock %}
+{% block breadcrumb_page %}{% trans "Participant Overview" %}{% endblock %}
+
+{% block content %}
+<div class="flex flex-col w-full">
+<div class="w-full px-space-md md:px-space-lg py-space-md flex flex-col gap-space-lg max-w-[1440px] mx-auto">
+
+<header class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+  <div class="flex flex-col">
+    <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">{% trans "Dashboard" %}</h1>
+    <p class="font-body-md text-body-md text-on-surface-variant">{% trans "Your hackathon journey, all in one place." %}</p>
+  </div>
+  <div class="flex flex-wrap items-center gap-space-sm sm:gap-space-md">
+    <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-lowest shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] text-on-surface-variant font-label-md text-label-md">
+      <span class="material-symbols-outlined text-[18px] text-primary">calendar_today</span>
+      <span>{% trans "Today" %}, {% now "SHORT_DATE_FORMAT" %}</span>
+    </div>
+    <a class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-low transition-all font-label-md text-label-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)]"
+       href="{% url 'teams:create' %}">
+      <span class="material-symbols-outlined text-[18px]">add_circle</span>
+      <span>{% trans "Create Team" %}</span>
+    </a>
+    <a class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container text-on-primary hover:opacity-95 transition-all font-label-md text-label-md shadow-[0_4px_12px_rgba(108,76,232,0.25)]"
+       href="{% url 'hackathons:home' %}">
+      <span class="material-symbols-outlined text-[18px]">explore</span>
+      <span>{% trans "Explore Hackathons" %}</span>
+    </a>
+  </div>
+</header>
+
+<section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+  {% for card in stats_cards %}
+  <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] hover:shadow-md transition-shadow flex flex-col justify-between">
+    <div class="flex items-center justify-between mb-2">
+      <span class="font-label-md text-label-md text-on-surface-variant">{{ card.label }}</span>
+      <div class="w-9 h-9 rounded-lg {{ card.tone }} flex items-center justify-center">
+        <span class="material-symbols-outlined text-[20px]">{{ card.icon }}</span>
+      </div>
+    </div>
+    <div class="flex items-baseline justify-between mt-1">
+      <span class="font-headline-lg text-headline-lg text-on-surface">{{ card.value }}</span>
+      <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded-full">{{ card.note }}</span>
+    </div>
+  </div>
+  {% endfor %}
+</section>
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+  <div class="lg:col-span-7 flex flex-col gap-space-lg">
+
+    <section class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+      <div class="flex items-center justify-between pb-space-xs">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[22px]">rocket_launch</span>
+          <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Hackathons open for registration" %}</h2>
+        </div>
+        <a class="font-label-sm text-label-sm text-primary hover:underline font-semibold" href="{% url 'hackathons:home' %}">{% trans "View all" %}</a>
+      </div>
+      <div class="flex flex-col gap-3">
+        {% for hackathon in open_hackathons %}
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all gap-3">
+          <div class="flex flex-col min-w-0">
+            <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{{ hackathon.title }}</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">
+              {{ hackathon.get_category_display }} &middot; {{ hackathon.organizer.get_full_name|default:hackathon.organizer.username }}
+            </span>
+          </div>
+          <div class="flex items-center gap-2 sm:self-center self-end">
+            <span class="font-body-sm text-body-sm text-on-surface-variant">{{ hackathon.registration_deadline|date:"SHORT_DATE_FORMAT" }}</span>
+            <a class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm hover:bg-primary hover:text-on-primary transition-colors shadow-sm"
+               href="{% url 'hackathons:detail' hackathon.pk %}">{% trans "Details" %}</a>
+          </div>
+        </div>
+        {% empty %}
+        <p class="p-3.5 rounded-xl bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">
+          {% trans "No hackathon is open for registration right now." %}
+        </p>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+      <div class="flex items-center justify-between pb-space-xs">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary text-[22px]">diversity_3</span>
+          <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "My Teams" %}</h2>
+        </div>
+        <a class="font-label-sm text-label-sm text-primary hover:underline font-semibold" href="{% url 'teams:home' %}">{% trans "View all" %}</a>
+      </div>
+      <div class="flex flex-col gap-2.5">
+        {% for team in teams %}
+        <div class="p-4 rounded-xl bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">{{ team.name }}</span>
+              <span class="px-2 py-0.5 rounded-full bg-secondary-fixed/50 text-on-secondary-fixed font-label-sm text-label-sm">{{ team.get_status_display }}</span>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+              {% if team.hackathon %}{% blocktrans trimmed with event=team.hackathon.title %}Assigned to: {{ event }}{% endblocktrans %}{% else %}{% trans "No hackathon yet" %}{% endif %}
+              &middot; {% blocktrans trimmed count n=team.members.count %}{{ n }} member{% plural %}{{ n }} members{% endblocktrans %}
+              &middot; {% trans "up to" %} {{ team.max_members }}
+            </p>
+          </div>
+          <a class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm hover:bg-primary hover:text-on-primary transition-colors shadow-sm self-start sm:self-center"
+             href="{% url 'teams:detail' team.pk %}">{% trans "Details" %}</a>
+        </div>
+        {% empty %}
+        <p class="p-3.5 rounded-xl bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">
+          {% trans "You are not in a team yet. Join one or create one for a hackathon." %}
+          <a class="text-primary font-semibold hover:underline" href="{% url 'teams:recommendations' %}">{% trans "Find a team" %}</a>
+        </p>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+      <div class="flex items-center justify-between pb-space-xs">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[22px]">folder_code</span>
+          <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "My Projects" %}</h2>
+        </div>
+        <a class="font-label-sm text-label-sm text-primary hover:underline font-semibold" href="{% url 'projects:home' %}">{% trans "View all" %}</a>
+      </div>
+      <div class="flex flex-col gap-2.5">
+        {% for project in projects %}
+        <div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-9 h-9 rounded-lg bg-primary-fixed flex items-center justify-center text-primary flex-shrink-0"><span class="material-symbols-outlined text-[18px]">description</span></div>
+            <div class="flex flex-col min-w-0">
+              <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{{ project.title }}</span>
+              {% if project.hackathon %}<span class="font-body-sm text-body-sm text-on-surface-variant truncate">{{ project.hackathon.title }}</span>{% else %}<span class="font-body-sm text-body-sm text-on-surface-variant truncate">{% trans "No hackathon yet" %}</span>{% endif %}
+            </div>
+          </div>
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <span class="px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm">{{ project.get_status_display }}</span>
+            <span class="font-code-inline text-code-inline font-bold text-on-surface">{{ project.progress }}%</span>
+            <a class="font-label-sm text-label-sm text-primary hover:underline" href="{% url 'projects:detail' project.pk %}">{% trans "Details" %}</a>
+          </div>
+        </div>
+        {% empty %}
+        <p class="p-3.5 rounded-xl bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">
+          {% trans "No project yet. Create one once your team is set up." %}
+          <a class="text-primary font-semibold hover:underline" href="{% url 'projects:create' %}">{% trans "Create project" %}</a>
+        </p>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+
+  <div class="lg:col-span-5 flex flex-col gap-space-lg">
+
+    <section class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+      <div class="flex items-center gap-2 pb-space-xs">
+        <span class="material-symbols-outlined text-error text-[22px]">alarm</span>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Upcoming Deadlines" %}</h2>
+      </div>
+      <div class="flex flex-col gap-2.5">
+        {% for row in deadlines %}
+        <div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low">
+          <div class="flex flex-col min-w-0">
+            <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{{ row.label }}</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">{{ row.hackathon.title }} &middot; {{ row.date|date:"SHORT_DATE_FORMAT" }}</span>
+          </div>
+          <span class="px-2.5 py-1 rounded-full {% if row.urgent %}bg-error-container text-on-error-container{% else %}bg-surface-container-high text-on-surface-variant{% endif %} font-label-sm text-label-sm font-semibold whitespace-nowrap">
+            {% blocktrans trimmed count days=row.days %}{{ days }} day left{% plural %}{{ days }} days left{% endblocktrans %}
+          </span>
+        </div>
+        {% empty %}
+        <p class="p-3.5 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">
+          {% trans "No deadline coming up for your hackathons." %}
+        </p>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+      <div class="flex items-center justify-between pb-space-xs">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[22px]">leaderboard</span>
+          <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Published results" %}</h2>
+        </div>
+        <a class="font-label-sm text-label-sm text-primary hover:underline font-semibold" href="{% url 'prizes:home' %}">{% trans "View Full" %}</a>
+      </div>
+      <div class="flex flex-col gap-2">
+        {% for entry in results %}
+        <div class="flex items-center justify-between p-2.5 rounded-lg {% if entry.project.team and entry.project.team in teams %}bg-primary-fixed/40{% else %}bg-surface-container-low{% endif %}">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-7 h-7 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-bold text-label-sm flex-shrink-0">{{ entry.rank }}</div>
+            <div class="flex flex-col min-w-0">
+              <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{{ entry.project.title }}</span>
+              <span class="font-body-sm text-body-sm text-on-surface-variant text-[11px] truncate">{{ entry.hackathon.title }}</span>
+            </div>
+          </div>
+          <span class="font-code-inline text-code-inline font-bold text-on-surface whitespace-nowrap">{{ entry.final_score }}</span>
+        </div>
+        {% empty %}
+        <p class="p-3.5 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">
+          {% trans "No results have been published for your hackathons yet." %}
+        </p>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+      <div class="flex items-center justify-between pb-space-xs">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary text-[22px]">history</span>
+          <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "What needs your attention" %}</h2>
+        </div>
+        <a class="font-label-sm text-label-sm text-primary hover:underline font-semibold" href="{% url 'notifications' %}">{% trans "View all" %}</a>
+      </div>
+      <div class="flex flex-col gap-3">
+        {% for group in notification_feed %}
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-full bg-secondary-fixed/50 text-secondary flex items-center justify-center flex-shrink-0 mt-0.5"><span class="material-symbols-outlined text-[16px]">{{ group.icon }}</span></div>
+          <div class="flex flex-col min-w-0">
+            <span class="font-label-md text-label-md text-on-surface">{{ group.title }}</span>
+            {% for item in group.items|slice:":2" %}
+            <a class="font-body-sm text-body-sm text-on-surface-variant hover:underline truncate" href="{{ item.url }}">{{ item.text }}</a>
+            {% endfor %}
+          </div>
+        </div>
+        {% empty %}
+        <p class="p-3.5 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">
+          {% trans "Nothing waiting for you. Your invitations and requests are all handled." %}
+        </p>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="rounded-xl bg-surface-container-low p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-3">
+      <div class="flex items-center gap-2 text-primary font-semibold">
+        <span class="material-symbols-outlined text-[20px]">menu_book</span>
+        <h2 class="font-headline-sm text-headline-sm">{% trans "Resources" %}</h2>
+      </div>
+      <div class="flex flex-col gap-2">
+        {% for resource in resources %}
+        <a class="flex items-center justify-between gap-3 p-2.5 rounded-lg bg-surface-container-lowest hover:bg-surface-container-high transition-colors"
+           href="{% url 'resources:detail' resource.pk %}">
+          <span class="font-body-sm text-body-sm text-on-surface truncate">{{ resource.title }}</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">{{ resource.get_type_display }}</span>
+        </a>
+        {% empty %}
+        <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "No resource published yet." %}</p>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+</div>
+
+</div>
+</div>
+{% endblock %}
