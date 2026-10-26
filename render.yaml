@@ -22,9 +22,9 @@ services:
   - type: web
     name: hackflow
     region: frankfurt
-    # A disk needs a paid instance. Drop `disk:` to run on the free tier, but then
-    # every uploaded banner and pitch deck disappears at the next deploy.
-    plan: starter
+    # Free web services cannot attach persistent disks. Uploaded media is
+    # therefore temporary and can disappear after a redeploy or restart.
+    plan: free
     runtime: python
     branch: main
     autoDeploy: true
@@ -36,10 +36,6 @@ services:
     # One worker: the instance is small, and an analysis holds its worker for the
     # whole Gemini call. --timeout has to stay above GEMINI_TIMEOUT below.
     startCommand: uv run gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 1 --timeout 180
-    disk:
-      name: hackflow-media
-      mountPath: /var/data
-      sizeGB: 1
     envVars:
       - key: PYTHON_VERSION
         value: "3.11"
@@ -52,7 +48,7 @@ services:
           name: hackflow-db
           property: connectionString
       - key: MEDIA_ROOT
-        value: /var/data/media
+        value: /tmp/hackflow-media
       # ALLOWED_HOSTS and CSRF_TRUSTED_ORIGINS are read from
       # RENDER_EXTERNAL_HOSTNAME by config/settings.py; list a custom domain here
       # as a comma-separated value if you attach one.

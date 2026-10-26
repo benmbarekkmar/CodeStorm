@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
+from urllib.parse import unquote, urlparse
+
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,19 +23,40 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
 # Charger les variables d'environnement depuis .env
 load_dotenv(BASE_DIR / '.env')
 
 # Configuration de sécurité
-SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-only-insecure-key')
-DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
+DEBUG = os.environ.get('DEBUG', 'True').lower() in ('1', 'true', 'yes')
 
-ALLOWED_HOSTS = [
-    h.strip()
-    for h in os.environ.get('ALLOWED_HOSTS', '').split(',')
-    if h.strip()
-]
+# A missing key has to stop the service, not fall back to a value anybody could
+# read in the repository. The insecure default below therefore only exists while
+# DEBUG is on.
+SECRET_KEY = os.environ.get('SECRET_KEY') or ''
+if not SECRET_KEY:
+    if not DEBUG:
+        raise RuntimeError('SECRET_KEY must be set in the environment when DEBUG is False.')
+    SECRET_KEY = 'dev-only-insecure-key'
+
+# Render publishes the hostname it routes to the app; trusting exactly that host
+# keeps a renamed deployment working without opening Django to arbitrary hosts.
+RENDER_HOST = os.environ.get('RENDER_EXTERNAL_HOSTNAME', '').strip()
+
+
+def _csv(name):
+    return [value.strip() for value in os.environ.get(name, '').split(',') if value.strip()]
+
+
+ALLOWED_HOSTS = _csv('ALLOWED_HOSTS')
+if RENDER_HOST and RENDER_HOST not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append(RENDER_HOST)
+
+# A POST from the browser carries the site's own origin; on Render that is the
+# https URL of the service, so it has to be listed or every form fails the CSRF
+# check behind the load balancer.
+CSRF_TRUSTED_ORIGINS = _csv('CSRF_TRUSTED_ORIGINS')
+if RENDER_HOST and f'https://{RENDER_HOST}' not in CSRF_TRUSTED_ORIGINS:
+    CSRF_TRUSTED_ORIGINS.append(f'https://{RENDER_HOST}')
 
 # Configuration Gemini
 GEMINI_MODEL_DEFAULT = 'gemini-3.8-flash'
@@ -65,6 +88,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -110,16 +134,40 @@ LOGOUT_REDIRECT_URL = 'login'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
+def _database_from_url(url):
+    """Read a ``postgres://user:password@host:port/name`` connection string.
+
+    A managed platform hands over one URL rather than five variables, and the
+    credentials are percent-encoded inside it, so they have to be unquoted here.
+    """
+    parsed = urlparse(url)
+    return {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('POSTGRES_DB', 'hackflow'),
-        'USER': os.environ.get('POSTGRES_USER', 'hackflow'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'hackflow'),
-        'HOST': os.environ.get('POSTGRES_HOST', '127.0.0.1'),
-        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
+        'NAME': unquote(parsed.path).lstrip('/'),
+        'USER': unquote(parsed.username or ''),
+        'PASSWORD': unquote(parsed.password or ''),
+        'HOST': parsed.hostname or '',
+        'PORT': str(parsed.port or 5432),
     }
-}
+
+
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
+if DATABASE_URL:
+    DATABASES = {'default': _database_from_url(DATABASE_URL)}
+    # One kept-open connection per worker beats a handshake on every request.
+    DATABASES['default']['CONN_MAX_AGE'] = int(os.environ.get('DB_CONN_MAX_AGE', '60'))
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('POSTGRES_DB', 'hackflow'),
+            'USER': os.environ.get('POSTGRES_USER', 'hackflow'),
+            'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'hackflow'),
+            'HOST': os.environ.get('POSTGRES_HOST', '127.0.0.1'),
+            'PORT': os.environ.get('POSTGRES_PORT', '5432'),
+        }
+    }
 
 
 # Password validation
@@ -164,9 +212,35 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# WhiteNoise serves what ``collectstatic`` gathered. No manifest hashing: this
+# project's templates load no {% static %} file of their own, so a manifest
+# would only add a way for the build to fail.
+STORAGES = {
+    'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
+    'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage'},
+}
 
 MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# The container filesystem is wiped on every deploy, so uploads only survive on
+# a mounted volume; MEDIA_ROOT is the one knob that points at it.
+MEDIA_ROOT = Path(os.environ.get('MEDIA_ROOT') or BASE_DIR / 'media')
+
+# Render terminates TLS and forwards the request to the app as plain http. Without
+# this header Django would consider the connection insecure and drop the cookies
+# it just marked as secure.
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', 'True').lower() in ('1', 'true', 'yes')
+    # The platform probes the service over http; redirecting that check would make
+    # every instance look unhealthy.
+    SECURE_REDIRECT_EXEMPT = [r'^healthz/']
+    # Left at 0 on purpose: includeSubDomains/preload can only be flipped once the
+    # domain is final.
+    SECURE_HSTS_SECONDS = int(os.environ.get('SECURE_HSTS_SECONDS', '0'))
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

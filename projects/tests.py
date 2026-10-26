@@ -396,10 +396,13 @@ class OrganizerCreationTests(TestCase):
         self.captain = User.objects.create_user(
             username='cap', password='test-password', role=User.Role.PARTICIPANT,
         )
+        self.side_captain = User.objects.create_user(
+            username='side-cap', password='test-password', role=User.Role.PARTICIPANT,
+        )
         self.closed = make_hackathon(self.organizer, 'Past Cup', submission=timedelta(days=-3))
         self.team = make_team('Late Squad', self.closed, self.captain)
         self.side = make_hackathon(self.other_organizer, 'Side Cup')
-        self.side_team = make_team('Side Squad', self.side, self.captain)
+        self.side_team = make_team('Side Squad', self.side, self.side_captain)
 
     def login(self, user):
         self.client.login(username=user.username, password='test-password')

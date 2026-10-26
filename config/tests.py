@@ -7,6 +7,8 @@ d'notifications ne parle que de faits encore en attente.
 """
 from datetime import timedelta
 from decimal import Decimal
+from pathlib import Path
+import tempfile
 
 from django.db import connection
 from django.test import RequestFactory, TestCase, override_settings
@@ -16,6 +18,7 @@ from django.views.defaults import server_error
 
 from accounts.models import User
 from config import dashboards
+from config.settings import _database_from_url
 from evaluations.models import Evaluation, EvaluationCriterion, EvaluationScore
 from hackathons.models import Hackathon
 from prizes.models import LeaderboardEntry
@@ -428,3 +431,64 @@ class ErrorPageTests(TestCase):
             'Un problème est survenu de notre côté',
             server_error(RequestFactory().get('/boom/')).content.decode(),
         )
+
+
+class DeploymentSurfaceTests(TestCase):
+    """The two URLs the platform itself calls, and the media route behind them."""
+
+    def setUp(self):
+        self.participant = User.objects.create_user(
+            username='participant', password='test-password', role=User.Role.PARTICIPANT,
+        )
+
+    def test_health_check_answers_without_a_session(self):
+        response = self.client.get('/healthz/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {'status': 'ok'})
+
+    def test_uploaded_media_is_no_longer_a_public_directory(self):
+        response = self.client.get('/media/avatars/absent.jpg')
+        self.assertEqual(response.status_code, 302)
+        self.assertIn('/accounts/login/', response.headers['Location'])
+
+    def test_a_signed_in_user_gets_the_real_bytes(self):
+        with tempfile.TemporaryDirectory() as media_root:
+            (Path(media_root) / 'hackathons').mkdir()
+            (Path(media_root) / 'hackathons' / 'banner.png').write_bytes(b'\x89PNG-bytes')
+            with override_settings(MEDIA_ROOT=media_root):
+                self.client.force_login(self.participant)
+                response = self.client.get('/media/hackathons/banner.png')
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(b''.join(response.streaming_content), b'\x89PNG-bytes')
+
+    def test_a_path_cannot_climb_out_of_the_media_root(self):
+        self.client.force_login(self.participant)
+        for attempt in (
+            '/media/../../etc/passwd',
+            '/media/./../etc/passwd',
+            '/media/%2e%2e%2f%2e%2e%2fetc/passwd',
+        ):
+            with self.subTest(attempt=attempt):
+                self.assertIn(self.client.get(attempt).status_code, (302, 400, 404))
+
+    def test_a_missing_file_is_a_404_not_a_directory_listing(self):
+        self.client.force_login(self.participant)
+        self.assertEqual(self.client.get('/media/hackathons/nope.png').status_code, 404)
+
+
+class DatabaseUrlTests(TestCase):
+    """A managed platform hands over one connection string, not five variables."""
+
+    def test_credentials_are_unquoted_and_the_port_kept(self):
+        conf = _database_from_url(
+            'postgres://user%40db:s3%63ret@ep-x.pooler.net:6543/hackflow?sslmode=require',
+        )
+        self.assertEqual(conf['ENGINE'], 'django.db.backends.postgresql')
+        self.assertEqual(conf['NAME'], 'hackflow')
+        self.assertEqual(conf['USER'], 'user@db')
+        self.assertEqual(conf['PASSWORD'], 's3cret')
+        self.assertEqual(conf['HOST'], 'ep-x.pooler.net')
+        self.assertEqual(conf['PORT'], '6543')
+
+    def test_the_default_port_is_the_postgres_one(self):
+        self.assertEqual(_database_from_url('postgres://u:p@h/db')['PORT'], '5432')

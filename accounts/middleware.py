@@ -2,7 +2,10 @@ from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
 from django.utils import translation
 
-EXEMPT_PREFIXES = ('/accounts/login/', '/accounts/register/', '/static/', '/media/', '/admin/')
+# /healthz/ is the platform's own probe: it has to answer before anyone signs in.
+EXEMPT_PREFIXES = (
+    '/accounts/login/', '/accounts/register/', '/static/', '/admin/', '/healthz/',
+)
 
 
 class LoginRequiredMiddleware:

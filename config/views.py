@@ -1,4 +1,8 @@
+from pathlib import Path
+
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.http import FileResponse, Http404, JsonResponse
 from django.shortcuts import render
 
 from accounts.models import User
@@ -24,3 +28,29 @@ def dashboard(request):
 def notifications(request):
     """The feed itself comes from the notification_feed context processor."""
     return render(request, 'notifications.html')
+
+
+def healthz(request):
+    """Liveness probe: proves the process answers, nothing more.
+
+    A database round trip here would restart a healthy app every time the
+    database blinks, so this stays a plain 200.
+    """
+    return JsonResponse({'status': 'ok'})
+
+
+@login_required
+def media_file(request, uploaded_path):
+    """Serve one uploaded file, to a signed-in user only.
+
+    ``/media/`` used to be a public directory. The URL stays the same -- it is
+    the one stored in ``banner``, ``avatar``, ``pitch_deck`` -- but the files are
+    now reachable exactly where the pages showing them are.
+    """
+    root = Path(settings.MEDIA_ROOT).resolve()
+    target = (root / uploaded_path).resolve()
+    if root == target or root not in target.parents:
+        raise Http404
+    if not target.is_file():
+        raise Http404
+    return FileResponse(target.open('rb'))
