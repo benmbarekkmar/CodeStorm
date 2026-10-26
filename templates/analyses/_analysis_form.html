@@ -32,10 +32,16 @@
   </div>
   {% endfor %}
 
+  {% if not has_projects %}
+  <p class="rounded-lg bg-surface-container-high text-on-surface-variant px-4 py-3 font-body-sm">
+    {% trans "No project of your hackathons has submitted a GitHub repository yet, so there is nothing to analyze. Create the project first, then come back." %}
+  </p>
+  {% endif %}
+
   <div class="flex items-center justify-end gap-space-sm pt-2">
     <button type="button" data-close-form
             class="px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high font-label-md text-label-md transition-all">{% trans "Cancel" %}</button>
-    <button class="px-space-md py-2.5 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all disabled:opacity-60 disabled:cursor-not-allowed" type="submit">
+    <button class="px-space-md py-2.5 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all disabled:opacity-60 disabled:cursor-not-allowed" type="submit"{% if not has_projects %} disabled{% endif %}>
       <span class="inline-flex items-center gap-1.5">
         <span class="material-symbols-outlined text-[18px]">rocket_launch</span>
         <span data-submit-label data-working="{% trans 'Analyzing…' %}">{% trans "Run analysis" %}</span>

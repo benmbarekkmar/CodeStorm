@@ -14,6 +14,7 @@ from accounts.models import User
 from evaluations.models import Evaluation, EvaluationCriterion, EvaluationScore
 from hackathons.models import Hackathon
 from prizes.models import LeaderboardEntry
+from projects import permissions
 from projects.forms import MAX_BANNER_BYTES, _reject_oversized
 from projects.models import Project, normalize_technologies
 from teams.models import Team, TeamMembership
@@ -380,3 +381,78 @@ class ProjectWorkflowTests(TestCase):
         upload.size = MAX_BANNER_BYTES + 1
         with self.assertRaises(ValidationError):
             _reject_oversized(upload, MAX_BANNER_BYTES, 'Banner')
+
+
+class OrganizerCreationTests(TestCase):
+    """An organizer records work for their own event; the calendar does not limit them."""
+
+    def setUp(self):
+        self.organizer = User.objects.create_user(
+            username='org', password='test-password', role=User.Role.ORGANIZER,
+        )
+        self.other_organizer = User.objects.create_user(
+            username='other-org', password='test-password', role=User.Role.ORGANIZER,
+        )
+        self.captain = User.objects.create_user(
+            username='cap', password='test-password', role=User.Role.PARTICIPANT,
+        )
+        self.closed = make_hackathon(self.organizer, 'Past Cup', submission=timedelta(days=-3))
+        self.team = make_team('Late Squad', self.closed, self.captain)
+        self.side = make_hackathon(self.other_organizer, 'Side Cup')
+        self.side_team = make_team('Side Squad', self.side, self.captain)
+
+    def login(self, user):
+        self.client.login(username=user.username, password='test-password')
+
+    def form_data(self, **overrides):
+        data = {
+            'title': 'Field Report',
+            'tagline': 'Work recorded after the submission window',
+            'description': 'A project the organizer registers for their own hackathon.',
+            'hackathon': self.closed.pk,
+            'team': self.team.pk,
+            'technologies': 'Python, Django',
+            'progress': 10,
+            'intent': 'draft',
+        }
+        data.update(overrides)
+        return data
+
+    def test_the_organizer_keeps_their_teams_after_the_deadline(self):
+        self.assertTrue(permissions.eligible_teams(self.organizer).filter(pk=self.team.pk).exists())
+        self.assertFalse(
+            permissions.eligible_teams(self.captain).filter(pk=self.team.pk).exists()
+        )
+
+    def test_organizer_creates_a_project_on_a_closed_event(self):
+        self.login(self.organizer)
+        response = self.client.post(reverse('projects:create'), self.form_data())
+        project = Project.objects.get(team=self.team)
+        self.assertRedirects(response, reverse('projects:detail', args=[project.pk]))
+        self.assertEqual(project.status, Project.Status.DRAFT)
+        self.assertEqual(project.submitted_by_id, self.organizer.pk)
+
+    def test_a_participant_is_still_stopped_by_the_deadline(self):
+        self.login(self.captain)
+        self.assertRedirects(
+            self.client.get(reverse('projects:create')), reverse('projects:home')
+        )
+        self.assertEqual(Project.objects.count(), 0)
+
+    def test_an_organizer_cannot_open_a_project_for_another_event(self):
+        self.login(self.organizer)
+        response = self.client.post(reverse('projects:create'), self.form_data(
+            hackathon=self.side.pk, team=self.side_team.pk,
+        ))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Project.objects.count(), 0)
+
+    def test_cancelled_or_published_events_offer_no_team(self):
+        self.closed.status = Hackathon.Status.CANCELLED
+        self.closed.save(update_fields=['status'])
+        self.assertFalse(permissions.eligible_teams(self.organizer).exists())
+
+        self.closed.status = Hackathon.Status.PUBLISHED
+        self.closed.results_published = True
+        self.closed.save(update_fields=['status', 'results_published'])
+        self.assertFalse(permissions.eligible_teams(self.organizer).exists())

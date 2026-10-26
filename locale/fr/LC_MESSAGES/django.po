@@ -8749,3 +8749,6 @@ msgstr "Lancer l'analyse IA"
 
 msgid "The analysis reads the repository URL above, the one this team submitted. Scores are indicative; the final grade belongs to the jury."
 msgstr "Le dépôt ci-dessus est celui soumis par cette équipe ; l'analyse le lit tel quel. Les scores sont indicatifs ; la note finale relève du jury."
+
+msgid "No project of your hackathons has submitted a GitHub repository yet, so there is nothing to analyze. Create the project first, then come back."
+msgstr "Aucun projet de vos hackathons n'a encore soumis de dépôt GitHub : il n'y a donc rien à analyser. Créez d'abord le projet, puis revenez ici."

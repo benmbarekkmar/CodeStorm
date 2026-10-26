@@ -1108,10 +1108,14 @@ class ModulePermissionsTests(TestCase):
         # A report from before the project link has nothing submitted to re-read.
         self.assertFalse(permissions.can_launch(self.org, None))
 
-    def test_entry_point_follows_the_projects_there_are_to_analyze(self):
-        # The "new analysis" offer is now exactly "you have a project whose
-        # repository can be fetched", because that is the only thing the view
-        # will accept.
+    def test_entry_point_follows_the_role_and_the_projects_follow_the_data(self):
+        # A juré or an organizer always gets the "new analysis" button; whether
+        # there is a project to pick inside it is a separate, data-driven answer.
+        self.assertTrue(permissions.can_request_analysis(self.org))
+        self.assertTrue(permissions.can_request_analysis(self.jury))
+        self.assertFalse(permissions.can_request_analysis(self.participant))
+        self.assertFalse(permissions.can_request_analysis(self.admin))
+        self.assertFalse(permissions.can_request_analysis(None))
         self.assertTrue(permissions.can_analyze_anything(self.org))
         self.assertTrue(permissions.can_analyze_anything(self.jury))
         self.assertFalse(permissions.can_analyze_anything(self.participant))
@@ -1310,6 +1314,36 @@ class ProjectPageAnalysisTests(TestCase):
         self.assertEqual([r.pk for r in resp.context['ai_reports']], [mine.pk])
         self.assertNotIn(hidden.pk, [r.pk for r in resp.context['ai_reports']])
         self.assertContains(resp, reverse('analyses:detail', args=[mine.pk]))
+
+
+class ListEntryPointTests(TestCase):
+    """The analyses page keeps its entry point; the projects inside follow the data."""
+
+    def setUp(self):
+        self.org = make_user('le_org', O)
+        self.participant = make_user('le_part', P)
+        self.hackathon = make_hackathon(self.org)
+
+    def test_organizer_gets_the_button_before_any_project_exists(self):
+        self.client.force_login(self.org)
+        resp = self.client.get(reverse('analyses:home'))
+        self.assertTrue(resp.context['can_launch'])
+        self.assertFalse(resp.context['has_projects'])
+        self.assertContains(resp, 'data-open-create')
+
+    def test_the_form_says_so_when_there_is_nothing_to_pick(self):
+        self.client.force_login(self.org)
+        resp = self.client.get(reverse('analyses:create'))
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, 'No project of your hackathons has submitted')
+        self.assertContains(resp, 'type="submit" disabled')
+
+    def test_the_project_list_follows_the_submitted_repositories(self):
+        make_project(self.hackathon, self.participant)
+        self.client.force_login(self.org)
+        resp = self.client.get(reverse('analyses:home'))
+        self.assertTrue(resp.context['has_projects'])
+        self.assertNotContains(resp, 'type="submit" disabled')
 
 
 class RelaunchTests(TestCase):

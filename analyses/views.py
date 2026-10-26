@@ -40,24 +40,20 @@ def _visible_report(request, pk):
 
 
 def _form_context(request, form, *, mode, error_ctx=None):
-    context = {
+    return {
         'form': form,
         'mode': mode,
         'action_url': reverse('analyses:create'),
-        'can_launch': permissions.can_analyze_anything(request.user),
+        'can_launch': permissions.can_request_analysis(request.user),
+        'has_projects': permissions.can_analyze_anything(request.user),
         **(error_ctx or {}),
     }
-    return context
 
 
 def _respond(request, *, is_ajax, form, mode, extra=None):
     if is_ajax:
-        return render(request, 'analyses/_analysis_form.html', {
-            'form': form, 'mode': mode,
-            'action_url': reverse('analyses:create'),
-            'can_launch': permissions.can_analyze_anything(request.user),
-            **(extra or {}),
-        })
+        return render(request, 'analyses/_analysis_form.html', _form_context(
+            request, form, mode=mode, error_ctx=extra))
     return render(request, 'analyses/analysis_form.html', _form_context(
         request, form, mode=mode, error_ctx=extra))
 
@@ -74,7 +70,8 @@ def analysis_list(request):
         'can_delete_ids': can_delete_ids,
         'form': AnalysisRequestForm(user=request.user),
         'action_create': reverse('analyses:create'),
-        'can_launch': permissions.can_analyze_anything(request.user),
+        'can_launch': permissions.can_request_analysis(request.user),
+        'has_projects': permissions.can_analyze_anything(request.user),
     })
 
 

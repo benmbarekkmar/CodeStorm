@@ -65,20 +65,37 @@ def is_captain(user, team):
 def eligible_teams(user):
     """Teams the user may still open a project for.
 
-    The submission deadline has to be in the future, but the event itself does
-    not have to have started: teams prepare drafts before the opening.
+    Two different rules, because the two roles are not doing the same thing:
+
+    - a member or captain can register their own work while the submission
+      window is open, so their hackathon has to be published and its deadline
+      still in the future (the event itself does not have to have started --
+      teams prepare drafts before the opening)
+    - an organizer is recording work for an event they run, so the calendar
+      does not limit them. They are limited by the event itself instead: no
+      project can be opened for a cancelled hackathon, nor once its results
+      have been published.
     """
     if not user or not user.is_authenticated:
         return Team.objects.none()
     now = timezone.now()
+    own_team = Q(memberships__user=user) | Q(captain=user)
+    in_window = Q(
+        hackathon__isnull=False,
+        hackathon__status=Hackathon.Status.PUBLISHED,
+        hackathon__submission_deadline__gte=now,
+        status=Team.Status.ACTIVE,
+    )
+    organized = Q(
+        hackathon__organizer=user,
+        hackathon__isnull=False,
+        status=Team.Status.ACTIVE,
+    ) & ~Q(
+        Q(hackathon__status=Hackathon.Status.CANCELLED)
+        | Q(hackathon__results_published=True)
+    )
     return (
-        Team.objects.filter(
-            Q(memberships__user=user) | Q(captain=user) | Q(hackathon__organizer=user),
-            hackathon__isnull=False,
-            hackathon__status=Hackathon.Status.PUBLISHED,
-            hackathon__submission_deadline__gte=now,
-            status=Team.Status.ACTIVE,
-        )
+        Team.objects.filter((own_team & in_window) | organized)
         .exclude(pk__in=Project.objects.values('team_id'))
         .select_related('hackathon')
         .distinct()

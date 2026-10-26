@@ -101,11 +101,24 @@ def can_launch(user, project):
     return analyzable_projects(user).filter(pk=project.pk).exists()
 
 
+def can_request_analysis(user):
+    """May this user open the analysis form at all?
+
+    This is a role question, not a data question: an organizer or a juré gets the
+    entry point even while their hackathon has no project with a repository yet.
+    Hiding the button on empty data would make the module look broken; the form
+    says what is missing instead.
+    """
+    if not user or not user.is_authenticated or user.is_superuser:
+        return False
+    return _role(user) in (User.Role.ORGANIZER, User.Role.JURY)
+
+
 def can_analyze_anything(user):
     """Is there at least one project this user may have analyzed?
 
-    Drives the "new analysis" entry point: without a fetchable project of their
-    own there is nothing for this user to launch, so no button is offered.
+    Drives the empty state of the form: with no fetchable project there is
+    nothing to pick, so the submit control stays disabled.
     """
     return analyzable_projects(user).exists()
 
