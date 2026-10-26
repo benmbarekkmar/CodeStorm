@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ project.title }} · {% trans "Projects" %}{% endblock %}
+{% block page_name %}projects{% endblock %}
+{% block breadcrumb_section %}{% trans "Projects" %}{% endblock %}
+{% block breadcrumb_page %}{{ project.title }}{% endblock %}
+
+{% block content %}
+{% include "teams/_messages.html" %}
+
+<div class="w-full max-w-4xl mx-auto px-margin py-space-lg flex flex-col gap-space-lg">
+  <a class="inline-flex items-center gap-1 text-on-surface-variant hover:text-on-surface font-label-md text-label-md w-fit" href="{% url 'projects:home' %}">
+    <span class="material-symbols-outlined text-[18px] rtl:rotate-180">arrow_back</span>{% trans "All projects" %}
+  </a>
+
+  <div class="rounded-2xl bg-surface-container-lowest shadow-sm overflow-hidden">
+    {% if project.banner %}
+    <img alt="" class="w-full max-h-64 object-cover" src="{{ project.banner.url }}">
+    {% endif %}
+    <div class="p-space-lg flex flex-col gap-space-md">
+      <div class="flex flex-col md:flex-row md:items-start justify-between gap-space-md">
+        <div class="flex flex-col gap-2 min-w-0">
+          <div class="flex flex-wrap items-center gap-2">
+            {% include "projects/_status_badge.html" %}
+            <span class="font-code-inline text-code-inline text-outline">{{ project.hackathon.title }}</span>
+          </div>
+          <h1 class="font-headline-md text-headline-md text-on-surface">{{ project.title }}</h1>
+          {% if project.tagline %}
+          <p class="font-body-md text-body-md text-on-surface">{{ project.tagline }}</p>
+          {% endif %}
+          <p class="font-body-sm text-body-sm text-on-surface-variant">
+            {% trans "By" %} <span class="font-semibold text-on-surface">{{ project.team.name }}</span>
+            · {% trans "Updated" %} {{ project.updated_at|date:"M j, Y, H:i" }}
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          {% if project.can_edit %}
+          <a class="px-4 py-2 rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md hover:bg-surface-variant" href="{% url 'projects:edit' project.pk %}">{% trans "Edit Details" %}</a>
+          {% endif %}
+          {% if project.can_submit %}
+          <a class="px-4 py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md hover:opacity-95" href="{% url 'projects:submit' project.pk %}">{% trans "Submit for Jury" %}</a>
+          {% endif %}
+          {% if project.can_duplicate %}
+          <a class="px-4 py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-variant" href="{% url 'projects:duplicate' project.pk %}">{% trans "Duplicate" %}</a>
+          {% endif %}
+          {% if project.can_delete %}
+          <a class="px-4 py-2 rounded-lg bg-error-container text-on-error-container font-label-md text-label-md" href="{% url 'projects:delete' project.pk %}">{% trans "Delete" %}</a>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+        <div class="bg-primary-container h-full rounded-full" style="width: {{ project.progress }}%"></div>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <h2 class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">{% trans "About the Innovation" %}</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed whitespace-pre-line">{{ project.description }}</p>
+      </div>
+
+      <div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-3">
+        <span class="font-label-sm text-label-sm text-on-surface font-semibold flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[18px] text-primary">terminal</span>
+          {% trans "Source Code Repository" %}
+        </span>
+        {% if project.repo_url %}
+        <div class="flex items-center justify-between gap-2 bg-surface-container-lowest p-2.5 rounded-lg shadow-sm">
+          <a class="font-code-inline text-code-inline text-primary truncate" href="{{ project.repo_url }}" rel="noopener noreferrer" target="_blank">{{ project.repo_url }}</a>
+          <button class="p-1 text-outline hover:text-on-surface" type="button" data-copy="{{ project.repo_url }}" title="{% trans "Copy URL" %}">
+            <span class="material-symbols-outlined text-[18px]">content_copy</span>
+          </button>
+        </div>
+        {% else %}
+        <p class="font-body-sm text-body-sm text-outline">{% trans "No repository linked yet." %}</p>
+        {% endif %}
+        {% if project.demo_url %}
+        <a class="inline-flex items-center gap-1 font-label-md text-label-md text-primary hover:underline w-fit" href="{{ project.demo_url }}" rel="noopener noreferrer" target="_blank">
+          <span class="material-symbols-outlined text-[18px]">open_in_new</span>{% trans "Open live demo" %}
+        </a>
+        {% endif %}
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <h2 class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">{% trans "Technology Stack" %}</h2>
+        <div class="flex flex-wrap gap-2">
+          {% for tech in project.tech_list %}
+          <span class="px-2.5 py-1 rounded-md bg-surface-container font-code-inline text-code-inline text-on-surface-variant">{{ tech }}</span>
+          {% empty %}
+          <span class="font-body-sm text-body-sm text-outline">{% trans "No technologies yet" %}</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <h2 class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">{% trans "Attached Deliverables" %}</h2>
+        {% if project.pitch_deck %}
+        <a class="p-3 rounded-xl bg-surface-container-low flex items-center justify-between hover:bg-surface-container" href="{{ project.pitch_deck.url }}">
+          <span class="inline-flex items-center gap-2 font-label-md text-label-md text-on-surface">
+            <span class="material-symbols-outlined text-error text-[22px]">picture_as_pdf</span>
+            {% trans "Pitch deck" %}
+          </span>
+          <span class="material-symbols-outlined text-primary text-[18px]">download</span>
+        </a>
+        {% else %}
+        <p class="font-body-sm text-body-sm text-outline">{% trans "No pitch deck uploaded." %}</p>
+        {% endif %}
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+        <div class="p-space-md rounded-xl bg-surface-container-low">
+          <p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Submission deadline" %}</p>
+          <p class="font-body-md text-body-md text-on-surface mt-1">{{ project.hackathon.submission_deadline|date:"M j, Y, H:i"|default:"—" }}</p>
+          <p class="font-body-sm text-body-sm mt-1 {% if project.hackathon.submission_open %}text-tertiary{% else %}text-outline{% endif %}">
+            {% if project.hackathon.submission_open %}{% trans "Submission window is open." %}{% else %}{% trans "Submission window is closed." %}{% endif %}
+          </p>
+        </div>
+        <div class="p-space-md rounded-xl bg-surface-container-low">
+          <p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">{% trans "Submitted at" %}</p>
+          <p class="font-body-md text-body-md text-on-surface mt-1">
+            {% if project.submitted_at %}{{ project.submitted_at|date:"M j, Y, H:i" }}{% else %}{% trans "Not submitted" %}{% endif %}
+          </p>
+          <p class="font-body-sm text-body-sm text-outline mt-1">{% trans "Filed by" %} {{ project.submitted_by.get_full_name|default:project.submitted_by.username }}</p>
+        </div>
+      </div>
+
+      {% if show_score or evaluation_count %}
+      <div class="p-space-md rounded-xl bg-primary-fixed/40 flex flex-col gap-1">
+        <h2 class="font-label-sm text-label-sm uppercase tracking-wider text-on-primary-fixed-variant font-semibold">{% trans "Jury score" %}</h2>
+        {% if show_score %}
+        <p class="font-headline-sm text-headline-sm text-on-surface">{{ score }}/10</p>
+        {% endif %}
+        {% if evaluation_count %}
+        <p class="font-body-sm text-body-sm text-on-surface-variant">
+          {% blocktrans count counter=evaluation_count %}{{ counter }} completed evaluation{% plural %}{{ counter }} completed evaluations{% endblocktrans %}
+        </p>
+        {% endif %}
+        {% if evaluation_count and not show_score %}
+        <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "The score stays hidden until the organizer publishes the results." %}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {% if is_organizer %}
+      <div class="p-space-md rounded-xl bg-surface-container flex flex-col gap-space-sm">
+        <h2 class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">{% trans "Organizer actions" %}</h2>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">
+          {% trans "Scores are recorded by the jury in Evaluations. Marking a project evaluated is what lets Prizes rank it. Published results and awarded prizes stay locked." %}
+        </p>
+        <div class="flex flex-wrap gap-2">
+          {% if can_review %}
+          <form method="post" action="{% url 'projects:review' project.pk %}">{% csrf_token %}
+            <button class="px-4 py-2 rounded-lg bg-primary-fixed text-on-primary-fixed-variant font-label-md text-label-md" type="submit">{% trans "Move to evaluation" %}</button>
+          </form>
+          {% endif %}
+          {% if can_mark_evaluated %}
+          <form method="post" action="{% url 'projects:mark_evaluated' project.pk %}">{% csrf_token %}
+            <button class="px-4 py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md" type="submit">{% trans "Mark as evaluated" %}</button>
+          </form>
+          {% endif %}
+          {% if can_reopen %}
+          <form method="post" action="{% url 'projects:reopen' project.pk %}">{% csrf_token %}
+            <button class="px-4 py-2 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm" type="submit">{% trans "Unlock for editing" %}</button>
+          </form>
+          {% endif %}
+          {% if project.status == 'evaluated' %}
+          <a class="px-4 py-2 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm" href="{% url 'prizes:home' %}">{% trans "Open prizes" %}</a>
+          {% endif %}
+          <a class="px-4 py-2 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm" href="{% url 'evaluations:home' %}">{% trans "Open evaluations" %}</a>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.querySelectorAll('[data-copy]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy);
+        button.title = "{% filter escapejs %}{% trans "Copied" %}{% endfilter %}";
+      } catch (error) {
+        button.title = button.dataset.copy;
+      }
+    });
+  });
+</script>
+{% endblock %}

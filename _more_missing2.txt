@@ -1,0 +1,54 @@
+missing=53
+PLURAL	%(n)s cited file path could not be matched with the files actually fetched, and was removed from the evidence.	||	%(n)s cited file paths could not be matched with the files actually fetched, and were removed from the evidence.
+SINGLE	CodeStorm
+SINGLE	victory.exe
+PLURAL	Breakdown across %(counter)s finalized project rubric	||	Breakdown across %(counter)s finalized project rubrics
+SINGLE	Access Denied
+SINGLE	You do not have permission to access this page.
+SINGLE	The page you are looking for does not exist.
+SINGLE	Confirm deletion
+SINGLE	This action is permanent.
+SINGLE	Generate with AI
+SINGLE	Save
+SINGLE	Generating…
+SINGLE	Description generated
+SINGLE	Take part
+SINGLE	You already take part with the team %(team)s. One team per hackathon.
+SINGLE	Open my team
+PLURAL	%(n)s team is already registered here.	||	%(n)s teams are already registered here.
+SINGLE	Create my team
+SINGLE	Join an existing team
+SINGLE	Registration is closed for this hackathon, so no new team and no join request can be accepted.
+SINGLE	Publish
+SINGLE	Cancel this hackathon?
+SINGLE	Cancel event
+SINGLE	Dates & deadlines
+SINGLE	Start
+SINGLE	End
+SINGLE	Registration deadline
+SINGLE	Challenges
+SINGLE	Add a challenge
+SINGLE	No challenge yet.
+SINGLE	Discover hackathons, join challenges and turn your ideas into reality.
+SINGLE	Statistics
+SINGLE	Total
+SINGLE	All categories
+SINGLE	My drafts
+SINGLE	Scope
+SINGLE	My hackathons
+SINGLE	Hackathons list
+SINGLE	Banner of %(t)s
+SINGLE	No hackathon found.
+SINGLE	Pagination
+SINGLE	Previous
+SINGLE	Next
+PLURAL	%(days)s day left	||	%(days)s days left
+PLURAL	%(n)s member	||	%(n)s members
+SINGLE	Delete “%(name)s”? Existing prizes will be kept and will no longer have this category.
+SINGLE	Participants will no longer see the ranking for %(name)s. Prize assignments will return to draft status.
+SINGLE	Select up to %(slots)s project(s) from the saved, evaluated ranking. An empty selection leaves the prize available.
+PLURAL	%(counter)s completed evaluation	||	%(counter)s completed evaluations
+PLURAL	+%(counter)s this week	||	+%(counter)s this week
+SINGLE	Provide a link or upload a file so participants can open this resource.
+SINGLE	Private
+SINGLE	Invitations · Teams

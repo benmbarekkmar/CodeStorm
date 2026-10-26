@@ -8,7 +8,10 @@ renders the current free-tier roster and its (dynamic) RPM/RPD quotas per
 project in AI Studio and does not publish a stable hard number.
 
 The API key is sent only through the ``x-goog-api-key`` header (never in the
-URL) and is never written into logs, exceptions, or user-facing messages.
+URL) and is never written into logs, exceptions, or user-facing messages. The
+request deadline is ``GEMINI_TIMEOUT`` seconds (default ``LLM_TIMEOUT``) so an
+operator can widen it where Free-Tier latency needs more room, without the code
+silently holding a jury's request open forever.
 """
 
 import json
@@ -24,14 +27,37 @@ from analyses.services.errors import (
     LLMError,
     LLMRateLimitError,
     LLMRejectedError,
+    LLMTimeoutError,
     MalformedResponseError,
     NetworkError,
-    RequestTimeoutError,
 )
 
 DEFAULT_BASE_URL = 'https://generativelanguage.googleapis.com/v1beta'
 DEFAULT_TEMPERATURE = 0.2
 LLM_TIMEOUT = 60
+
+# Bounds for GEMINI_TIMEOUT. A value outside them is ignored rather than
+# honoured: below MIN, a normal answer is cut off before it lands; above MAX, a
+# dead connection would hold a jury's request open for minutes.
+MIN_TIMEOUT = 15
+MAX_TIMEOUT = 300
+
+
+def resolve_timeout(default=LLM_TIMEOUT):
+    """Seconds to wait for Gemini, from ``GEMINI_TIMEOUT``.
+
+    The deadline stays an operator's choice instead of a constant in the code:
+    Free-Tier latency varies, and the value that was too short for one run is
+    not automatically too short for the next one. An unusable value falls back
+    to the default, because ``urlopen`` would otherwise be handed a negative or
+    absurd timeout and fail in a way that looks like an AI outage.
+    """
+    raw = os.environ.get('GEMINI_TIMEOUT', '')
+    try:
+        value = int(str(raw).strip())
+    except (TypeError, ValueError):
+        return default
+    return value if MIN_TIMEOUT <= value <= MAX_TIMEOUT else default
 
 # Model ids are simple slugs; anything else is rejected before hitting the URL.
 _MODEL_RE = re.compile(r'^[A-Za-z0-9._-]{1,100}$')
@@ -43,7 +69,7 @@ _BLOCKED_REASONS = {'SAFETY', 'PROHIBITED_CONTENT', 'BLOCKLIST', 'SPII', 'RECITA
 class LLMClient:
     """Interface: turn a system + user prompt into a validated JSON object."""
 
-    def complete_json(self, system_prompt, user_prompt):
+    def complete_json(self, system_prompt, user_prompt, *, schema=None):
         raise NotImplementedError
 
 
@@ -54,10 +80,10 @@ class GeminiClient(LLMClient):
         self.model = model if model is not None else os.environ.get('GEMINI_MODEL', '')
         self.base_url = base_url or os.environ.get('GEMINI_BASE_URL') or DEFAULT_BASE_URL
         self.temperature = DEFAULT_TEMPERATURE if temperature is None else temperature
-        self.timeout = timeout or LLM_TIMEOUT
+        self.timeout = resolve_timeout() if timeout is None else timeout
 
     # -- request construction ------------------------------------------------
-    def build_request(self, system_prompt, user_prompt):
+    def build_request(self, system_prompt, user_prompt, *, schema=None):
         """Return the ``urllib.request.Request`` (no network) for inspection/tests."""
         if not self.api_key:
             raise LLMConfigError()
@@ -78,7 +104,7 @@ class GeminiClient(LLMClient):
                 # the schema constrains the shape the analyzer expects. The reply
                 # is still validated strictly in rubric.validate_report.
                 'responseMimeType': 'application/json',
-                'responseSchema': rubric.RESPONSE_SCHEMA,
+                'responseSchema': schema if schema is not None else rubric.RESPONSE_SCHEMA,
             },
         }
         url = f'{self.base_url.rstrip("/")}/models/{self.model}:generateContent'
@@ -94,8 +120,8 @@ class GeminiClient(LLMClient):
     def _open(self, request, timeout):
         return urllib.request.urlopen(request, timeout=timeout)
 
-    def complete_json(self, system_prompt, user_prompt):
-        request = self.build_request(system_prompt, user_prompt)
+    def complete_json(self, system_prompt, user_prompt, *, schema=None):
+        request = self.build_request(system_prompt, user_prompt, schema=schema)
         try:
             with self._open(request, self.timeout) as response:
                 raw = response.read()
@@ -104,10 +130,13 @@ class GeminiClient(LLMClient):
         except urllib.error.URLError as exc:
             reason = getattr(exc, 'reason', None)
             if isinstance(reason, TimeoutError):
-                raise RequestTimeoutError() from exc
+                raise LLMTimeoutError() from exc
             raise NetworkError() from exc
         except TimeoutError as exc:
-            raise RequestTimeoutError() from exc
+            # Gemini accepted the request and then held it past the deadline.
+            # Named as an AI timeout, not a generic network stall, so the
+            # organizer sees which service to look at.
+            raise LLMTimeoutError() from exc
 
         content = self._extract_content(raw)
         return self._parse_json(content)

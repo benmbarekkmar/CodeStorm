@@ -144,6 +144,18 @@ def _apply_filters(qs, request):
 # --------------------------------------------------------------------------
 # Views
 # --------------------------------------------------------------------------
+def _team_create_form(request):
+    """Create form for the participant modal, pre-filled with ?hackathon=.
+
+    The « Participer » action on a hackathon page lands here, so the team is
+    created for that hackathon instead of asking for it a second time.
+    """
+    if request.user.role != PARTICIPANT:
+        return None
+    selected = request.GET.get('hackathon', '').strip()
+    return TeamForm(initial={'hackathon': selected} if selected.isdigit() else {})
+
+
 @login_required
 def team_list(request):
     user = request.user
@@ -204,6 +216,25 @@ def team_list(request):
             t.pending_requests = captain_pending.get(t.pk, 0)
             t.my_pending = t.pk in my_pending_ids
             t.user_is_member = t.pk in member_team_ids
+    # Join eligibility comes from Team.is_joinable(), the very rule the POST
+    # endpoints run, so a card never shows a button the server would refuse.
+    # Two batched queries feed the pre-computed hints: no query per card.
+    if user.role == PARTICIPANT and discover:
+        counts = dict(
+            Team.objects.filter(pk__in=[t.pk for t in discover])
+            .values_list('pk').annotate(c=Count('memberships'))
+        )
+        my_hackathon_ids = set(
+            TeamMembership.objects.filter(user=user)
+            .values_list('team__hackathon_id', flat=True)
+        )
+        for t in discover:
+            t.can_join, t.join_reason = t.is_joinable(
+                user,
+                member_count=counts.get(t.pk, 0),
+                user_is_member=t.pk in member_team_ids,
+                user_has_team_in_hackathon=t.hackathon_id in my_hackathon_ids,
+            )
     pending_join_requests = sum(captain_pending.values())
 
     context = {
@@ -214,7 +245,7 @@ def team_list(request):
         'pending_invites': pending_invites,
         'pending_join_requests': pending_join_requests,
         'hackathons': Hackathon.objects.all(),
-        'create_form': TeamForm() if user.role == PARTICIPANT else None,
+        'create_form': _team_create_form(request),
         'is_organizer': user.role == ORGANIZER,
         'is_participant': user.role == PARTICIPANT,
         'is_jury': user.role == JURY,
@@ -231,6 +262,10 @@ def team_list(request):
 def team_create(request):
     is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
     form = TeamForm(request.POST or None)
+    if request.method == 'GET':
+        prefill = request.GET.get('hackathon', '').strip()
+        if prefill.isdigit():
+            form.initial['hackathon'] = prefill
     if request.method == 'POST' and form.is_valid():
         with transaction.atomic():
             team = form.save(commit=False)

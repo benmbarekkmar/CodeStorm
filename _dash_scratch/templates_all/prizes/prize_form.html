@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% if prize %}{% trans "Edit Prize" %}{% else %}{% trans "Create Prize" %}{% endif %} – CodeStorm{% endblock %}
+{% block page_name %}prizes-leaderboard{% endblock %}
+{% block breadcrumb_section %}{% trans "Prizes & Leaderboard" %}{% endblock %}
+{% block breadcrumb_page %}{% if prize %}{% trans "Edit Prize" %}{% else %}{% trans "New Prize" %}{% endif %}{% endblock %}
+
+{% block content %}
+{% include "prizes/_messages.html" %}
+<div class="flex flex-col w-full">
+<div class="px-space-lg py-space-lg flex flex-col gap-space-lg max-w-2xl mx-auto w-full">
+
+  <div class="flex items-center gap-space-md">
+    <a href="{% url 'prizes:home' %}" aria-label="{% trans 'Back to prizes' %}" class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
+      <span class="material-symbols-outlined text-xl">arrow_back</span>
+    </a>
+    <div>
+      <h1 class="font-headline-sm text-headline-sm font-bold text-on-surface">{{ title }}</h1>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Fill in the details for this prize." %}</p>
+    </div>
+  </div>
+
+  {% if form.non_field_errors %}
+  <div class="px-4 py-3 rounded-lg bg-error-container text-on-error-container font-body-sm text-body-sm" role="alert">
+    {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+  </div>
+  {% endif %}
+
+  <form method="POST" class="bg-surface-container-lowest rounded-2xl shadow-sm p-space-lg flex flex-col gap-5">
+    {% csrf_token %}
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="flex flex-col gap-1">
+        <label class="font-label-sm text-label-sm font-semibold text-on-surface" for="{{ form.hackathon.id_for_label }}">
+          {% trans "Hackathon" %} <span class="text-error">*</span>
+        </label>
+        {{ form.hackathon }}
+        <div id="{{ form.hackathon.id_for_label }}-errors" aria-live="polite">{% for error in form.hackathon.errors %}<p class="text-error font-label-sm text-label-sm">{{ error }}</p>{% endfor %}</div>
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="font-label-sm text-label-sm font-semibold text-on-surface" for="{{ form.category.id_for_label }}">
+          {% trans "Category" %} <span class="text-error">*</span>
+        </label>
+        {{ form.category }}
+        <div id="{{ form.category.id_for_label }}-errors" aria-live="polite">{% for error in form.category.errors %}<p class="text-error font-label-sm text-label-sm">{{ error }}</p>{% endfor %}</div>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label class="font-label-sm text-label-sm font-semibold text-on-surface" for="{{ form.name.id_for_label }}">
+        {% trans "Prize Name" %} <span class="text-error">*</span>
+      </label>
+      {{ form.name }}
+      <div id="{{ form.name.id_for_label }}-errors" aria-live="polite">{% for error in form.name.errors %}<p class="text-error font-label-sm text-label-sm">{{ error }}</p>{% endfor %}</div>
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label class="font-label-sm text-label-sm font-semibold text-on-surface" for="{{ form.description.id_for_label }}">
+        {% trans "Description" %}
+      </label>
+      {{ form.description }}
+      <div id="{{ form.description.id_for_label }}-errors" aria-live="polite">{% for error in form.description.errors %}<p class="text-error font-label-sm text-label-sm">{{ error }}</p>{% endfor %}</div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="flex flex-col gap-1">
+        <label class="font-label-sm text-label-sm font-semibold text-on-surface" for="{{ form.amount.id_for_label }}">
+          {% trans "Cash Amount (USD)" %}
+        </label>
+        {{ form.amount }}
+        <div id="{{ form.amount.id_for_label }}-errors" aria-live="polite">{% for error in form.amount.errors %}<p class="text-error font-label-sm text-label-sm">{{ error }}</p>{% endfor %}</div>
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="font-label-sm text-label-sm font-semibold text-on-surface" for="{{ form.winner_slots.id_for_label }}">
+          {% trans "Winner Slots" %}
+        </label>
+        {{ form.winner_slots }}
+        <div id="{{ form.winner_slots.id_for_label }}-errors" aria-live="polite">{% for error in form.winner_slots.errors %}<p class="text-error font-label-sm text-label-sm">{{ error }}</p>{% endfor %}</div>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label class="font-label-sm text-label-sm font-semibold text-on-surface" for="{{ form.reward.id_for_label }}">
+        {% trans "Non-Cash Reward" %}
+      </label>
+      {{ form.reward }}
+      <p class="font-label-sm text-label-sm text-outline">{% trans "e.g. Cloud credits, internship offer, mentoring sessions..." %}</p>
+      <div id="{{ form.reward.id_for_label }}-errors" aria-live="polite">{% for error in form.reward.errors %}<p class="text-error font-label-sm text-label-sm">{{ error }}</p>{% endfor %}</div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="flex flex-col gap-1">
+        <label class="font-label-sm text-label-sm font-semibold text-on-surface" for="{{ form.sponsor.id_for_label }}">
+          {% trans "Sponsor" %}
+        </label>
+        {{ form.sponsor }}
+        <div id="{{ form.sponsor.id_for_label }}-errors" aria-live="polite">{% for error in form.sponsor.errors %}<p class="text-error font-label-sm text-label-sm">{{ error }}</p>{% endfor %}</div>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label class="font-label-sm text-label-sm font-semibold text-on-surface" for="{{ form.eligibility_criteria.id_for_label }}">
+        {% trans "Eligibility Criteria" %}
+      </label>
+      {{ form.eligibility_criteria }}
+      <div id="{{ form.eligibility_criteria.id_for_label }}-errors" aria-live="polite">{% for error in form.eligibility_criteria.errors %}<p class="text-error font-label-sm text-label-sm">{{ error }}</p>{% endfor %}</div>
+    </div>
+
+    <div class="flex items-center justify-end gap-3 pt-2">
+      <a href="{% url 'prizes:home' %}" class="px-4 py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-colors">
+        {% trans "Cancel" %}
+      </a>
+      <button type="submit" class="px-5 py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold hover:opacity-90 shadow-sm transition-opacity">
+        {{ submit_label }}
+      </button>
+    </div>
+  </form>
+</div>
+</div>
+{% endblock %}

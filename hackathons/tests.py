@@ -10,6 +10,7 @@ from django.db import connection
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import override as translation_override
 
 from config import settings as config_settings
 from hackathons import ai
@@ -75,6 +76,32 @@ class HackathonPhaseTests(TestCase):
                           start_date=None, end_date=None)
         self.assertEqual(cancelled.phase, "cancelled")
         self.assertEqual(draft.phase, "draft")
+
+    def test_phase_label_is_translated(self):
+        """The badges in hackathon_detail / hackathon_list / organizer_dashboard show
+        phase_label, so a French visitor never reads a machine value."""
+        now = timezone.now()
+        cases = {
+            'upcoming': self.make(title="l1", start_date=now + timedelta(days=2)),
+            'ongoing': self.make(title="l2", start_date=now - timedelta(days=1)),
+            'completed': self.make(title="l3", start_date=now - timedelta(days=5),
+                                   end_date=now - timedelta(days=1)),
+            'cancelled': self.make(title="l4", status=Hackathon.Status.CANCELLED),
+            'draft': self.make(title="l5", status=Hackathon.Status.DRAFT),
+            'unscheduled': self.make(title="l6", start_date=None, end_date=None),
+        }
+        english = {"upcoming": "Upcoming", "ongoing": "Ongoing",
+                   "completed": "Completed", "cancelled": "Cancelled",
+                   "draft": "Draft", "unscheduled": "Unscheduled"}
+        french = {"upcoming": "À venir", "ongoing": "En cours",
+                  "completed": "Terminé", "cancelled": "Annulé",
+                  "draft": "Brouillon", "unscheduled": "Sans date prévue"}
+        for phase, hackathon in cases.items():
+            self.assertEqual(hackathon.phase, phase)
+            with translation_override('en'):
+                self.assertEqual(str(hackathon.phase_label), english[phase])
+            with translation_override('fr'):
+                self.assertEqual(str(hackathon.phase_label), french[phase])
 
     # --- NULL-date guards ---
     def test_null_start_date_returns_unscheduled(self):

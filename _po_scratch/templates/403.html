@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Access denied | CodeStorm" %}{% endblock %}
+{% block page_name %}error-403{% endblock %}
+{% block breadcrumb_section %}{% trans "Platform" %}{% endblock %}
+{% block breadcrumb_page %}{% trans "Access denied" %}{% endblock %}
+
+{% block content %}
+<div class="w-full px-space-md md:px-space-lg py-space-lg flex flex-col gap-space-lg max-w-[720px] mx-auto">
+  <section class="rounded-xl bg-surface-container-lowest p-space-lg shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+    <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+      {% trans "This page is not yours to open" %}
+    </h1>
+    {% if user.is_authenticated %}
+      <p class="font-body-md text-body-md text-on-surface-variant">
+        {% blocktrans trimmed with role=user.get_role_display %}
+        Your account is signed in as {{ role }}. Each module checks that role on the
+        server before showing anything, so a page belonging to another role stays
+        closed here too, not only in the menu.
+        {% endblocktrans %}
+      </p>
+    {% else %}
+      <p class="font-body-md text-body-md text-on-surface-variant">
+        {% trans "You have to be signed in to open this page." %}
+      </p>
+    {% endif %}
+    <nav class="flex flex-wrap gap-space-sm" aria-label="{% trans "Shortcut links" %}">
+      {% if user.is_authenticated %}
+      <a class="px-4 py-2 rounded-lg bg-primary text-on-primary transition-all font-label-md text-label-md"
+         href="{% url 'dashboard' %}">{% trans "Back to dashboard" %}</a>
+      {% else %}
+      <a class="px-4 py-2 rounded-lg bg-primary text-on-primary transition-all font-label-md text-label-md"
+         href="{% url 'login' %}">{% trans "Log in" %}</a>
+      {% endif %}
+      <a class="px-4 py-2 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-low transition-all font-label-md text-label-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)]"
+         href="{% url 'resources:home' %}">{% trans "Resources" %}</a>
+    </nav>
+  </section>
+</div>
+{% endblock %}

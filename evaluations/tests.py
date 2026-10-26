@@ -16,6 +16,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from accounts.models import User
+from analyses.models import AIReport
 from hackathons.models import Hackathon
 from projects.models import Project
 from teams.models import Team
@@ -578,3 +579,101 @@ class EvaluationFrenchInterfaceTests(EvaluationBase):
             'Points forts',
         ):
             self.assertIn(expected, content)
+
+
+class ScoringAssistantBridgeTests(EvaluationBase):
+    """Passerelle avec le module IA : une suggestion se consulte, elle ne s'écrit jamais seule.
+
+    Le rapport d'analyse est un objet d'aide à la décision : la fiche d'évaluation
+    du jury reste la seule source d'une note, et un simple GET ne doit rien écrire.
+    """
+
+    def make_report(self, status=AIReport.Status.DONE, score=7):
+        entries = [{
+            'key': f'c{c.pk}', 'label': c.name, 'criterion_id': c.pk,
+            'weight': float(c.weight), 'score': score,
+            'rationale': 'Aucun test automatique dans le dépôt.',
+            'evidence': ['app.py'],
+        } for c in self.rubric()]
+        return AIReport.objects.create(
+            created_by=self.organizer, project=self.project,
+            repository_url=self.project.repo_url, status=status,
+            model_id='test/model', file_count=3,
+            report={
+                'summary': 'Un dépôt Python avec une README.',
+                'technologies': ['Python'], 'strengths': ['Structure claire'],
+                'concerns': ['Aucun test'], 'limitations': 'Uniquement les fichiers lus.',
+                'criteria': entries, 'scale': {'min': 0, 'max': 10},
+                'unverified_evidence': 0, 'rubric_source': 'hackathon',
+                'coverage': {'read_files': ['app.py'], 'truncated_files': [],
+                             'ignored_files': []},
+            },
+        )
+
+    def open_form(self):
+        """Le juré démarre son évaluation, puis charge le JSON du formulaire."""
+        self.login(self.jury)
+        self.start()          # ensure_rubric() : les critères du jury existent ici
+        return self.client.get(reverse('evaluations:detail', args=[self.project.pk]))
+
+    def test_detail_exposes_suggestions_without_writing_any_score(self):
+        self.login(self.jury)
+        self.start()
+        report = self.make_report()
+        analysis = self.client.get(
+            reverse('evaluations:detail', args=[self.project.pk])).json()['analysis']
+        self.assertEqual(analysis['status'], 'done')
+        self.assertEqual(analysis['scale_max'], 10)
+        self.assertIn(f'/analyses/{report.pk}/', analysis['report_url'])
+        self.assertEqual(
+            sorted(entry['criterion_id'] for entry in analysis['criteria']),
+            sorted(c.pk for c in self.rubric()))
+        # La suggestion reste une suggestion : aucune note n'est écrite.
+        self.assertEqual(EvaluationScore.objects.count(), 0)
+        self.assertEqual(Evaluation.objects.get().total_score, 0)
+
+    def test_absent_analysis_stays_absent(self):
+        analysis = self.open_form().json()['analysis']
+        self.assertIsNone(analysis)
+        self.assertEqual(AIReport.objects.count(), 0)
+
+    def test_running_analysis_is_reported_as_running(self):
+        self.login(self.jury)
+        self.start()
+        self.make_report(status=AIReport.Status.RUNNING)
+        analysis = self.client.get(
+            reverse('evaluations:detail', args=[self.project.pk])).json()['analysis']
+        self.assertEqual(analysis['status'], 'running')
+        self.assertNotIn('criteria', analysis)
+
+    def test_failed_analysis_explains_itself(self):
+        self.login(self.jury)
+        self.start()
+        report = self.make_report(status=AIReport.Status.FAILED)
+        report.report = {}
+        report.error_message = 'The repository was not found. Make sure it is public.'
+        report.save()
+        analysis = self.client.get(
+            reverse('evaluations:detail', args=[self.project.pk])).json()['analysis']
+        self.assertEqual(analysis['status'], 'failed')
+        self.assertIn('not found', analysis['error_message'])
+
+    def test_generic_report_never_suggests_a_jury_criterion_score(self):
+        # Une revue technique sans critères de l'événement ne doit proposer de
+        # note pour aucun critère du jury : rien n'est rattaché, rien n'est repris.
+        self.login(self.jury)
+        self.start()
+        report = self.make_report()
+        report.report = dict(report.report, **{
+            'scale': {'min': 0, 'max': 5},
+            'criteria': [{'key': 'relevance', 'label': 'Relevance',
+                          'criterion_id': None, 'weight': None, 'score': 3,
+                          'rationale': 'The repository matches the brief.',
+                          'evidence': ['README.md']}],
+        })
+        report.save()
+        analysis = self.client.get(
+            reverse('evaluations:detail', args=[self.project.pk])).json()['analysis']
+        self.assertEqual(analysis['scale_max'], 5)
+        self.assertIsNone(analysis['criteria'][0]['criterion_id'])
+        self.assertEqual(EvaluationScore.objects.count(), 0)

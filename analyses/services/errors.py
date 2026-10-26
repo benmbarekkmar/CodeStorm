@@ -47,6 +47,21 @@ class RequestTimeoutError(NetworkError):
     default_message = 'The request timed out. Please try again.'
 
 
+class LLMTimeoutError(RequestTimeoutError):
+    """The Gemini request, not the GitHub one, reached its deadline.
+
+    Subclassing ``RequestTimeoutError`` keeps every existing ``except`` branch
+    working, while the message names the service at fault and the one knob
+    (``GEMINI_TIMEOUT``) that can move the deadline.
+    """
+
+    default_message = (
+        'The AI service did not answer before the request deadline, so no '
+        'analysis was saved. The deadline can be raised with the GEMINI_TIMEOUT '
+        'environment variable.'
+    )
+
+
 class LLMError(AnalysisError):
     """Problem talking to the Gemini generateContent endpoint."""
 

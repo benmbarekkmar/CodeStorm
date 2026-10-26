@@ -53,11 +53,13 @@
     {% if is_participant and team.visibility == 'public' and not team.user_is_member %}
       {% if team.my_pending %}
         <span class="flex-1 py-2 rounded-lg bg-surface-container text-on-surface-variant font-label-md text-label-md text-center">{% trans "Request pending" %}</span>
-      {% elif team.allow_join_requests and not team.is_full %}
+      {% elif team.can_join %}
         <form method="post" action="{% url 'teams:request_join' team.pk %}" class="flex-1">
           {% csrf_token %}
           <button class="w-full py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all duration-200 active:scale-[0.97]" type="submit">{% trans "Join" %}</button>
         </form>
+      {% elif team.join_reason %}
+        <span class="flex-1 py-2 rounded-lg bg-surface-container text-on-surface-variant font-label-sm text-label-sm text-center">{{ team.join_reason }}</span>
       {% endif %}
     {% endif %}
   </div>

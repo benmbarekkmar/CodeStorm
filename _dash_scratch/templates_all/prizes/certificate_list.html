@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% trans "Certificates" %} | {{ hackathon.title }}{% endblock %}
+{% block page_name %}prizes-leaderboard{% endblock %}
+{% block breadcrumb_section %}{% trans "Prizes & Leaderboard" %}{% endblock %}
+{% block breadcrumb_page %}{% trans "Certificates" %}{% endblock %}
+{% block content %}
+{% include "prizes/_messages.html" %}
+<div class="mx-auto flex w-full max-w-5xl flex-col gap-space-md px-space-md py-space-lg"><header class="flex flex-wrap items-center justify-between gap-3"><div><h1 class="font-headline-lg text-headline-lg font-bold">{% trans "Issued certificates" %}</h1><p class="font-body-sm text-body-sm text-on-surface-variant">{{ hackathon.title }}</p></div><a class="rounded-lg bg-primary-container px-4 py-2 font-semibold text-on-primary" href="{% url 'prizes:certificate_generate' hackathon.pk %}">{% trans "Issue certificates" %}</a></header>
+  <section class="rounded-xl bg-surface-container-lowest p-space-md shadow-sm">{% for cert in certificates %}<article class="flex flex-wrap items-center justify-between gap-3 border-b border-outline-variant py-3 last:border-0"><div><p class="font-label-md text-label-md font-semibold">{{ cert.recipient.get_full_name|default:cert.recipient.username }}</p><p class="font-body-sm text-body-sm text-on-surface-variant">{{ cert.get_cert_type_display }}{% if cert.prize %} — {{ cert.prize.name }}{% endif %}{% if cert.rank %} · {% trans "Rank" %} {{ cert.rank }}{% endif %}</p><p class="font-label-sm text-label-sm text-outline">HF-{{ cert.short_uid }} · {{ cert.issued_at|date:"M d, Y" }}</p></div><div class="flex gap-2"><a class="text-primary underline" href="{% url 'prizes:certificate_preview' cert.uid %}">{% trans "Preview" %}</a><a class="text-primary underline" href="{% url 'prizes:certificate_download' cert.uid %}">{% trans "Download" %}</a></div></article>{% empty %}<p class="py-5 text-on-surface-variant">{% trans "No certificates have been issued yet." %}</p>{% endfor %}</section>
+</div>
+{% endblock %}

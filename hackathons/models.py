@@ -95,6 +95,21 @@ class Hackathon(models.Model):
             return 'ongoing'
         return 'completed'
 
+    # The badge a visitor reads is this label, not the machine value above; the
+    # filter select in templates/hackathons/hackathon_list.html uses the same words.
+    PHASE_LABELS = {
+        'cancelled': _('Cancelled'),
+        'completed': _('Completed'),
+        'draft': _('Draft'),
+        'ongoing': _('Ongoing'),
+        'unscheduled': _('Unscheduled'),
+        'upcoming': _('Upcoming'),
+    }
+
+    @property
+    def phase_label(self):
+        return self.PHASE_LABELS.get(self.phase, self.phase)
+
     @property
     def registration_open(self):
         if self.status != self.Status.PUBLISHED or self.registration_deadline is None:

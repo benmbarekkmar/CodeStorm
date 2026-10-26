@@ -9,10 +9,42 @@
   {% include "hackathons/_messages.html" %}
 
   <header class="flex flex-col gap-2">
-    <p class="font-label-sm uppercase text-primary">{{ hackathon.get_category_display }} · {{ hackathon.phase }}</p>
+    <p class="font-label-sm uppercase text-primary">{{ hackathon.get_category_display }} · {{ hackathon.phase_label }}</p>
     <h1 class="font-headline-lg text-on-surface">{{ hackathon.title }}</h1>
     <p class="text-on-surface-variant whitespace-pre-line">{{ hackathon.description }}</p>
   </header>
+
+  {% if is_participant %}
+  <section aria-labelledby="participate-title" class="bg-surface-container-lowest rounded-xl p-space-lg flex flex-col gap-space-sm">
+    <h2 id="participate-title" class="font-headline-sm">{% trans "Take part" %}</h2>
+    {% if my_team %}
+      <p class="text-on-surface-variant">
+        {% blocktrans trimmed with team=my_team.name %}
+        You already take part with the team {{ team }}. One team per hackathon.
+        {% endblocktrans %}
+      </p>
+      <div class="flex flex-wrap gap-2">
+        <a class="px-4 py-2 rounded-lg bg-primary text-on-primary" href="{% url 'teams:detail' my_team.pk %}">{% trans "Open my team" %}</a>
+      </div>
+    {% elif hackathon.registration_open %}
+      <p class="text-on-surface-variant">
+        {% blocktrans trimmed count n=team_count %}
+        {{ n }} team is already registered here.
+        {% plural %}
+        {{ n }} teams are already registered here.
+        {% endblocktrans %}
+      </p>
+      <div class="flex flex-wrap gap-2">
+        <a class="px-4 py-2 rounded-lg bg-primary text-on-primary" href="{% url 'teams:create' %}?hackathon={{ hackathon.pk }}">{% trans "Create my team" %}</a>
+        <a class="px-4 py-2 rounded-lg bg-surface-container-high" href="{% url 'teams:home' %}?hackathon={{ hackathon.pk }}">{% trans "Join an existing team" %}</a>
+      </div>
+    {% else %}
+      <p class="text-on-surface-variant">
+        {% trans "Registration is closed for this hackathon, so no new team and no join request can be accepted." %}
+      </p>
+    {% endif %}
+  </section>
+  {% endif %}
 
   {% if is_owner %}
   <div class="flex flex-wrap gap-2">

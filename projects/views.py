@@ -13,6 +13,7 @@ from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
 from accounts.models import User
+from analyses import permissions as analysis_permissions
 from hackathons.models import Hackathon
 from projects import permissions, services
 from projects.forms import DuplicateProjectForm, ProjectForm
@@ -309,7 +310,22 @@ def project_detail(request, pk):
         'evaluation_count': evaluation_count if show_evaluation_count else 0,
         'results_published': project.hackathon.results_published,
         'is_organizer': permissions.is_event_organizer(request.user, project),
+        **_ai_analysis(request, project),
     })
+
+
+def _ai_analysis(request, project):
+    """This project's AI reports, and whether this user may launch one.
+
+    The rules stay in ``analyses.permissions``: the page offers the button only
+    when the analysis module would actually accept it, and the reports listed
+    are the ones this user is allowed to see.
+    """
+    return {
+        'ai_reports': analysis_permissions.visible_reports(request.user).filter(project=project),
+        'can_analyze': analysis_permissions.analyzable_projects(request.user)
+                       .filter(pk=project.pk).exists(),
+    }
 
 
 def _prefetch_card(project):

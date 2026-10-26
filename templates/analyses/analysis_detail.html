@@ -43,12 +43,27 @@
             <span class="material-symbols-outlined text-[15px]">commit</span><code class="font-code-inline">{{ report.commit_ref|slice:":12" }}</code>
           </a>
           {% endif %}
+          {% if report.project %}
+          <a href="{% url 'projects:detail' report.project.pk %}"
+             class="inline-flex items-center gap-1.5 self-start px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-body-sm text-body-sm transition-colors">
+            <span class="material-symbols-outlined text-[15px]">folder</span>{{ report.project.title }}
+          </a>
+          {% endif %}
         </div>
       </div>
       <div class="flex items-center gap-space-sm">
+        {% if can_relaunch %}
+        <form method="post" action="{% url 'analyses:relaunch' report.pk %}">{% csrf_token %}
+          <button class="px-space-md py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all duration-200 flex items-center gap-1.5" type="submit">
+            <span class="material-symbols-outlined text-[18px]">refresh</span>{% trans "Re-analyze" %}
+          </button>
+        </form>
+        {% endif %}
+        {% if can_delete %}
         <a class="px-space-md py-2 rounded-lg bg-surface-container-low hover:bg-error-container hover:text-error active:scale-[0.97] text-on-surface-variant font-label-md text-label-md transition-all duration-200 flex items-center gap-1.5" href="{% url 'analyses:delete' report.pk %}">
           <span class="material-symbols-outlined text-[18px]">delete</span>{% trans "Delete" %}
         </a>
+        {% endif %}
       </div>
     </div>
 
@@ -99,23 +114,37 @@
   <!-- Criteria / indicative scores -->
   <div class="ad-card ad-fade p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-md" style="--i: 3;">
     <span class="ad-accent bg-gradient-to-r from-primary to-secondary" aria-hidden="true"></span>
-    <div class="flex items-center justify-between gap-2">
+    <div class="flex items-center justify-between gap-2 flex-wrap">
       <h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">{% trans "Indicative scores" %}</h2>
-      {% if report.indicative_average is not None %}
-      <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md">
-        <span class="material-symbols-outlined text-[16px]">speed</span>
-        {% trans "Mean" %}: {{ report.indicative_average }}/5
-      </span>
-      {% endif %}
+      <div class="flex items-center gap-2 flex-wrap">
+        {% if report.weighted_indicative is not None %}
+        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-md text-label-md">
+          <span class="material-symbols-outlined text-[16px]">balance</span>
+          {% trans "Weighted" %}: {{ report.weighted_indicative }}/{{ report.scale_max }}
+        </span>
+        {% endif %}
+        {% if report.indicative_average is not None %}
+        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md">
+          <span class="material-symbols-outlined text-[16px]">speed</span>
+          {% trans "Mean" %}: {{ report.indicative_average }}/{{ report.scale_max }}
+        </span>
+        {% endif %}
+      </div>
     </div>
+
+    {% if report.report.rubric_source == 'hackathon' %}
+    <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "These scores use the evaluation criteria of this hackathon, on the same 0-10 scale the jury fills in." %}</p>
+    {% else %}
+    <p class="font-body-sm text-body-sm text-outline">{% trans "No evaluation criteria are defined for this hackathon yet, so these are generic technical-review notes rather than rubric scores." %}</p>
+    {% endif %}
 
     <div class="flex flex-col gap-3">
       {% for criterion in report.criteria %}
       <div class="p-4 rounded-xl bg-surface-container-low flex flex-col gap-2">
         <div class="flex items-center justify-between gap-3">
-          <h3 class="font-label-md text-label-md text-on-surface font-semibold">{{ criterion.label }}</h3>
+          <h3 class="font-label-md text-label-md text-on-surface font-semibold">{{ criterion.label }}{% if criterion.weight %} <span class="text-on-surface-variant font-body-sm">({{ criterion.weight }}%)</span>{% endif %}</h3>
           <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-lowest text-on-surface font-label-md text-label-md whitespace-nowrap">
-            {{ criterion.score }}/5
+            {{ criterion.score }}/{{ report.scale_max }}
           </span>
         </div>
         {% if criterion.rationale %}<p class="font-body-sm text-body-sm text-on-surface-variant">{{ criterion.rationale }}</p>{% endif %}
@@ -131,6 +160,13 @@
       </div>
       {% endfor %}
     </div>
+
+    {% if report.unverified_evidence %}
+    <p class="font-body-sm text-body-sm text-on-surface-variant flex items-start gap-1.5">
+      <span class="material-symbols-outlined text-[16px] text-outline">fact_check</span>
+      {% blocktrans count n=report.unverified_evidence %}{{ n }} cited file path could not be matched with the files actually fetched, and was removed from the evidence.{% plural %}{{ n }} cited file paths could not be matched with the files actually fetched, and were removed from the evidence.{% endblocktrans %}
+    </p>
+    {% endif %}
   </div>
 
   <!-- Strengths / Concerns -->
@@ -179,6 +215,36 @@
       <h2 class="font-headline-sm text-headline-sm font-semibold">{% trans "Analysis limitations" %}</h2>
     </div>
     <p class="font-body-md text-body-md text-on-surface-variant whitespace-pre-line leading-relaxed">{{ report.limitations }}</p>
+
+    {% if report.coverage %}
+    <div class="pt-2 flex flex-col gap-2">
+      <div class="flex flex-wrap items-center gap-2 font-body-sm text-body-sm text-on-surface-variant">
+        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-low font-label-sm">
+          <span class="material-symbols-outlined text-[15px]">check</span>{{ report.coverage.read_files|length }} {% trans "files actually read" %}
+        </span>
+        {% if report.coverage.truncated_files %}
+        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-low font-label-sm">
+          <span class="material-symbols-outlined text-[15px]">content_cut</span>{{ report.coverage.truncated_files|length }} {% trans "files truncated" %}
+        </span>
+        {% endif %}
+        {% if report.coverage.ignored_files %}
+        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-low font-label-sm">
+          <span class="material-symbols-outlined text-[15px]">do_not_disturb_on</span>{{ report.coverage.ignored_files|length }} {% trans "files skipped" %}
+        </span>
+        {% endif %}
+      </div>
+      <details class="group">
+        <summary class="cursor-pointer font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors">{% trans "Show which files were used" %}</summary>
+        <ul class="flex flex-col gap-1 pt-2 max-h-64 overflow-y-auto">
+          {% for path in report.coverage.read_files %}
+          <li class="flex items-start gap-1.5 font-code-inline text-body-sm text-on-surface-variant">
+            <span class="material-symbols-outlined text-[14px] text-outline">insert_drive_file</span><code class="break-words">{{ path }}</code>
+          </li>
+          {% endfor %}
+        </ul>
+      </details>
+    </div>
+    {% endif %}
   </div>
   {% endif %}
 

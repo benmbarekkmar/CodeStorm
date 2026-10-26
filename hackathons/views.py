@@ -13,6 +13,8 @@ from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
 from . import ai
+from accounts.models import User
+from teams.models import Team
 from .forms import ChallengeForm, HackathonForm
 from .models import Challenge, Hackathon
 from .permissions import organizer_required
@@ -76,8 +78,19 @@ def hackathon_detail(request, pk):
     challenges = hackathon.challenges.all()
     if not is_owner:
         challenges = challenges.filter(is_published=True)
+    my_team = None
+    if request.user.role == User.Role.PARTICIPANT:
+        my_team = (
+            Team.objects
+            .filter(hackathon=hackathon, memberships__user=request.user)
+            .select_related('hackathon')
+            .first()
+        )
+    team_count = hackathon.teams.count()
     return render(request, 'hackathons/hackathon_detail.html', {
         'hackathon': hackathon, 'challenges': challenges, 'is_owner': is_owner,
+        'my_team': my_team, 'team_count': team_count,
+        'is_participant': request.user.role == User.Role.PARTICIPANT,
     })
 
 

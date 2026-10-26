@@ -1,0 +1,624 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Hackathons | CodeStorm" %}{% endblock %}
+{% block page_name %}hackathons{% endblock %}
+{% block breadcrumb_section %}{% trans "Dashboard" %}{% endblock %}
+{% block breadcrumb_page %}{% trans "Hackathons" %}{% endblock %}
+
+{% block content %}
+<div class="flex flex-col w-full">
+<!-- Main Container -->
+<div class="px-space-md md:px-space-lg lg:px-space-xl py-space-lg flex flex-col gap-space-lg max-w-[1440px] w-full mx-auto">
+
+  <!-- Title Header -->
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+    <div>
+      <div class="flex items-center gap-space-xs font-label-sm text-label-sm text-outline uppercase tracking-wider mb-1">
+        <span>{% trans "Platform" %}</span>
+        <span class="material-symbols-outlined rtl:rotate-180 text-[14px]">chevron_right</span>
+        <span class="text-primary font-semibold">{% trans "Hackathons Directory" %}</span>
+      </div>
+      <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">{% trans "Hackathons" %}</h1>
+      <p class="font-body-md text-body-md text-on-surface-variant mt-0.5">{% trans "Discover exciting hackathons, join challenges, and turn your ideas into reality." %}</p>
+    </div>
+    <div class="flex items-center gap-space-sm self-start md:self-auto">
+      <button class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md shadow-md hover:bg-primary-container hover:shadow-lg transition-all duration-200" id="openModalBtn" type="button">
+        <span class="material-symbols-outlined text-[20px]">add</span>
+        <span>{% trans "Create Hackathon" %}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 1. KPI Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+    <div class="p-space-lg bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-shadow flex items-center justify-between">
+      <div>
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">{% trans "Total Hackathons" %}</span>
+        <div class="font-headline-lg text-headline-lg text-on-surface mt-1 leading-none">24</div>
+        <span class="font-body-sm text-body-sm text-on-surface-variant mt-1.5 inline-block">{% trans "Active portfolio across domains" %}</span>
+      </div>
+      <div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[26px]">calendar_month</span></div>
+    </div>
+    <div class="p-space-lg bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-shadow flex items-center justify-between">
+      <div>
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">{% trans "Upcoming" %}</span>
+        <div class="font-headline-lg text-headline-lg text-on-surface mt-1 leading-none">08</div>
+        <div class="flex items-center gap-1 font-body-sm text-body-sm text-primary mt-1.5 font-medium">
+          <span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+          <span>{% trans "+2 opening next week" %}</span>
+        </div>
+      </div>
+      <div class="w-12 h-12 rounded-xl bg-primary-fixed/40 flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[26px]">schedule</span></div>
+    </div>
+    <div class="p-space-lg bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-shadow flex items-center justify-between">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">{% trans "Ongoing" %}</span>
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-tertiary-container opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-tertiary"></span>
+          </span>
+        </div>
+        <div class="font-headline-lg text-headline-lg text-on-surface mt-1 leading-none">05</div>
+        <span class="font-body-sm text-body-sm text-tertiary font-medium mt-1.5 inline-block">{% trans "Sprint submissions active" %}</span>
+      </div>
+      <div class="w-12 h-12 rounded-xl bg-tertiary-fixed/30 flex items-center justify-center text-tertiary"><span class="material-symbols-outlined text-[26px]">bolt</span></div>
+    </div>
+    <div class="p-space-lg bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-shadow flex items-center justify-between">
+      <div>
+        <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">{% trans "Completed" %}</span>
+        <div class="font-headline-lg text-headline-lg text-on-surface mt-1 leading-none">11</div>
+        <span class="font-body-sm text-body-sm text-on-surface-variant mt-1.5 inline-block">{% trans "Evaluated &amp; prizes settled" %}</span>
+      </div>
+      <div class="w-12 h-12 rounded-xl bg-secondary-fixed/40 flex items-center justify-center text-secondary"><span class="material-symbols-outlined text-[26px]">workspace_premium</span></div>
+    </div>
+  </div>
+
+  <!-- 2. Search & Filters -->
+  <div class="p-space-md bg-surface-container-lowest rounded-xl shadow-sm flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-space-md">
+    <div class="flex flex-col sm:flex-row flex-wrap items-center gap-space-sm flex-1">
+      <div class="relative w-full sm:w-72">
+        <span class="material-symbols-outlined absolute start-3 top-2.5 text-outline text-[20px]">search</span>
+        <input class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg ps-10 pe-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline transition-all" id="searchInput" placeholder"{% trans "Search hackathons..." %}" type="text"/>
+      </div>
+      <div class="flex items-center gap-1 p-1 bg-surface-container-low rounded-lg w-full sm:w-auto overflow-x-auto">
+        <button class="status-pill px-3 py-1.5 rounded-md text-label-sm font-label-sm font-semibold bg-surface-container-lowest text-primary shadow-xs transition-all whitespace-nowrap" data-status="all" type="button">{% trans "All Status" %}</button>
+        <button class="status-pill px-3 py-1.5 rounded-md text-label-sm font-label-sm font-medium text-on-surface-variant hover:text-on-surface transition-all whitespace-nowrap" data-status="Upcoming" type="button">{% trans "Upcoming" %}</button>
+        <button class="status-pill px-3 py-1.5 rounded-md text-label-sm font-label-sm font-medium text-on-surface-variant hover:text-on-surface transition-all whitespace-nowrap" data-status="Ongoing" type="button">{% trans "Ongoing" %}</button>
+        <button class="status-pill px-3 py-1.5 rounded-md text-label-sm font-label-sm font-medium text-on-surface-variant hover:text-on-surface transition-all whitespace-nowrap" data-status="Completed" type="button">{% trans "Completed" %}</button>
+      </div>
+      <div class="relative w-full sm:w-48">
+        <select class="w-full appearance-none bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg ps-3 pe-8 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer" id="categorySelect">
+          <option value="all">{% trans "All Categories" %}</option>
+          <option value="AI &amp; Machine Learning">{% trans "AI &amp; Machine Learning" %}</option>
+          <option value="Web Development">{% trans "Web Development" %}</option>
+          <option value="FinTech">{% trans "FinTech" %}</option>
+          <option value="GreenTech">{% trans "GreenTech" %}</option>
+          <option value="Cybersecurity">{% trans "Cybersecurity" %}</option>
+        </select>
+        <span class="material-symbols-outlined pointer-events-none absolute end-2.5 top-2.5 text-[18px] text-outline">expand_more</span>
+      </div>
+    </div>
+    <div class="flex items-center justify-between sm:justify-end gap-space-sm pt-2 xl:pt-0">
+      <div class="flex items-center gap-1 p-1 bg-surface-container-low rounded-lg">
+        <button class="scope-pill px-3 py-1.5 rounded-md text-label-sm font-label-sm font-semibold bg-surface-container-lowest text-on-surface shadow-xs transition-all" id="scopeAll" type="button">{% trans "All Hackathons" %}</button>
+        <button class="scope-pill px-3 py-1.5 rounded-md text-label-sm font-label-sm font-medium text-on-surface-variant hover:text-on-surface transition-all" id="scopeMine" type="button">{% trans "My Hackathons" %}</button>
+      </div>
+      <button class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-label-sm font-label-sm text-on-surface-variant hover:text-error hover:bg-error-container/20 transition-all" id="resetFiltersBtn" type="button">
+        <span class="material-symbols-outlined text-[18px]">restart_alt</span>
+        <span class="hidden sm:inline">{% trans "Reset" %}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Active filters -->
+  <div class="hidden items-center gap-2 text-label-sm font-label-sm text-on-surface-variant" id="filterSummaryBar">
+    <span>{% trans "Active filters:" %}</span>
+    <div class="flex flex-wrap items-center gap-1.5" id="filterTagContainer"></div>
+    <button class="text-primary hover:underline ms-2" id="clearAllTags" type="button">{% trans "Clear all" %}</button>
+  </div>
+
+  <!-- 3. Hackathons Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg" id="hackathonsGrid">
+
+    <!-- Card 1 -->
+    <div class="hackathon-card group flex flex-col bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden" data-category="AI &amp; Machine Learning" data-name="AI Innovation Challenge" data-scope="mine" data-status="Upcoming">
+      <div class="relative h-44 overflow-hidden">
+        <div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-500" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDsKsFpIHPRUTGzE1ilyMu_2SP_nA9VmabtD-ZtK0Wo65QaL4Pll0YXRjmzxUdXKbVCz5jPCg8i8ytDRUGf64cTw0tdMdrn4Ey6UKtFyAmNlKJZWSbUm8OVVUPI5UEzGkF83RPFa0Lcy6hzX-hq6UmR27k0wvkhRqu9pEHCWmnAALKtgwk0KUWndKRS7LXPA2GKnnS2hF52kCcWGujJ0x0jbu8klBBUpV05Zc7if0gYZcAlq6FxZxpdkg')"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-inverse-surface/20 to-transparent"></div>
+        <div class="absolute top-3 start-3 flex items-center gap-2">
+          <span class="px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant text-label-sm font-label-sm font-semibold shadow-xs">{% trans "Upcoming" %}</span>
+          <span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur text-on-surface text-label-sm font-label-sm font-medium">{% trans "AI &amp; ML" %}</span>
+        </div>
+        <div class="absolute bottom-3 start-3 text-white flex items-center gap-1 text-label-sm font-label-sm"><span class="material-symbols-outlined text-[16px]">public</span><span>{% trans "Online Global" %}</span></div>
+      </div>
+      <div class="p-space-lg flex-1 flex flex-col justify-between">
+        <div>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">{% trans "AI Innovation Challenge" %}</h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mt-2 line-clamp-2">{% trans "Build innovative AI solutions and next-generation neural agents to solve real-world industry bottlenecks." %}</p>
+          <div class="mt-4 pt-4 border-t border-surface-container-high grid grid-cols-2 gap-3 text-body-sm font-body-sm">
+            <div class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-[18px] text-outline">event</span><span class="truncate">{% trans "Oct 20–22, 2026" %}</span></div>
+            <div class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-[18px] text-outline">group</span><span>{% trans "2–5 members" %}</span></div>
+            <div class="flex items-center gap-2 text-on-surface-variant col-span-2">
+              <span class="material-symbols-outlined text-[18px] text-primary">how_to_reg</span>
+              <span class="font-medium text-on-surface">{% trans "128 registered" %}</span>
+              <span class="text-outline text-body-sm">{% trans "• 42 teams formed" %}</span>
+            </div>
+          </div>
+        </div>
+        <div class="mt-space-lg pt-2">
+          <button class="w-full py-2.5 px-4 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container shadow-xs hover:shadow transition-all flex items-center justify-center gap-2" type="button"><span>{% trans "View Details" %}</span><span class="material-symbols-outlined rtl:rotate-180 text-[18px]">arrow_forward</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="hackathon-card group flex flex-col bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden" data-category="GreenTech" data-name="GreenTech Hackathon" data-scope="mine" data-status="Ongoing">
+      <div class="relative h-44 overflow-hidden">
+        <div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-500" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC0yDoVZlTF8RsmE1oYwBfi0CEjTbAIstjNTt_OPKfV2nlq1BBsdUfVFn-Vd3mQ7d3O12z8PjNQCQqi55xt6ouDAJtQbaYKFqhQRP_A5MQQ8cqjLkWvfds-nibKpdtRMAkFlrKHuFsZBvt1rA-jBeykuvjdovkzZ9NEQrKNfzb8iwnQB60Bkyuy5UwkCay42dWO6FICpOqdgpTga6tj3JNtsS10iVzf2SeNhSx2t4miW_RjenC_xoKYWQ')"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-inverse-surface/20 to-transparent"></div>
+        <div class="absolute top-3 start-3 flex items-center gap-2">
+          <span class="px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant text-label-sm font-label-sm font-semibold shadow-xs flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span><span>{% trans "Ongoing" %}</span></span>
+          <span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur text-on-surface text-label-sm font-label-sm font-medium">{% trans "GreenTech" %}</span>
+        </div>
+        <div class="absolute bottom-3 start-3 text-white flex items-center gap-1 text-label-sm font-label-sm"><span class="material-symbols-outlined text-[16px]">location_on</span><span>{% trans "Tunis, Tunisia" %}</span></div>
+      </div>
+      <div class="p-space-lg flex-1 flex flex-col justify-between">
+        <div>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">{% trans "GreenTech Hackathon" %}</h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mt-2 line-clamp-2">{% trans "Create technology that contributes to a more sustainable future through energy efficiency and carbon monitoring." %}</p>
+          <div class="mt-4 pt-4 border-t border-surface-container-high grid grid-cols-2 gap-3 text-body-sm font-body-sm">
+            <div class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-[18px] text-outline">event</span><span class="truncate">{% trans "Oct 8–10, 2026" %}</span></div>
+            <div class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-[18px] text-outline">group</span><span>{% trans "2–4 members" %}</span></div>
+            <div class="flex items-center gap-2 text-on-surface-variant col-span-2">
+              <span class="material-symbols-outlined text-[18px] text-tertiary">how_to_reg</span>
+              <span class="font-medium text-on-surface">{% trans "86 registered" %}</span>
+              <span class="text-tertiary font-semibold text-body-sm">{% trans "• Submissions Open" %}</span>
+            </div>
+          </div>
+        </div>
+        <div class="mt-space-lg pt-2">
+          <button class="w-full py-2.5 px-4 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container shadow-xs hover:shadow transition-all flex items-center justify-center gap-2" type="button"><span>{% trans "View Details" %}</span><span class="material-symbols-outlined rtl:rotate-180 text-[18px]">arrow_forward</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="hackathon-card group flex flex-col bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden" data-category="FinTech" data-name="FinTech Future" data-scope="all" data-status="Upcoming">
+      <div class="relative h-44 overflow-hidden">
+        <div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-500" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB06xY-lK00-wk7dG98xYurrVPJA4z_wCl3xhBXIDcVIMpZ25McVjHx5Zuzmiy8-LT8IHZ8cHAkRsl7mCY7ULc1TAbo9c7q4CLlcmD8sQizxCI_6TL9XK9QqGHaEzaVx0HeNr4mQMgnYxinfReFhov4k-1CAGDhlQ_H1uvoviPcc4l6oJm5fuHxd1Dn0TE4LsOb9wUbwlHGRBK2IX5tBrYA1dxRVdNzN-pQv0Luvp6CiB1wRL0FROpR1Q')"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-inverse-surface/20 to-transparent"></div>
+        <div class="absolute top-3 start-3 flex items-center gap-2">
+          <span class="px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant text-label-sm font-label-sm font-semibold shadow-xs">{% trans "Upcoming" %}</span>
+          <span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur text-on-surface text-label-sm font-label-sm font-medium">{% trans "FinTech" %}</span>
+        </div>
+        <div class="absolute bottom-3 start-3 text-white flex items-center gap-1 text-label-sm font-label-sm"><span class="material-symbols-outlined text-[16px]">public</span><span>{% trans "Online Global" %}</span></div>
+      </div>
+      <div class="p-space-lg flex-1 flex flex-col justify-between">
+        <div>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">{% trans "FinTech Future" %}</h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mt-2 line-clamp-2">{% trans "Rethink digital finance with secure, scalable, and inclusive blockchain and automated payment solutions." %}</p>
+          <div class="mt-4 pt-4 border-t border-surface-container-high grid grid-cols-2 gap-3 text-body-sm font-body-sm">
+            <div class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-[18px] text-outline">event</span><span class="truncate">{% trans "Nov 5–7, 2026" %}</span></div>
+            <div class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-[18px] text-outline">group</span><span>{% trans "2–5 members" %}</span></div>
+            <div class="flex items-center gap-2 text-on-surface-variant col-span-2">
+              <span class="material-symbols-outlined text-[18px] text-primary">how_to_reg</span>
+              <span class="font-medium text-on-surface">{% trans "94 registered" %}</span>
+              <span class="text-outline text-body-sm">{% trans "• Mentorship active" %}</span>
+            </div>
+          </div>
+        </div>
+        <div class="mt-space-lg pt-2">
+          <button class="w-full py-2.5 px-4 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container shadow-xs hover:shadow transition-all flex items-center justify-center gap-2" type="button"><span>{% trans "View Details" %}</span><span class="material-symbols-outlined rtl:rotate-180 text-[18px]">arrow_forward</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="hackathon-card group flex flex-col bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden" data-category="Cybersecurity" data-name="CyberSecure Sprint" data-scope="all" data-status="Completed">
+      <div class="relative h-44 overflow-hidden">
+        <div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-500" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBcJ4LtNIW_LruZhaWO_HDvsc2y8LQf7Xn443pHu0JLwwjcm8_R9nhY1tRc3cUMCYxcJj36hq39iVvs6sDcsF08QfDoZxKNa0-JpWNrn5LUTBa5LLj-wZY7rn3l3525k7UQ3m8nUbhJ1JgdWrAZL8oRbXljN4ndvp-kwb16GY1KBdbiR8CSItDtUSQyhypXvjgnjBO1afmReMBIO0DrNbB2xfHc_9xyq6kyMW8kE74XvQRQVKngMlNOiA')"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-inverse-surface/20 to-transparent"></div>
+        <div class="absolute top-3 start-3 flex items-center gap-2">
+          <span class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant text-label-sm font-label-sm font-semibold shadow-xs">{% trans "Completed" %}</span>
+          <span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur text-on-surface text-label-sm font-label-sm font-medium">{% trans "Cybersecurity" %}</span>
+        </div>
+        <div class="absolute bottom-3 start-3 text-white flex items-center gap-1 text-label-sm font-label-sm"><span class="material-symbols-outlined text-[16px]">location_on</span><span>{% trans "Tunis, Tunisia" %}</span></div>
+      </div>
+      <div class="p-space-lg flex-1 flex flex-col justify-between">
+        <div>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">{% trans "CyberSecure Sprint" %}</h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mt-2 line-clamp-2">{% trans "Design practical security mechanisms to counter modern zero-day vulnerabilities and cloud penetration vectors." %}</p>
+          <div class="mt-4 pt-4 border-t border-surface-container-high grid grid-cols-2 gap-3 text-body-sm font-body-sm">
+            <div class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-[18px] text-outline">event</span><span class="truncate">{% trans "Sep 12–14, 2026" %}</span></div>
+            <div class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-[18px] text-outline">group</span><span>{% trans "2–4 members" %}</span></div>
+            <div class="flex items-center gap-2 text-on-surface-variant col-span-2">
+              <span class="material-symbols-outlined text-[18px] text-outline">trophy</span>
+              <span class="font-medium text-on-surface">{% trans "72 participants" %}</span>
+              <span class="text-tertiary font-medium text-body-sm">• $15k Awarded</span>
+            </div>
+          </div>
+        </div>
+        <div class="mt-space-lg pt-2">
+          <button class="w-full py-2.5 px-4 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md hover:bg-surface-container-high shadow-xs transition-all flex items-center justify-center gap-2" type="button"><span class="material-symbols-outlined text-[18px] text-primary">emoji_events</span><span>{% trans "View Results" %}</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="hackathon-card group flex flex-col bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden" data-category="Web Development" data-name="Web Creators Weekend" data-scope="mine" data-status="Upcoming">
+      <div class="relative h-44 overflow-hidden">
+        <div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-500" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDJ4FVlsRTATMt1VRl1tVY0jSTSHs2z74YVa_UgeuLGYnaBg6jLescPJgkLDSWZh_zFKmasSMI2kUf6XSjZUoH3LBkFqB8OVlLkcEJDWXIw-rUZhroC_YO-0jgqfAuIzswX_gYCp3gLlQG5_mkxKUbJRj6XO89lY-q_pBxMLTg5imv3EKH50o77yKuauJsOQdR7ZNeGTzbe2HLmI9yKpvhW9aLtYXY_3oUBYXf294kkoBo9uCY1hUv6JA')"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-inverse-surface/20 to-transparent"></div>
+        <div class="absolute top-3 start-3 flex items-center gap-2">
+          <span class="px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant text-label-sm font-label-sm font-semibold shadow-xs">{% trans "Upcoming" %}</span>
+          <span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur text-on-surface text-label-sm font-label-sm font-medium">{% trans "Web Dev" %}</span>
+        </div>
+        <div class="absolute bottom-3 start-3 text-white flex items-center gap-1 text-label-sm font-label-sm"><span class="material-symbols-outlined text-[16px]">public</span><span>{% trans "Online Global" %}</span></div>
+      </div>
+      <div class="p-space-lg flex-1 flex flex-col justify-between">
+        <div>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">{% trans "Web Creators Weekend" %}</h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mt-2 line-clamp-2">{% trans "Build creative, hyper-fast, and accessible web experiences in 48 hours using the latest web standards." %}</p>
+          <div class="mt-4 pt-4 border-t border-surface-container-high grid grid-cols-2 gap-3 text-body-sm font-body-sm">
+            <div class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-[18px] text-outline">event</span><span class="truncate">{% trans "Nov 15–16, 2026" %}</span></div>
+            <div class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-[18px] text-outline">group</span><span>{% trans "2–5 members" %}</span></div>
+            <div class="flex items-center gap-2 text-on-surface-variant col-span-2">
+              <span class="material-symbols-outlined text-[18px] text-primary">how_to_reg</span>
+              <span class="font-medium text-on-surface">{% trans "110 registered" %}</span>
+              <span class="text-outline text-body-sm">{% trans "• Registration Closes Soon" %}</span>
+            </div>
+          </div>
+        </div>
+        <div class="mt-space-lg pt-2">
+          <button class="w-full py-2.5 px-4 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container shadow-xs hover:shadow transition-all flex items-center justify-center gap-2" type="button"><span>{% trans "View Details" %}</span><span class="material-symbols-outlined rtl:rotate-180 text-[18px]">arrow_forward</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="hackathon-card group flex flex-col bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden" data-category="AI &amp; Machine Learning" data-name="Smart City Hack" data-scope="all" data-status="Ongoing">
+      <div class="relative h-44 overflow-hidden">
+        <div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-500" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBfuuc8KKEaIaaUUlUrBWVevQHqmZGL2ndMWtUB_594459_v6wjmyeaul3_MrpQeiMcJbPUdw7KKv2SupATinulmKutI_i1n_nJbb4U9nyTL7PIKLHBTS394VMfqWyx_70FAmCoLNA6YVfNXZ7HbOZwvdtB_ovKwb4kEOMBmxmxZF8ec06NwR3JjmqOg0P2y0cvdUyeS7EOgVYyHKgVVzEZ7KcH3Swjgf7dI0gQHzFzcqmbuUd9tE7Sog')"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-inverse-surface/20 to-transparent"></div>
+        <div class="absolute top-3 start-3 flex items-center gap-2">
+          <span class="px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant text-label-sm font-label-sm font-semibold shadow-xs flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span><span>{% trans "Ongoing" %}</span></span>
+          <span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur text-on-surface text-label-sm font-label-sm font-medium">{% trans "Smart City" %}</span>
+        </div>
+        <div class="absolute bottom-3 start-3 text-white flex items-center gap-1 text-label-sm font-label-sm"><span class="material-symbols-outlined text-[16px]">location_on</span><span>{% trans "Tunis, Tunisia" %}</span></div>
+      </div>
+      <div class="p-space-lg flex-1 flex flex-col justify-between">
+        <div>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">{% trans "Smart City Hack" %}</h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mt-2 line-clamp-2">{% trans "Develop smart data solutions, IoT sensors, and autonomous city routing to improve everyday urban vitality." %}</p>
+          <div class="mt-4 pt-4 border-t border-surface-container-high grid grid-cols-2 gap-3 text-body-sm font-body-sm">
+            <div class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-[18px] text-outline">event</span><span class="truncate">{% trans "Oct 9–11, 2026" %}</span></div>
+            <div class="flex items-center gap-2 text-on-surface-variant"><span class="material-symbols-outlined text-[18px] text-outline">group</span><span>{% trans "2–5 members" %}</span></div>
+            <div class="flex items-center gap-2 text-on-surface-variant col-span-2">
+              <span class="material-symbols-outlined text-[18px] text-tertiary">how_to_reg</span>
+              <span class="font-medium text-on-surface">{% trans "65 registered" %}</span>
+              <span class="text-tertiary font-semibold text-body-sm">{% trans "• Live Mentorship Round" %}</span>
+            </div>
+          </div>
+        </div>
+        <div class="mt-space-lg pt-2">
+          <button class="w-full py-2.5 px-4 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container shadow-xs hover:shadow transition-all flex items-center justify-center gap-2" type="button"><span>{% trans "View Details" %}</span><span class="material-symbols-outlined rtl:rotate-180 text-[18px]">arrow_forward</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="hidden flex-col items-center justify-center p-12 bg-surface-container-lowest rounded-xl shadow-sm text-center" id="noResultsState">
+    <div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center text-primary mb-4"><span class="material-symbols-outlined text-[32px]">search_off</span></div>
+    <h4 class="font-headline-sm text-headline-sm text-on-surface">{% trans "No hackathons found" %}</h4>
+    <p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm mt-1">{% trans "Try tweaking your search keywords or loosening the category and status filters." %}</p>
+    <button class="mt-4 px-4 py-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold shadow-xs hover:bg-primary-container transition-all" id="emptyResetBtn" type="button">{% trans "Clear Filters" %}</button>
+  </div>
+
+  <!-- 4. Pagination -->
+  <div class="flex flex-col sm:flex-row items-center justify-between gap-space-md pt-2 pb-6">
+    <div class="font-body-sm text-body-sm text-on-surface-variant order-2 sm:order-1">
+      {% trans "Showing" %} <span class="font-semibold text-on-surface" id="showingCount">1–6</span> of <span class="font-semibold text-on-surface">24</span> hackathons
+    </div>
+    <div class="flex items-center gap-space-sm order-1 sm:order-2">
+      <nav aria-label"{% trans "Hackathons Pagination" %}" class="flex items-center gap-1 bg-surface-container-lowest p-1 rounded-lg shadow-sm">
+        <button aria-label"{% trans "Previous page" %}" class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-all" type="button"><span class="material-symbols-outlined rtl:rotate-180 text-[18px]">chevron_left</span></button>
+        <button class="px-3 py-1 rounded-md text-label-sm font-label-sm bg-primary text-on-primary font-semibold shadow-xs" type="button">1</button>
+        <button class="px-3 py-1 rounded-md text-label-sm font-label-sm text-on-surface-variant hover:bg-surface-container-low transition-all" type="button">2</button>
+        <button class="px-3 py-1 rounded-md text-label-sm font-label-sm text-on-surface-variant hover:bg-surface-container-low transition-all" type="button">3</button>
+        <button class="px-3 py-1 rounded-md text-label-sm font-label-sm text-on-surface-variant hover:bg-surface-container-low transition-all" type="button">4</button>
+        <button aria-label"{% trans "Next page" %}" class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-all" type="button"><span class="material-symbols-outlined rtl:rotate-180 text-[18px]">chevron_right</span></button>
+      </nav>
+      <div class="relative hidden md:block">
+        <select class="appearance-none bg-surface-container-lowest text-on-surface font-body-sm text-body-sm rounded-lg ps-3 pe-8 py-1.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer">
+          <option>{% trans "6 per page" %}</option>
+          <option>{% trans "12 per page" %}</option>
+          <option>{% trans "24 per page" %}</option>
+        </select>
+        <span class="material-symbols-outlined pointer-events-none absolute end-2 top-2 text-[16px] text-outline">expand_more</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. Create Hackathon Modal -->
+<div class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-inverse-surface/50 backdrop-blur-sm transition-opacity duration-200" id="createHackathonModal">
+  <div class="bg-surface-container-lowest rounded-2xl shadow-xl w-full max-w-2xl max-h-[942px] flex flex-col overflow-hidden">
+    <div class="px-space-lg py-space-md flex items-center justify-between border-b border-surface-container-high bg-surface-container-lowest">
+      <div class="flex items-center gap-space-sm">
+        <div class="w-8 h-8 rounded-lg bg-primary-fixed flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[20px]">add_circle</span></div>
+        <div>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface leading-tight">{% trans "Create New Hackathon" %}</h3>
+          <span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Configure event parameters, track details, and team quotas" %}</span>
+        </div>
+      </div>
+      <button aria-label"{% trans "Close modal" %}" class="p-1.5 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container-low transition-all" id="closeModalBtn" type="button"><span class="material-symbols-outlined text-[20px]">close</span></button>
+    </div>
+
+    <div class="p-space-lg overflow-y-auto flex flex-col gap-space-md">
+      <form class="flex flex-col gap-space-md" id="createHackathonForm" method="post" onsubmit="event.preventDefault();">
+        {% csrf_token %}
+        <div>
+          <label class="block font-label-md text-label-md text-on-surface mb-1" for="id_name">{% trans "Hackathon Name" %} <span class="text-error">*</span></label>
+          <input class="w-full bg-surface text-on-surface font-body-md text-body-md rounded-lg px-3.5 py-2.5 border border-surface-container-high focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline transition-all" id="id_name" name="name" placeholder"{% trans "e.g. NextGen Web3 Challenge" %}" required type="text"/>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+          <div>
+            <label class="block font-label-md text-label-md text-on-surface mb-1" for="id_category">{% trans "Primary Track / Category" %} <span class="text-error">*</span></label>
+            <div class="relative">
+              <select class="w-full appearance-none bg-surface text-on-surface font-body-md text-body-md rounded-lg px-3.5 py-2.5 border border-surface-container-high focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer" id="id_category" name="category" required>
+                <option value="">{% trans "Select track..." %}</option>
+                <option value="AI &amp; Machine Learning">{% trans "AI &amp; Machine Learning" %}</option>
+                <option value="Web Development">{% trans "Web Development" %}</option>
+                <option value="FinTech">{% trans "FinTech" %}</option>
+                <option value="GreenTech">{% trans "GreenTech" %}</option>
+                <option value="Cybersecurity">{% trans "Cybersecurity" %}</option>
+              </select>
+              <span class="material-symbols-outlined pointer-events-none absolute end-3 top-3 text-[20px] text-outline">expand_more</span>
+            </div>
+          </div>
+          <div>
+            <label class="block font-label-md text-label-md text-on-surface mb-1" for="id_max_participants">{% trans "Max Participant Cap" %}</label>
+            <input class="w-full bg-surface text-on-surface font-body-md text-body-md rounded-lg px-3.5 py-2.5 border border-surface-container-high focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline transition-all" id="id_max_participants" min="10" name="max_participants" placeholder"{% trans "e.g. 200" %}" type="number" value="150"/>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-label-md text-label-md text-on-surface mb-1" for="id_description">{% trans "Short Description" %} <span class="text-error">*</span></label>
+          <textarea class="w-full bg-surface text-on-surface font-body-md text-body-md rounded-lg px-3.5 py-2.5 border border-surface-container-high focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline transition-all resize-none" id="id_description" name="description" placeholder"{% trans "Provide a compelling mission statement and criteria for the challenge..." %}" required rows="3"></textarea>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+          <div>
+            <label class="block font-label-md text-label-md text-on-surface mb-1" for="id_start_date">{% trans "Start Date" %} <span class="text-error">*</span></label>
+            <input class="w-full bg-surface text-on-surface font-body-md text-body-md rounded-lg px-3.5 py-2.5 border border-surface-container-high focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer" id="id_start_date" name="start_date" required type="date"/>
+          </div>
+          <div>
+            <label class="block font-label-md text-label-md text-on-surface mb-1" for="id_end_date">{% trans "End Date" %} <span class="text-error">*</span></label>
+            <input class="w-full bg-surface text-on-surface font-body-md text-body-md rounded-lg px-3.5 py-2.5 border border-surface-container-high focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer" id="id_end_date" name="end_date" required type="date"/>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+          <div>
+            <label class="block font-label-md text-label-md text-on-surface mb-1" for="id_reg_deadline">{% trans "Registration Deadline" %}</label>
+            <input class="w-full bg-surface text-on-surface font-body-md text-body-md rounded-lg px-3.5 py-2.5 border border-surface-container-high focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer" id="id_reg_deadline" name="registration_deadline" type="date"/>
+          </div>
+          <div>
+            <label class="block font-label-md text-label-md text-on-surface mb-1">{% trans "Event Format" %}</label>
+            <div class="grid grid-cols-2 gap-2 bg-surface p-1 rounded-lg border border-surface-container-high">
+              <label class="flex items-center justify-center gap-1.5 py-1.5 rounded-md cursor-pointer font-label-sm text-label-sm has-[:checked]:bg-surface-container-lowest has-[:checked]:text-primary has-[:checked]:shadow-xs text-on-surface-variant transition-all">
+                <input checked class="hidden" name="event_format" onchange="toggleLocationField(false)" type="radio" value="online"/>
+                <span class="material-symbols-outlined text-[16px]">public</span><span>{% trans "Online" %}</span>
+              </label>
+              <label class="flex items-center justify-center gap-1.5 py-1.5 rounded-md cursor-pointer font-label-sm text-label-sm has-[:checked]:bg-surface-container-lowest has-[:checked]:text-primary has-[:checked]:shadow-xs text-on-surface-variant transition-all">
+                <input class="hidden" name="event_format" onchange="toggleLocationField(true)" type="radio" value="in-person"/>
+                <span class="material-symbols-outlined text-[16px]">location_on</span><span>{% trans "In-Person" %}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="hidden" id="locationInputGroup">
+          <label class="block font-label-md text-label-md text-on-surface mb-1" for="id_location">{% trans "City / Venue Address" %}</label>
+          <input class="w-full bg-surface text-on-surface font-body-md text-body-md rounded-lg px-3.5 py-2.5 border border-surface-container-high focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline transition-all" id="id_location" name="location" placeholder"{% trans "e.g. Tunis Science Hall, Tunisia" %}" type="text"/>
+        </div>
+
+        <div class="grid grid-cols-2 gap-space-md">
+          <div>
+            <label class="block font-label-md text-label-md text-on-surface mb-1" for="id_min_team">{% trans "Min Team Size" %}</label>
+            <input class="w-full bg-surface text-on-surface font-body-md text-body-md rounded-lg px-3.5 py-2.5 border border-surface-container-high focus:outline-none focus:ring-2 focus:ring-primary/20" id="id_min_team" max="10" min="1" name="min_team" type="number" value="2"/>
+          </div>
+          <div>
+            <label class="block font-label-md text-label-md text-on-surface mb-1" for="id_max_team">{% trans "Max Team Size" %}</label>
+            <input class="w-full bg-surface text-on-surface font-body-md text-body-md rounded-lg px-3.5 py-2.5 border border-surface-container-high focus:outline-none focus:ring-2 focus:ring-primary/20" id="id_max_team" max="15" min="2" name="max_team" type="number" value="5"/>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-label-md text-label-md text-on-surface mb-1">{% trans "Header Banner Artwork" %}</label>
+          <div class="rounded-xl border-2 border-dashed border-outline-variant bg-surface-container-low hover:bg-surface-container transition-all p-6 text-center cursor-pointer flex flex-col items-center justify-center">
+            <span class="material-symbols-outlined text-[36px] text-primary mb-1">cloud_upload</span>
+            <p class="font-label-md text-label-md text-on-surface font-medium">{% trans "Click to upload or drag and drop" %}</p>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">{% trans "PNG, JPG, or WebP up to 5MB (1200x480 recommended)" %}</p>
+            <input accept="image/*" class="hidden" id="bannerFileInput" name="banner" type="file"/>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="px-space-lg py-space-md border-t border-surface-container-high bg-surface-container-lowest flex items-center justify-end gap-space-sm">
+      <button class="px-4 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-all" id="cancelModalBtn" type="button">{% trans "Cancel" %}</button>
+      <button class="px-5 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md shadow-md hover:bg-primary-container hover:shadow-lg transition-all flex items-center gap-2" id="submitCreateBtn" type="button">
+        <span class="material-symbols-outlined text-[18px]">rocket_launch</span>
+        <span>{% trans "Create Hackathon" %}</span>
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.getElementById('searchInput');
+  const categorySelect = document.getElementById('categorySelect');
+  const statusPills = document.querySelectorAll('.status-pill');
+  const scopeAllBtn = document.getElementById('scopeAll');
+  const scopeMineBtn = document.getElementById('scopeMine');
+  const resetFiltersBtn = document.getElementById('resetFiltersBtn');
+  const emptyResetBtn = document.getElementById('emptyResetBtn');
+  const clearAllTags = document.getElementById('clearAllTags');
+  const cards = document.querySelectorAll('.hackathon-card');
+  const noResults = document.getElementById('noResultsState');
+  const showingCount = document.getElementById('showingCount');
+  const filterSummaryBar = document.getElementById('filterSummaryBar');
+  const filterTagContainer = document.getElementById('filterTagContainer');
+
+  let currentStatus = 'all';
+  let currentCategory = 'all';
+  let currentScope = 'all';
+  let searchKeyword = '';
+
+  function applyFilters() {
+    let matchCount = 0;
+    cards.forEach(card => {
+      const name = card.getAttribute('data-name').toLowerCase();
+      const category = card.getAttribute('data-category');
+      const status = card.getAttribute('data-status');
+      const scope = card.getAttribute('data-scope');
+
+      const ok = (!searchKeyword || name.includes(searchKeyword))
+        && (currentStatus === 'all' || status === currentStatus)
+        && (currentCategory === 'all' || category === currentCategory)
+        && (currentScope === 'all' || scope === 'mine');
+
+      card.classList.toggle('hidden', !ok);
+      card.classList.toggle('flex', ok);
+      if (ok) matchCount++;
+    });
+
+    if (matchCount === 0) {
+      noResults.classList.remove('hidden');
+      noResults.classList.add('flex');
+      showingCount.textContent = '0';
+    } else {
+      noResults.classList.remove('flex');
+      noResults.classList.add('hidden');
+      showingCount.textContent = `1–${matchCount}`;
+    }
+    renderFilterSummary();
+  }
+
+  function renderFilterSummary() {
+    filterTagContainer.innerHTML = '';
+    const tags = [];
+    if (searchKeyword) tags.push({ type: 'search', text: `{% trans "Search" %}: "${searchKeyword}"` });
+    if (currentStatus !== 'all') tags.push({ type: 'status', text: `{% trans "Status" %}: ${currentStatus}` });
+    if (currentCategory !== 'all') tags.push({ type: 'category', text: `{% trans "Track" %}: ${currentCategory}` });
+    if (currentScope === 'mine') tags.push({ type: 'scope', text: "{% trans "My Hackathons only" %}" });
+
+    if (tags.length > 0) {
+      filterSummaryBar.classList.remove('hidden');
+      filterSummaryBar.classList.add('flex');
+      tags.forEach(t => {
+        const span = document.createElement('span');
+        span.className = 'inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant text-label-sm font-semibold';
+        span.append(t.text + ' ');
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'hover:opacity-75 font-bold ml-0.5';
+        btn.innerHTML = '&times;';
+        btn.onclick = () => removeSpecificFilter(t.type);
+        span.appendChild(btn);
+        filterTagContainer.appendChild(span);
+      });
+    } else {
+      filterSummaryBar.classList.remove('flex');
+      filterSummaryBar.classList.add('hidden');
+    }
+  }
+
+  function removeSpecificFilter(type) {
+    if (type === 'search') { searchKeyword = ''; searchInput.value = ''; }
+    else if (type === 'status') setStatus('all');
+    else if (type === 'category') { currentCategory = 'all'; categorySelect.value = 'all'; }
+    else if (type === 'scope') setScope('all');
+    applyFilters();
+  }
+
+  function setStatus(status) {
+    currentStatus = status;
+    statusPills.forEach(pill => {
+      pill.className = pill.getAttribute('data-status') === status
+        ? 'status-pill px-3 py-1.5 rounded-md text-label-sm font-label-sm font-semibold bg-surface-container-lowest text-primary shadow-xs transition-all whitespace-nowrap'
+        : 'status-pill px-3 py-1.5 rounded-md text-label-sm font-label-sm font-medium text-on-surface-variant hover:text-on-surface transition-all whitespace-nowrap';
+    });
+  }
+
+  function setScope(scope) {
+    currentScope = scope;
+    const on = 'scope-pill px-3 py-1.5 rounded-md text-label-sm font-label-sm font-semibold bg-surface-container-lowest shadow-xs transition-all';
+    const off = 'scope-pill px-3 py-1.5 rounded-md text-label-sm font-label-sm font-medium text-on-surface-variant hover:text-on-surface transition-all';
+    scopeAllBtn.className = scope === 'all' ? on + ' text-on-surface' : off;
+    scopeMineBtn.className = scope === 'mine' ? on + ' text-primary' : off;
+  }
+
+  function resetAll() {
+    searchKeyword = '';
+    searchInput.value = '';
+    currentCategory = 'all';
+    categorySelect.value = 'all';
+    setStatus('all');
+    setScope('all');
+    applyFilters();
+  }
+
+  searchInput.addEventListener('input', e => { searchKeyword = e.target.value.toLowerCase().trim(); applyFilters(); });
+  categorySelect.addEventListener('change', e => { currentCategory = e.target.value; applyFilters(); });
+  statusPills.forEach(pill => pill.addEventListener('click', () => { setStatus(pill.getAttribute('data-status')); applyFilters(); }));
+  scopeAllBtn.addEventListener('click', () => { setScope('all'); applyFilters(); });
+  scopeMineBtn.addEventListener('click', () => { setScope('mine'); applyFilters(); });
+  resetFiltersBtn.addEventListener('click', resetAll);
+  emptyResetBtn.addEventListener('click', resetAll);
+  clearAllTags.addEventListener('click', resetAll);
+
+  // Modal
+  const modal = document.getElementById('createHackathonModal');
+  const openModalBtn = document.getElementById('openModalBtn');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+  const cancelModalBtn = document.getElementById('cancelModalBtn');
+  const submitCreateBtn = document.getElementById('submitCreateBtn');
+
+  function openModal() { modal.classList.remove('hidden'); modal.classList.add('flex'); document.body.style.overflow = 'hidden'; }
+  function closeModal() { modal.classList.remove('flex'); modal.classList.add('hidden'); document.body.style.overflow = ''; }
+
+  openModalBtn.addEventListener('click', openModal);
+  closeModalBtn.addEventListener('click', closeModal);
+  cancelModalBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+
+  submitCreateBtn.addEventListener('click', () => {
+    const nameInput = document.getElementById('id_name');
+    if (!nameInput.value.trim()) { nameInput.focus(); return; }
+    submitCreateBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span> {% trans "Creating..." %}';
+    setTimeout(() => {
+      submitCreateBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">check</span> {% trans "Created!" %}';
+      setTimeout(() => {
+        closeModal();
+        submitCreateBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">rocket_launch</span><span>{% trans "Create Hackathon" %}</span>';
+        resetAll();
+      }, 600);
+    }, 700);
+  });
+});
+
+window.toggleLocationField = function(show) {
+  document.getElementById('locationInputGroup').classList.toggle('hidden', !show);
+};
+</script>
+{% endblock %}

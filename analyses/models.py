@@ -6,11 +6,13 @@ from django.utils.translation import gettext_lazy as _
 class AIReport(models.Model):
     """A single AI decision-support report for a public GitHub repository.
 
-    Deliberately self-contained: it references only the existing custom User
-    model and stores the repository location as plain text. There is no
-    foreign key to ``Project``/``Evaluation`` (those apps are still evolving)
-    and **no field represents a final grade** -- scores live inside
-    ``report['criteria']`` and are explicitly indicative.
+    ``project`` is optional: a report can be launched on any public repository
+    URL, and the reports recorded before the link existed stay valid. When it
+    *is* set, the analysis was scored against that hackathon's real
+    ``EvaluationCriterion`` rows, so each entry carries a ``criterion_id`` the
+    jury can line up with its own rubric. There is still **no field that
+    represents a final grade** -- scores live inside ``report['criteria']`` and
+    are explicitly indicative.
     """
 
     class Status(models.TextChoices):
@@ -24,6 +26,14 @@ class AIReport(models.Model):
         verbose_name=_('Created by'),
         on_delete=models.PROTECT,
         related_name='analysis_reports',
+    )
+    project = models.ForeignKey(
+        'projects.Project',
+        verbose_name=_('Project'),
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='ai_reports',
     )
     repository_url = models.URLField(_('Repository URL'), max_length=300)
     commit_ref = models.CharField(_('Commit reference'), max_length=64, blank=True)
@@ -61,8 +71,41 @@ class AIReport(models.Model):
         return self.status == self.Status.DONE
 
     @property
+    def is_project_bound(self):
+        return self.project_id is not None
+
+    @property
+    def scale_max(self):
+        """The scale the scores were produced on (5 for legacy reports)."""
+        scale = self.report.get('scale') if isinstance(self.report, dict) else None
+        if isinstance(scale, dict) and isinstance(scale.get('max'), int):
+            return scale['max']
+        return 5
+
+    @property
     def criteria(self):
         return self.report.get('criteria', []) if isinstance(self.report, dict) else []
+
+    @property
+    def suggestion_by_criterion(self):
+        """``criterion_id -> entry`` for the jury UI; ignores generic entries."""
+        return {
+            entry['criterion_id']: entry
+            for entry in self.criteria
+            if isinstance(entry, dict) and entry.get('criterion_id') is not None
+        }
+
+    @property
+    def coverage(self):
+        coverage = self.report.get('coverage') if isinstance(self.report, dict) else None
+        return coverage if isinstance(coverage, dict) else {}
+
+    @property
+    def unverified_evidence(self):
+        if not isinstance(self.report, dict):
+            return 0
+        value = self.report.get('unverified_evidence')
+        return value if isinstance(value, int) else 0
 
     @property
     def summary(self):
@@ -94,3 +137,30 @@ class AIReport(models.Model):
         if not scores:
             return None
         return round(sum(scores) / len(scores), 1)
+
+    @property
+    def weighted_indicative(self):
+        """Weighted indicative score, using the rubric weights captured at
+        analysis time. The formula is the one ``Evaluation.get_weighted_score``
+        already applies -- it is restated here over the stored report because a
+        report must stay readable even if the rubric rows change afterwards.
+
+        Returns ``None`` for reports scored on the generic rubric, which has no
+        weights and therefore no comparable total.
+        """
+        entries = [c for c in self.criteria
+                   if isinstance(c.get('score'), int) and isinstance(c.get('weight'), (int, float))]
+        if not entries:
+            return None
+        total_weight = sum(float(c['weight']) for c in entries)
+        if total_weight == 0:
+            return None
+        weighted = sum(float(c['score']) * float(c['weight']) for c in entries) / total_weight
+        return round(weighted, 2)
+
+    @classmethod
+    def latest_done_for(cls, project):
+        """Most recent completed report of this project, or ``None``."""
+        return cls.objects.filter(
+            project=project, status=cls.Status.DONE,
+        ).first()

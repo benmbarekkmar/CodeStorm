@@ -20,6 +20,9 @@
       {% else %}
         <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm"><span class="material-symbols-outlined text-[15px]">error</span>{% trans "Failed" %}</span>
       {% endif %}
+      {% if report.project %}
+      <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm max-w-full"><span class="material-symbols-outlined text-[15px]">folder</span><span class="truncate">{{ report.project.title }}</span></span>
+      {% endif %}
       {% if report.file_count %}
       <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm"><span class="material-symbols-outlined text-[15px]">description</span>{{ report.file_count }} {% trans "files" %}</span>
       {% endif %}
@@ -34,6 +37,8 @@
 
   <div class="pt-space-md mt-space-md flex items-center gap-space-sm">
     <a class="flex-1 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all duration-200 active:scale-[0.97] text-center" href="{% url 'analyses:detail' report.pk %}">{% trans "View report" %}</a>
+    {% if report.pk in can_delete_ids %}
     <a class="p-2 rounded-lg bg-surface-container-low hover:bg-error-container hover:text-error active:scale-90 text-on-surface-variant transition-all duration-200" href="{% url 'analyses:delete' report.pk %}" title="{% trans 'Delete' %}" aria-label="{% trans 'Delete' %}"><span class="material-symbols-outlined text-[18px]">delete</span></a>
+    {% endif %}
   </div>
 </article>

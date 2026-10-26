@@ -1990,7 +1990,10 @@ class RecommendationsQueryCostTests(TeamsBase):
         self.assertEqual(len(resp_big.context['results']), 16)
 
         self.assertEqual(n_small, n_big)
-        self.assertLessEqual(n_big, 16)
+        # 16 → 18: the header bell now renders the notification feed through a context
+        # processor, so every page pays two more queries. n_small == n_big above is the
+        # real guard: the cost is flat whatever the number of candidate teams.
+        self.assertLessEqual(n_big, 18)
 
     def test_batched_page_uses_fewer_queries_than_the_per_team_loop(self):
         """Guard for the old shape: one eligibility block per team scaled linearly."""
@@ -2107,3 +2110,98 @@ class SeedDemoHackathonRepairTests(TeamsBase):
         self.assertLess(row.submission_deadline, row.end_date)
         # The business outcome: the demo hackathon accepts participants again.
         self.assertTrue(row.registration_open)
+
+
+class ParticipateFlowTests(TeamsBase):
+    """The « Participer » journey: hackathon page -> real team action.
+
+    A card or a button may only offer what the server would accept, so these
+    tests read the rendered page, not only the redirect.
+    """
+
+    def setUp(self):
+        super().setUp()
+        self.full_team = Team.objects.create(
+            name="Full Squad", hackathon=self.hack,
+            created_by=self.captain, captain=self.captain, max_members=2,
+        )
+        add_membership(self.full_team, self.captain, TeamMembership.Role.CAPTAIN)
+        add_membership(self.full_team, self.member, TeamMembership.Role.MEMBER)
+
+    def test_full_team_offers_no_dead_join_button(self):
+        self.login(self.outsider)
+        response = self.client.get(reverse("teams:home"))
+        self.assertNotContains(
+            response, f"/teams/{self.full_team.pk}/request-join/",
+        )
+        self.assertContains(response, "This team is full.")
+
+    def test_joinable_team_still_offers_the_action(self):
+        open_team = Team.objects.create(
+            name="Looking For You", hackathon=self.hack,
+            created_by=self.captain, captain=self.captain, max_members=5,
+        )
+        add_membership(open_team, self.captain, TeamMembership.Role.CAPTAIN)
+        self.login(self.outsider)
+        self.assertContains(
+            self.client.get(reverse("teams:home")),
+            f"/teams/{open_team.pk}/request-join/",
+        )
+
+    def test_closed_hackathon_team_shows_why_it_cannot_be_joined(self):
+        self.hack.registration_deadline = timezone.now() - timedelta(days=1)
+        self.hack.save()
+        self.login(self.outsider)
+        response = self.client.get(reverse("teams:home"))
+        self.assertNotContains(response, f"/teams/{self.team.pk}/request-join/")
+        self.assertContains(response, "The hackathon is no longer accepting participants.")
+
+    def test_list_create_form_keeps_the_requested_hackathon(self):
+        self.login(self.outsider)
+        response = self.client.get(
+            reverse("teams:home"), {"hackathon": self.hack.pk},
+        )
+        self.assertEqual(
+            str(response.context["create_form"].initial["hackathon"]), str(self.hack.pk),
+        )
+        self.assertContains(response, "Code Warriors")
+
+    def test_create_view_prefills_the_hackathon(self):
+        self.login(self.outsider)
+        response = self.client.get(reverse("teams:create"), {"hackathon": self.hack.pk})
+        self.assertContains(response, f'value="{self.hack.pk}" selected')
+
+
+class HackathonParticipateCTATests(TeamsBase):
+    def detail(self, user):
+        self.login(user)
+        return self.client.get(f"/hackathons/{self.hack.pk}/")
+
+    def test_open_registration_offers_both_real_ways_in(self):
+        response = self.detail(self.outsider)
+        self.assertContains(response, "Take part")
+        self.assertContains(response, f"/teams/create/?hackathon={self.hack.pk}")
+        self.assertContains(response, f"/teams/?hackathon={self.hack.pk}")
+        self.assertEqual(response.context["team_count"], 1)
+        self.assertContains(response, "1 team is already registered here.")
+
+    def test_member_is_pointed_at_their_own_team(self):
+        response = self.detail(self.member)
+        self.assertEqual(response.context["my_team"], self.team)
+        self.assertContains(response, "Open my team")
+        self.assertNotContains(response, f"/teams/create/?hackathon={self.hack.pk}")
+
+    def test_closed_registration_promises_nothing(self):
+        self.hack.registration_deadline = timezone.now() - timedelta(days=1)
+        self.hack.save()
+        response = self.detail(self.outsider)
+        self.assertContains(
+            response, "Registration is closed for this hackathon",
+        )
+        self.assertNotContains(response, "/teams/create/")
+        self.assertNotContains(response, "/teams/?hackathon=")
+
+    def test_organizer_and_jury_do_not_see_the_participate_block(self):
+        for user in (self.org, self.jury):
+            response = self.detail(user)
+            self.assertNotContains(response, "Take part")

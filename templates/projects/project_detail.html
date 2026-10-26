@@ -81,6 +81,41 @@
         {% endif %}
       </div>
 
+      {% if can_analyze or ai_reports %}
+      <div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-3">
+        <span class="font-label-sm text-label-sm text-on-surface font-semibold flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[18px] text-primary">auto_awesome</span>
+          {% trans "AI analysis" %}
+        </span>
+
+        {% for report in ai_reports %}
+        <a class="flex items-center justify-between gap-2 bg-surface-container-lowest p-2.5 rounded-lg shadow-sm hover:bg-surface-container transition-colors min-w-0"
+           href="{% url 'analyses:detail' report.pk %}">
+          <span class="inline-flex items-center gap-2 min-w-0">
+            <span class="material-symbols-outlined text-[18px] shrink-0 {% if report.status == 'done' %}text-tertiary{% elif report.status == 'failed' %}text-error{% else %}text-outline{% endif %}">{% if report.status == 'done' %}check_circle{% elif report.status == 'failed' %}error{% else %}progress_activity{% endif %}</span>
+            <span class="font-body-sm text-body-sm text-on-surface truncate">{{ report.created_at|date:"M j, Y, H:i" }}</span>
+            {% if report.status == 'failed' %}<span class="font-body-sm text-body-sm text-outline truncate">· {{ report.error_message }}</span>{% endif %}
+          </span>
+          <span class="font-label-md text-label-md text-primary shrink-0">{% trans "Open report" %}</span>
+        </a>
+        {% endfor %}
+
+        {% if can_analyze %}
+        <form method="post" action="{% url 'analyses:create' %}" data-ai-launch>
+          {% csrf_token %}
+          <input type="hidden" name="project" value="{{ project.pk }}">
+          <button class="px-4 py-2 rounded-lg bg-primary text-on-primary hover:bg-surface-tint font-label-md text-label-md transition-all disabled:opacity-60 disabled:cursor-not-allowed inline-flex items-center gap-1.5" type="submit">
+            <span class="material-symbols-outlined text-[18px]">rocket_launch</span>
+            <span data-submit-label data-working="{% filter escapejs %}{% trans "Analyzing…" %}{% endfilter %}">{% trans "Run AI analysis" %}</span>
+          </button>
+        </form>
+        <p class="font-body-sm text-body-sm text-outline">
+          {% trans "The analysis reads the repository URL above, the one this team submitted. Scores are indicative; the final grade belongs to the jury." %}
+        </p>
+        {% endif %}
+      </div>
+      {% endif %}
+
       <div class="flex flex-col gap-2">
         <h2 class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">{% trans "Technology Stack" %}</h2>
         <div class="flex flex-wrap gap-2">
@@ -185,6 +220,18 @@
       } catch (error) {
         button.title = button.dataset.copy;
       }
+    });
+  });
+
+  // The analysis answers inside the same request, so the button has to say the
+  // page is working rather than look dead for the length of the call.
+  document.querySelectorAll('[data-ai-launch]').forEach((form) => {
+    form.addEventListener('submit', () => {
+      const submit = form.querySelector('button[type="submit"]');
+      if (!submit) return;
+      submit.disabled = true;
+      const label = submit.querySelector('[data-submit-label]');
+      if (label) label.textContent = label.dataset.working;
     });
   });
 </script>

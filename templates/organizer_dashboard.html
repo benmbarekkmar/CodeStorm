@@ -10,290 +10,220 @@
 <div class="flex flex-col w-full">
 <div class="w-full px-space-md md:px-space-lg py-space-md flex flex-col gap-space-lg max-w-[1440px] mx-auto">
 
-<!-- 1. Header -->
 <header class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
   <div class="flex flex-col">
-    <div class="flex items-center gap-2">
-      <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">{% trans "Organizer Dashboard" %}</h1>
-      <span class="px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm">{% trans "Admin" %}</span>
-    </div>
-    <p class="font-body-md text-body-md text-on-surface-variant">{% trans "Monitor registrations, teams, projects and evaluations across your events." %}</p>
+    <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">{% trans "Dashboard" %}</h1>
+    <p class="font-body-md text-body-md text-on-surface-variant">{% trans "Everything happening in the hackathons you run." %}</p>
   </div>
   <div class="flex flex-wrap items-center gap-space-sm sm:gap-space-md">
     <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-lowest shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] text-on-surface-variant font-label-md text-label-md">
       <span class="material-symbols-outlined text-[18px] text-primary">calendar_today</span>
-      <span>{% trans "Today, Oct 12, 2026" %}</span>
+      <span>{% trans "Today" %}, {% now "SHORT_DATE_FORMAT" %}</span>
     </div>
-    <button class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-low transition-all font-label-md text-label-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] active:scale-[0.98]" type="button">
-      <span class="material-symbols-outlined text-[18px]">download</span>
-      <span>{% trans "Export Report" %}</span>
-    </button>
-    <button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container text-on-primary hover:opacity-95 transition-all font-label-md text-label-md shadow-[0_4px_12px_rgba(108,76,232,0.25)] active:scale-[0.98]" type="button">
+    <a class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-low transition-all font-label-md text-label-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)]"
+       href="{% url 'hackathons:create' %}">
       <span class="material-symbols-outlined text-[18px]">add_circle</span>
-      <span>{% trans "Create Event" %}</span>
-    </button>
+      <span>{% trans "Create Hackathon" %}</span>
+    </a>
+    <a class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container text-on-primary hover:opacity-95 transition-all font-label-md text-label-md shadow-[0_4px_12px_rgba(108,76,232,0.25)]"
+       href="{% url 'evaluations:home' %}">
+      <span class="material-symbols-outlined text-[18px]">track_changes</span>
+      <span>{% trans "Follow evaluations" %}</span>
+    </a>
   </div>
 </header>
 
-<!-- 2. Statistics Cards -->
 <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+  {% for card in stats_cards %}
   <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] hover:shadow-md transition-shadow flex flex-col justify-between">
     <div class="flex items-center justify-between mb-2">
-      <span class="font-label-md text-label-md text-on-surface-variant">{% trans "Total Participants" %}</span>
-      <div class="w-9 h-9 rounded-lg bg-primary-fixed flex items-center justify-center text-on-primary-fixed-variant"><span class="material-symbols-outlined text-[20px]">groups</span></div>
+      <span class="font-label-md text-label-md text-on-surface-variant">{{ card.label }}</span>
+      <div class="w-9 h-9 rounded-lg {{ card.tone }} flex items-center justify-center">
+        <span class="material-symbols-outlined text-[20px]">{{ card.icon }}</span>
+      </div>
     </div>
-    <div class="flex items-baseline justify-between mt-1">
-      <span class="font-headline-lg text-headline-lg text-on-surface">1,284</span>
-      <span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-tertiary-container bg-tertiary-fixed/30 px-2 py-0.5 rounded-full"><span class="material-symbols-outlined text-[14px]">trending_up</span>{% trans "+12% " %}</span>
-    </div>
-  </div>
-  <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] hover:shadow-md transition-shadow flex flex-col justify-between">
-    <div class="flex items-center justify-between mb-2">
-      <span class="font-label-md text-label-md text-on-surface-variant">{% trans "Active Teams" %}</span>
-      <div class="w-9 h-9 rounded-lg bg-secondary-fixed/50 flex items-center justify-center text-on-secondary-fixed-variant"><span class="material-symbols-outlined text-[20px]">diversity_3</span></div>
-    </div>
-    <div class="flex items-baseline justify-between mt-1">
-      <span class="font-headline-lg text-headline-lg text-on-surface">312</span>
-      <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded-full">{% trans "24 pending" %}</span>
+    <div class="flex items-baseline justify-between mt-1 gap-2">
+      <span class="font-headline-lg text-headline-lg text-on-surface">{{ card.value }}</span>
+      <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded-full text-end">{{ card.note }}</span>
     </div>
   </div>
-  <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] hover:shadow-md transition-shadow flex flex-col justify-between">
-    <div class="flex items-center justify-between mb-2">
-      <span class="font-label-md text-label-md text-on-surface-variant">{% trans "Projects Submitted" %}</span>
-      <div class="w-9 h-9 rounded-lg bg-tertiary-fixed/40 flex items-center justify-center text-on-tertiary-fixed-variant"><span class="material-symbols-outlined text-[20px]">folder_code</span></div>
-    </div>
-    <div class="flex items-baseline justify-between mt-1">
-      <span class="font-headline-lg text-headline-lg text-on-surface">486</span>
-      <span class="font-label-sm text-label-sm text-secondary bg-secondary-fixed/30 px-2 py-0.5 rounded-full">{% trans "68 today" %}</span>
-    </div>
-  </div>
-  <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] hover:shadow-md transition-shadow flex flex-col justify-between">
-    <div class="flex items-center justify-between mb-2">
-      <span class="font-label-md text-label-md text-on-surface-variant">{% trans "Evaluations Open" %}</span>
-      <div class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[20px]">fact_check</span></div>
-    </div>
-    <div class="flex items-baseline justify-between mt-1">
-      <span class="font-headline-lg text-headline-lg text-on-surface">37</span>
-      <span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-error bg-error-container px-2 py-0.5 rounded-full"><span class="material-symbols-outlined text-[14px]">schedule</span>{% trans "9 overdue" %}</span>
-    </div>
-  </div>
+  {% endfor %}
 </section>
 
-<!-- 3. Main Content Grid -->
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
-
-  <!-- LEFT COLUMN -->
   <div class="lg:col-span-7 flex flex-col gap-space-lg">
 
-    <!-- Registrations overview -->
-    <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+    <section class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
       <div class="flex items-center justify-between pb-space-xs">
         <div class="flex items-center gap-2">
-          <span class="material-symbols-outlined text-primary text-[22px]">person_add</span>
-          <h3 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Recent Registrations" %}</h3>
+          <span class="material-symbols-outlined text-primary text-[22px]">event</span>
+          <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Your hackathons" %}</h2>
         </div>
         <a class="font-label-sm text-label-sm text-primary hover:underline font-semibold" href="{% url 'hackathons:home' %}">{% trans "View all" %}</a>
       </div>
-      <div class="flex flex-col divide-y divide-outline-variant">
-        <div class="flex items-center justify-between py-2.5 gap-3">
-          <div class="flex items-center gap-3 min-w-0">
-            <div class="w-9 h-9 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-label-sm text-label-sm font-bold flex-shrink-0">LM</div>
-            <div class="flex flex-col min-w-0">
-              <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{% trans "Lina Moreau" %}</span>
-              <span class="font-body-sm text-body-sm text-on-surface-variant truncate">{% trans "Joined" %} {% trans "AI Innovation Challenge" %}</span>
-            </div>
-          </div>
-          <div class="flex items-center gap-2 flex-shrink-0">
-            <span class="px-2.5 py-1 rounded-full bg-tertiary-fixed/30 text-tertiary-container font-label-sm text-label-sm">{% trans "Approved" %}</span>
-            <button class="w-8 h-8 rounded-lg bg-surface-container-lowest text-on-surface-variant hover:bg-primary hover:text-on-primary transition-colors shadow-sm flex items-center justify-center" type="button" title="{% trans "Manage" %}"><span class="material-symbols-outlined text-[18px]">check</span></button>
-          </div>
-        </div>
-        <div class="flex items-center justify-between py-2.5 gap-3">
-          <div class="flex items-center gap-3 min-w-0">
-            <div class="w-9 h-9 rounded-full bg-secondary-fixed/50 flex items-center justify-center text-secondary font-label-sm text-label-sm font-bold flex-shrink-0">TK</div>
-            <div class="flex flex-col min-w-0">
-              <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{% trans "Tom Keller" %}</span>
-              <span class="font-body-sm text-body-sm text-on-surface-variant truncate">{% trans "Joined" %} {% trans "GreenTech Hackathon" %}</span>
-            </div>
-          </div>
-          <div class="flex items-center gap-2 flex-shrink-0">
-            <span class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">{% trans "Pending" %}</span>
-            <button class="w-8 h-8 rounded-lg bg-surface-container-lowest text-on-surface-variant hover:bg-primary hover:text-on-primary transition-colors shadow-sm flex items-center justify-center" type="button" title="{% trans "Manage" %}"><span class="material-symbols-outlined text-[18px]">hourglass_top</span></button>
-          </div>
-        </div>
-        <div class="flex items-center justify-between py-2.5 gap-3">
-          <div class="flex items-center gap-3 min-w-0">
-            <div class="w-9 h-9 rounded-full bg-tertiary-fixed/50 flex items-center justify-center text-tertiary font-label-sm text-label-sm font-bold flex-shrink-0">NR</div>
-            <div class="flex flex-col min-w-0">
-              <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{% trans "Nora Reyes" %}</span>
-              <span class="font-body-sm text-body-sm text-on-surface-variant truncate">{% trans "Joined" %} {% trans "FinTech Future 2026" %}</span>
-            </div>
-          </div>
-          <div class="flex items-center gap-2 flex-shrink-0">
-            <span class="px-2.5 py-1 rounded-full bg-tertiary-fixed/30 text-tertiary-container font-label-sm text-label-sm">{% trans "Approved" %}</span>
-            <button class="w-8 h-8 rounded-lg bg-surface-container-lowest text-on-surface-variant hover:bg-primary hover:text-on-primary transition-colors shadow-sm flex items-center justify-center" type="button" title="{% trans "Manage" %}"><span class="material-symbols-outlined text-[18px]">check</span></button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Teams under management -->
-    <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
-      <div class="flex items-center justify-between pb-space-xs">
-        <div class="flex items-center gap-2">
-          <span class="material-symbols-outlined text-secondary text-[22px]">diversity_3</span>
-          <h3 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Teams Overview" %}</h3>
-        </div>
-        <a class="font-label-sm text-label-sm text-primary hover:underline font-semibold" href="{% url 'teams:home' %}">{% trans "Manage teams" %}</a>
-      </div>
       <div class="flex flex-col gap-2.5">
+        {% for hackathon in hackathons %}
         <div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low gap-3">
-          <div class="flex items-center gap-3 min-w-0">
-            <div class="w-9 h-9 rounded-lg bg-primary-fixed flex items-center justify-center text-primary flex-shrink-0"><span class="material-symbols-outlined text-[18px]">groups</span></div>
-            <div class="flex flex-col min-w-0">
-              <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{% trans "Code Warriors" %}</span>
-              <span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "6 members" %} • {% trans "AI Innovation Challenge" %}</span>
-            </div>
+          <div class="flex flex-col min-w-0">
+            <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{{ hackathon.title }}</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">
+              {{ hackathon.start_date|date:"SHORT_DATE_FORMAT" }} &rarr; {{ hackathon.end_date|date:"SHORT_DATE_FORMAT" }}
+            </span>
           </div>
           <div class="flex items-center gap-2 flex-shrink-0">
-            <span class="px-2.5 py-1 rounded-full bg-tertiary-fixed/30 text-tertiary-container font-label-sm text-label-sm">{% trans "Active" %}</span>
-            <button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm hover:bg-primary hover:text-on-primary transition-colors shadow-sm" type="button">{% trans "Details" %}</button>
+            <span class="px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm">{{ hackathon.phase_label }}</span>
+            {% if hackathon.results_published %}<span class="px-2.5 py-1 rounded-full bg-secondary-fixed/50 text-on-secondary-fixed font-label-sm text-label-sm">{% trans "Results published" %}</span>{% endif %}
+            <a class="font-label-sm text-label-sm text-primary hover:underline" href="{% url 'hackathons:detail' hackathon.pk %}">{% trans "Details" %}</a>
           </div>
         </div>
-        <div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low gap-3">
-          <div class="flex items-center gap-3 min-w-0">
-            <div class="w-9 h-9 rounded-lg bg-secondary-fixed/50 flex items-center justify-center text-secondary flex-shrink-0"><span class="material-symbols-outlined text-[18px]">groups</span></div>
-            <div class="flex flex-col min-w-0">
-              <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{% trans "Byte Builders" %}</span>
-              <span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "4 members" %} • {% trans "Quantum Computing Track" %}</span>
-            </div>
-          </div>
-          <div class="flex items-center gap-2 flex-shrink-0">
-            <span class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">{% trans "Pending" %}</span>
-            <button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm hover:bg-primary hover:text-on-primary transition-colors shadow-sm" type="button">{% trans "Details" %}</button>
-          </div>
-        </div>
+        {% empty %}
+        <p class="p-3.5 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">
+          {% trans "You do not organize any hackathon yet." %}
+          <a class="text-primary font-semibold hover:underline" href="{% url 'hackathons:create' %}">{% trans "Create Hackathon" %}</a>
+        </p>
+        {% endfor %}
       </div>
-    </div>
+    </section>
 
-    <!-- Projects awaiting review -->
-    <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+    <section class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
       <div class="flex items-center justify-between pb-space-xs">
         <div class="flex items-center gap-2">
           <span class="material-symbols-outlined text-primary text-[22px]">folder_code</span>
-          <h3 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Projects Awaiting Review" %}</h3>
+          <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Latest submissions" %}</h2>
         </div>
         <a class="font-label-sm text-label-sm text-primary hover:underline font-semibold" href="{% url 'projects:home' %}">{% trans "View all" %}</a>
       </div>
       <div class="flex flex-col gap-2.5">
+        {% for project in recent_projects %}
         <div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low gap-3">
-          <div class="flex items-center gap-3 min-w-0">
-            <div class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary flex-shrink-0"><span class="material-symbols-outlined text-[18px]">description</span></div>
-            <div class="flex flex-col min-w-0">
-              <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{% trans "NeuralMatch" %}</span>
-              <span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Submitted by" %} {% trans "Code Warriors" %}</span>
-            </div>
+          <div class="flex flex-col min-w-0">
+            <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{{ project.title }}</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant truncate">
+              {% if project.team %}{{ project.team.name }} &middot; {% endif %}{{ project.hackathon.title }}
+            </span>
           </div>
           <div class="flex items-center gap-2 flex-shrink-0">
-            <span class="px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm">{% trans "In Review" %}</span>
+            <span class="px-2.5 py-1 rounded-full bg-tertiary-fixed/30 text-tertiary-container font-label-sm text-label-sm">{{ project.get_status_display }}</span>
+            <a class="font-label-sm text-label-sm text-primary hover:underline" href="{% url 'projects:detail' project.pk %}">{% trans "Details" %}</a>
           </div>
         </div>
-        <div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low gap-3">
-          <div class="flex items-center gap-3 min-w-0">
-            <div class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary flex-shrink-0"><span class="material-symbols-outlined text-[18px]">description</span></div>
-            <div class="flex flex-col min-w-0">
-              <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{% trans "SolarShare" %}</span>
-              <span class="font-body-sm text-body-sm text-on-surface-variant">{% trans "Submitted by" %} {% trans "Green Grid" %}</span>
-            </div>
-          </div>
-          <div class="flex items-center gap-2 flex-shrink-0">
-            <span class="px-2.5 py-1 rounded-full bg-secondary-fixed/50 text-on-secondary-fixed font-label-sm text-label-sm">{% trans "New" %}</span>
-          </div>
-        </div>
+        {% empty %}
+        <p class="p-3.5 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">
+          {% trans "No project has been submitted yet." %}
+        </p>
+        {% endfor %}
       </div>
-    </div>
+    </section>
+
+    <section class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+      <div class="flex items-center gap-2 pb-space-xs">
+        <span class="material-symbols-outlined text-secondary text-[22px]">groups</span>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Newest teams" %}</h2>
+      </div>
+      <div class="flex flex-col gap-2.5">
+        {% for team in recent_teams %}
+        <div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low gap-3">
+          <div class="flex flex-col min-w-0">
+            <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{{ team.name }}</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant truncate">{{ team.hackathon.title }} &middot; {{ team.captain.username }}</span>
+          </div>
+          <a class="font-label-sm text-label-sm text-primary hover:underline flex-shrink-0" href="{% url 'teams:detail' team.pk %}">{% trans "Details" %}</a>
+        </div>
+        {% empty %}
+        <p class="p-3.5 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">
+          {% trans "No team has registered yet." %}
+        </p>
+        {% endfor %}
+      </div>
+    </section>
   </div>
 
-  <!-- RIGHT COLUMN -->
   <div class="lg:col-span-5 flex flex-col gap-space-lg">
 
-    <!-- Evaluations status -->
-    <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+    <section class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+      <div class="flex items-center gap-2 pb-space-xs">
+        <span class="material-symbols-outlined text-error text-[22px]">alarm</span>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Upcoming Deadlines" %}</h2>
+      </div>
+      <div class="flex flex-col gap-2.5">
+        {% for row in deadlines %}
+        <div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low gap-3">
+          <div class="flex flex-col min-w-0">
+            <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{{ row.label }}</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">{{ row.hackathon.title }} &middot; {{ row.date|date:"SHORT_DATE_FORMAT" }}</span>
+          </div>
+          <span class="px-2.5 py-1 rounded-full {% if row.urgent %}bg-error-container text-on-error-container{% else %}bg-surface-container-high text-on-surface-variant{% endif %} font-label-sm text-label-sm font-semibold whitespace-nowrap">
+            {% blocktrans trimmed count days=row.days %}{{ days }} day left{% plural %}{{ days }} days left{% endblocktrans %}
+          </span>
+        </div>
+        {% empty %}
+        <p class="p-3.5 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">{% trans "No deadline coming up." %}</p>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
+      <div class="flex items-center gap-2 pb-space-xs">
+        <span class="material-symbols-outlined text-secondary text-[22px]">how_to_reg</span>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Join requests still pending" %}</h2>
+      </div>
+      <div class="flex flex-col gap-2.5">
+        {% for join_request in pending_requests %}
+        <div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low gap-3">
+          <div class="flex flex-col min-w-0">
+            <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{{ join_request.user.username }}</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant truncate">{{ join_request.team.name }}</span>
+          </div>
+          <a class="font-label-sm text-label-sm text-primary hover:underline flex-shrink-0" href="{% url 'teams:detail' join_request.team_id %}">{% trans "Review" %}</a>
+        </div>
+        {% empty %}
+        <p class="p-3.5 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">{% trans "No pending join request." %}</p>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
       <div class="flex items-center justify-between pb-space-xs">
         <div class="flex items-center gap-2">
-          <span class="material-symbols-outlined text-primary text-[22px]">fact_check</span>
-          <h3 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Evaluation Progress" %}</h3>
+          <span class="material-symbols-outlined text-primary text-[22px]">history</span>
+          <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "What needs your attention" %}</h2>
         </div>
-        <a class="font-label-sm text-label-sm text-primary hover:underline font-semibold" href="{% url 'evaluations:home' %}">{% trans "Open" %}</a>
+        <a class="font-label-sm text-label-sm text-primary hover:underline font-semibold" href="{% url 'notifications' %}">{% trans "View all" %}</a>
       </div>
-      <div class="flex flex-col gap-4">
-        <div class="flex flex-col gap-1.5">
-          <div class="flex items-center justify-between text-label-sm font-label-sm">
-            <span class="text-on-surface font-medium">{% trans "AI Innovation Challenge" %}</span>
-            <span class="text-primary font-code-inline text-code-inline font-bold">82%</span>
-          </div>
-          <div class="w-full h-2.5 rounded-full bg-surface-container-high overflow-hidden">
-            <div class="h-full bg-gradient-to-r from-primary to-secondary rounded-full" style="width: 82%"></div>
-          </div>
-        </div>
-        <div class="flex flex-col gap-1.5">
-          <div class="flex items-center justify-between text-label-sm font-label-sm">
-            <span class="text-on-surface font-medium">{% trans "GreenTech Hackathon" %}</span>
-            <span class="text-primary font-code-inline text-code-inline font-bold">45%</span>
-          </div>
-          <div class="w-full h-2.5 rounded-full bg-surface-container-high overflow-hidden">
-            <div class="h-full bg-gradient-to-r from-primary to-secondary rounded-full" style="width: 45%"></div>
+      <div class="flex flex-col gap-3">
+        {% for group in notification_feed %}
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-full bg-secondary-fixed/50 text-secondary flex items-center justify-center flex-shrink-0 mt-0.5"><span class="material-symbols-outlined text-[16px]">{{ group.icon }}</span></div>
+          <div class="flex flex-col min-w-0">
+            <span class="font-label-md text-label-md text-on-surface">{{ group.title }}</span>
+            {% for item in group.items|slice:":2" %}
+            <a class="font-body-sm text-body-sm text-on-surface-variant hover:underline truncate" href="{{ item.url }}">{{ item.text }}</a>
+            {% endfor %}
           </div>
         </div>
-        <div class="flex flex-col gap-1.5">
-          <div class="flex items-center justify-between text-label-sm font-label-sm">
-            <span class="text-on-surface font-medium">{% trans "FinTech Future 2026" %}</span>
-            <span class="text-primary font-code-inline text-code-inline font-bold">18%</span>
-          </div>
-          <div class="w-full h-2.5 rounded-full bg-surface-container-high overflow-hidden">
-            <div class="h-full bg-gradient-to-r from-primary to-secondary rounded-full" style="width: 18%"></div>
-          </div>
-        </div>
+        {% empty %}
+        <p class="p-3.5 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">{% trans "Nothing waiting for you." %}</p>
+        {% endfor %}
       </div>
-    </div>
+    </section>
 
-    <!-- Quick actions -->
-    <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-3">
-      <div class="flex items-center gap-2 pb-space-xs">
-        <span class="material-symbols-outlined text-secondary text-[22px]">bolt</span>
-        <h3 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Quick Actions" %}</h3>
+    <section class="rounded-xl bg-surface-container-low p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-3">
+      <div class="flex items-center gap-2 text-primary font-semibold">
+        <span class="material-symbols-outlined text-[20px]">menu_book</span>
+        <h2 class="font-headline-sm text-headline-sm">{% trans "Resources" %}</h2>
       </div>
-      <div class="grid grid-cols-2 gap-2.5">
-        <button class="flex flex-col items-start gap-1 p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all text-start" type="button">
-          <span class="material-symbols-outlined text-[20px] text-primary">campaign</span>
-          <span class="font-label-md text-label-md text-on-surface font-semibold">{% trans "Announce" %}</span>
-        </button>
-        <button class="flex flex-col items-start gap-1 p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all text-start" type="button">
-          <span class="material-symbols-outlined text-[20px] text-primary">schedule</span>
-          <span class="font-label-md text-label-md text-on-surface font-semibold">{% trans "Set Deadline" %}</span>
-        </button>
-        <button class="flex flex-col items-start gap-1 p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all text-start" type="button">
-          <span class="material-symbols-outlined text-[20px] text-primary">judges</span>
-          <span class="font-label-md text-label-md text-on-surface font-semibold">{% trans "Assign Jury" %}</span>
-        </button>
-        <button class="flex flex-col items-start gap-1 p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all text-start" type="button">
-          <span class="material-symbols-outlined text-[20px] text-primary">emoji_events</span>
-          <span class="font-label-md text-label-md text-on-surface font-semibold">{% trans "Publish Results" %}</span>
-        </button>
+      <div class="flex flex-col gap-2">
+        {% for resource in resources %}
+        <a class="flex items-center justify-between gap-3 p-2.5 rounded-lg bg-surface-container-lowest hover:bg-surface-container-high transition-colors"
+           href="{% url 'resources:detail' resource.pk %}">
+          <span class="font-body-sm text-body-sm text-on-surface truncate">{{ resource.title }}</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">{{ resource.get_type_display }}</span>
+        </a>
+        {% empty %}
+        <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "No resource published yet." %}</p>
+        {% endfor %}
       </div>
-    </div>
-
-    <!-- Attention needed -->
-    <div class="rounded-xl bg-surface-container-low p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-3">
-      <div class="flex items-center gap-2 text-error font-semibold">
-        <span class="material-symbols-outlined text-[20px]">warning</span>
-        <span class="font-headline-sm text-headline-sm text-on-surface">{% trans "Attention Needed" %}</span>
-      </div>
-      <p class="font-body-sm text-body-sm text-on-surface-variant">{% trans "9 evaluations are overdue and 24 team registrations are pending approval. Review them before the submission deadline." %}</p>
-      <div class="pt-1">
-        <a class="inline-flex items-center justify-center w-full px-4 py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md hover:opacity-95 transition-all shadow-sm" href="{% url 'evaluations:home' %}">{% trans "Resolve Now" %}</a>
-      </div>
-    </div>
+    </section>
   </div>
 </div>
 

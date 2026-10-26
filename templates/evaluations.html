@@ -152,7 +152,7 @@
       </div>
       <div class="flex flex-wrap items-center gap-space-xs">
         <select
-          class="px-3 py-2 max-w-full text-body-sm font-body-sm bg-surface-container rounded-lg text-on-surface focus:outline-none focus:bg-surface-container-lowest"
+          class="px-3 py-2 max-w-full text-body-sm font-body-sm bg-surface-container rounded-lg text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus:bg-surface-container-lowest"
           id="filterHackathon">
           <option value="all">{% trans "All Hackathons" %}</option>
           {% for h in hackathons %}
@@ -160,7 +160,7 @@
           {% endfor %}
         </select>
         <select
-          class="px-3 py-2 max-w-full text-body-sm font-body-sm bg-surface-container rounded-lg text-on-surface focus:outline-none focus:bg-surface-container-lowest"
+          class="px-3 py-2 max-w-full text-body-sm font-body-sm bg-surface-container rounded-lg text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus:bg-surface-container-lowest"
           id="filterStatus">
           <option value="all">{% trans "All Statuses" %}</option>
           <option value="Pending">{% trans "Pending" %}</option>
@@ -168,7 +168,7 @@
           <option value="Completed">{% trans "Completed" %}</option>
         </select>
         <select
-          class="px-3 py-2 max-w-full text-body-sm font-body-sm bg-surface-container rounded-lg text-on-surface focus:outline-none focus:bg-surface-container-lowest"
+          class="px-3 py-2 max-w-full text-body-sm font-body-sm bg-surface-container rounded-lg text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus:bg-surface-container-lowest"
           id="filterTrack">
           <option value="all">{% trans "All Tracks" %}</option>
           {% for track in tracks %}
@@ -641,6 +641,27 @@
           </div>
         </div>
 
+        <!-- AI DECISION SUPPORT (read-only; the jury keeps the final decision) -->
+        <div class="hidden flex flex-col gap-space-md p-space-md rounded-xl bg-tertiary-fixed/40 border border-outline-variant"
+          id="aiPanel">
+          <div class="flex items-center justify-between gap-2 flex-wrap">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-tertiary text-[20px]">smart_toy</span>
+              <h4 class="font-headline-sm text-headline-sm text-on-surface">{% trans "AI technical summary" %}</h4>
+            </div>
+            <a class="font-label-sm text-label-sm text-primary hover:underline flex items-center gap-1"
+              id="aiReportLink" href="#" target="_blank" rel="noopener noreferrer">
+              <span class="material-symbols-outlined text-[16px]">description</span> {% trans "Open full report" %}
+            </a>
+          </div>
+          <p class="font-body-sm text-body-sm text-on-surface-variant" id="aiSummary"></p>
+          <div class="flex flex-wrap items-center gap-2" id="aiMeta"></div>
+          <p class="font-body-sm text-body-sm text-on-surface-variant font-semibold flex items-start gap-1.5">
+            <span class="material-symbols-outlined text-[16px] text-tertiary">info</span>
+            {% trans "The AI scores below are indicative proposals. Your own slider values are the jury's decision; nothing is applied automatically." %}
+          </p>
+        </div>
+
         <div class="flex flex-col gap-space-md" id="rubricContainer">
           <h4 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
             <span class="material-symbols-outlined text-primary text-[20px]">grading</span> {% trans "Scoring Rubric (0 to 10 Scale)" %}
@@ -830,6 +851,10 @@
     const startError = document.getElementById('startEvalError');
     const rubricContainer = document.getElementById('rubricContainer');
     const totalScoreEl = document.getElementById('calculatedTotalScore');
+    const aiPanel = document.getElementById('aiPanel');
+    const aiSummary = document.getElementById('aiSummary');
+    const aiMeta = document.getElementById('aiMeta');
+    const aiReportLink = document.getElementById('aiReportLink');
 
     let currentEvalId = null;
     let currentCriteria = [];
@@ -929,7 +954,8 @@
       }
     }
 
-    function renderRubric(criteria) {
+    function renderRubric(criteria, suggestions) {
+      const ai = suggestions || {};
       rubricContainer.innerHTML = `
         <h4 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
           <span class="material-symbols-outlined text-primary text-[20px]">grading</span> {% trans "Scoring Rubric (0 to 10 Scale)" %}
@@ -947,13 +973,81 @@
           </div>
           <input class="rubric-slider w-full accent-primary h-2 bg-surface-container rounded-lg cursor-pointer"
             data-target="scoreVal-${c.id}" data-criteria-id="${c.id}" data-weight="${c.weight}"
-            max="10" min="0" step="1" type="range" value="${c.score}" />`;
+            max="10" min="0" step="1" type="range" value="${c.score}" />
+          ${aiRow(ai[c.id])}`;
         rubricContainer.appendChild(wrap);
       });
       rubricContainer.querySelectorAll('.rubric-slider').forEach(slider => {
         slider.addEventListener('input', recalculateTotal);
       });
+      rubricContainer.querySelectorAll('.ai-use-btn').forEach(btn => {
+        btn.addEventListener('click', () => applySuggestion(btn));
+      });
       recalculateTotal();
+    }
+
+    // Ligne d'assistance IA sous un critère : proposition indicative, jamais
+    // appliquée sans une action explicite du juré.
+    function aiRow(suggestion) {
+      if (!suggestion || typeof suggestion.indicative_score !== 'number') return '';
+      const evidence = (suggestion.evidence || []).slice(0, 3).map(path =>
+        `<code class="font-code-inline text-[11px] text-outline break-all">${escapeHtml(path)}</code>`
+      ).join('');
+      return `
+        <div class="pt-2 mt-1 border-t border-outline-variant/50 flex items-start gap-2">
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm text-label-sm whitespace-nowrap">
+            <span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+            {% trans "AI" %} ${suggestion.indicative_score}/${suggestion.scale_max}
+          </span>
+          <div class="flex flex-col gap-1 min-w-0">
+            <span class="font-body-sm text-body-sm text-on-surface-variant">${escapeHtml(suggestion.rationale || '')}</span>
+            ${evidence ? `<div class="flex flex-wrap gap-1">${evidence}</div>` : ''}
+          </div>
+          <button type="button" class="ai-use-btn ms-auto shrink-0 px-2.5 py-1 rounded-lg bg-tertiary text-on-tertiary font-label-sm text-label-sm hover:opacity-90 transition-opacity"
+            data-criteria-id="${suggestion.criterion_id}" data-ai-score="${suggestion.indicative_score}">{% trans "Use" %}</button>
+        </div>`;
+    }
+
+    function applySuggestion(btn) {
+      const slider = rubricContainer.querySelector(
+        `.rubric-slider[data-criteria-id="${btn.getAttribute('data-criteria-id')}"]`);
+      if (!slider) return;
+      slider.value = btn.getAttribute('data-ai-score');
+      slider.dispatchEvent(new Event('input'));
+      btn.disabled = true;
+      showToast("{% trans 'AI suggestion copied into your score. Adjust it freely: the value you submit is yours.' %}");
+    }
+
+    function aiChip(label) {
+      const chip = document.createElement('span');
+      chip.className = 'inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm';
+      chip.textContent = label;
+      return chip;
+    }
+
+    function renderAiPanel(analysis) {
+      if (!aiPanel) return;
+      aiPanel.classList.add('hidden');
+      if (!analysis) return;
+      aiMeta.innerHTML = '';
+      aiReportLink.href = analysis.report_url || '#';
+      if (analysis.status === 'done') {
+        aiSummary.textContent = analysis.summary || '';
+        if (analysis.file_count) aiMeta.appendChild(
+          aiChip('{% trans "Files analyzed" %}' + ': ' + analysis.file_count));
+        if (typeof analysis.weighted_indicative === 'number') aiMeta.appendChild(
+          aiChip('{% trans "Weighted" %}' + ': ' + analysis.weighted_indicative + '/' + analysis.scale_max));
+        if (analysis.model_id) aiMeta.appendChild(aiChip(analysis.model_id));
+        if (analysis.created_at) aiMeta.appendChild(aiChip(analysis.created_at.slice(0, 10)));
+        if (analysis.unverified_evidence) aiMeta.appendChild(
+          aiChip('{% trans "Unverified citations removed" %}' + ': ' + analysis.unverified_evidence));
+      } else if (analysis.status === 'running' || analysis.status === 'pending') {
+        aiSummary.textContent = '{% trans "An AI analysis is running for this repository. Reopen this form in a moment to see its result." %}';
+      } else {
+        aiSummary.textContent = analysis.error_message
+          || '{% trans "The last AI analysis of this project failed, so no suggestion is available." %}';
+      }
+      aiPanel.classList.remove('hidden');
     }
 
     function setLink(el, url) {
@@ -984,7 +1078,12 @@
           document.getElementById('feedbackComments').value = data.confidential_notes || '';
           setLink(document.getElementById('modalGithubLink'), data.github_url);
           setLink(document.getElementById('modalDemoLink'), data.demo_url);
-          renderRubric(currentCriteria);
+          const suggestions = {};
+          (data.analysis && data.analysis.criteria || []).forEach(entry => {
+            if (entry.criterion_id) suggestions[entry.criterion_id] = entry;
+          });
+          renderRubric(currentCriteria, suggestions);
+          renderAiPanel(data.analysis);
           openModal(evalModal);
         });
     }

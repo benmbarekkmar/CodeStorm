@@ -31,6 +31,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_GET, require_POST
 
 from accounts.models import User
+from analyses.services.suggestions import analysis_state_for
 from hackathons.models import Hackathon
 from projects.models import Project
 
@@ -392,6 +393,11 @@ def evaluation_detail(request, project_id):
         'confidential_notes': evaluation.confidential_notes,
         'criteria': criteria_data,
         'total_score': evaluation.total_score,
+        # Assistant d'aide à la décision, en lecture seule : la dernière analyse
+        # visible de ce projet. Aucune note n'en est déduite automatiquement --
+        # seul le juré décide d'adapter un curseur, et ``evaluation:submit``
+        # reste la seule écriture d'``EvaluationScore``.
+        'analysis': analysis_state_for(request.user, project),
     }
     return JsonResponse(data)
 
