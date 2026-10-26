@@ -28,6 +28,8 @@ class RegisterForm(UserCreationForm):
         self.fields['email'].label = _('Email')
         self.fields['email'].widget.attrs.update({'placeholder': 'kmar@example.com', 'autocomplete': 'email'})
         self.fields['role'].label = _('Role')
+        self.fields['role'].required = False
+        self.fields['role'].initial = User.Role.PARTICIPANT
         self.fields['role'].widget.attrs.update({'autocomplete': 'off'})
         self.fields['password1'].label = _('Password')
         self.fields['password2'].label = _('Confirm password')
