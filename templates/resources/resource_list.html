@@ -53,18 +53,18 @@
   <form method="get" id="resourceFilters" class="section-enter p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col lg:flex-row items-stretch lg:items-center gap-space-sm">
     <div class="relative w-full lg:w-80 flex items-center">
       <span class="material-symbols-outlined absolute start-3 text-outline text-[18px]">search</span>
-      <input class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg ps-9 pe-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline"
-             type="search" name="q" value="{{ q }}" placeholder="{% trans 'Search resources by title or description' %}"/>
+      <input class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg ps-9 pe-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-outline"
+             type="search" name="q" value="{{ q }}" placeholder="{% trans 'Search resources by title or description' %}" aria-label="{% trans 'Search resources by title or description' %}"/>
     </div>
-    <select name="category" class="bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20">
+    <select name="category" class="bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" aria-label="{% trans 'Filter by category' %}">
       <option value="all">{% trans "All Categories" %}</option>
       {% for value, label in categories %}<option value="{{ value }}" {% if sel_category == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
     </select>
-    <select name="type" class="bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20">
+    <select name="type" class="bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" aria-label="{% trans 'Filter by type' %}">
       <option value="all">{% trans "All Types" %}</option>
       {% for value, label in types %}<option value="{{ value }}" {% if sel_type == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
     </select>
-    <select name="sort" class="bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20">
+    <select name="sort" class="bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" aria-label="{% trans 'Sort by' %}">
       <option value="recent" {% if sel_sort == 'recent' %}selected{% endif %}>{% trans "Newest first" %}</option>
       <option value="oldest" {% if sel_sort == 'oldest' %}selected{% endif %}>{% trans "Oldest first" %}</option>
       <option value="az" {% if sel_sort == 'az' %}selected{% endif %}>{% trans "Title A–Z" %}</option>

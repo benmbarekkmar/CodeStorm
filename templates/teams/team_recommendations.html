@@ -28,7 +28,7 @@
   <!-- Hackathon selector -->
   <form method="get" id="recFilters" class="p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col sm:flex-row sm:items-center gap-space-sm">
     <label class="font-label-md text-label-md text-on-surface" for="rec-hackathon">{% trans "Hackathon" %}</label>
-    <select id="rec-hackathon" name="hackathon" class="flex-1 bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20">
+    <select id="rec-hackathon" name="hackathon" class="flex-1 bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary">
       <option value="">{% trans "Choose a hackathon" %}</option>
       {% for h in hackathons %}
         <option value="{{ h.pk }}" {% if sel_hackathon == h.pk|stringformat:'s' %}selected{% endif %}>{{ h.title }}</option>

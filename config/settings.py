@@ -50,6 +50,12 @@ def _csv(name):
 ALLOWED_HOSTS = _csv('ALLOWED_HOSTS')
 if RENDER_HOST and RENDER_HOST not in ALLOWED_HOSTS:
     ALLOWED_HOSTS.append(RENDER_HOST)
+if DEBUG:
+    # runserver serves itself on an arbitrary local port and hostname; without
+    # this every page a developer opens would be a DisallowedHost 400.
+    for host in ('localhost', '127.0.0.1', '[::1]'):
+        if host not in ALLOWED_HOSTS:
+            ALLOWED_HOSTS.append(host)
 
 # A POST from the browser carries the site's own origin; on Render that is the
 # https URL of the service, so it has to be listed or every form fails the CSRF

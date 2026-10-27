@@ -14,7 +14,7 @@ from django.utils.translation import override as translation_override
 
 from config import settings as config_settings
 from hackathons import ai
-from hackathons.models import Hackathon
+from hackathons.models import Challenge, Hackathon
 
 User = get_user_model()
 
@@ -521,6 +521,14 @@ class AlignSchemaReversalGuardTests(TestCase):
 
     def test_census_flags_every_value_the_reverse_would_destroy(self):
         mod = self._module()
+        # Le recensement porte sur la table entiere: une base de test conservee
+        # par --keepdb peut done porter des lignes d'un test precedent. Les
+        # attendus sont mesures, jamais supposes.
+        base = {
+            column: Hackathon.objects.filter(**{f'{column}__isnull': False}).count()
+            for column in ('category', 'start_date', 'max_participants')
+        }
+        base_challenges = Challenge.objects.count()
         hackathon = build_hackathon(self.org, title="Legacy row")
         hackathon.save()
         hackathon.challenges.create(title="c", description="d")
@@ -529,17 +537,18 @@ class AlignSchemaReversalGuardTests(TestCase):
         self._add_legacy_columns()
 
         blockers = mod._reversal_blockers(connection)
-        self.assertEqual(blockers["hackathons_challenge rows"], 1)
+        self.assertEqual(blockers["hackathons_challenge rows"], base_challenges + 1)
         # Every value with no legacy counterpart was written after the forward.
-        self.assertEqual(blockers['"category" values'], 1)
-        self.assertEqual(blockers['"start_date" values'], 1)
-        self.assertEqual(blockers['"max_participants" values'], 1)
+        self.assertEqual(blockers['"category" values'], base['category'] + 1)
+        self.assertEqual(blockers['"start_date" values'], base['start_date'] + 1)
+        self.assertEqual(blockers['"max_participants" values'], base['max_participants'] + 1)
         # title/organizer still re-derivable from name/created_by_id.
         self.assertNotIn('"title" values edited away from "name"', blockers)
         self.assertNotIn('"organizer_id" values edited away from "created_by_id"', blockers)
 
         with connection.cursor() as c:
-            c.execute('UPDATE hackathons_hackathon SET title = %s', ["Renamed later"])
+            c.execute('UPDATE hackathons_hackathon SET title = %s WHERE id = %s',
+                      ["Renamed later", hackathon.pk])
         blockers = mod._reversal_blockers(connection)
         self.assertEqual(blockers['"title" values edited away from "name"'], 1)
 

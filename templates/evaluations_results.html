@@ -48,15 +48,16 @@
     <div class="bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-start">
+                <caption class="sr-only">{% trans "Scored projects ranked by total score." %}</caption>
                 <thead>
                     <tr
                         class="bg-surface-container-low font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                        <th class="py-3.5 px-space-md font-semibold w-12">{% trans "Rank" %}</th>
-                        <th class="py-3.5 px-space-md font-semibold">{% trans "Project & Team" %}</th>
-                        <th class="py-3.5 px-space-md font-semibold">{% trans "Hackathon" %}</th>
-                        <th class="py-3.5 px-space-md font-semibold">{% trans "Evaluator" %}</th>
-                        <th class="py-3.5 px-space-md font-semibold text-end">{% trans "Score" %}</th>
-                        <th class="py-3.5 px-space-md font-semibold">{% trans "Strengths" %}</th>
+                        <th scope="col" class="py-3.5 px-space-md font-semibold w-12">{% trans "Rank" %}</th>
+                        <th scope="col" class="py-3.5 px-space-md font-semibold">{% trans "Project & Team" %}</th>
+                        <th scope="col" class="py-3.5 px-space-md font-semibold">{% trans "Hackathon" %}</th>
+                        <th scope="col" class="py-3.5 px-space-md font-semibold">{% trans "Evaluator" %}</th>
+                        <th scope="col" class="py-3.5 px-space-md font-semibold text-end">{% trans "Score" %}</th>
+                        <th scope="col" class="py-3.5 px-space-md font-semibold">{% trans "Strengths" %}</th>
                     </tr>
                 </thead>
                 <tbody class="text-body-sm font-body-sm divide-y divide-surface-container">

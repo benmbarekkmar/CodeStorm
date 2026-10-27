@@ -618,9 +618,11 @@ class AccessGatingTests(ViewsBase):
 
     def test_participant_blocked(self):
         self.login(self.participant)
-        resp = self.client.get(reverse('analyses:home'))
-        self.assertEqual(resp.status_code, 302)
-        self.assertIn(reverse('dashboard'), resp.url)
+        resp = self.client.get(reverse('analyses:home'), follow=True)
+        self.assertEqual(resp.redirect_chain[0][0], reverse('dashboard'))
+        # The refusal has to be readable, not only a redirect: the dashboard
+        # renders the message stack.
+        self.assertContains(resp, 'permission to access analyses')
 
     def test_jury_allowed_on_scoped_reports(self):
         # Jury access exists now that report scoping does: a juré reaches the
@@ -669,6 +671,22 @@ class DetailRenderTests(ViewsBase):
         self.assertContains(resp, 'final grade belongs to the jury')
         # Indicative scores render, but there is no "final grade" label.
         self.assertNotContains(resp, 'Final grade')
+
+    def test_empty_sections_say_so_instead_of_rendering_nothing(self):
+        report = self.make_report(self.org)
+        payload = ValidReport.payload()
+        payload['criteria'] = []
+        payload['strengths'] = []
+        payload['coverage'] = {'read_files': [], 'truncated_files': [],
+                               'ignored_files': []}
+        report.report = payload
+        report.save(update_fields=['report'])
+        self.login(self.org)
+        resp = self.client.get(reverse('analyses:detail', args=[report.pk]))
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, 'no per-criterion notes')
+        self.assertContains(resp, 'No file list was recorded for this report.')
+        self.assertContains(resp, 'None noted.')
 
     def test_failed_report_shows_error_not_success(self):
         report = self.make_report(self.org, status=AIReport.Status.FAILED)

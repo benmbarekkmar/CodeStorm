@@ -13,8 +13,8 @@
   <!-- Toast -->
   <div
     class="fixed top-20 end-8 z-[100] transform transition-all duration-300 translate-y-[-20px] opacity-0 pointer-events-none flex items-center gap-space-sm px-space-md py-3 rounded-xl bg-tertiary-container text-on-tertiary-container shadow-xl"
-    id="evalToast">
-    <span class="material-symbols-outlined text-[20px]">check_circle</span>
+    id="evalToast" role="status" aria-live="polite">
+    <span class="material-symbols-outlined text-[20px]" aria-hidden="true">check_circle</span>
     <span class="font-label-md text-label-md font-semibold" id="toastMessage">{% trans "Evaluation successfully submitted!" %}</span>
   </div>
 
@@ -147,29 +147,29 @@
       <div class="relative flex-1 max-w-lg">
         <span class="material-symbols-outlined absolute start-3 top-2.5 text-on-surface-variant text-[18px]">search</span>
         <input
-          class="w-full ps-9 pe-space-md py-2 text-body-sm font-body-sm bg-surface-container rounded-lg text-on-surface placeholder-on-surface-variant focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all"
-          id="evalSearchInput" placeholder="{% trans "Search submissions by project, team, or jury..." %}" type="text" />
+          class="w-full ps-9 pe-space-md py-2 text-body-sm font-body-sm bg-surface-container rounded-lg text-on-surface placeholder-on-surface-variant focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary transition-all"
+          id="evalSearchInput" aria-label="{% trans "Search submissions by project, team, or jury..." %}" placeholder="{% trans "Search submissions by project, team, or jury..." %}" type="text" />
       </div>
       <div class="flex flex-wrap items-center gap-space-xs">
         <select
-          class="px-3 py-2 max-w-full text-body-sm font-body-sm bg-surface-container rounded-lg text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus:bg-surface-container-lowest"
-          id="filterHackathon">
+          class="px-3 py-2 max-w-full text-body-sm font-body-sm bg-surface-container rounded-lg text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus:bg-surface-container-lowest"
+          id="filterHackathon" aria-label="{% trans "Filter by hackathon" %}">
           <option value="all">{% trans "All Hackathons" %}</option>
           {% for h in hackathons %}
           <option value="{{ h.title }}">{{ h.title }}</option>
           {% endfor %}
         </select>
         <select
-          class="px-3 py-2 max-w-full text-body-sm font-body-sm bg-surface-container rounded-lg text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus:bg-surface-container-lowest"
-          id="filterStatus">
+          class="px-3 py-2 max-w-full text-body-sm font-body-sm bg-surface-container rounded-lg text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus:bg-surface-container-lowest"
+          id="filterStatus" aria-label="{% trans "Filter by status" %}">
           <option value="all">{% trans "All Statuses" %}</option>
           <option value="Pending">{% trans "Pending" %}</option>
           <option value="In Progress">{% trans "In Progress" %}</option>
           <option value="Completed">{% trans "Completed" %}</option>
         </select>
         <select
-          class="px-3 py-2 max-w-full text-body-sm font-body-sm bg-surface-container rounded-lg text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus:bg-surface-container-lowest"
-          id="filterTrack">
+          class="px-3 py-2 max-w-full text-body-sm font-body-sm bg-surface-container rounded-lg text-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus:bg-surface-container-lowest"
+          id="filterTrack" aria-label="{% trans "Filter by track" %}">
           <option value="all">{% trans "All Tracks" %}</option>
           {% for track in tracks %}
           <option value="{{ track }}">{{ track }}</option>
@@ -367,16 +367,17 @@
     <div class="bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden">
       <div class="overflow-x-auto">
         <table class="w-full text-start" id="pendingTable">
+          <caption class="sr-only">{% trans "Reviews assigned to you, with their status and deadline." %}</caption>
           <thead>
             <tr
               class="bg-surface-container-low font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-              <th class="py-3.5 px-space-md font-semibold">{% trans "Project &amp; Team" %}</th>
-              <th class="py-3.5 px-space-md font-semibold">{% trans "Hackathon Track" %}</th>
-              <th class="py-3.5 px-space-md font-semibold">{% trans "Assigned Jury" %}</th>
-              <th class="py-3.5 px-space-md font-semibold">{% trans "Submission Date" %}</th>
-              <th class="py-3.5 px-space-md font-semibold">{% trans "Deadline" %}</th>
-              <th class="py-3.5 px-space-md font-semibold">{% trans "Status" %}</th>
-              <th class="py-3.5 px-space-md font-semibold text-end">{% trans "Action" %}</th>
+              <th scope="col" class="py-3.5 px-space-md font-semibold">{% trans "Project &amp; Team" %}</th>
+              <th scope="col" class="py-3.5 px-space-md font-semibold">{% trans "Hackathon Track" %}</th>
+              <th scope="col" class="py-3.5 px-space-md font-semibold">{% trans "Assigned Jury" %}</th>
+              <th scope="col" class="py-3.5 px-space-md font-semibold">{% trans "Submission Date" %}</th>
+              <th scope="col" class="py-3.5 px-space-md font-semibold">{% trans "Deadline" %}</th>
+              <th scope="col" class="py-3.5 px-space-md font-semibold">{% trans "Status" %}</th>
+              <th scope="col" class="py-3.5 px-space-md font-semibold text-end">{% trans "Action" %}</th>
             </tr>
           </thead>
           <tbody class="text-body-sm font-body-sm divide-y-0" id="pendingTableBody">
@@ -549,17 +550,17 @@
 
   <!-- START EVALUATION PICKER -->
   <div class="fixed inset-0 z-50 hidden bg-inverse-surface/40 backdrop-blur-sm items-center justify-center p-4"
-    id="startEvalModal">
+    id="startEvalModal" role="dialog" aria-modal="true" aria-labelledby="startEvalHeading" aria-hidden="true">
     <div class="bg-surface-container-lowest rounded-2xl shadow-2xl max-w-lg w-full flex flex-col overflow-hidden">
       <div class="p-space-lg bg-surface-container-low flex items-start justify-between">
         <div class="flex flex-col">
           <span class="font-label-sm text-label-sm text-primary font-semibold uppercase tracking-wider">{% trans "New jury review" %}</span>
-          <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold mt-1">{% trans "Start Evaluation" %}</h3>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold mt-1" id="startEvalHeading">{% trans "Start Evaluation" %}</h3>
           <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">{% trans "Choose the hackathon, then the project you want to evaluate." %}</p>
         </div>
         <button class="p-2 text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container transition-colors"
-          id="closeStartEvalBtn" type="button">
-          <span class="material-symbols-outlined text-[24px]">close</span>
+          id="closeStartEvalBtn" type="button" aria-label="{% trans 'Close' %}">
+          <span class="material-symbols-outlined text-[24px]" aria-hidden="true">close</span>
         </button>
       </div>
       <form class="p-space-lg flex flex-col gap-space-md" id="startEvalForm">
@@ -567,7 +568,7 @@
         <div class="flex flex-col gap-1">
           <label class="font-label-md text-label-md text-on-surface font-semibold" for="startHackathonSelect">{% trans "Hackathon" %} <span class="text-error">*</span></label>
           <select
-            class="w-full px-3.5 py-2.5 bg-surface-container rounded-lg text-body-sm font-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20"
+            class="w-full px-3.5 py-2.5 bg-surface-container rounded-lg text-body-sm font-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"
             id="startHackathonSelect" required>
             <option value="">{% trans "Select a hackathon" %}</option>
           </select>
@@ -575,7 +576,7 @@
         <div class="flex flex-col gap-1">
           <label class="font-label-md text-label-md text-on-surface font-semibold" for="startProjectSelect">{% trans "Project" %} <span class="text-error">*</span></label>
           <select
-            class="w-full px-3.5 py-2.5 bg-surface-container rounded-lg text-body-sm font-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20"
+            class="w-full px-3.5 py-2.5 bg-surface-container rounded-lg text-body-sm font-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"
             id="startProjectSelect" required disabled>
             <option value="">{% trans "Select a hackathon first" %}</option>
           </select>
@@ -594,7 +595,7 @@
 
   <!-- EVALUATION MODAL -->
   <div class="fixed inset-0 z-50 hidden bg-inverse-surface/40 backdrop-blur-sm items-center justify-center p-4"
-    id="evalModal">
+    id="evalModal" role="dialog" aria-modal="true" aria-labelledby="modalProjectTitle" aria-hidden="true">
     <div
       class="bg-surface-container-lowest rounded-2xl shadow-2xl max-w-4xl w-full max-h-[92vh] flex flex-col overflow-hidden animate-fadeIn">
       <div class="p-space-lg bg-surface-container-low flex items-start justify-between">
@@ -618,8 +619,8 @@
         </div>
         <button
           class="p-2 text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container transition-colors"
-          id="closeEvalModalBtn" type="button">
-          <span class="material-symbols-outlined text-[24px]">close</span>
+          id="closeEvalModalBtn" type="button" aria-label="{% trans 'Close' %}">
+          <span class="material-symbols-outlined text-[24px]" aria-hidden="true">close</span>
         </button>
       </div>
 
@@ -673,23 +674,23 @@
             <span class="material-symbols-outlined text-primary text-[20px]">chat</span> {% trans "Qualitative Feedback" %}
           </h4>
           <div class="flex flex-col gap-1">
-            <label class="font-label-md text-label-md text-on-surface font-semibold">{% trans "Strengths &amp; Highlights" %}</label>
+            <label class="font-label-md text-label-md text-on-surface font-semibold" for="feedbackStrengths">{% trans "Strengths &amp; Highlights" %}</label>
             <textarea
-              class="w-full p-space-md bg-surface-container rounded-xl text-body-sm font-body-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20"
+              class="w-full p-space-md bg-surface-container rounded-xl text-body-sm font-body-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary"
               id="feedbackStrengths" placeholder="{% trans "Mention key technical strengths, clever code practices, or novel implementations..." %}"
               rows="2"></textarea>
           </div>
           <div class="flex flex-col gap-1">
-            <label class="font-label-md text-label-md text-on-surface font-semibold">{% trans "Areas for Improvement" %}</label>
+            <label class="font-label-md text-label-md text-on-surface font-semibold" for="feedbackImprovements">{% trans "Areas for Improvement" %}</label>
             <textarea
-              class="w-full p-space-md bg-surface-container rounded-xl text-body-sm font-body-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20"
+              class="w-full p-space-md bg-surface-container rounded-xl text-body-sm font-body-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary"
               id="feedbackImprovements" placeholder="{% trans "Provide actionable advice for iteration before demo day..." %}"
               rows="2"></textarea>
           </div>
           <div class="flex flex-col gap-1">
-            <label class="font-label-md text-label-md text-on-surface font-semibold">{% trans "Confidential Jury Summary" %}</label>
+            <label class="font-label-md text-label-md text-on-surface font-semibold" for="feedbackComments">{% trans "Confidential Jury Summary" %}</label>
             <textarea
-              class="w-full p-space-md bg-surface-container rounded-xl text-body-sm font-body-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20"
+              class="w-full p-space-md bg-surface-container rounded-xl text-body-sm font-body-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary"
               id="feedbackComments" placeholder="{% trans "Private notes visible only to the organizing committee and co-jurors..." %}"
               rows="2"></textarea>
           </div>
@@ -714,7 +715,7 @@
 
   <!-- READ-ONLY MODAL -->
   <div class="fixed inset-0 z-50 hidden bg-inverse-surface/40 backdrop-blur-sm items-center justify-center p-4"
-    id="readOnlyModal">
+    id="readOnlyModal" role="dialog" aria-modal="true" aria-labelledby="roProjectTitle" aria-hidden="true">
     <div
       class="bg-surface-container-lowest rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden animate-fadeIn">
       <div class="p-space-lg bg-surface-container-low flex items-start justify-between">
@@ -725,8 +726,8 @@
         </div>
         <button
           class="p-2 text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container transition-colors"
-          id="closeReadOnlyModalBtn" type="button">
-          <span class="material-symbols-outlined text-[24px]">close</span>
+          id="closeReadOnlyModalBtn" type="button" aria-label="{% trans 'Close' %}">
+          <span class="material-symbols-outlined text-[24px]" aria-hidden="true">close</span>
         </button>
       </div>
 
@@ -878,13 +879,28 @@
       }, 2800);
     }
 
-    function openModal(el) {
+    // The three modals are dialogs: they stay hidden from assistive tech until
+    // opened, focus moves to their first control on open and returns to the
+    // button that opened them on close.
+    const modalTriggers = new Map();
+
+    function openModal(el, trigger) {
+      const source = trigger ||
+        (document.activeElement && document.activeElement !== document.body ? document.activeElement : null);
+      if (source) modalTriggers.set(el, source);
       el.classList.remove('hidden');
       el.classList.add('flex');
+      el.removeAttribute('aria-hidden');
+      const first = el.querySelector('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea');
+      if (first) first.focus();
     }
     function closeModal(el) {
       el.classList.add('hidden');
       el.classList.remove('flex');
+      el.setAttribute('aria-hidden', 'true');
+      const source = modalTriggers.get(el);
+      modalTriggers.delete(el);
+      if (source && source.isConnected) source.focus();
     }
 
     function fillHackathonSelect() {
@@ -966,13 +982,13 @@
         wrap.innerHTML = `
           <div class="flex items-center justify-between">
             <div class="flex flex-col">
-              <span class="font-label-md text-label-md text-on-surface font-semibold">${idx + 1}. ${escapeHtml(c.name)} <span class="text-on-surface-variant font-normal">(${c.weight}%)</span></span>
+              <span class="font-label-md text-label-md text-on-surface font-semibold" id="critName-${c.id}">${idx + 1}. ${escapeHtml(c.name)} <span class="text-on-surface-variant font-normal">(${c.weight}%)</span></span>
               <span class="font-body-sm text-body-sm text-on-surface-variant">${escapeHtml(c.description || '')}</span>
             </div>
             <span class="font-headline-sm text-headline-sm text-primary font-bold font-code-inline min-w-[2.5rem] text-end" id="scoreVal-${c.id}">${c.score}</span>
           </div>
           <input class="rubric-slider w-full accent-primary h-2 bg-surface-container rounded-lg cursor-pointer"
-            data-target="scoreVal-${c.id}" data-criteria-id="${c.id}" data-weight="${c.weight}"
+            aria-labelledby="critName-${c.id}" data-target="scoreVal-${c.id}" data-criteria-id="${c.id}" data-weight="${c.weight}"
             max="10" min="0" step="1" type="range" value="${c.score}" />
           ${aiRow(ai[c.id])}`;
         rubricContainer.appendChild(wrap);
@@ -1208,6 +1224,13 @@
     function closeRO() { closeModal(roModal); }
     document.getElementById('closeReadOnlyModalBtn').addEventListener('click', closeRO);
     document.getElementById('closeReadOnlyModalBtn2').addEventListener('click', closeRO);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (!startModal.classList.contains('hidden')) closeStartPicker();
+      else if (!roModal.classList.contains('hidden')) closeRO();
+      else if (!evalModal.classList.contains('hidden')) closeScoringModal();
+    });
 
     const exportBtn = document.getElementById('exportCsvBtn');
     if (exportBtn) {

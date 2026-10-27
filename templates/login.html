@@ -35,19 +35,19 @@
 
       <div class="relative">
         <input type="text" name="username" id="id_username" autocomplete="username" placeholder=" " required autofocus
-               class="peer field-input w-full bg-surface-container-lowest rounded-lg ps-11 pe-4 pt-6 pb-2 font-body-md text-body-md text-on-surface border border-transparent focus:border-primary/40 focus:outline-none focus:ring-2 focus:ring-primary/30 shadow-[0_1px_8px_rgba(0,0,0,0.04)]"/>
+               class="peer field-input w-full bg-surface-container-lowest rounded-lg ps-11 pe-4 pt-6 pb-2 font-body-md text-body-md text-on-surface border border-transparent focus:border-primary/40 focus:outline-none focus:ring-2 focus:ring-primary shadow-[0_1px_8px_rgba(0,0,0,0.04)]"/>
         <span class="material-symbols-outlined absolute start-3.5 top-1/2 -translate-y-1/2 text-[20px] text-outline peer-focus:text-primary transition-colors pointer-events-none">person</span>
         <label for="id_username" class="float-label font-label-md">{% trans "Username" %}</label>
       </div>
 
       <div class="relative">
         <input type="password" name="password" id="id_password" autocomplete="current-password" placeholder=" " required
-               class="peer field-input w-full bg-surface-container-lowest rounded-lg ps-11 pe-12 pt-6 pb-2 font-body-md text-body-md text-on-surface border border-transparent focus:border-primary/40 focus:outline-none focus:ring-2 focus:ring-primary/30 shadow-[0_1px_8px_rgba(0,0,0,0.04)]"/>
+               class="peer field-input w-full bg-surface-container-lowest rounded-lg ps-11 pe-12 pt-6 pb-2 font-body-md text-body-md text-on-surface border border-transparent focus:border-primary/40 focus:outline-none focus:ring-2 focus:ring-primary shadow-[0_1px_8px_rgba(0,0,0,0.04)]"/>
         <span class="material-symbols-outlined absolute start-3.5 top-1/2 -translate-y-1/2 text-[20px] text-outline peer-focus:text-primary transition-colors pointer-events-none">lock</span>
         <label for="id_password" class="float-label font-label-md">{% trans "Password" %}</label>
         <button type="button" onclick="togglePassword('id_password', this)" aria-label="{% trans "Show password" %}"
                 class="absolute end-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-outline hover:text-on-surface transition-colors">
-          <span class="material-symbols-outlined text-[20px]">visibility</span>
+          <span class="material-symbols-outlined text-[20px]" aria-hidden="true">visibility</span>
         </button>
       </div>
 
@@ -70,13 +70,10 @@
   function togglePassword(inputId, btn) {
     const input = document.getElementById(inputId);
     const icon = btn.querySelector('.material-symbols-outlined');
-    if (input.type === 'password') {
-      input.type = 'text';
-      icon.textContent = 'visibility_off';
-    } else {
-      input.type = 'password';
-      icon.textContent = 'visibility';
-    }
+    const reveal = input.type === 'password';
+    input.type = reveal ? 'text' : 'password';
+    icon.textContent = reveal ? 'visibility_off' : 'visibility';
+    btn.setAttribute('aria-label', reveal ? '{% trans "Hide password" %}' : '{% trans "Show password" %}');
   }
 
   document.getElementById('loginForm').addEventListener('submit', () => {

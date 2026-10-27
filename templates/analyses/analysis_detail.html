@@ -156,8 +156,12 @@
           </li>
           {% endfor %}
         </ul>
+        {% else %}
+        <p class="font-body-sm text-body-sm text-outline">{% trans "No file path backs this note." %}</p>
         {% endif %}
       </div>
+      {% empty %}
+      <p class="font-body-sm text-body-sm text-outline">{% trans "This report carries no per-criterion notes." %}</p>
       {% endfor %}
     </div>
 
@@ -240,6 +244,8 @@
           <li class="flex items-start gap-1.5 font-code-inline text-body-sm text-on-surface-variant">
             <span class="material-symbols-outlined text-[14px] text-outline">insert_drive_file</span><code class="break-words">{{ path }}</code>
           </li>
+          {% empty %}
+          <li class="font-body-sm text-body-sm text-outline">{% trans "No file list was recorded for this report." %}</li>
           {% endfor %}
         </ul>
       </details>

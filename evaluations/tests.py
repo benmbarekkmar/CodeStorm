@@ -6,6 +6,7 @@ sont repris ici contre ``hackathons.Hackathon`` / ``projects.Project`` /
 pas : rôles, cloisonnement entre jurés, notes confidentielles, publication des
 résultats et coût en requêtes.
 """
+import re
 from datetime import timedelta
 from decimal import Decimal
 
@@ -677,3 +678,48 @@ class ScoringAssistantBridgeTests(EvaluationBase):
         self.assertEqual(analysis['scale_max'], 5)
         self.assertIsNone(analysis['criteria'][0]['criterion_id'])
         self.assertEqual(EvaluationScore.objects.count(), 0)
+
+
+class EvaluationAccessibilityTests(EvaluationBase):
+    """La page d'évaluation doit rester pilotable au clavier et au lecteur d'écran."""
+
+    def _home(self):
+        self.login(self.jury)
+        return self.client.get(reverse('evaluations:home')).content.decode()
+
+    def _tag(self, content, pattern):
+        match = re.search(pattern, content)
+        self.assertIsNotNone(match, 'missing tag: %s' % pattern)
+        return match.group(0)
+
+    def test_every_modal_is_a_dialog_named_by_its_heading(self):
+        content = self._home()
+        for modal_id, heading_id in (
+            ('startEvalModal', 'startEvalHeading'),
+            ('evalModal', 'modalProjectTitle'),
+            ('readOnlyModal', 'roProjectTitle'),
+        ):
+            tag = self._tag(content, r'<div[^>]*id="%s"[^>]*>' % modal_id)
+            self.assertIn('role="dialog"', tag)
+            self.assertIn('aria-modal="true"', tag)
+            self.assertIn('aria-labelledby="%s"' % heading_id, tag)
+            self.assertIn('id="%s"' % heading_id, content)
+
+    def test_icons_only_controls_carry_an_accessible_name(self):
+        content = self._home()
+        for control_id in ('closeStartEvalBtn', 'closeEvalModalBtn', 'closeReadOnlyModalBtn'):
+            self.assertIn('aria-label=', self._tag(content, r'<button[^>]*id="%s"[^>]*>' % control_id))
+        for control_id in ('evalSearchInput', 'filterHackathon', 'filterStatus', 'filterTrack'):
+            self.assertIn('aria-label=', self._tag(content, r'<[^>]*id="%s"[^>]*>' % control_id))
+
+    def test_list_tables_explain_themselves_and_scope_their_headers(self):
+        content = self._home()
+        self._tag(content, r'<table[^>]*id="pendingTable"[^>]*>\s*<caption')
+        self.assertIn('scope="col"', content)
+
+    def test_the_new_labels_are_translated(self):
+        self.jury.language = 'fr'
+        self.jury.save(update_fields=['language'])
+        content = self._home()
+        for expected in ('Filtrer par hackathon', 'Filtrer par statut', 'Filtrer par piste'):
+            self.assertIn(expected, content)

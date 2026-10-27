@@ -113,22 +113,22 @@
     <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-md">
       <div class="relative flex-1">
         <span class="material-symbols-outlined absolute start-3.5 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
-        <input class="w-full bg-surface-container-low text-on-surface font-body-md text-body-md rounded-xl ps-11 pe-4 py-2.5 focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 placeholder:text-outline transition-all" name="q" value="{{ filters.q }}" placeholder="{% trans "Search projects by name, team, or technology..." %}" type="search">
+        <input class="w-full bg-surface-container-low text-on-surface font-body-md text-body-md rounded-xl ps-11 pe-4 py-2.5 focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary placeholder:text-outline transition-all" name="q" value="{{ filters.q }}" placeholder="{% trans "Search projects by name, team, or technology..." %}" aria-label="{% trans "Search projects by name, team, or technology..." %}" type="search">
       </div>
       <div class="flex flex-wrap items-center gap-space-sm">
-        <select class="bg-surface-container-low text-on-surface font-label-md text-label-md rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20" name="hackathon" onchange="this.form.requestSubmit()" aria-label="{% trans "Hackathon" %}">
+        <select class="bg-surface-container-low text-on-surface font-label-md text-label-md rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary" name="hackathon" onchange="this.form.requestSubmit()" aria-label="{% trans "Hackathon" %}">
           <option value="">{% trans "All Hackathons" %}</option>
           {% for hackathon in hackathons %}
           <option value="{{ hackathon.pk }}" {% if filters.hackathon == hackathon.pk %}selected{% endif %}>{{ hackathon.title }}</option>
           {% endfor %}
         </select>
-        <select class="bg-surface-container-low text-on-surface font-label-md text-label-md rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20" name="team" onchange="this.form.requestSubmit()" aria-label="{% trans "Team" %}">
+        <select class="bg-surface-container-low text-on-surface font-label-md text-label-md rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary" name="team" onchange="this.form.requestSubmit()" aria-label="{% trans "Team" %}">
           <option value="">{% trans "All Teams" %}</option>
           {% for team in teams %}
           <option value="{{ team.pk }}" {% if filters.team == team.pk %}selected{% endif %}>{{ team.name }}</option>
           {% endfor %}
         </select>
-        <select class="bg-surface-container-low text-on-surface font-label-md text-label-md rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20" name="tech" onchange="this.form.requestSubmit()" aria-label="{% trans "Technologies" %}">
+        <select class="bg-surface-container-low text-on-surface font-label-md text-label-md rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary" name="tech" onchange="this.form.requestSubmit()" aria-label="{% trans "Technologies" %}">
           <option value="">{% trans "All Tech Stacks" %}</option>
           {% for name in technologies %}
           <option value="{{ name }}" {% if filters.tech == name %}selected{% endif %}>{{ name }}</option>
@@ -187,15 +187,16 @@
   <div class="{% if filters.view != 'list' %}hidden{% else %}block{% endif %} overflow-hidden rounded-2xl bg-surface-container-lowest shadow-sm">
     <div class="overflow-x-auto">
       <table class="w-full text-start border-collapse">
+        <caption class="sr-only">{% trans "Projects matching the filters above." %}</caption>
         <thead>
           <tr class="bg-surface-container-low font-label-sm text-label-sm text-outline uppercase tracking-wider">
-            <th class="py-3 px-space-md text-start">{% trans "Project" %}</th>
-            <th class="py-3 px-space-md text-start">{% trans "Team" %}</th>
-            <th class="py-3 px-space-md text-start">{% trans "Hackathon" %}</th>
-            <th class="py-3 px-space-md text-start">{% trans "Technologies" %}</th>
-            <th class="py-3 px-space-md text-start">{% trans "Status" %}</th>
-            <th class="py-3 px-space-md text-start">{% trans "Last Updated" %}</th>
-            <th class="py-3 px-space-md text-end">{% trans "Actions" %}</th>
+            <th scope="col" class="py-3 px-space-md text-start">{% trans "Project" %}</th>
+            <th scope="col" class="py-3 px-space-md text-start">{% trans "Team" %}</th>
+            <th scope="col" class="py-3 px-space-md text-start">{% trans "Hackathon" %}</th>
+            <th scope="col" class="py-3 px-space-md text-start">{% trans "Technologies" %}</th>
+            <th scope="col" class="py-3 px-space-md text-start">{% trans "Status" %}</th>
+            <th scope="col" class="py-3 px-space-md text-start">{% trans "Last Updated" %}</th>
+            <th scope="col" class="py-3 px-space-md text-end">{% trans "Actions" %}</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-surface-container font-body-sm text-body-sm text-on-surface">

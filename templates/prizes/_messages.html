@@ -7,12 +7,12 @@
       {% elif message.tags == 'error' %}bg-error-container border-error/30 text-on-error-container
       {% elif message.tags == 'warning' %}bg-primary-fixed border-primary/30 text-on-primary-fixed-variant
       {% else %}bg-surface-container-high border-outline-variant text-on-surface-variant{% endif %}">
-      <span class="material-symbols-outlined text-[20px]">
+      <span class="material-symbols-outlined text-[20px]" aria-hidden="true">
         {% if message.tags == 'success' %}check_circle{% elif message.tags == 'error' %}error{% elif message.tags == 'warning' %}warning{% else %}info{% endif %}
       </span>
       <p class="flex-1 font-body-sm text-body-sm">{{ message }}</p>
-      <button type="button" class="text-outline hover:text-on-surface" onclick="this.closest('div').remove()">
-        <span class="material-symbols-outlined text-[18px]">close</span>
+      <button type="button" class="text-outline hover:text-on-surface" aria-label="{% trans 'Dismiss' %}" onclick="this.closest('div').remove()">
+        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">close</span>
       </button>
     </div>
   {% endfor %}

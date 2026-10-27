@@ -54,7 +54,7 @@
             {{ field }}
             <button type="button" data-toggle-password="{{ field.id_for_label }}" aria-label="{% trans "Show password" %}"
                     class="absolute end-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-outline hover:text-on-surface transition-colors">
-              <span class="material-symbols-outlined text-[20px]">visibility</span>
+              <span class="material-symbols-outlined text-[20px]" aria-hidden="true">visibility</span>
             </button>
           </div>
           {% for error in field.errors %}
@@ -101,13 +101,10 @@
     btn.addEventListener('click', () => {
       const input = document.getElementById(btn.dataset.togglePassword);
       const icon = btn.querySelector('.material-symbols-outlined');
-      if (input.type === 'password') {
-        input.type = 'text';
-        icon.textContent = 'visibility_off';
-      } else {
-        input.type = 'password';
-        icon.textContent = 'visibility';
-      }
+      const reveal = input.type === 'password';
+      input.type = reveal ? 'text' : 'password';
+      icon.textContent = reveal ? 'visibility_off' : 'visibility';
+      btn.setAttribute('aria-label', reveal ? '{% trans "Hide password" %}' : '{% trans "Show password" %}');
     });
   });
 

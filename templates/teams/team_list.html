@@ -114,20 +114,20 @@
   <form method="get" id="teamFilters" class="section-enter p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col lg:flex-row items-stretch lg:items-center gap-space-sm">
     <div class="relative w-full lg:w-80 flex items-center">
       <span class="material-symbols-outlined absolute start-3 text-outline text-[18px]">search</span>
-      <input class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg ps-9 pe-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline"
-             type="search" name="q" value="{{ q }}" placeholder="{% trans 'Search teams by name or description' %}"/>
+      <input class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg ps-9 pe-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-outline"
+             type="search" name="q" value="{{ q }}" placeholder="{% trans 'Search teams by name or description' %}" aria-label="{% trans 'Search teams by name or description' %}"/>
     </div>
-    <select name="hackathon" class="bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20">
+    <select name="hackathon" class="bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" aria-label="{% trans 'Filter by hackathon' %}">
       <option value="all">{% trans "All hackathons" %}</option>
       {% for h in hackathons %}<option value="{{ h.pk }}" {% if sel_hackathon == h.pk|stringformat:'s' %}selected{% endif %}>{{ h.title }}</option>{% endfor %}
     </select>
-    <select name="availability" class="bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20">
+    <select name="availability" class="bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" aria-label="{% trans 'Filter by availability' %}">
       <option value="all">{% trans "Any availability" %}</option>
       <option value="recruiting" {% if sel_availability == 'recruiting' %}selected{% endif %}>{% trans "Recruiting" %}</option>
       <option value="full" {% if sel_availability == 'full' %}selected{% endif %}>{% trans "Full" %}</option>
     </select>
     {% if is_participant %}
-    <select name="membership" class="bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/20">
+    <select name="membership" class="bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" aria-label="{% trans 'Filter by membership' %}">
       <option value="all">{% trans "All teams" %}</option>
       <option value="member" {% if sel_membership == 'member' %}selected{% endif %}>{% trans "I'm a member" %}</option>
       <option value="created" {% if sel_membership == 'created' %}selected{% endif %}>{% trans "Teams I created" %}</option>

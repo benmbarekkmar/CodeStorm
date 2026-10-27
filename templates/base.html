@@ -98,6 +98,8 @@
 <body class="bg-surface font-body-md text-body-md text-on-surface antialiased{% if request.GET.embed %} embed-mode{% endif %}" data-page="{% block page_name %}{% endblock %}">
 
   {% if not request.GET.embed %}
+  <a href="#mainContent"
+     class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:start-2 focus:z-[70] focus:rounded-lg focus:bg-primary-container focus:px-4 focus:py-2 focus:font-label-md focus:text-on-primary-container">{% trans "Skip to content" %}</a>
   <!-- ============ SIDEBAR ============ -->
   <aside id="primaryNav" class="fixed start-0 top-0 h-screen w-72 bg-surface-container-lowest z-40 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
     <div class="flex flex-col flex-1 overflow-y-auto px-space-md py-space-md">
@@ -186,7 +188,7 @@
           {% if user.notif_in_app %}
           <button id="notificationButton" type="button"
                   class="relative p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                  aria-haspopup="true" aria-controls="notificationPanel">
+                  aria-haspopup="true" aria-controls="notificationPanel" aria-expanded="false">
             <span class="material-symbols-outlined" aria-hidden="true">notifications</span>
             <span class="sr-only">{% trans "Notifications" %}</span>
             {% if notification_summary.actionable %}
@@ -196,10 +198,11 @@
 
 <div id="notificationPanel"
      class="hidden absolute end-4 top-16 z-50 w-96 max-w-[calc(100vw-2rem)]
-            rounded-xl border border-outline-variant bg-surface-container-lowest shadow-xl">
+            rounded-xl border border-outline-variant bg-surface-container-lowest shadow-xl"
+     role="region" aria-labelledby="notificationPanelTitle" tabindex="-1">
 
     <div class="flex items-center justify-between border-b border-outline-variant p-4">
-        <h3 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Notifications" %}</h3>
+        <h3 id="notificationPanelTitle" class="font-headline-sm text-headline-sm text-on-surface">{% trans "Notifications" %}</h3>
         <button id="closeNotifications" type="button"
                 class="text-outline hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
             <span class="material-symbols-outlined" aria-hidden="true">close</span>
@@ -234,7 +237,8 @@
           {% endif %}
         </div>
         <div class="h-4 w-[1px] bg-outline-variant"></div>
-        <button id="profileDrawerButton" type="button" class="flex items-center gap-space-sm ps-1 group cursor-pointer">
+        <button id="profileDrawerButton" type="button" class="flex items-center gap-space-sm ps-1 group cursor-pointer"
+                aria-haspopup="dialog" aria-controls="profileDrawer" aria-expanded="false">
           {% if user.avatar %}
           <img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-primary/20" src="{{ user.avatar.url }}"/>
           {% else %}
@@ -253,7 +257,7 @@
     {% endif %}
 
     <!-- ============ CONTENT ============ -->
-    <main class="w-full {% if not request.GET.embed %}pt-16{% endif %} flex-1 bg-surface">
+    <main id="mainContent" class="w-full {% if not request.GET.embed %}pt-16{% endif %} flex-1 bg-surface">
       {% block content %}{% endblock %}
     </main>
   </div>
@@ -261,7 +265,7 @@
   {% if not request.GET.embed %}
   <!-- ============ PROFILE DRAWER ============ -->
   <div id="profileDrawerOverlay" class="hidden fixed inset-0 bg-inverse-surface/40 backdrop-blur-sm z-40 transition-opacity duration-300"></div>
-  <aside id="profileDrawer" aria-hidden="true" class="fixed top-0 end-0 h-screen w-full max-w-2xl bg-surface-container-lowest z-50 shadow-2xl translate-x-full transition-transform duration-300 ease-out flex flex-col">
+  <aside id="profileDrawer" aria-hidden="true" aria-label="{% trans "Profile &amp; Settings" %}" inert class="fixed top-0 end-0 h-screen w-full max-w-2xl bg-surface-container-lowest z-50 shadow-2xl translate-x-full transition-transform duration-300 ease-out flex flex-col">
     <div class="flex items-center justify-between px-5 h-16 border-b border-outline-variant shrink-0">
       <div class="flex items-center gap-2 font-label-md text-label-md text-on-surface font-semibold">
         <span class="material-symbols-outlined text-[20px] text-primary">settings</span>
@@ -296,22 +300,35 @@
     const notificationPanel = document.getElementById('notificationPanel');
     const closeNotifications = document.getElementById('closeNotifications');
 
+    function setNotificationOpen(open, restoreFocus) {
+        if (!notificationPanel || !notificationButton) return;
+        notificationPanel.classList.toggle('hidden', !open);
+        notificationButton.setAttribute('aria-expanded', String(open));
+        if (open) notificationPanel.focus();
+        else if (restoreFocus !== false) notificationButton.focus();
+    }
+
     notificationButton?.addEventListener('click', (event) => {
         event.stopPropagation();
-        notificationPanel.classList.toggle('hidden');
+        setNotificationOpen(notificationPanel.classList.contains('hidden'));
     });
 
-    closeNotifications?.addEventListener('click', () => {
-        notificationPanel.classList.add('hidden');
-    });
+    closeNotifications?.addEventListener('click', () => setNotificationOpen(false));
 
     document.addEventListener('click', (event) => {
         if (
             notificationPanel &&
+            !notificationPanel.classList.contains('hidden') &&
             !notificationPanel.contains(event.target) &&
             !notificationButton.contains(event.target)
         ) {
-            notificationPanel.classList.add('hidden');
+            setNotificationOpen(false, false);
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && notificationPanel && !notificationPanel.classList.contains('hidden')) {
+            setNotificationOpen(false);
         }
     });
 </script>
@@ -330,13 +347,19 @@
         }
         profileDrawerOverlay.classList.remove('hidden');
         profileDrawer.classList.remove('translate-x-full');
+        profileDrawer.removeAttribute('inert');
         profileDrawer.setAttribute('aria-hidden', 'false');
+        profileDrawerButton?.setAttribute('aria-expanded', 'true');
+        profileDrawerClose?.focus();
     }
 
     function closeProfileDrawer() {
         profileDrawer.classList.add('translate-x-full');
+        profileDrawer.setAttribute('inert', '');
         profileDrawerOverlay.classList.add('hidden');
         profileDrawer.setAttribute('aria-hidden', 'true');
+        profileDrawerButton?.setAttribute('aria-expanded', 'false');
+        profileDrawerButton?.focus();
     }
 
     profileDrawerButton?.addEventListener('click', openProfileDrawer);

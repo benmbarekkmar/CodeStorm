@@ -8752,3 +8752,66 @@ msgstr "Le dépôt ci-dessus est celui soumis par cette équipe ; l'analyse le l
 
 msgid "No project of your hackathons has submitted a GitHub repository yet, so there is nothing to analyze. Create the project first, then come back."
 msgstr "Aucun projet de vos hackathons n'a encore soumis de dépôt GitHub : il n'y a donc rien à analyser. Créez d'abord le projet, puis revenez ici."
+
+msgid "No file path backs this note."
+msgstr "Aucun chemin de fichier n'étaye cette note."
+
+msgid "This report carries no per-criterion notes."
+msgstr "Ce rapport ne comporte aucune note par critère."
+
+msgid "No file list was recorded for this report."
+msgstr "Aucune liste de fichiers n'a été enregistrée pour ce rapport."
+
+msgid "Dismiss"
+msgstr "Masquer"
+
+msgid "Skip to content"
+msgstr "Aller au contenu"
+
+msgid "Access Denied"
+msgstr "Accès refusé"
+
+msgid "You do not have permission to access this page."
+msgstr "Vous n'avez pas la permission d'accéder à cette page."
+
+msgid "The page you are looking for does not exist."
+msgstr "La page que vous cherchez n'existe pas."
+
+msgid "Hide password"
+msgstr "Masquer le mot de passe"
+
+msgid "Signed in as"
+msgstr "Connecté en tant que"
+
+msgid "Filter by hackathon"
+msgstr "Filtrer par hackathon"
+
+msgid "Filter by status"
+msgstr "Filtrer par statut"
+
+msgid "Filter by track"
+msgstr "Filtrer par piste"
+
+msgid "Filter by availability"
+msgstr "Filtrer par disponibilité"
+
+msgid "Filter by membership"
+msgstr "Filtrer par appartenance"
+
+msgid "Filter by category"
+msgstr "Filtrer par catégorie"
+
+msgid "Filter by type"
+msgstr "Filtrer par type"
+
+msgid "Sort by"
+msgstr "Trier par"
+
+msgid "Reviews assigned to you, with their status and deadline."
+msgstr "Les évaluations qui vous sont assignées, avec leur statut et leur échéance."
+
+msgid "Scored projects ranked by total score."
+msgstr "Les projets notés, classés par score total."
+
+msgid "Projects matching the filters above."
+msgstr "Les projets correspondant aux filtres ci-dessus."
