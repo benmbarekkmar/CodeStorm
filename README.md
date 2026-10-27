@@ -17,6 +17,7 @@
 ## Sommaire
 
 - [Présentation](#présentation)
+- [Notre_équipe](#Notre_équipe)
 - [Fonctionnalités](#fonctionnalités)
 - [Rôles](#rôles)
 - [Modules](#modules)
@@ -31,10 +32,6 @@
 - [Analyse assistée par IA](#analyse-assistée-par-ia)
 - [Données de démonstration](#données-de-démonstration)
 - [Sécurité](#sécurité)
-- [Workflow Git](#workflow-git)
-- [Dépannage](#dépannage)
-- [Équipe](#équipe)
-- [Licence](#licence)
 
 ## Présentation
 
@@ -42,7 +39,7 @@
 
 L'application distingue plusieurs rôles — participant, organisateur et jury — dont les permissions doivent respecter leurs responsabilités. Le module d'analyse assistée par IA fournit des indications complémentaires pour l'examen des projets ; il ne remplace pas le jugement du jury.
 
-## Notre équipe
+## Notre_équipe
 
 Nous sommes une équipe de cinq étudiants travaillant ensemble au développement de **HackFlow**, une plateforme dédiée à la gestion des hackathons étudiants.
 
