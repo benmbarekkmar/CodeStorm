@@ -39,6 +39,15 @@
 
 L'application distingue plusieurs rôles — participant, organisateur et jury — dont les permissions doivent respecter leurs responsabilités. Le module d'analyse assistée par IA fournit des indications complémentaires pour l'examen des projets ; il ne remplace pas le jugement du jury.
 
+## Application déployée
+
+HackFlow est déployée sur **Render**, ce qui permet d'accéder à l'application en ligne sans avoir à installer le projet localement.
+
+- **Plateforme de déploiement :** Render
+- **Lien de l'application :** [Accéder à HackFlow](URL_DE_VOTRE_APPLICATION)
+
+
+
 ## Notre_équipe
 
 Nous sommes une équipe de cinq étudiants travaillant ensemble au développement de **HackFlow**, une plateforme dédiée à la gestion des hackathons étudiants.
