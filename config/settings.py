@@ -217,12 +217,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# WhiteNoise serves what ``collectstatic`` gathered. No manifest hashing: this
-# project's templates load no {% static %} file of their own, so a manifest
-# would only add a way for the build to fail.
+# WhiteNoise serves what collectstatic gathered. Stable names keep the
+# template's favicon URL predictable without a hashed-name manifest.
 STORAGES = {
     'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
     'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage'},
