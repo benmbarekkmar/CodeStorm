@@ -6,17 +6,87 @@
 {% block breadcrumb_section %}{% trans "Dashboard" %}{% endblock %}
 {% block breadcrumb_page %}{% trans "Participant Overview" %}{% endblock %}
 
+{% block extra_head %}
+<style>
+  .participant-dashboard .dashboard-hero {
+    border: 1px solid rgb(var(--c-outline-variant) / .45);
+    border-radius: 1.5rem;
+    background:
+      radial-gradient(circle at 92% 8%, rgb(var(--c-primary) / .11), transparent 22rem),
+      radial-gradient(circle at 76% 100%, rgb(var(--c-secondary) / .08), transparent 20rem),
+      rgb(var(--c-surface-container-lowest));
+    box-shadow: 0 14px 36px rgb(var(--c-on-surface) / .055);
+  }
+  .participant-dashboard .dashboard-stat {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgb(var(--c-outline-variant) / .38);
+    border-radius: 1.15rem;
+    box-shadow: 0 4px 15px rgb(var(--c-on-surface) / .035);
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .participant-dashboard .dashboard-stat::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: 3px;
+    background: linear-gradient(180deg, rgb(var(--c-primary)), rgb(var(--c-secondary)));
+    opacity: .8;
+  }
+  .participant-dashboard .dashboard-stat:hover {
+    transform: translateY(-2px);
+    border-color: rgb(var(--c-primary) / .28);
+    box-shadow: 0 12px 26px rgb(var(--c-on-surface) / .075);
+  }
+  .participant-dashboard .dashboard-panel {
+    border: 1px solid rgb(var(--c-outline-variant) / .4);
+    border-radius: 1.25rem;
+    box-shadow: 0 5px 18px rgb(var(--c-on-surface) / .035);
+  }
+  .participant-dashboard .dashboard-panel-heading {
+    border-bottom: 1px solid rgb(var(--c-outline-variant) / .3);
+    padding-bottom: .8rem;
+  }
+  .participant-dashboard .dashboard-row {
+    border: 1px solid transparent;
+    transition: transform .18s ease, border-color .18s ease, background-color .18s ease;
+  }
+  .participant-dashboard .dashboard-row:hover {
+    transform: translateY(-1px);
+    border-color: rgb(var(--c-primary) / .2);
+  }
+  .participant-dashboard .dashboard-empty {
+    border: 1px dashed rgb(var(--c-outline-variant) / .8);
+    background: linear-gradient(140deg, rgb(var(--c-surface-container-low)), rgb(var(--c-surface-container-lowest)));
+  }
+  .participant-dashboard .dashboard-primary-cta {
+    box-shadow: 0 8px 20px rgb(var(--c-primary) / .23);
+  }
+  @media (max-width: 640px) {
+    .participant-dashboard .dashboard-hero { border-radius: 1.1rem; }
+    .participant-dashboard .dashboard-panel { border-radius: 1.05rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .participant-dashboard .dashboard-stat,
+    .participant-dashboard .dashboard-row { transition: none; }
+    .participant-dashboard .dashboard-stat:hover,
+    .participant-dashboard .dashboard-row:hover { transform: none; }
+  }
+</style>
+{% endblock %}
+
 {% block content %}
-<div class="flex flex-col w-full">
+<div class="participant-dashboard flex flex-col w-full">
 <div class="w-full px-space-md md:px-space-lg py-space-md flex flex-col gap-space-lg max-w-[1440px] mx-auto">
 {% include "partials/_messages.html" %}
 
-<header class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<header class="dashboard-hero flex flex-col lg:flex-row lg:items-center justify-between gap-space-md px-5 py-5 md:px-7 md:py-6">
   <div class="flex flex-col">
     <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">{% trans "Dashboard" %}</h1>
     <p class="font-body-md text-body-md text-on-surface-variant">{% trans "Your hackathon journey, all in one place." %}</p>
   </div>
-  <div class="flex flex-wrap items-center gap-space-sm sm:gap-space-md">
+  <div class="dashboard-actions flex flex-wrap items-center gap-space-sm sm:gap-space-md">
     <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-lowest shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] text-on-surface-variant font-label-md text-label-md">
       <span class="material-symbols-outlined text-[18px] text-primary">calendar_today</span>
       <span>{% trans "Today" %}, {% now "SHORT_DATE_FORMAT" %}</span>
@@ -36,7 +106,7 @@
 
 <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
   {% for card in stats_cards %}
-  <div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] hover:shadow-md transition-shadow flex flex-col justify-between">
+  <div class="dashboard-stat rounded-xl bg-surface-container-lowest p-space-md hover:shadow-md transition-shadow flex flex-col justify-between">
     <div class="flex items-center justify-between mb-2">
       <span class="font-label-md text-label-md text-on-surface-variant">{{ card.label }}</span>
       <div class="w-9 h-9 rounded-lg {{ card.tone }} flex items-center justify-center">
@@ -54,8 +124,8 @@
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
   <div class="lg:col-span-7 flex flex-col gap-space-lg">
 
-    <section class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
-      <div class="flex items-center justify-between pb-space-xs">
+    <section class="dashboard-panel rounded-xl bg-surface-container-lowest p-space-md flex flex-col gap-space-md">
+      <div class="dashboard-panel-heading flex items-center justify-between pb-space-xs">
         <div class="flex items-center gap-2">
           <span class="material-symbols-outlined text-primary text-[22px]">rocket_launch</span>
           <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Hackathons open for registration" %}</h2>
@@ -64,7 +134,7 @@
       </div>
       <div class="flex flex-col gap-3">
         {% for hackathon in open_hackathons %}
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all gap-3">
+        <div class="dashboard-row flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all gap-3">
           <div class="flex flex-col min-w-0">
             <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{{ hackathon.title }}</span>
             <span class="font-body-sm text-body-sm text-on-surface-variant">
@@ -78,15 +148,15 @@
           </div>
         </div>
         {% empty %}
-        <p class="p-3.5 rounded-xl bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">
+        <p class="dashboard-empty p-3.5 rounded-xl bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">
           {% trans "No hackathon is open for registration right now." %}
         </p>
         {% endfor %}
       </div>
     </section>
 
-    <section class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
-      <div class="flex items-center justify-between pb-space-xs">
+    <section class="dashboard-panel rounded-xl bg-surface-container-lowest p-space-md flex flex-col gap-space-md">
+      <div class="dashboard-panel-heading flex items-center justify-between pb-space-xs">
         <div class="flex items-center gap-2">
           <span class="material-symbols-outlined text-secondary text-[22px]">diversity_3</span>
           <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "My Teams" %}</h2>
@@ -95,7 +165,7 @@
       </div>
       <div class="flex flex-col gap-2.5">
         {% for team in teams %}
-        <div class="p-4 rounded-xl bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="dashboard-row p-4 rounded-xl bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div class="min-w-0">
             <div class="flex items-center gap-2 flex-wrap">
               <span class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">{{ team.name }}</span>
@@ -111,7 +181,7 @@
              href="{% url 'teams:detail' team.pk %}">{% trans "Details" %}</a>
         </div>
         {% empty %}
-        <p class="p-3.5 rounded-xl bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">
+        <p class="dashboard-empty p-3.5 rounded-xl bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">
           {% trans "You are not in a team yet. Join one or create one for a hackathon." %}
           <a class="text-primary font-semibold hover:underline" href="{% url 'teams:recommendations' %}">{% trans "Find a team" %}</a>
         </p>
@@ -119,8 +189,8 @@
       </div>
     </section>
 
-    <section class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
-      <div class="flex items-center justify-between pb-space-xs">
+    <section class="dashboard-panel rounded-xl bg-surface-container-lowest p-space-md flex flex-col gap-space-md">
+      <div class="dashboard-panel-heading flex items-center justify-between pb-space-xs">
         <div class="flex items-center gap-2">
           <span class="material-symbols-outlined text-primary text-[22px]">folder_code</span>
           <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "My Projects" %}</h2>
@@ -129,7 +199,7 @@
       </div>
       <div class="flex flex-col gap-2.5">
         {% for project in projects %}
-        <div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low gap-3">
+        <div class="dashboard-row flex items-center justify-between p-3 rounded-lg bg-surface-container-low gap-3">
           <div class="flex items-center gap-3 min-w-0">
             <div class="w-9 h-9 rounded-lg bg-primary-fixed flex items-center justify-center text-primary flex-shrink-0"><span class="material-symbols-outlined text-[18px]">description</span></div>
             <div class="flex flex-col min-w-0">
@@ -144,7 +214,7 @@
           </div>
         </div>
         {% empty %}
-        <p class="p-3.5 rounded-xl bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">
+        <p class="dashboard-empty p-3.5 rounded-xl bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">
           {% trans "No project yet. Create one once your team is set up." %}
           <a class="text-primary font-semibold hover:underline" href="{% url 'projects:create' %}">{% trans "Create project" %}</a>
         </p>
@@ -155,14 +225,14 @@
 
   <div class="lg:col-span-5 flex flex-col gap-space-lg">
 
-    <section class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
-      <div class="flex items-center gap-2 pb-space-xs">
+    <section class="dashboard-panel rounded-xl bg-surface-container-lowest p-space-md flex flex-col gap-space-md">
+      <div class="dashboard-panel-heading flex items-center gap-2 pb-space-xs">
         <span class="material-symbols-outlined text-error text-[22px]">alarm</span>
         <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Upcoming Deadlines" %}</h2>
       </div>
       <div class="flex flex-col gap-2.5">
         {% for row in deadlines %}
-        <div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low">
+        <div class="dashboard-row flex items-center justify-between p-3 rounded-lg bg-surface-container-low">
           <div class="flex flex-col min-w-0">
             <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{{ row.label }}</span>
             <span class="font-body-sm text-body-sm text-on-surface-variant">{{ row.hackathon.title }} &middot; {{ row.date|date:"SHORT_DATE_FORMAT" }}</span>
@@ -172,15 +242,15 @@
           </span>
         </div>
         {% empty %}
-        <p class="p-3.5 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">
+        <p class="dashboard-empty p-3.5 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">
           {% trans "No deadline coming up for your hackathons." %}
         </p>
         {% endfor %}
       </div>
     </section>
 
-    <section class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
-      <div class="flex items-center justify-between pb-space-xs">
+    <section class="dashboard-panel rounded-xl bg-surface-container-lowest p-space-md flex flex-col gap-space-md">
+      <div class="dashboard-panel-heading flex items-center justify-between pb-space-xs">
         <div class="flex items-center gap-2">
           <span class="material-symbols-outlined text-primary text-[22px]">leaderboard</span>
           <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "Published results" %}</h2>
@@ -189,7 +259,7 @@
       </div>
       <div class="flex flex-col gap-2">
         {% for entry in results %}
-        <div class="flex items-center justify-between p-2.5 rounded-lg {% if entry.project.team and entry.project.team in teams %}bg-primary-fixed/40{% else %}bg-surface-container-low{% endif %}">
+        <div class="dashboard-row flex items-center justify-between p-2.5 rounded-lg {% if entry.project.team and entry.project.team in teams %}bg-primary-fixed/40{% else %}bg-surface-container-low{% endif %}">
           <div class="flex items-center gap-3 min-w-0">
             <div class="w-7 h-7 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-bold text-label-sm flex-shrink-0">{{ entry.rank }}</div>
             <div class="flex flex-col min-w-0">
@@ -200,15 +270,15 @@
           <span class="font-code-inline text-code-inline font-bold text-on-surface whitespace-nowrap">{{ entry.final_score }}</span>
         </div>
         {% empty %}
-        <p class="p-3.5 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">
+        <p class="dashboard-empty p-3.5 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">
           {% trans "No results have been published for your hackathons yet." %}
         </p>
         {% endfor %}
       </div>
     </section>
 
-    <section class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-space-md">
-      <div class="flex items-center justify-between pb-space-xs">
+    <section class="dashboard-panel rounded-xl bg-surface-container-lowest p-space-md flex flex-col gap-space-md">
+      <div class="dashboard-panel-heading flex items-center justify-between pb-space-xs">
         <div class="flex items-center gap-2">
           <span class="material-symbols-outlined text-secondary text-[22px]">history</span>
           <h2 class="font-headline-sm text-headline-sm text-on-surface">{% trans "What needs your attention" %}</h2>
@@ -227,14 +297,14 @@
           </div>
         </div>
         {% empty %}
-        <p class="p-3.5 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">
+        <p class="dashboard-empty p-3.5 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">
           {% trans "Nothing waiting for you. Your invitations and requests are all handled." %}
         </p>
         {% endfor %}
       </div>
     </section>
 
-    <section class="rounded-xl bg-surface-container-low p-space-md shadow-[0_1px_3px_0_rgba(32,36,58,0.03)] flex flex-col gap-3">
+    <section class="dashboard-panel rounded-xl bg-surface-container-low p-space-md flex flex-col gap-3">
       <div class="flex items-center gap-2 text-primary font-semibold">
         <span class="material-symbols-outlined text-[20px]">menu_book</span>
         <h2 class="font-headline-sm text-headline-sm">{% trans "Resources" %}</h2>
